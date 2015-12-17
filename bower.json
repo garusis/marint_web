@@ -1,0 +1,16 @@
+{
+  "name": "MarlininternacionalWeb",
+  "version": "0.0.1",
+  "repository": "https://garusis@bitbucket.org/garusis/marlininternacional_web.git",
+  "license": "UNLICENSED",
+  "author": "JarviGames <maryinortiz@jarvigames.com>(http://jarvigames.com)",
+  "contributors": [
+    "Marcos Javier Alvarez Maestre <garusis@jarvigames.com>(http://jarvigames.com)",
+    "Brigitte Carolina Guerrero Silvera <carolina.guerrero.silvera@gmail.com>(http://jarvigames.com)"
+  ],
+  "private": true,
+  "devDependencies": {
+    "bootstrap": "~3.3.6",
+    "angular": "1.4.8"
+  }
+}
