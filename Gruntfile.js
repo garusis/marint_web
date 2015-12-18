@@ -5,26 +5,51 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
         clean: {
             development: {
-                src: ["./development/assets/**/*.css", "!./development/**/.gitkeep"]
-            },
-            example: {
-                src: ["path/to/dir/one", "path/to/dir/two"]
+                src: [
+                    "./development/assets/**/*.css",
+                    "./development/assets/**/*.css.map",
+                    "./development/assets/**/*.js",
+                    "./development/assets/**/*.js.map",
+                    "./development/assets/fonts/Simple-Line-Icons.*",
+                    "./development/assets/fonts/FontAwesome.*",
+                    "./development/assets/fonts/fontawesome-webfont.*",
+                    "!./development/**/.gitkeep",
+                    "!./development/assets/stylesheets/google-fonts.css",
+                    "!./development/assets/stylesheets/jquery-ui.css",
+                    "!./development/assets/stylesheets/icon-font.css",
+                    "!./development/assets/js/html5shiv.js",
+                    "!./development/assets/js/jquery.themepunch.revolution.min.js",
+                    "!./development/assets/js/jquery.themepunch.tools.min.js",
+                    "!./development/assets/js/respond.min.js",
+                ]
             }
         },
         copy: {
             development: {
                 files: [
-                    // includes files within path
-                    {expand: true, src: ['path/*'], dest: 'dest/', filter: 'isFile'},
-
-                    // includes files within path and its sub-directories
-                    {expand: true, src: ['path/**'], dest: 'dest/'},
-
-                    // makes all src relative to cwd
-                    {expand: true, cwd: 'path/', src: ['**'], dest: 'dest/'},
-
-                    // flattens results to a single level
-                    {expand: true, flatten: true, src: ['path/**'], dest: 'dest/', filter: 'isFile'},
+                    {
+                        expand: true,
+                        src: [
+                            './development/components/bootstrap/dist/css/bootstrap.min.css',
+                            './development/components/bootstrap/dist/css/bootstrap.min.css.map',
+                            './development/components/animate.css/animate.min.css',
+                            './development/components/simple-line-icons/css/simple-line-icons.css',
+                            './development/components/font-awesome/css/font-awesome.min.css'
+                        ],
+                        dest: './development/assets/stylesheets/',
+                        flatten: true,
+                        filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        src: [
+                            './development/components/simple-line-icons/fonts/*',
+                            './development/components/font-awesome/fonts/*'
+                        ],
+                        dest: './development/assets/fonts/',
+                        flatten: true,
+                        filter: 'isFile'
+                    }
                 ]
             },
             example: {
@@ -99,7 +124,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-string-replace');
 
     // Default task(s).
-    grunt.registerTask('default', ['clean:development']);
+    grunt.registerTask('default', ['clean:development', 'copy:development']);
     //grunt.registerTask('default', ['clean:development', 'copy:development', 'less:development']);
     grunt.registerTask('production', ['uglify']);
 };
