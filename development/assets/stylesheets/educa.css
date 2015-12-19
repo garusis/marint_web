@@ -589,7 +589,7 @@ nav.responsive-menu a {
 footer {
   background-image: url(../images/footer-bg.png);
   width: 100%;
-  background-size: cover;
+  background-repeat: repeat-x;
   padding: 90px 0px 0px 0px;
 }
 footer .footer-widget p {

@@ -52,6 +52,17 @@ module.exports = function (grunt) {
                         dest: './development/assets/fonts/',
                         flatten: true,
                         filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        src: [
+                            './development/components/jquery/dist/jquery.min.js',
+                            './development/components/jquery/dist/jquery.min.map',
+                            './development/components/bootstrap/dist/js/bootstrap.min.js'
+                        ],
+                        dest: './development/assets/js/',
+                        flatten: true,
+                        filter: 'isFile'
                     }
                 ]
             },
