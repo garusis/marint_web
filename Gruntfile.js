@@ -15,12 +15,16 @@ module.exports = function (grunt) {
                     "./development/assets/fonts/fontawesome-webfont.*",
                     "!./development/**/.gitkeep",
                     "!./development/assets/stylesheets/google-fonts.css",
-                    "!./development/assets/stylesheets/jquery-ui.css",
                     "!./development/assets/stylesheets/icon-font.css",
+                    "!./development/assets/stylesheets/jquery-ui.css",
+                    "!./development/assets/stylesheets/rs-plugin-themepunch-settings.css",
                     "!./development/assets/js/html5shiv.js",
                     "!./development/assets/js/jquery.themepunch.revolution.min.js",
                     "!./development/assets/js/jquery.themepunch.tools.min.js",
                     "!./development/assets/js/respond.min.js",
+                    "!./development/assets/js/custom.js",
+                    "!./development/assets/js/jquery.gmap3.min.js",
+                    "!./development/assets/js/plugins.js"
                 ]
             }
         },
@@ -89,7 +93,7 @@ module.exports = function (grunt) {
             development: {
                 options: {},
                 files: {
-                    "path/to/result.css": "path/to/source.less"
+                    "./development/assets/stylesheets/educa.css": "./development/assets/less/educa.less"
                 }
             },
             production: {
@@ -124,7 +128,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-string-replace');
 
     // Default task(s).
-    grunt.registerTask('default', ['clean:development', 'copy:development']);
+    grunt.registerTask('default', ['clean:development', 'copy:development','less:development']);
     //grunt.registerTask('default', ['clean:development', 'copy:development', 'less:development']);
     grunt.registerTask('production', ['uglify']);
 };
