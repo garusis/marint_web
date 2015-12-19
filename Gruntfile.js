@@ -13,7 +13,6 @@ module.exports = function (grunt) {
                     "./development/assets/fonts/Simple-Line-Icons.*",
                     "./development/assets/fonts/FontAwesome.*",
                     "./development/assets/fonts/fontawesome-webfont.*",
-                    "!./development/**/.gitkeep",
                     "!./development/assets/stylesheets/google-fonts.css",
                     "!./development/assets/stylesheets/icon-font.css",
                     "!./development/assets/stylesheets/jquery-ui.css",
