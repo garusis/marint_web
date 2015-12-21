@@ -58,7 +58,14 @@ module.exports = function (grunt) {
                         src: [
                             './development/components/jquery/dist/jquery.min.js',
                             './development/components/jquery/dist/jquery.min.map',
-                            './development/components/bootstrap/dist/js/bootstrap.min.js'
+                            './development/components/bootstrap/dist/js/bootstrap.min.js',
+                            './development/components/angular/angular.min.js',
+                            './development/components/angular/angular.min.js.map',
+                            './development/components/lodash/lodash.min.js',
+                            './development/components/jg-origins-manager/dist/jg-origins-manager.min.js',
+                            './development/components/ngstorage/ngStorage.min.js',
+                            './development/components/angular-ui-router/release/angular-ui-router.min.js',
+                            './development/components/angular-ui-router.stateHelper/statehelper.min.js'
                         ],
                         dest: './development/assets/js/',
                         flatten: true,
@@ -103,7 +110,8 @@ module.exports = function (grunt) {
             development: {
                 options: {},
                 files: {
-                    "./development/assets/stylesheets/educa.css": "./development/assets/less/educa.less"
+                    "./development/assets/stylesheets/educa.css": "./development/assets/less/educa.less",
+                    "./development/assets/stylesheets/sundries.css": "./development/modules/sundries/sundriesStyles.less"
                 }
             },
             production: {
@@ -125,6 +133,21 @@ module.exports = function (grunt) {
                     "path/to/result.css": "path/to/source.less"
                 }
             }
+        },
+        'string-replace': {
+            production: {
+                files: {
+                    './development/index.html': './development/index.html'
+                },
+                options: {
+                    replacements: [
+                        {
+                            pattern: '<base href="http://localhost/marlininternacional_web/development/" target="_self">',
+                            replacement: '<base href="http://marlininternaciona.com" target="_self">'
+                        }
+                    ]
+                }
+            }
         }
     });
 
@@ -138,7 +161,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-string-replace');
 
     // Default task(s).
-    grunt.registerTask('default', ['clean:development', 'copy:development','less:development']);
+    grunt.registerTask('default', ['clean:development', 'copy:development', 'less:development']);
     //grunt.registerTask('default', ['clean:development', 'copy:development', 'less:development']);
     grunt.registerTask('production', ['uglify']);
 };
