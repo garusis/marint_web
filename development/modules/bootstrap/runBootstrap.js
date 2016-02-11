@@ -7,7 +7,11 @@
 ;
 !(function (module) {
     module
-        .run(['$rootScope',function ($rootScope) {
+        .run(['$rootScope', function ($rootScope) {
             $rootScope.multilanguageEnabled = false;
+
+            $rootScope.slug = function (data) {
+                return _.deburr(data).replace(/\W/g, " ").replace(/\s+/g, '_').substr(0, 40);
+            };
         }]);
 })(angular.module('jg.marlininternacional'));

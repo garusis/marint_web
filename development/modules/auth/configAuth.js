@@ -11,8 +11,9 @@
             stateHelperProvider
                 .state({
                     name: 'index',
-                    templateUrl: 'modules/auth/templates/index.html',
-                    controller: 'IndexPublicController'
+                    templateUrl: 'modules/auth/templates/public/index.html',
+                    controller: 'IndexPublicController',
+                    controllerAs: 'authIPCtrl'
                 });
         }]);
 })(angular.module('jg.marlininternacional.auth', ['ui.router', 'ui.router.stateHelper']));

@@ -13,6 +13,7 @@ module.exports = function (grunt) {
                     "./development/assets/fonts/Simple-Line-Icons.*",
                     "./development/assets/fonts/FontAwesome.*",
                     "./development/assets/fonts/fontawesome-webfont.*",
+                    "./development/assets/fonts/slick.*",
                     "!./development/assets/stylesheets/google-fonts.css",
                     "!./development/assets/stylesheets/icon-font.css",
                     "!./development/assets/stylesheets/jquery-ui.css",
@@ -37,7 +38,9 @@ module.exports = function (grunt) {
                             './development/components/bootstrap/dist/css/bootstrap.min.css.map',
                             './development/components/animate.css/animate.min.css',
                             './development/components/simple-line-icons/css/simple-line-icons.css',
-                            './development/components/font-awesome/css/font-awesome.min.css'
+                            './development/components/font-awesome/css/font-awesome.min.css',
+                            './development/components/owl.carousel/dist/assets/owl.carousel.min.css',
+                            './development/components/owl.carousel/dist/assets/owl.theme.default.min.css'
                         ],
                         dest: './development/assets/stylesheets/',
                         flatten: true,
@@ -47,9 +50,19 @@ module.exports = function (grunt) {
                         expand: true,
                         src: [
                             './development/components/simple-line-icons/fonts/*',
-                            './development/components/font-awesome/fonts/*'
+                            './development/components/font-awesome/fonts/*',
+                            './development/components/slick-carousel/slick/fonts/*'
                         ],
                         dest: './development/assets/fonts/',
+                        flatten: true,
+                        filter: 'isFile'
+                    },
+                    {
+                        expand: true,
+                        src: [
+                            './development/components/slick-carousel/slick/ajax-loader.gif'
+                        ],
+                        dest: './development/assets/images/',
                         flatten: true,
                         filter: 'isFile'
                     },
@@ -65,7 +78,13 @@ module.exports = function (grunt) {
                             './development/components/jg-origins-manager/dist/jg-origins-manager.min.js',
                             './development/components/ngstorage/ngStorage.min.js',
                             './development/components/angular-ui-router/release/angular-ui-router.min.js',
-                            './development/components/angular-ui-router.stateHelper/statehelper.min.js'
+                            './development/components/angular-ui-router.stateHelper/statehelper.min.js',
+                            './development/components/angular-resource/angular-resource.min.js',
+                            './development/components/angular-resource/angular-resource.min.js.map',
+                            './development/components/owl.carousel/dist/owl.carousel.js',
+                            './development/components/owl.carousel/dist/owl.carousel.min.js',
+                            './development/components/slick-carousel/slick/slick.min.js',
+                            './development/components/angular-slick-carousel/dist/angular-slick.min.js'
                         ],
                         dest: './development/assets/js/',
                         flatten: true,
@@ -111,6 +130,7 @@ module.exports = function (grunt) {
                 options: {},
                 files: {
                     "./development/assets/stylesheets/educa.css": "./development/assets/less/educa.less",
+                    "./development/assets/stylesheets/slick.css": "./development/assets/less/slick.less",
                     "./development/assets/stylesheets/sundries.css": "./development/modules/sundries/sundriesStyles.less"
                 }
             },

@@ -1,8 +1,5 @@
+"use strict";
 jQuery(document).ready(function ($) {
-
-
-    "use strict";
-
 
     $(".count-number").appear(function () {
         var datacount = $(this).attr('data-count');

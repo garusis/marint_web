@@ -24,22 +24,39 @@
         .directive('owl', [function () {
             return {
                 restrict: 'A',
+                transclude: false,
                 scope: {
-                    owl: "=?"
+                    owl: '=?'
+                },
+                controller: function ($scope, $element) {
+                    var owl;
+                    this.initOwl = function () {
+                        if (owl) {
+                            owlCarousel.destroy();
+                        }
+                        $element.owlCarousel($scope.owl);
+                        owl = $element.data('owlCarousel');
+                    };
                 },
                 link: function (scope, element, attrs) {
+                    element.addClass("owl-carousel");
                     if (!scope.owl) {
-                        scope.owl= {};
+                        scope.owl = {};
                     }
-                    element.owlCarousel(scope.owl);
-
-                    element.find(".next").click(function(){
-                        owl.trigger('owl.next');
-                    });
-                    element.find(".prev").click(function(){
-                        owl.trigger('owl.prev');
-                    });
+                }
+            };
+        }])
+        .directive('owlItem', [function () {
+            return {
+                restrict: 'A',
+                priority: -1,
+                require: '^owl',
+                link: function (scope, element, attrs, owlCtrl) {
+                    element.addClass("owl-item").addClass("item");
+                    if (scope.$last) {
+                        owlCtrl.initOwl();
+                    }
                 }
             };
         }]);
-})(angular.module('jg.marlininternacional.utilities', []));
+})(angular.module('jg.marlininternacional.utilities'));

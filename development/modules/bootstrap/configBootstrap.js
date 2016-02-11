@@ -24,13 +24,17 @@
         }])
         .config(["originsManagerProvider", "$localStorageProvider", function (originsManagerProvider, $localStorageProvider) {
             originsManagerProvider.config();
-            originsManagerProvider.setOrigin("base", originsManagerProvider.getOrigin());
+            originsManagerProvider.setOrigin("base", "http://localhost:3020");
             originsManagerProvider.setOrigin("origin", originsManagerProvider.getOrigin("base") + "/api");
         }])
-        .config(['jgSimpleQueriesProvider', 'originsManagerProvider', function (jgSimpleQueriesProvider, originsManagerProvider) {
-            jgSimpleQueriesProvider.config({base_url: originsManagerProvider.getOrigin()});
+        .config(['LoopBackResourceProvider', 'originsManagerProvider', function (LoopBackResourceProvider, originsManagerProvider) {
+            // Use a custom auth header instead of the default 'Authorization'
+            //LoopBackResourceProvider.setAuthHeader('X-Access-Token');
+
+            // Change the URL where to access the LoopBack REST API server
+            LoopBackResourceProvider.setUrlBase(originsManagerProvider.getOrigin());
         }]);
 })(angular.module('jg.marlininternacional', [
-    'ui.router', 'ui.router.stateHelper', 'ngStorage', 'jg.originsManager', 'jgQueries',
-    'jg.marlininternacional.auth', 'jg.marlininternacional.utilities'
+    'lbServices', 'ui.router', 'ui.router.stateHelper', 'ngStorage', 'slickCarousel', 'jg.originsManager',
+    'jg.marlininternacional.auth', 'jg.marlininternacional.utilities', 'jg.marlininternacional.news'
 ]));

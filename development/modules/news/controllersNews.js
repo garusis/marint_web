@@ -7,7 +7,7 @@
 ;
 !(function (module) {
     module
-        .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', function ($scope, Testimony, PublicPublication) {
+        .controller('ShowPublicPublicationController', ['$scope', 'Testimony', 'PublicPublication', function ($scope, Testimony, PublicPublication) {
             $scope.mainSliderConfigs = {
                 delay: 6000,
                 startwidth: 1170,
@@ -43,7 +43,7 @@
                 loop: true,
                 autoplay: true,
                 autoplayTimeout: 5000,
-                autoplayHoverPause: true,
+                autoplayHoverPause: false,
                 items: 1, //10 items above 1000px browser width
                 navText: ["", ""],
                 responsive: {
@@ -60,16 +60,24 @@
             };
 
             $scope.newsCarouselConfig = {
-                enabled: true,
+                nav: false,
+                loop: true,
                 autoplay: true,
-                draggable: false,
-                autoplaySpeed: 5000,
-                speed: 300,
-                infinite: true,
-                slidesToShow: 2,
-                slidesToScroll: 1,
-                vertical: true,
-                pauseOnHover: true
+                autoplayTimeout: 5000,
+                autoplayHoverPause: false,
+                items: 1, //10 items above 1000px browser width
+                navText: ["", ""],
+                responsive: {
+                    0: {
+                        nav: false
+                    },
+                    480: {
+                        nav: false
+                    },
+                    768: {
+                        nav: true
+                    }
+                }
             };
 
             $scope.coursesCarouseConfig = {
@@ -84,26 +92,14 @@
             };
 
             $scope.testimonies = Testimony.find();
-            $scope.publications = {
-                limit: 10,
-                orderBy: 'createAt',
-                orderDirection: 'DESC'
-            };
-
-            this.loadPublications = function (page) {
-                $scope.publications.count = PublicPublication.count();
-                $scope.publications.list = PublicPublication.find({
-                    filter: {
-                        skip: (page - 1) * $scope.publications.limit,
-                        limit: $scope.publications.limit,
-                        order: $scope.publications.orderBy + ' ' + $scope.publications.orderDirection,
-                        fields: {content: false},
-                        include: ['instructor']
-                    }
-                });
-                $scope.publications.page = page;
-            };
-
-            this.loadPublications(1);
+            $scope.publications = PublicPublication.find({
+                filter: {
+                    skip: 0,
+                    limit: 3,
+                    order: 'createdAt DESC',
+                    fields: {content: false},
+                    include: ['instructor']
+                }
+            });
         }]);
-})(angular.module('jg.marlininternacional.auth'));
+})(angular.module('jg.marlininternacional.news'));
