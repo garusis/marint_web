@@ -182,3 +182,130 @@
         .config($config)
         .run($run);
 })(angular.module('jg.responsiveImages', []));
+
+(function (module) {
+    /*
+     // @name: JG Overlay
+     // @version: 0.0.1
+     // @description: Angular plugin for easy
+     //
+     // Copyright 2016-2017 Jarvi Games, http://jarvigames.com
+     // Licensed under the MIT license
+     */
+
+    var overlayProvider = function () {
+        var $provider = this;
+        this.$get = function () {
+            var registeredOverlays = {};
+
+            var overlayElement = function (element, settings) {
+
+            };
+
+            var dissmissOverlay = function (element) {
+
+            };
+
+            return {
+                addOverlay: function (id, element, settings) {
+                    return registeredOverlays[id] = {element: element, settings: settings};
+                },
+                removeOverlay: function (id) {
+                    this.dismissOverlay(id);
+                    delete registeredOverlays[id];
+                },
+                requireOverlay: function (idOrElement, settings) {
+                    if ('string' === typeof idOrElement) {
+                        var overlay = registeredOverlays[id];
+                        if (overlay) {
+                            overlayElement(overlay.element, overlay.settings);
+                        }
+                    } else {
+                        overlayElement(idOrElement, settings);
+                    }
+                },
+                dismissOverlay: function (idOrElement) {
+                    if ('string' === typeof idOrElement) {
+                        var overlay = registeredOverlays[id];
+                        if (overlay) {
+                            dissmissOverlay(overlay.element);
+                        }
+                    } else {
+                        dissmissOverlay(idOrElement);
+                    }
+                }
+            };
+        };
+        this.$get.$inject = [];
+    };
+
+    var overlayDirective = function (overlay) {
+
+        return {
+            restrict: 'A',
+            scope: {
+                settings: '=?'
+            },
+            link: function (scope, element, attrs) {
+                var defSettings = {
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    hover: true
+                };
+
+                var settings = scope.settings = angular.extend({}, scope.settings || {}, defSettings);
+                for (var settName  in settings) {
+                    if (!isNaN(settings[settName])) {
+                        settings[settName] = settings[settName] + "px";
+                    }
+                }
+                overlay.addOverlay(attrs.overlay, element, settings);
+
+                if (settings.hover) {
+                    element.on('mouseenter', function () {
+                        overlay.requireOverlay(element, settings);
+                    });
+                    element.on('mouseleave', function () {
+                        overlay.requireOverlay(element, settings);
+                    });
+                }
+
+                scope.$on('$destroy', function () {
+                    overlay.removeOverlay(attrs.overlay);
+                });
+            }
+        };
+    };
+    overllayDirective.$inject = ['responsiveImages'];
+
+    var $config = function (responsiveImagesProvider) {
+        responsiveImagesProvider.config();
+    };
+    $config.$inject = ['responsiveImagesProvider'];
+
+    var $run = function ($window, $rootScope, responsiveImages) {
+        var notifyResize = function () {
+            responsiveImages.updateViewport();
+            $rootScope.$broadcast('jg.responsiveImages::resize');
+        };
+        var resizeEvent = function () {
+            $rootScope.$apply(function () {
+                notifyResize();
+            });
+        };
+
+        notifyResize();
+        var $w = angular.element($window);
+        $w.unbind('resize', resizeEvent);
+        $w.bind('resize', resizeEvent);
+    };
+    $run.$inject = ['$window', '$rootScope', 'responsiveImages'];
+
+    module
+        .provider('responsiveImages', overlayProvider)
+        .directive('responsiveImage', overllayDirective)
+        .config($config)
+        .run($run);
+})(angular.module('jg.responsiveImages', []));

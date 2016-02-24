@@ -196,6 +196,7 @@ nav.main-navigation {
         opacity: 0;
         .translate3d(0, 30px, 0);
         .transition(all 0.5s);
+        z-index: 10;
         li {
           border-top: none;
           display: block;
@@ -229,6 +230,34 @@ nav.main-navigation {
           visibility: visible;
           opacity: 1;
           .translate3d(0, 0, 0);
+        }
+      }
+
+      &.login {
+        ul.sub-menu {
+          width: 210px;
+          padding: 15px;
+          background: rgba(255, 255, 255, .5);
+          visibility: visible;
+          opacity: 1;
+          .translate3d(0, 0, 0);
+          z-index: 5;
+        }
+        &::before {
+          content: " ";
+          visibility: hidden;
+          opacity: 0;
+          background: #000;
+          position: fixed;
+          height: 100%;
+          width: 100%;
+          left: 0;
+          top: 150px;
+          .transition(all 0.5s);
+        }
+        &.active::before {
+          visibility: visible;
+          opacity: 1;
         }
       }
 
