@@ -35,6 +35,6 @@
             LoopBackResourceProvider.setUrlBase(originsManagerProvider.getOrigin());
         }]);
 })(angular.module('jg.marlininternacional', [
-    'lbServices', 'ui.router', 'ui.router.stateHelper', 'ngStorage', 'slickCarousel', 'jg.originsManager',
+    'lbServices', 'ui.router', 'ui.router.stateHelper', 'ngStorage', 'slickCarousel', 'jg.originsManager', 'jg.responsiveImages',
     'jg.marlininternacional.auth', 'jg.marlininternacional.utilities', 'jg.marlininternacional.news'
 ]));

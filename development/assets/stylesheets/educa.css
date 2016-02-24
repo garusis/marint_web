@@ -1858,9 +1858,37 @@ section.gallery-four .item .thumb-holder:hover .hover-content {
   margin-left: 20px;
   line-height: 20px;
   margin-bottom: 15px;
+  min-height: 45px;
+}
+.popular-courses .course-item .down-content a:hover {
+  text-decoration: none !important;
+}
+.popular-courses .course-item .down-content a:hover h4 {
+  text-decoration: underline !important;
 }
 .popular-courses .course-item .down-content p {
   padding: 0px 20px;
+  position: relative;
+  height: 7em;
+  overflow: hidden;
+  text-align: justify;
+  text-transform: initial;
+}
+.popular-courses .course-item .down-content p::after {
+  content: " ";
+  bottom: .5em;
+  right: 0;
+  width: 100%;
+  height: 1em;
+  display: block;
+  position: absolute;
+  background: -moz-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#ffffff', GradientType=1);
 }
 .popular-courses .course-item .down-content .text-button {
   margin-left: 20px;
@@ -2345,7 +2373,7 @@ section.gallery-four .item .thumb-holder:hover .hover-content {
   margin-bottom: 1px;
 }
 .single-course .accordions .second-accordion-section-title {
-  background-color: transparent!important;
+  background-color: transparent !important;
   border: 2px solid #eee;
 }
 .single-course .accordions .second-accordion-section-title em {

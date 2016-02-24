@@ -7,7 +7,7 @@
 ;
 !(function (module) {
     module
-        .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', function ($scope, Testimony, PublicPublication) {
+        .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', 'Course', function ($scope, Testimony, PublicPublication, Course) {
             $scope.mainSliderConfigs = {
                 delay: 6000,
                 startwidth: 1170,
@@ -72,18 +72,33 @@
                 pauseOnHover: true
             };
 
-            $scope.coursesCarouseConfig = {
-                pagination: true,
-                paginationNumbers: false,
-                autoPlay: 5000, //Set AutoPlay to 3 seconds
-                items: 4, //10 items above 1000px browser width
-                itemsDesktop: [1000, 4], //5 items between 1000px and 901px
-                itemsDesktopSmall: [900, 2], // betweem 900px and 601px
-                itemsTablet: [600, 1], //2 items between 600 and 0
-                itemsMobile: false // itemsMobile disabled - inherit from itemsTablet option
+            $scope.coursesCarouselConfig = {
+                nav: false,
+                loop: false,
+                autoplay: false,
+                //autoplayTimeout: 5000,
+                autoplayHoverPause: true,
+                items: 3, //10 items above 1000px browser width
+                navText: ["", ""],
+                responsive: {
+                    0: {
+                        nav: false
+                    },
+                    480: {
+                        nav: false
+                    },
+                    768: {
+                        nav: true
+                    }
+                }
             };
 
             $scope.testimonies = Testimony.find();
+            $scope.courses = Course.find({
+                filter: {
+                    include: ['instructor']
+                }
+            });
             $scope.publications = {
                 limit: 10,
                 orderBy: 'createAt',
