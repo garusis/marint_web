@@ -10482,7 +10482,7 @@ module.factory(
          *
          *  - `id` – `{*}` - PersistedModel id
          *
-         * @param {Object} postData Request data.
+         * @param {Ob ject} postData Request data.
          *
          * This method expects a subset of model properties as request parameters.
          *
