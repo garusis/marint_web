@@ -36,5 +36,5 @@
         }]);
 })(angular.module('jg.marlininternacional', [
     'lbServices', 'ui.router', 'ui.router.stateHelper', 'ngStorage', 'slickCarousel', 'jg.originsManager', 'jg.responsiveImages',
-    'jg.marlininternacional.auth', 'jg.marlininternacional.utilities', 'jg.marlininternacional.news'
+    'jg.marlininternacional.auth', 'jg.marlininternacional.utilities', 'jg.marlininternacional.news', 'jg.overlay'
 ]));

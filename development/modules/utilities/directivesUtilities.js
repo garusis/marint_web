@@ -195,11 +195,30 @@
 
     var overlayProvider = function () {
         var $provider = this;
-        this.$get = function () {
+        this.$get = function ($document) {
             var registeredOverlays = {};
-
+            var body = angular.element($document[0].body);
+            var div = angular.element('<div></div>');
             var overlayElement = function (element, settings) {
-
+                div.css({
+                    position: 'fixed',
+                    top: settings.top,
+                    left: settings.left,
+                    width: settings.width,
+                    height: settings.height,
+                    zIndex: settings.zIndex,
+                    display: 'block',
+                    background: '#000',
+                    opacity: 0,
+                    transition: 'all .5s'
+                });
+                body.prepend(div);
+                element.css({
+                    zIndex: settings.zIndex*2
+                });
+                setTimeout(function () {
+                    div.css({opacity: .6});
+                })
             };
 
             var dissmissOverlay = function (element) {
@@ -236,7 +255,7 @@
                 }
             };
         };
-        this.$get.$inject = [];
+        this.$get.$inject = ['$document'];
     };
 
     var overlayDirective = function (overlay) {
@@ -252,12 +271,13 @@
                     left: 0,
                     width: "100%",
                     height: "100%",
+                    zIndex: 1000000,
                     hover: true
                 };
 
                 var settings = scope.settings = angular.extend({}, scope.settings || {}, defSettings);
                 for (var settName  in settings) {
-                    if (!isNaN(settings[settName])) {
+                    if (settName != 'zIndex' && settName != 'hover' && !isNaN(settings[settName])) {
                         settings[settName] = settings[settName] + "px";
                     }
                 }
@@ -278,34 +298,9 @@
             }
         };
     };
-    overllayDirective.$inject = ['responsiveImages'];
-
-    var $config = function (responsiveImagesProvider) {
-        responsiveImagesProvider.config();
-    };
-    $config.$inject = ['responsiveImagesProvider'];
-
-    var $run = function ($window, $rootScope, responsiveImages) {
-        var notifyResize = function () {
-            responsiveImages.updateViewport();
-            $rootScope.$broadcast('jg.responsiveImages::resize');
-        };
-        var resizeEvent = function () {
-            $rootScope.$apply(function () {
-                notifyResize();
-            });
-        };
-
-        notifyResize();
-        var $w = angular.element($window);
-        $w.unbind('resize', resizeEvent);
-        $w.bind('resize', resizeEvent);
-    };
-    $run.$inject = ['$window', '$rootScope', 'responsiveImages'];
+    overlayDirective.$inject = ['overlay'];
 
     module
-        .provider('responsiveImages', overlayProvider)
-        .directive('responsiveImage', overllayDirective)
-        .config($config)
-        .run($run);
-})(angular.module('jg.responsiveImages', []));
+        .provider('overlay', overlayProvider)
+        .directive('overlay', overlayDirective);
+})(angular.module('jg.overlay', []));
