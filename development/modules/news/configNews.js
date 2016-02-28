@@ -13,8 +13,8 @@
                     name: 'news',
                     url: '/noticias',
                     templateUrl: 'modules/news/templates/list.html',
-                    controller: 'IndexPublicController',
-                    controllerAs: 'authIPCtrl',
+                    controller: 'ListPublicationController',
+                    controllerAs: 'listPCtrl',
                     children: [
                         {
                             name: 'show',

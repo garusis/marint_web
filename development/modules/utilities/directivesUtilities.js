@@ -113,7 +113,8 @@
             scope: {
                 config: '@responsiveImage',
                 breakpoints: '@',
-                sources: '='
+                sources: '=',
+                backgroundSettings: '=?'
             },
             link: function (scope, element, attrs) {
                 var breakpoints = scope.config || scope.breakpoints || responsiveImages.getDefaultBreakpoints();
@@ -139,8 +140,15 @@
                     } else {
                         src = sources[lastValidSource];
                     }
-                    if (element.attr('src') !== src) {
-                        element.attr('src', src);
+
+                    if ("undefined" === typeof attrs.asBackgroundImage) {
+                        if (element.attr('src') !== src) {
+                            element.attr('src', src);
+                        }
+                    } else {
+                        if (element.css('background-image') !== "url(" + src + ")") {
+                            element.css('background-image', "url(" + src + ")");
+                        }
                     }
                 };
 
@@ -214,7 +222,7 @@
                 });
                 body.prepend(div);
                 element.css({
-                    zIndex: settings.zIndex*2
+                    zIndex: settings.zIndex * 2
                 });
                 setTimeout(function () {
                     div.css({opacity: .6});

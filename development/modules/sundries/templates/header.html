@@ -39,18 +39,17 @@
             </div>
             <nav class="main-navigation text-left hidden-xs hidden-sm">
                 <ul>
-                    <li><a href="#" class="has-submenu">Inicio</a>
-                        <ul class="sub-menu">
-                            <li><a href="index.html">Homepage 1</a></li>
-                            <li><a href="homepage-2.html">Homepage 2</a></li>
-                        </ul>
+                    <li><a ui-sref="index">Inicio</a>
+
                     </li>
-                    <li><a href="#" class="has-submenu">Cursos</a>
+                    <li><a href="javascript:void(0);">Cursos</a>
+                        <!--
                         <ul class="sub-menu">
                             <li><a href="courses-grid.html">Courses Grids</a></li>
                             <li><a href="courses-list.html">Courses List</a></li>
                             <li><a href="single-course.html">Single Course</a></li>
                         </ul>
+                        -->
                     </li>
                     <!--
                     <li><a href="#" class="has-submenu">Eventos</a>
@@ -61,12 +60,14 @@
                         </ul>
                     </li>
                     -->
-                    <li><a href="#" class="has-submenu">Publicaciones</a>
+                    <li><a ui-sref="news" class="has-submenu">Publicaciones</a>
+                        <!--
                         <ul class="sub-menu">
                             <li><a href="classic-news.html">Classic News</a></li>
                             <li><a href="grid-news.html">Grid News</a></li>
                             <li><a href="single-post.html">Single Post</a></li>
                         </ul>
+                        -->
                     </li>
                     <li><a href="#" class="has-submenu">Conócenos</a>
                         <ul class="sub-menu">
@@ -79,17 +80,27 @@
                     </li>
                     <li class="login">
                         <a href="javascript:void(0)" class="has-submenu">Iniciar Sesión</a>
-                        <ul class="sub-menu" overlay>
+                        <ul class="sub-menu">
                             <li>
-                                <form>
+                                <form class="form-horizontal">
                                     <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="Usuario"/>
+                                        <label class="col-sm-5 control-label">Usuario:</label>
+
+                                        <div class="col-sm-7">
+                                            <input class="form-control" type="text" autocomplete="off"/>
+                                        </div>
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" type="password" placeholder="Contraseña"/>
+                                        <label class="col-sm-5 control-label">Contraseña:</label>
+
+                                        <div class="col-sm-7">
+                                            <input class="form-control" type="password"/>
+                                        </div>
                                     </div>
-                                    <div class="form-group text-right">
-                                        <input type="submit" class="btn btn-default" value="Ingresar"/>
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <input type="submit" class="btn btn-block" value="Ingresar"/>
+                                        </div>
                                     </div>
                                 </form>
                             </li>

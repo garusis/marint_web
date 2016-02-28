@@ -11,6 +11,7 @@
             stateHelperProvider
                 .state({
                     name: 'index',
+                    url: '/',
                     templateUrl: 'modules/auth/templates/public/index.html',
                     controller: 'IndexPublicController',
                     controllerAs: 'authIPCtrl'
