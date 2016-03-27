@@ -17,15 +17,23 @@
         "large": "//localhost/cloud/headers/news.jpg"
     };
 
-    var ListPublicationController = function ($scope) {
+    var ListPublicationController = function ($scope, PublicPublication) {
         $scope.headerSources = headerSources;
+        $scope.news = PublicPublication.find({filter: {where: {isPublished: true}}});
     };
-    ListPublicationController.$inject = ['$scope'];
+    ListPublicationController.$inject = ['$scope', 'PublicPublication'];
 
-    var ShowPublicPublicationController = function ($scope) {
-
+    var ShowPublicPublicationController = function ($scope, $stateParams, $location, PublicPublication) {
+        $scope.headerSources = headerSources;
+        $scope.location =$location.absUrl();
+            $scope.new = PublicPublication.findOne({
+                filter: {
+                    where: {isPublished: true, id: $stateParams.newId},
+                    include: 'instructor'
+                }
+            });
     };
-    ShowPublicPublicationController.$inject = ['$scope'];
+    ShowPublicPublicationController.$inject = ['$scope', '$stateParams', '$location', 'PublicPublication'];
 
     module
         .controller('ListPublicationController', ListPublicationController)

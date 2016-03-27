@@ -40,7 +40,8 @@ module.exports = function (grunt) {
                             './development/components/simple-line-icons/css/simple-line-icons.css',
                             './development/components/font-awesome/css/font-awesome.min.css',
                             './development/components/owl.carousel/dist/assets/owl.carousel.min.css',
-                            './development/components/owl.carousel/dist/assets/owl.theme.default.min.css'
+                            './development/components/owl.carousel/dist/assets/owl.theme.default.min.css',
+                            './development/components/angular-socialshare/angular-socialshare.min.css'
                         ],
                         dest: './development/assets/stylesheets/',
                         flatten: true,
@@ -84,7 +85,11 @@ module.exports = function (grunt) {
                             './development/components/owl.carousel/dist/owl.carousel.js',
                             './development/components/owl.carousel/dist/owl.carousel.min.js',
                             './development/components/slick-carousel/slick/slick.min.js',
-                            './development/components/angular-slick-carousel/dist/angular-slick.min.js'
+                            './development/components/angular-slick-carousel/dist/angular-slick.min.js',
+                            './development/components/angular-filter/dist/angular-filter.min.js',
+                            './development/components/angular-sanitize/angular-sanitize.min.js',
+                            './development/components/angular-socialshare/angular-socialshare.min.js',
+                            './development/components/html2canvas/build/html2canvas.min.js'
                         ],
                         dest: './development/assets/js/',
                         flatten: true,
@@ -131,7 +136,7 @@ module.exports = function (grunt) {
                 files: {
                     "./development/assets/stylesheets/educa.css": "./development/assets/less/educa.less",
                     "./development/assets/stylesheets/slick.css": "./development/assets/less/slick.less",
-                    "./development/assets/stylesheets/sundries.css": "./development/modules/sundries/sundriesStyles.less"
+                    "./development/assets/stylesheets/modules.css": "./development/modules/**/*.less"
                 }
             },
             production: {

@@ -1,0 +1,81 @@
+#main-header .info-user {
+  text-decoration: none!important;
+}
+#main-header .info-user > * {
+  display: inline-block;
+  vertical-align: middle;
+}
+#main-header .info-user .user-data {
+  width: 190px;
+}
+#main-header .info-user .user-data .message {
+  font-weight: bold;
+}
+#main-header .info-user .photo-user {
+  height: 50px;
+  border-radius: 50%;
+  width: 50px;
+  box-shadow: rgba(193, 176, 176, 0.7) 0px 0px 1px 3px;
+}
+
+.grid-news .grid-item .down-content h4 {
+  height: 30px;
+}
+.grid-news .grid-item .down-content p {
+  height: 70px;
+}
+.single-post .single-item .tags-share .share .second-button a > * {
+  position: relative;
+  top: -9px;
+}
+.single-post .single-item .tags-share .share .second-button a .facebookButton {
+  width: 78px;
+}
+.single-post .single-item .tags-share .share .second-button a .facebookCount .pluginCountButton {
+  padding-left: 8px;
+}
+
+.site-header {
+  z-index: 9999999999!important;
+}
+.site-header .header-info ul li {
+  vertical-align: middle;
+}
+.description-line p.text-main-slider {
+  color: #f2f5f6 !important;
+  text-align: justify;
+}
+.login.jg-overlay a {
+  color: #FFF;
+}
+.no-padding {
+  padding: 0!important;
+}
+.no-padding-y {
+  padding-top: 0!important;
+  padding-bottom: 0!important;
+}
+.no-padding-x {
+  padding-left: 0!important;
+  padding-right: 0!important;
+}
+.no-margin {
+  margin: 0!important;
+}
+.no-margin-y {
+  margin-top: 0!important;
+  margin-bottom: 0!important;
+}
+.no-margin-x {
+  margin-left: 0!important;
+  margin-right: 0!important;
+}
+.main-background-opaque {
+  background-color: #f2f5f6 !important;
+}
+.main-background-dark {
+  background-color: #1f272b !important;
+}
+.main-background-opaque-dark {
+  background-color: #D6D6D6;
+}

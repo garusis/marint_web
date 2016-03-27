@@ -6,7 +6,45 @@
  */
 ;
 !(function (module) {
+
+    LoginController.$inject = ['$scope', '$rootScope', 'AppUser'];
+    function LoginController($scope, $rootScope, User) {
+
+
+        this.initScope = function () {
+            $scope.user = {};
+            $scope.$watchGroup(['user.username', 'user.password'], function () {
+                $scope.loginForm.$setValidity('credentials', true);
+            });
+        };
+
+        this.login = function ($user) {
+            User.login($user).$promise
+                .then(function () {
+                    $rootScope.$emit('jg.marlininternacional::users::successLogin');
+                })
+                .catch(function (err) {
+                    if (err.status === 401) {
+                        $scope.loginForm.$setValidity('credentials', false);
+                    }
+                    console.error(err);
+                });
+        };
+
+        this.initScope();
+    }
+
+    LogoutController.$inject = ['$scope', '$rootScope', 'AppUser', 'LoopBackAuth'];
+    function LogoutController($scope, $rootScope, User) {
+        this.initScope = function () {
+            $rootScope.$emit('jg.marlininternacional::users::logout');
+        };
+        this.initScope();
+    }
+
     module
+        .controller('LoginController', LoginController)
+        .controller('LogoutController', LogoutController)
         .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', 'Course', function ($scope, Testimony, PublicPublication, Course) {
             $scope.mainSliderConfigs = {
                 delay: 6000,

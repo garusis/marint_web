@@ -8,7 +8,7 @@
                 <a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
             </div>
             <div class="header-info hidden-sm hidden-xs">
-                <ul>
+                <ul ng-class="{'no-padding-y no-margin-y':dataUser}">
                     <li can-show="about.phone"><i class="fa fa-phone"></i>(+57) 314 427 3988</li>
                     <!--
                     <li can-show="about.email"><i class="fa fa-envelope-o"></i>contacto@marlininternacional.com
@@ -34,7 +34,21 @@
                             </form>
                         </div>
                     </li>
-                    <li><a ui-sref="inscriptions.new">¡Inscribete Ya!</a></li>
+                    <li ng-if="dataUser">
+                        <a class="info-user" href="javascript:void(0);">
+                            <div class="user-image">
+
+                                <img class="photo-user" responsive-image is-thumbnail sources="dataUser.imagePreview" alt="" />
+                            </div>
+                            <div class="user-data">
+                                <div class="message center-block text-center">Bienvenido</div>
+                                <div class="name center-block text-center" ng-bind="dataUser.name | truncate:15:'':true"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li ng-if="!dataUser">
+                        <a ui-sref="inscriptions.new">¡Inscribete Ya!</a>
+                    </li>
                 </ul>
             </div>
             <nav class="main-navigation text-left hidden-xs hidden-sm">
@@ -78,23 +92,53 @@
                             <li><a href="gallery-3.html">Gallery 3 Columns</a></li>
                         </ul>
                     </li>
-                    <li class="login">
+                    <li ng-if="!dataUser" overlay="login"
+                        overlay-tooltip="¿Ya eres Alumno? Haz Click aquí y accede a tu material"
+                        overlay-tooltip-position="left" overlay-hover-dissmiss class="login">
                         <a href="javascript:void(0)" class="has-submenu">Iniciar Sesión</a>
-                        <ul class="sub-menu">
+                        <ul ng-controller="LoginController as loginCtrl" class="sub-menu">
                             <li>
-                                <form class="form-horizontal">
-                                    <div class="form-group">
-                                        <label class="col-sm-5 control-label">Usuario:</label>
+                                <form class="form-horizontal"
+                                      ng-class="{'has-error':loginForm.$submitted && loginForm.$error.credentials}"
+                                      name="loginForm" novalidate
+                                      ng-submit="loginForm.$valid && loginCtrl.login(user)">
+                                    <div class="has-error" ng-if="loginForm.$submitted && loginForm.$error.credentials">
+                                        <ul class="col-sm-12">
+                                            <li class="help-block text-center"
+                                                ng-bind="'El Usuario o Contraseña no son validos. Intente ingresarlos nuevamente.'">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="form-group"
+                                         ng-class="{'has-error':(loginForm.$submitted || loginForm.username.$dirty) && loginForm.username.$invalid}">
+                                        <ul class="col-sm-12"
+                                            ng-if="(loginForm.$submitted || loginForm.username.$dirty) && loginForm.username.$invalid">
+                                            <li class="help-block text-center"
+                                                ng-if="loginForm.username.$error.required"
+                                                ng-bind="'Debe ingresar su Username'">
+                                            </li>
+                                        </ul>
+                                        <label for="login_username" class="col-sm-5 control-label">Usuario:</label>
 
                                         <div class="col-sm-7">
-                                            <input class="form-control" type="text" autocomplete="off"/>
+                                            <input id="login_username" name="username" ng-model="user.username"
+                                                   class="form-control" required type="text" autocomplete="off"/>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-5 control-label">Contraseña:</label>
+                                    <div class="form-group"
+                                         ng-class="{'has-error':(loginForm.$submitted || loginForm.username.$dirty) && loginForm.username.$invalid}">
+                                        <ul class="col-sm-12"
+                                            ng-if="(loginForm.$submitted || loginForm.password.$dirty) && loginForm.password.$invalid">
+                                            <li class="help-block text-center"
+                                                ng-if="loginForm.password.$error.required"
+                                                ng-bind="'Debe ingresar su Contraseña'">
+                                            </li>
+                                        </ul>
+                                        <label for="login_password" class="col-sm-5 control-label">Contraseña:</label>
 
                                         <div class="col-sm-7">
-                                            <input class="form-control" type="password"/>
+                                            <input id="login_password" name="password" ng-model="user.password"
+                                                   class="form-control" required type="password"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -106,7 +150,17 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a href="#search"><i class="fa fa-search"></i></a></li>
+                    <li ng-if="dataUser" overlay="dataUser"
+                        overlay-tooltip="Aquí podrás ver tus Datos o Cerrar sesión"
+                        overlay-tooltip-position="left" overlay-hover-dissmiss>
+                        <a href="javascript:void(0)" class="has-submenu">Mis opciones</a>
+                        <ul class="sub-menu">
+                            <li>
+                               <a ui-sref="logout">Cerrar Sesión</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="javascript:void(0)"><i class="fa fa-search"></i></a></li>
                 </ul>
             </nav>
         </div>

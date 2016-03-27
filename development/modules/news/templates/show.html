@@ -1,7 +1,11 @@
 <div class="sidebar-menu-container" id="sidebar-menu-container">
 
     <div class="sidebar-menu-push">
+
+        <div class="sidebar-menu-overlay"></div>
+
         <div class="sidebar-menu-inner">
+
             <div responsive-image="" sources="headerSources" as-background-image class="page-heading news-heading">
                 <div class="container">
                     <div class="row">
@@ -14,6 +18,8 @@
                                     <li class="active"><a ui-sref="index">Inicio</a></li>
                                     <li><i class="fa fa-angle-right"></i></li>
                                     <li><a ui-sref="news">Publicaciones</a></li>
+                                    <li><i class="fa fa-angle-right"></i></li>
+                                    <li><a ui-sref="news">{{new.title | truncate:20:'...':true}}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -21,59 +27,114 @@
                 </div>
             </div>
 
-            <section class="grid-news">
+            <section class="single-post">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-8">
                             <div class="classic-posts">
-                                <div class="row">
-                                    <div class="col-md-6" ng-repeat="new in news">
-                                        <div class="grid-item">
-                                            <a ui-sref="news.show({title:slug(new.title), newId: new.id})">
-                                                <img src="http://placehold.it/370x220" alt=""></a>
+                                <div class="single-item">
+                                    <img src="http://placehold.it/770x410" alt="">
+                                    <ul>
+                                        <li>Publicado: <em>{{new.publishedAt|date:'dd MMM yyyy'}}</em></li>
+                                        <li>Autor: <em>{{new.instructor.name}}</em></li>
+                                        <li>Comentarios: <em>2</em></li>
+                                    </ul>
+                                    <h4>{{new.title}}</h4>
 
-                                            <div class="down-content">
-                                                <ul>
-                                                    <li>Publicado: <em>{{new.publishedAt|date:'dd MMM yyyy'}}</em></li>
-                                                    <li>Comentarios: <em>2</em></li>
-                                                </ul>
-                                                <a ui-sref="news.show({title:slug(new.title), newId: new.id})">
-                                                    <h4>{{new.title| truncate : 50:'...':true}}</h4>
-                                                </a>
+                                    <div ng-bind-html="new.content">
 
-                                                <p>
-                                                    {{new.preview | truncate : 100:'...':true}}
-                                                </p>
+                                    </div>
 
-                                                <div class="text-button">
-                                                    <a ui-sref="news.show({title:slug(new.title), newId: new.id})">
-                                                        Continuar leyendo<i class="fa fa-arrow-right"></i>
-                                                    </a>
-                                                </div>
+
+                                    <div class="tags-share">
+                                        <div class="tag">
+                                            <i class="fa fa-tags"></i>
+
+                                            <p>Tags:</p>
+                                            <span><a ng-repeat="tag in new.tags" ui-sref="new">{{tag}}</a></span>
+                                        </div>
+                                        <div class="share">
+                                            <div class="second-button">
+                                                <a facebook class="facebookShare" data-url='{{location}}'
+                                                   data-shares='shares'>{{shares}}</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="pagination-navigation">
+                            </div>
+                            <div ng-if="false" class="comments">
+                                <div class="heading">
+                                    <h2>Comments</h2>
+                                </div>
+                                <div class="comment-item">
+                                    <img src="http://placehold.it/54x54" alt="">
+                                    <h4>John Smith</h4>
+                                    <span>1 hour ago</span>
+
+                                    <div class="reply-button">
+                                        <a href="#">Reply</a>
+                                    </div>
+                                    <p>Blue Bottle occupy fanny pack hashtag, cronut brunch PBR Odd Future. Brooklyn
+                                        cray fap Meggings quinoa 8-bit, blog actually roof party master cleanse iPhone
+                                        four dollar toast.Tofu dreamcatcher 90's letterpress vinyl megging</p>
+                                </div>
+                                <div class="comment-item replied-comment">
+                                    <img src="http://placehold.it/54x54" alt="">
+                                    <h4>Endris Flenderno</h4>
+                                    <span>1 hour ago</span>
+
+                                    <div class="reply-button">
+                                        <a href="#">Reply</a>
+                                    </div>
+                                    <p>Blue Bottle occupy fanny pack hashtag, cronut brunch PBR Odd Future. Brooklyn
+                                        cray fap Meggings quinoa 8-bit, blog actually roof party master cleanse iPhone
+                                        four dollar toast.Tofu dreamcatcher 90's letterpress vinyl megging</p>
+                                </div>
+                                <div class="comment-item replied-comment">
+                                    <img src="http://placehold.it/54x54" alt="">
+                                    <h4>Marcos Marrison</h4>
+                                    <span>1 hour ago</span>
+
+                                    <div class="reply-button">
+                                        <a href="#">Reply</a>
+                                    </div>
+                                    <p>Blue Bottle occupy fanny pack hashtag, cronut brunch PBR Odd Future. Brooklyn
+                                        cray fap Meggings quinoa 8-bit, blog actually roof party master cleanse iPhone
+                                        four dollar toast.Tofu dreamcatcher 90's letterpress vinyl megging</p>
+                                </div>
+                                <div class="comment-item">
+                                    <img src="http://placehold.it/54x54" alt="">
+                                    <h4>Robert Landerson</h4>
+                                    <span>1 hour ago</span>
+
+                                    <div class="reply-button">
+                                        <a href="#">Reply</a>
+                                    </div>
+                                    <p>Blue Bottle occupy fanny pack hashtag, cronut brunch PBR Odd Future. Brooklyn
+                                        cray fap Meggings quinoa 8-bit, blog actually roof party master cleanse iPhone
+                                        four dollar toast.Tofu dreamcatcher 90's letterpress vinyl megging</p>
+                                </div>
+                            </div>
+                            <div ng-if="false" class="leave-comment">
+                                <div class="heading">
+                                    <h2>Leave a comment</h2>
+                                </div>
+                                <div class="comment-form">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div class="pagination">
-                                                <ul>
-                                                    <li><a href="#">1</a></li>
-                                                    <li class="active"><a href="#">2</a></li>
-                                                    <li><a href="#">3</a></li>
-                                                    <li><a href="#">4</a></li>
-                                                </ul>
-                                            </div>
+                                            <input type="text" id="name" name="s" placeholder="Full Name" value="">
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="navigation">
-                                                <ul>
-                                                    <li><a href="#"><i class="fa fa-arrow-left"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-arrow-right"></i></a></li>
-                                                </ul>
-                                            </div>
+                                            <input type="text" id="address" name="s" placeholder="E-mail Address"
+                                                   value="">
                                         </div>
+                                        <div class="col-md-12">
+                                            <textarea id="message" class="message" name="message"
+                                                      placeholder="Write comment"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="accent-button">
+                                        <a href="#">Submit Comment</a>
                                     </div>
                                 </div>
                             </div>
@@ -185,18 +246,6 @@
                     </div>
                 </div>
             </section>
-
-            <div id="call-to-action">
-                <div class="container">
-                    <div class="row">
-                        <p><!--Young people have been 'mis-sold' <em>path to success</em>, business leaders warn.--></p>
-
-                        <div class="accent-button">
-                            <a href="courses-list.html">View Courses</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 

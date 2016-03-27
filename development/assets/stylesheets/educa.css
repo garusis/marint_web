@@ -1200,6 +1200,7 @@ section.our-skills .fourth-item .fill-bar {
 }
 .grid-news .grid-item .down-content {
   border: 2px solid #eee;
+  background-color: #fff;
   padding: 0px 20px;
 }
 .grid-news .grid-item .down-content ul {
@@ -3757,9 +3758,6 @@ section.single-teacher .single-teacher-item .description ul li:last-child {
 .gallery-heading {
   background-image: url(http://placehold.it/1700x380) !important;
 }
-.news-heading {
-  filter: brightness(0.5);
-}
 .page-heading {
   background-image: url(http://placehold.it/1700x380);
   background-size: cover;
@@ -4167,6 +4165,9 @@ section.single-teacher .single-teacher-item .description ul li:last-child {
 #call-to-action .accent-button a {
   background-color: #a12c2f;
   color: #fff;
+}
+.testimonials-news {
+  border-bottom: 1px solid #f2f5f6;
 }
 .testimonials-news .section-heading h1 {
   margin-bottom: 0px;

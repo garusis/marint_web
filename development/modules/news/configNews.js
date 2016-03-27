@@ -19,9 +19,13 @@
                         {
                             name: 'show',
                             url: '/{title}-:newId',
-                            templateUrl: 'modules/news/templates/show.html',
-                            controller: 'IndexPublicController',
-                            controllerAs: 'authIPCtrl'
+                            views: {
+                                '@': {
+                                    templateUrl: 'modules/news/templates/show.html',
+                                    controller: 'ShowPublicPublicationController',
+                                    controllerAs: 'showPCtrl'
+                                }
+                            }
                         }
                     ]
                 });

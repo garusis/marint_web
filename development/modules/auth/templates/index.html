@@ -1,4 +1,4 @@
-<div id="boxed-slider">
+<div id="boxed-slider" ng-if="!dataUser" >
     <div class="slider container">
         <div class="fullwidthbanner-container">
             <div class="fullwidthbanner" revolution="::mainSliderConfigs">
@@ -112,7 +112,7 @@
     </div>
 </div>
 
-<section class="testimonials-news">
+<section ng-if="!dataUser" class="testimonials-news">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -157,10 +157,10 @@
                                         <li>2 Comments</li>
                                     </ul>
                                     <a ui-sref="news.show({newId:item.id,title:slug(item.title)})">
-                                        <h4>{{::item.title}}</h4>
+                                        <h4>{{::item.title|truncate:50:'...':true}}</h4>
 
                                         <p style="text-align:justify;overflow-wrap: break-word;text-overflow: ellipsis">
-                                            {{::item.preview|limitWords:40:true}}
+                                            {{::item.preview|truncate:150:'...':true}}
                                         </p>
                                     </a>
                                 </div>
@@ -173,7 +173,7 @@
     </div>
 </section>
 
-<section class="welcome-request">
+<section ng-if="!dataUser" class="welcome-request">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -257,6 +257,65 @@
     </div>
 </section>
 
+<section ng-if="dataUser" class="grid-news main-background-opaque-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="classic-posts">
+                    <div class="row">
+                        <div class="col-md-4" ng-repeat="new in publications.list.slice(0,3)">
+                            <div class="grid-item">
+                                <a ui-sref="news.show({title:slug(new.title), newId: new.id})">
+                                    <img src="http://placehold.it/370x220" alt=""></a>
+
+                                <div class="down-content">
+                                    <ul>
+                                        <li>Publicado: <em>{{new.publishedAt|date:'dd MMM yyyy'}}</em></li>
+                                    </ul>
+                                    <a ui-sref="news.show({title:slug(new.title), newId: new.id})">
+                                        <h4>{{new.title| truncate : 50:'...':true}}</h4>
+                                    </a>
+
+                                    <p>
+                                        {{new.preview | truncate : 100:'...':true}}
+                                    </p>
+
+                                    <div class="text-button">
+                                        <a ui-sref="news.show({title:slug(new.title), newId: new.id})">
+                                            Continuar leyendo<i class="fa fa-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pagination-navigation">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="pagination">
+                                    <ul>
+                                        <li><a href="#">1</a></li>
+                                        <li class="active"><a href="#">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="navigation">
+                                    <ul>
+                                        <li><a href="#"><i class="fa fa-arrow-left"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-arrow-right"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <section class="popular-courses">
     <div class="container">
@@ -265,7 +324,7 @@
                 <h1>Cursos Populares</h1>
                 <img src="assets/images/line-dec.png" alt="">
 
-                <p>Nuestros cursos te enseñaran a tener éxito y cambiar vidas</p>
+                <p ng-if="!dataUser">Nuestros cursos te enseñaran a tener éxito y cambiar vidas</p>
             </div>
         </div>
         <div class="row">
@@ -302,6 +361,8 @@
         </div>
     </div>
 </section>
+
+
 
 <!--
 <section class="our-teachers">

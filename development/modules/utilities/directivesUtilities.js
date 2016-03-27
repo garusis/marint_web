@@ -152,7 +152,11 @@
                     }
                 };
 
-                makeImagesResponsive();
+                scope.$watch('sources', function (newVal) {
+                    if(newVal){
+                        makeImagesResponsive();
+                    }
+                });
                 scope.$on('jg.responsiveImages::resize', function () {
                     makeImagesResponsive();
                 });
@@ -203,39 +207,151 @@
 
     var overlayProvider = function () {
         var $provider = this;
-        this.$get = function ($document) {
+        this.$get = function ($document, $rootScope, $timeout) {
             var registeredOverlays = {};
             var body = angular.element($document[0].body);
             var div = angular.element('<div></div>');
-            var overlayElement = function (element, settings) {
-                div.css({
-                    position: 'fixed',
-                    top: settings.top,
-                    left: settings.left,
-                    width: settings.width,
-                    height: settings.height,
-                    zIndex: settings.zIndex,
-                    display: 'block',
-                    background: '#000',
+            var overlaysActive = 0;
+
+            var addTooltip = function (element, settings) {
+                if (!settings.overlayTooltip) {
+                    return;
+                }
+
+                var offset = element.offset();
+                var $canvas = element.data('jg::overlay::canvas');
+                var tooltipContainer = angular.element('<div class="jg-overlay-tooltip"></div>');
+                var tooltipText = angular.element('<div class="jg-overlay-tooltip-text">' + settings.overlayTooltip + '</div>');
+                var overlayLine1 = angular.element('<div></div>');
+                var overlayLine2 = angular.element('<div></div>');
+
+                tooltipContainer.append(overlayLine1).append(overlayLine2).append(tooltipText);
+                tooltipContainer.css({
+                    position: 'absolute',
+                    top: offset.top,
+                    zIndex: settings.zIndex * 2,
                     opacity: 0,
-                    transition: 'all .5s'
+                    transition: 'all .1s'
                 });
-                body.prepend(div);
-                element.css({
-                    zIndex: settings.zIndex * 2
+                overlayLine1.css({background: '#FFF', position: 'absolute'});
+                overlayLine2.css({background: '#FFF', position: 'absolute'});
+                tooltipText.css({
+                    color: '#FFF',
+                    fontWeight: 'bold',
+                    position: 'absolute',
+                    width: 200,
+                    textAlign: 'center'
                 });
+                body.prepend(tooltipContainer);
+
+                element.data('jg::overlay::tooltip', tooltipContainer);
+
+                switch (settings.overlayTooltipPosition) {
+                    case 'left':
+                    {
+                        tooltipContainer.css({left: offset.left});
+                        overlayLine1.css({height: $canvas.height(), width: '1px'});
+                        overlayLine2.css({height: '1px', width: '100px', left: -100, top: $canvas.height() / 2});
+                        tooltipText.css({left: -300, top: ($canvas.height() / 2) - (tooltipText.height() / 2)});
+                        break;
+                    }
+                }
+
                 setTimeout(function () {
-                    div.css({opacity: .6});
-                })
+                    tooltipContainer.css({opacity: 1});
+                });
+
             };
 
-            var dissmissOverlay = function (element) {
+            var overlayElement = function (element, settings) {
+                var $canvas;
+                element.addClass(settings.overlayClass);
+                if (overlaysActive === 0) {
+                    div.css({
+                        position: 'fixed',
+                        top: settings.top,
+                        left: settings.left,
+                        width: settings.width,
+                        height: settings.height,
+                        zIndex: settings.zIndex,
+                        display: 'block',
+                        background: '#000',
+                        opacity: 0,
+                        transition: 'all .1s'
+                    });
+                    body.prepend(div);
+                    setTimeout(function () {
+                        div.css({opacity: .7});
+                    });
+                }
+                overlaysActive++;
 
+                html2canvas(element[0], {
+                    onrendered: function (canvas) {
+                        var elementOffset = element.offset();
+                        $canvas = $(canvas);
+
+                        if (settings.overlayHoverDissmiss) {
+                            $canvas.on('mouseenter', function () {
+                                dismissOverlay(element);
+                            });
+                        }
+
+                        element.data('jg::overlay::canvas', $canvas);
+                        element.data('jg::overlay::settings', settings);
+
+                        $canvas.css({
+                            zIndex: settings.zIndex * 2,
+                            position: 'absolute',
+                            opacity: 0,
+                            transition: 'all .1s',
+                            top: elementOffset.top,
+                            left: elementOffset.left,
+                            cursor: 'pointer'
+                        });
+                        setTimeout(function () {
+                            $canvas.css({opacity: 1});
+                        });
+                        body.prepend($canvas);
+                        div.on('click', function () {
+                            dismissOverlay(element);
+                        });
+                        addTooltip(element, settings);
+                    }
+                });
+            };
+
+            var dismissOverlay = function (element) {
+                overlaysActive--;
+                var $canvas = element.data('jg::overlay::canvas');
+                var settings = element.data('jg::overlay::settings');
+                var tooltipContainer = element.data('jg::overlay::tooltip');
+                element.removeData('jg::overlay::canvas');
+                element.removeData('jg::overlay::settings');
+                if (tooltipContainer) {
+                    element.removeData('jg::overlay::tooltip');
+                }
+
+                div.css({opacity: 0});
+                $canvas.css({opacity: 0});
+                tooltipContainer.css({opacity: 0});
+                element.removeClass(settings.overlayClass);
+                setTimeout(function () {
+                    if (overlaysActive === 0) {
+                        div.remove();
+                    }
+                    $canvas.remove();
+                    tooltipContainer.remove();
+                }, 200);
             };
 
             return {
                 addOverlay: function (id, element, settings) {
-                    return registeredOverlays[id] = {element: element, settings: settings};
+                    var overlay = registeredOverlays[id] = {element: element, settings: settings};
+                    $timeout(function () {
+                        $rootScope.$emit('jg.overlay::addedOverlay', {id: id});
+                    });
+                    return overlay;
                 },
                 removeOverlay: function (id) {
                     this.dismissOverlay(id);
@@ -243,7 +359,7 @@
                 },
                 requireOverlay: function (idOrElement, settings) {
                     if ('string' === typeof idOrElement) {
-                        var overlay = registeredOverlays[id];
+                        var overlay = registeredOverlays[idOrElement];
                         if (overlay) {
                             overlayElement(overlay.element, overlay.settings);
                         }
@@ -255,19 +371,18 @@
                     if ('string' === typeof idOrElement) {
                         var overlay = registeredOverlays[id];
                         if (overlay) {
-                            dissmissOverlay(overlay.element);
+                            dismissOverlay(overlay.element);
                         }
                     } else {
-                        dissmissOverlay(idOrElement);
+                        dismissOverlay(idOrElement);
                     }
                 }
             };
         };
-        this.$get.$inject = ['$document'];
+        this.$get.$inject = ['$document', '$rootScope', '$timeout'];
     };
 
     var overlayDirective = function (overlay) {
-
         return {
             restrict: 'A',
             scope: {
@@ -280,10 +395,14 @@
                     width: "100%",
                     height: "100%",
                     zIndex: 1000000,
-                    hover: true
+                    hover: false,
+                    overlayClass: 'jg-overlay'
                 };
 
                 var settings = scope.settings = angular.extend({}, scope.settings || {}, defSettings);
+                settings.overlayTooltip = attrs.overlayTooltip;
+                settings.overlayTooltipPosition = attrs.overlayTooltipPosition || 'bottom';
+                settings.overlayHoverDissmiss = attrs.overlayHoverDissmiss;
                 for (var settName  in settings) {
                     if (settName != 'zIndex' && settName != 'hover' && !isNaN(settings[settName])) {
                         settings[settName] = settings[settName] + "px";
@@ -291,14 +410,15 @@
                 }
                 overlay.addOverlay(attrs.overlay, element, settings);
 
-                if (settings.hover) {
+                /*
+                if (attrs.overlayHoverDissmiss) {
                     element.on('mouseenter', function () {
                         overlay.requireOverlay(element, settings);
                     });
-                    element.on('mouseleave', function () {
-                        overlay.requireOverlay(element, settings);
+                    element.on('mouseenter', function () {
+                        overlay.dismissOverlay(element);
                     });
-                }
+                }*/
 
                 scope.$on('$destroy', function () {
                     overlay.removeOverlay(attrs.overlay);
