@@ -1,8 +1,43 @@
 module.exports = function (grunt) {
+    require('load-grunt-tasks')(grunt);
 
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        watch: {
+            bower: {
+                files: ['/development/components/*', '/development/components/**/', '/development/components/**/*'],
+                tasks: ['clean:development', 'copy:development', 'less:development'],
+                options: {
+                    spawn: false
+                }
+            },
+            less_modules: {
+                files: ['./development/modules/**/*.less'],
+                tasks: ['less:development_own'],
+                options: {
+                    spawn: false
+                }
+            },
+            js_modules: {
+                files: ['./development/modules/**/*.js'],
+                tasks: [],
+                options: {
+                    spawn: false
+                }
+            },
+            livereload: {
+                files: [
+                    '/development/components/*', '/development/components/**/', '/development/components/**/*',
+                    './development/modules/**/*.less', './development/modules/**/*.js'
+                ],
+                tasks: [],
+                options: {
+                    spawn: false,
+                    livereload: true
+                }
+            }
+        },
         clean: {
             development: {
                 src: [
@@ -135,7 +170,12 @@ module.exports = function (grunt) {
                 options: {},
                 files: {
                     "./development/assets/stylesheets/educa.css": "./development/assets/less/educa.less",
-                    "./development/assets/stylesheets/slick.css": "./development/assets/less/slick.less",
+                    "./development/assets/stylesheets/slick.css": "./development/assets/less/slick.less"
+                }
+            },
+            development_own: {
+                options: {},
+                files: {
                     "./development/assets/stylesheets/modules.css": "./development/modules/**/*.less"
                 }
             },
@@ -173,6 +213,14 @@ module.exports = function (grunt) {
                     ]
                 }
             }
+        },
+        concurrent: {
+            watch: {
+                tasks: ['watch:bower', 'watch:less_modules', 'watch:js_modules', 'watch:livereload'],
+                options: {
+                    logConcurrentOutput: true
+                }
+            }
         }
     });
 
@@ -182,11 +230,14 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-injector');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     // para posiblemente reemplazar los valores del originsManager en desarrollo con los de produccion.
     grunt.loadNpmTasks('grunt-string-replace');
+    grunt.loadNpmTasks('grunt-concurrent');
 
     // Default task(s).
-    grunt.registerTask('default', ['clean:development', 'copy:development', 'less:development']);
+    grunt.registerTask('buildAssets', ['clean:development', 'copy:development', 'less:development', 'less:development_own']);
+    grunt.registerTask('default', ['buildAssets', 'concurrent:watch']);
     //grunt.registerTask('default', ['clean:development', 'copy:development', 'less:development']);
     grunt.registerTask('production', ['uglify']);
 };

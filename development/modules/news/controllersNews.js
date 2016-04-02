@@ -25,13 +25,13 @@
 
     var ShowPublicPublicationController = function ($scope, $stateParams, $location, PublicPublication) {
         $scope.headerSources = headerSources;
-        $scope.location =$location.absUrl();
-            $scope.new = PublicPublication.findOne({
-                filter: {
-                    where: {isPublished: true, id: $stateParams.newId},
-                    include: 'instructor'
-                }
-            });
+        $scope.location = $location.absUrl();
+        $scope.new = PublicPublication.findOne({
+            filter: {
+                where: {isPublished: true, id: $stateParams.newId},
+                include: 'instructor'
+            }
+        });
     };
     ShowPublicPublicationController.$inject = ['$scope', '$stateParams', '$location', 'PublicPublication'];
 
