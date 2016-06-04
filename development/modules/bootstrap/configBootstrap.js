@@ -38,5 +38,5 @@
     'lbServices', 'ui.router', 'ui.router.stateHelper', 'ngStorage', 'slickCarousel', 'angular.filter','ngSanitize',
     'djds4rce.angular-socialshare',
     'jg.originsManager', 'jg.responsiveImages', 'jg.marlininternacional.auth', 'jg.marlininternacional.utilities',
-    'jg.marlininternacional.news', 'jg.overlay'
+    'jg.marlininternacional.news', 'jg.overlay', 'jg.marlininternacional.courses','jg.marlininternacional.courses.modules'
 ]));

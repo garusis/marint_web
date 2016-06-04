@@ -22,5 +22,9 @@
     "less-plugin-clean-css": "^1.5.1",
     "load-grunt-tasks": "^3.4.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "angular": "^1.5.5",
+    "angular-slick-carousel": "^3.1.5",
+    "slick-carousel": "^1.6.0"
+  }
 }
