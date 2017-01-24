@@ -13,7 +13,7 @@
                     name: 'courses',
                     url: '/cursos',
                     templateUrl: 'modules/courses/templates/list.html',
-                    controller: 'ListCoursesController',
+                    controller: 'ListCourseController',
                     controllerAs: 'listCCtrl',
                     children: [
                         {

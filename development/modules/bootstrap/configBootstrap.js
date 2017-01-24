@@ -24,7 +24,7 @@
         }])
         .config(["originsManagerProvider", "$localStorageProvider", function (originsManagerProvider, $localStorageProvider) {
             originsManagerProvider.config();
-            originsManagerProvider.setOrigin("base", "http://localhost:3020");
+            originsManagerProvider.setOrigin("base", "https://mibackend.herokuapp.com");
             originsManagerProvider.setOrigin("origin", originsManagerProvider.getOrigin("base") + "/api");
         }])
         .config(['LoopBackResourceProvider', 'originsManagerProvider', function (LoopBackResourceProvider, originsManagerProvider) {
@@ -38,5 +38,7 @@
     'lbServices', 'ui.router', 'ui.router.stateHelper', 'ngStorage', 'slickCarousel', 'angular.filter','ngSanitize',
     'djds4rce.angular-socialshare',
     'jg.originsManager', 'jg.responsiveImages', 'jg.marlininternacional.auth', 'jg.marlininternacional.utilities',
-    'jg.marlininternacional.news', 'jg.overlay', 'jg.marlininternacional.courses','jg.marlininternacional.courses.modules'
+    'jg.marlininternacional.news', 'jg.overlay', 'jg.marlininternacional.courses','jg.marlininternacional.courses.modules',
+    'com.alphonsegs.paginator'
+    
 ]));

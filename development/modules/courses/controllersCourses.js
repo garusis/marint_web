@@ -18,23 +18,41 @@
     };
 
     ListCourseController.$inject = ['$scope', 'Course'];
-    function ListCourseController ($scope, Course) {
+    function ListCourseController($scope, Course) {
+        $scope.loading=true;
+        $scope.loadCourses = function () {
+            Course.find({
+                filter: {
+                    where: {isPublished: true},
+                    include: 'instructor'
+                }
+            }).$promise.then(function (data) {
+                data = data.map(function (v) {
+                    v.description = v.description.substr(0, 150) + ("...");
+                    return v;
+                })
+                $scope.courses = data
+                $scope.loading=false;
+            console.log(data)
+            });
+        }
         $scope.headerSources = headerSources;
-        $scope.courses = Course.find({});
+        $scope.loadCourses();
+
     }
 
-    ShowCourseController.$inject = ['$scope', '$stateParams','$location', 'Course'];
-    function ShowCourseController ($scope, $stateParams, $location, Course){
-      $scope.headerSources = headerSources;
-      $scope.location = $location.absUrl();
-      $scope.course = Course.findOne({
-          filter: {
-              where: {isPublished: true, id: $stateParams.courseId},
-              include: 'instructor'
-          }
-      });
+    ShowCourseController.$inject = ['$scope', '$stateParams', '$location', 'Course'];
+    function ShowCourseController($scope, $stateParams, $location, Course) {
+        $scope.headerSources = headerSources;
+        $scope.location = $location.absUrl();
+        $scope.course = Course.findOne({
+            filter: {
+                where: {isPublished: true, id: $stateParams.courseId},
+                include: 'instructor'
+            }
+        });
     }
     module
-        .controller('ListCourseController', ListCourseController)
-        .controller('ShowCourseController', ShowCourseController);
+            .controller('ListCourseController', ListCourseController)
+            .controller('ShowCourseController', ShowCourseController);
 })(angular.module('jg.marlininternacional.news'));

@@ -2107,6 +2107,21 @@ section.gallery-four .item .thumb-holder:hover .hover-content {
 .courses-list .course-item {
   margin-top: 30px;
 }
+.courses-list .course-items .loading p 
+{
+    width:100%;
+    text-align:center
+}
+.courses-list .course-items .loading p i 
+{
+    color:#a12c2f;
+    
+}
+.courses-list .course-items .loading p span
+{
+  width:100%;
+    color:#777;
+}
 .courses-list .course-item img {
   height: 240px;
   width: 370px;
@@ -2239,6 +2254,8 @@ section.gallery-four .item .thumb-holder:hover .hover-content {
 .courses-list .course-item .down-content p {
   padding: 0px 20px;
   display: inline-block;
+  text-align: justify;
+  line-height: 22px;
 }
 .courses-list .course-item .down-content .text-button {
   margin-left: 20px;

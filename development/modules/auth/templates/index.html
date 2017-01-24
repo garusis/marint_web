@@ -111,7 +111,13 @@
         </div>
     </div>
 </div>
-
+<section>
+    <div class="container">
+        <paginator class="row" paginator pagedata="pagedata" length="10">
+            <div>{{$paginator_item.name}}</div>
+        </paginator>
+    </div>
+</section>
 <section ng-if="!dataUser" class="testimonials-news">
     <div class="container">
         <div class="row">
