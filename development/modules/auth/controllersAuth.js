@@ -44,18 +44,8 @@
     module
             .controller('LoginController', LoginController)
             .controller('LogoutController', LogoutController)
-            .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', 'Course', 'paginatorProvider',
-                function ($scope, Testimony, PublicPublication, Course,paginator) {
-                    $scope.pagedata = [];
-                    $scope.loadata=function(){
-                       
-                        for(var i = 0 ;i< 500;i++)
-                        {
-                            $scope.pagedata.push({name:"alejandro-"+i})
-                        }
-                        console.log("index",$scope.pagedata)
-                    }
-                    $scope.loadata();
+            .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', 'Course',"$http",
+                function ($scope, Testimony, PublicPublication, Course,$http) {
                     $scope.mainSliderConfigs = {
                         delay: 6000,
                         startwidth: 1170,

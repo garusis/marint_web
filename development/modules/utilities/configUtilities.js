@@ -6,5 +6,13 @@
  */
 ;
 !(function (module) {
-
-})(angular.module('jg.marlininternacional.utilities', []));
+    module.config(['paginatorProvider', function (paginatorProvider) {
+            paginatorProvider.setConfig({
+                lengthDefault: 10,
+                labelBefore: '<i class="fa fa-angle-left" aria-hidden="true"></i>',
+                labelNext: '<i class="fa fa-angle-right" aria-hidden="true"></i> ',
+                labelFirst: '<i class="fa fa-angle-double-left" aria-hidden="true"></i>',
+                labelLast: '<i class="fa fa-angle-double-right" aria-hidden="true"></i> '
+            })
+        }])
+})(angular.module('jg.marlininternacional.utilities', ['com.alphonsegs.paginator']));

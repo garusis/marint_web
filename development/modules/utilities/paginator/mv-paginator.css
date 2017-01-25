@@ -1,12 +1,13 @@
+
 ul.paginator
 {
-    margin: 13px 0px;
+    margin: 13px 15px;
     list-style: none;
     border: 1px solid #d8d8d8;
     float: left;
-    padding: 0px;
+    padding: 0;
 }
-ul.paginator:after, ul.paginator:before
+paginator:after,paginator:before,ul.paginator:after, ul.paginator:before
 {
     content: "";
     display: table;

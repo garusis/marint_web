@@ -15,17 +15,18 @@
     var paginator_max_pages = 10;
     $page.elements = []
     function provider() {
+
         this.setPageLengthDefault = function (len) {
             page_length_default = len;
         }
 
         this.setConfig = function (config)
         {
-            page_length_default = config.lengthDefault;
-            paginator_label_before = config.labelBefore;
-            paginator_label_next = config.labelNext;
-            paginator_label_first = config.labelFirst;
-            paginator_label_last = config.labelLast;
+            page_length_default = config.lengthDefault || page_length_default;
+            paginator_label_before = config.labelBefore || paginator_label_before;
+            paginator_label_next = config.labelNext || paginator_label_next;
+            paginator_label_first = config.labelFirst || paginator_label_first;
+            paginator_label_last = config.labelLast || paginator_label_last;
         }
 
         this.$get = function ($rootScope) {
@@ -52,31 +53,34 @@
 
 
 
-    function link(scope, element, attrs, controller, transcludeFn, $compile) {
+    function link(scope, element, attrs, controller, transcludeFn, $compile, paginator) {
 
-
+        
         function _init()
         {
             scope._page = [];
             scope._pages = [];
-            scope._page = scope._data
             scope.paginator_pages = [];
             scope._actualPage = 0;
+            if (!scope._data)
+            {
+                scope._data = [];
+            }
             //validate page length from attributte
             if (isNaN(scope._pageLength))
             {
                 scope._pageLength = page_length_default;
             }
+
             _initPages();
             _initListeners();
+            compile($compile, element, attrs)(scope)
         }
 
         scope.setPage = function (page) {
-            console.log("set page",page,"actualPage",scope._actualPage)
             function moveCursorToRight() {
                 if (scope._lastPage < scope.paginator_pages.length - 1)
                 {
-                    console.log("move to right")
                     scope._lastPage++
                     scope.paginator_pages[scope._firstPage].visible = false;
                     scope._firstPage++
@@ -87,7 +91,6 @@
             function moveCursorToLeft() {
                 if (scope._firstPage > 0)
                 {
-                    console.log("move to left")
                     scope._firstPage--
                     scope.paginator_pages[scope._firstPage].visible = true;
 
@@ -96,11 +99,9 @@
                     scope.paginator_pages[scope._lastPage].visible = true;
                 }
             }
-            
-             console.log(scope._firstPage,scope._lastPage)
+
             if (page == 0)
             {
-                console.log("es la primera página")
                 for (var i = 0; i < scope.paginator_pages.length; i++)
                 {
                     scope.paginator_pages[i].visible = (i < paginator_max_pages);
@@ -110,7 +111,6 @@
 
             } else if (page == scope._pages.length - 1)
             {
-                console.log("es la ultima página")
                 for (var i = scope.paginator_pages.length - 1; i >= 0; i--)
                 {
                     scope.paginator_pages[i].visible = (i > (scope.paginator_pages.length - paginator_max_pages));
@@ -120,7 +120,7 @@
                 scope._firstPage = scope._lastPage - paginator_max_pages - 1;
             } else
             {
-                
+
                 if (scope._actualPage < page)
                 {
                     moveCursorToRight()
@@ -129,7 +129,6 @@
                     moveCursorToLeft()
                 }
             }
-            console.log(scope._firstPage,scope._lastPage)
             if (scope.paginator_pages[page])
             {
                 scope.paginator_pages[scope._actualPage].isActive = false;
@@ -137,7 +136,7 @@
                 scope._page = scope._pages[scope._actualPage]
                 scope.paginator_pages[scope._actualPage].isActive = true;
             }
-            
+
         }
         scope.first = function () {
             scope.setPage(0)
@@ -188,12 +187,20 @@
                 scope.paginator_pages.push(page)
             }
             scope.setPage(0)
-            console.log("pages",scope._pages)
-
         }
 
         function compile($compile, element, attrs) {
             var item = element[0].children[0];
+            if (!scope._isInit) {
+                scope._dom = element[0].children[0];
+                scope._isInit = true
+            } else
+            {
+                element[0].innerHTML = "";
+                item = scope._dom;
+
+            }
+
             item.setAttribute("ng-repeat", "$paginator_item in _page")
             var html = "<ul class='paginator'>";
             html += "<li ng-click=\"first()\"><a href=\"javascript:void(0)\">" + paginator_label_first + "</a></li>"
@@ -218,27 +225,27 @@
 
 
         _init();
-        console.log(scope)
-        compile($compile, element, attrs)(scope)
+        scope.$watch(attrs.pagedata, function () {
+            scope._data = scope[attrs.pagedata];
+            _init()
+        })
+
     }
 
-    directive.$inject = ["$compile"]
+    directive.$inject = ["$compile", "paginator"]
     function directive($compile) {
         return  {
             restrict: 'E',
             priority: 5000,
-            //Terminal prevents compilation of any other directive on first pass
             terminal: true,
-            scope: {
-                _data: '=pagedata',
-                _pageLength: "=length",
-            },
-            link: function (scope, element, attrs, controller, transcludeFn) {
-                link(scope, element, attrs, controller, transcludeFn, $compile);
-            },
+            scope: false,
+            link: {
+                pre: function (scope, element, attrs, controller, transcludeFn, paginator) {
+                    link(scope, element, attrs, controller, transcludeFn, $compile, paginator);
+                }
+            }
         }
     }
-
+    module.provider("paginator", provider)
     module.directive("paginator", directive);
-    module.provider("paginatorProvider", provider)
 })(angular.module('com.alphonsegs.paginator', []));

@@ -29,31 +29,21 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="pre-featured">
-                                <div class="info-text">
-                                    <h4>showing 1-9 of 40 courses</h4>
-                                </div>
                                 <div class="right-content">
                                     <div class="input-select">
-                                        <select name="category" id="category">
-                                            <option value="-1">Select Category</option>
-                                            <option>Free</option>
-                                            <option>Timing</option>
-                                            <option>Mostly</option>
-                                            <option>Latest</option>
-                                        </select>
-                                    </div>
-                                    <div class="input-select">
-                                        <select name="sorted" id="sorted">
-                                            <option value="-1">Sorted by</option>
-                                            <option>Price</option>
-                                            <option>Useless</option>
-                                            <option>Important</option>
+                                        <select ng-model="optorderby">
+                                            <option value="">Ordenar por:</option>
+                                            <option value="1">Nombre</option>
+                                            <option value="2">Precio</option>
                                         </select>
                                     </div>
                                     <div class="grid-list">
                                         <ul>
-                                            <li><a href="#"><i class="fa fa-list"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-square"></i></a></li>
+                                            <li><a href="javascript:void(0)" ng-click="togleAsc()">
+                                                    <i class="fa" ng-class="{'fa-sort-asc':asc,'fa-sort-desc':!asc}"></i>
+                                                </a>
+                                            </li>
+                                            <li><a href="javascript:void(0)" ng-click="loadCourses()"><i class="fa fa-search"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -69,24 +59,35 @@
                                             <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
                                         </p>
                                     </div>
-                                    <div class="col-md-12" ng-repeat="c in courses">
-                                        <div class="item course-item">
-                                            <a ui-sref="courses.show({title:c.name,courseId:c.id})"><img src="http://placehold.it/345x235" alt=""></a>
-                                            <div class="down-content">
-                                                <img ng-src="{{c.instructor.imagePreview.thumb_small}}" alt="">
-                                                <h6>{{c.instructor.name}}</h6>
-                                                <div class="price-yellow">
-                                                    <span>{{c.price}}</span>
-                                                    <div class="base"></div>
-                                                </div>
-                                                <a href="single-course.html"><h4>{{c.name}}</h4></a>
-                                                <p>{{c.description}}</p>
-                                                <div class="text-button">
-                                                    <a href="cursos-{{c.id}}">Ver más.<i class="fa fa-arrow-right"></i></a>
+                                    <paginator  pagedata="courses" length="10">
+                                        <div class="col-md-12">
+                                            <div class="item course-item">
+                                                <a href="javascript:void(0)"
+                                                   ng-click="showCourse($paginator_item)">
+                                                    <img  ng-src="http://placehold.it/345x235" alt="">
+                                                </a>
+                                                <div class="down-content">
+                                                    <img ng-src="{{$paginator_item.instructor.imagePreview.thumb_small}}" alt="">
+                                                    <h6>{{$paginator_item.instructor.name}}</h6>
+                                                    <div class="price-yellow">
+                                                        <span>{{$paginator_item.price}}</span>
+                                                        <div class="base"></div>
+                                                    </div>
+                                                    <a href="javascript:void(0)"
+                                                       ng-click="showCourse($paginator_item)">
+                                                        <h4>{{$paginator_item.name}}</h4>
+                                                    </a>
+                                                    <p>{{$paginator_item.descriptionCaption}}</p>
+
+                                                    <div class="text-button">
+                                                        <a href="javascript:void(0)"
+                                                           ng-click="showCourse($paginator_item)">Ver más.<i class="fa fa-arrow-right"></i></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </paginator>
+
                                 </div>
                             </div>
                         </div>
@@ -118,32 +119,6 @@
                                     </div>
                                     <div class="accent-button">
                                         <a href="#">Submit Request</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="pagination-navigation">
-                                <div class="row">
-                                    <div class="col-md-6 col-xs-6">
-                                        <div class="pagination">
-                                            <ul>
-                                                <li><a href="#">1</a></li>
-                                                <li class="active"><a href="#">2</a></li>
-                                                <li><a href="#">3</a></li>
-                                                <li><a href="#">4</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-xs-6">
-                                        <div class="navigation">
-                                            <ul>
-                                                <li><a href="#"><i class="fa fa-arrow-left"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-arrow-right"></i></a></li>
-                                            </ul>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

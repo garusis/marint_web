@@ -15,6 +15,7 @@
                     templateUrl: 'modules/courses/templates/list.html',
                     controller: 'ListCourseController',
                     controllerAs: 'listCCtrl',
+                    params: {course: null},
                     children: [
                         {
                             name: 'show',
