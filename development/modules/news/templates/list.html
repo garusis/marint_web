@@ -24,58 +24,72 @@
             <section class="grid-news">
                 <div class="container">
                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="pre-featured">
+                                <div class="right-content">
+                                    <div class="input-select">
+                                        <select ng-model="optorderby">
+                                            <option value="">Ordenar por:</option>
+                                            <option value="title">Nombre</option>
+                                            <option value="modifiedAt">Fecha de modificación</option>
+                                        </select>
+                                    </div>
+                                    <div class="grid-list">
+                                        <ul>
+                                            <li><a href="javascript:void(0)" ng-click="togleAsc()">
+                                                    <i class="fa" ng-class="{'fa-sort-asc':asc,'fa-sort-desc':!asc}"></i>
+                                                </a>
+                                            </li>
+                                            <li><a href="javascript:void(0)" ng-click="loadnews()"><i class="fa fa-search"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div ng-show="loading" class="loading">
+                                <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
+                                <p>Cargando</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-hide="loading" class="row">
                         <div class="col-md-8">
                             <div class="classic-posts">
                                 <div class="row">
-                                    <div class="col-md-6" ng-repeat="new in news">
-                                        <div class="grid-item">
-                                            <a ui-sref="news.show({title:slug(new.title), newId: new.id})">
-                                                <img src="http://placehold.it/370x220" alt=""></a>
+                                    <paginator pagedata="news" pagelength="4">
+                                        <div class="col-md-6">
+                                            <div class="grid-item">
+                                                <a href="javascript:void(0)" ng-click="showNew($paginator_item)">
+                                                    <img src="http://placehold.it/370x220" alt=""></a>
 
-                                            <div class="down-content">
-                                                <ul>
-                                                    <li>Publicado: <em>{{new.publishedAt|date:'dd MMM yyyy'}}</em></li>
-                                                    <li>Comentarios: <em>2</em></li>
-                                                </ul>
-                                                <a ui-sref="news.show({title:slug(new.title), newId: new.id})">
-                                                    <h4>{{new.title| truncate : 50:'...':true}}</h4>
-                                                </a>
-
-                                                <p>
-                                                    {{new.preview | truncate : 100:'...':true}}
-                                                </p>
-
-                                                <div class="text-button">
-                                                    <a ui-sref="news.show({title:slug(new.title), newId: new.id})">
-                                                        Continuar leyendo<i class="fa fa-arrow-right"></i>
+                                                <div class="down-content">
+                                                    <ul>
+                                                        <li>Publicado: <em>{{$paginator_item.publishedAt|date:'dd MMM yyyy'}}</em></li>
+                                                        <li>Comentarios: <em>2</em></li>
+                                                    </ul>
+                                                    <a href="javascript:void(0)" ng-click="showNew($paginator_item)">
+                                                        <h4>{{$paginator_item.title| truncate : 50:'...':true}}</h4>
                                                     </a>
+
+                                                    <p>
+                                                        {{$paginator_item.preview| truncate : 100:'...':true}}
+                                                    </p>
+
+                                                    <div class="text-button">
+                                                        <a href="javascript:void(0)" ng-click="showNew($paginator_item)">
+                                                            Continuar leyendo<i class="fa fa-arrow-right"></i>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </paginator>
+
                                 </div>
-                                <div class="pagination-navigation">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="pagination">
-                                                <ul>
-                                                    <li><a href="#">1</a></li>
-                                                    <li class="active"><a href="#">2</a></li>
-                                                    <li><a href="#">3</a></li>
-                                                    <li><a href="#">4</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="navigation">
-                                                <ul>
-                                                    <li><a href="#"><i class="fa fa-arrow-left"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-arrow-right"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -83,102 +97,24 @@
                                 <div class="search-box">
                                     <input type="text" class="search" name="s" placeholder="Search..." value="">
                                 </div>
-                                <div class="categories">
-                                    <div class="widget-heading">
-                                        <h4>Categories</h4>
-                                    </div>
-                                    <ul>
-                                        <li><a href="#"><i class="fa fa-angle-right"></i>Design</a></li>
-                                        <li><a href="#"><i class="fa fa-angle-right"></i>International</a></li>
-                                        <li><a href="#"><i class="fa fa-angle-right"></i>Learning</a></li>
-                                        <li><a href="#"><i class="fa fa-angle-right"></i>Read</a></li>
-                                        <li><a href="#"><i class="fa fa-angle-right"></i>Education</a></li>
-                                        <li><a href="#"><i class="fa fa-angle-right"></i>Finance</a></li>
-                                    </ul>
-                                </div>
                                 <div class="recent-news">
                                     <div class="widget-heading">
-                                        <h4>Recent News</h4>
+                                        <h4>Publicaciones Recientes</h4>
                                     </div>
-                                    <ul>
-                                        <li>
-                                            <a href="single-post.html"><img src="http://placehold.it/70x70" alt=""></a>
-                                            <a href="single-post.html"><h6>Visiting Artists: Giles Bailey</h6></a>
-                                            <span>7 October 2015</span>
-                                        </li>
-                                        <li>
-                                            <a href="single-post.html"><img src="http://placehold.it/70x70" alt=""></a>
-                                            <a href="single-post.html"><h6>How Students use Rankings?</h6></a>
-                                            <span>7 October 2015</span>
-                                        </li>
-                                        <li>
-                                            <a href="single-post.html"><img src="http://placehold.it/70x70" alt=""></a>
-                                            <a href="single-post.html"><h6>University Finder: Compare</h6></a>
-                                            <span>7 October 2015</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="tags">
-                                    <div class="widget-heading">
-                                        <h4>Tags</h4>
+                                    <div ng-show="loadingRecentNews" class="loading">
+                                        <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
                                     </div>
-                                    <ul>
-                                        <li><a href="#">Photography</a></li>
-                                        <li><a href="#">Design</a></li>
-                                        <li><a href="#">Envanto</a></li>
-                                        <li><a href="#">Course</a></li>
-                                        <li><a href="#">Education</a></li>
-                                        <li><a href="#">College</a></li>
-                                        <li><a href="#">Teachers</a></li>
-                                        <li><a href="#">Read</a></li>
-                                        <li><a href="#">Excursions</a></li>
-                                    </ul>
-                                </div>
-                                <div class="recent-tweets">
-                                    <div class="widget-heading">
-                                        <h4>Recents Tweets</h4>
-                                    </div>
-                                    <ul>
-                                        <li>
-                                            <i class="fa fa-twitter"></i>
-
-                                            <p>Tote bag post-ironic messenger bag bespoke cray wolf moon key ready.</p>
-                                            <a href="#">https://olark.recruiterbox.com/jobs/fk0h</a>
-                                            <span>21 minutes ago.</span>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-twitter"></i>
-
-                                            <p>Tote bag post-ironic messenger bag bespoke cray wolf moon key ready.</p>
-                                            <a href="#">https://olark.recruiterbox.com/jobs/fk0h</a>
-                                            <span>21 minutes ago.</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="instagram-feeds">
-                                    <div class="widget-heading">
-                                        <h4>Instagram</h4>
-                                    </div>
-                                    <div class="instagram-items">
-                                        <div class="instagram-item">
-                                            <a href="#"><img src="http://placehold.it/90x80" alt=""></a>
+                                    <slick settings="::newsCarouselConfig" ng-show="!loadingRecentNews" ng-if="recentNews.length > 0">
+                                        <div class="news-item" style="height: 150px" ng-repeat="rn in recentNews">
+                                            <h1 ng-click="showNew(rn)">{{::rn.title|truncate:50:'...':true}}</h1>
+                                            <ul class="info clearfix">
+                                                <li>{{::rn.createdAt|date:'dd/MM/yyyy'}} </li>
+                                                <li>{{::rn.instructor.name}}</li>
+                                            </ul>
+                                            <p>{{::rn.preview|truncate:150:'...':true}}</p>
+                                            
                                         </div>
-                                        <div class="instagram-item">
-                                            <a href="#"><img src="http://placehold.it/90x80" alt=""></a>
-                                        </div>
-                                        <div class="instagram-item">
-                                            <a href="#"><img src="http://placehold.it/90x80" alt=""></a>
-                                        </div>
-                                        <div class="instagram-item">
-                                            <a href="#"><img src="http://placehold.it/90x80" alt=""></a>
-                                        </div>
-                                        <div class="instagram-item">
-                                            <a href="#"><img src="http://placehold.it/90x80" alt=""></a>
-                                        </div>
-                                        <div class="instagram-item">
-                                            <a href="#"><img src="http://placehold.it/90x80" alt=""></a>
-                                        </div>
-                                    </div>
+                                    </slick>
                                 </div>
                             </div>
                         </div>
@@ -189,10 +125,9 @@
             <div id="call-to-action">
                 <div class="container">
                     <div class="row">
-                        <p><!--Young people have been 'mis-sold' <em>path to success</em>, business leaders warn.--></p>
-
+                        <p>Desarrolla tu <em>máximo potencial</em> y aplícalo a tu vida diaria.</p>
                         <div class="accent-button">
-                            <a href="courses-list.html">View Courses</a>
+                            <a href="/cursos">Ver nuestros cursos</a>
                         </div>
                     </div>
                 </div>

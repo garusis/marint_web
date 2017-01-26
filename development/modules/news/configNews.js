@@ -15,6 +15,7 @@
                     templateUrl: 'modules/news/templates/list.html',
                     controller: 'ListPublicationController',
                     controllerAs: 'listPCtrl',
+                    params: {new: null},
                     children: [
                         {
                             name: 'show',

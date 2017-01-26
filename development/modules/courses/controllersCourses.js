@@ -8,13 +8,13 @@
 !(function (module) {
 
     var headerSources = {
-        "original": "//localhost/cloud/headers/news.jpg",
-        "thumb_small": "//localhost/cloud/headers/news.jpg",
-        "thumb_medium": "//localhost/cloud/headers/news.jpg",
-        "thumb_large": "//localhost/cloud/headers/news.jpg",
-        "small": "//localhost/cloud/headers/news.jpg",
-        "medium": "//localhost/cloud/headers/news.jpg",
-        "large": "//localhost/cloud/headers/news.jpg"
+        "original": "http://placehold.it/1700x380",
+        "thumb_small": "http://placehold.it/1700x380",
+        "thumb_medium": "http://placehold.it/1700x380",
+        "thumb_large": "http://placehold.it/1700x380",
+        "small": "http://placehold.it/1700x380",
+        "medium": "http://placehold.it/1700x380",
+        "large": "http://placehold.it/1700x380"
     };
 
     ListCourseController.$inject = ['$scope', 'Course', "$state"];
@@ -22,7 +22,7 @@
 
         $scope.optorderby = null;
         $scope.asc = true;
-
+        $scope.submitRequest={};
         $scope.togleAsc = function () {
             $scope.asc = !$scope.asc;
         }
@@ -54,6 +54,8 @@
                     return v;
                 })
                 $scope.courses = data
+                $scope.coursesOpt=data.map(function(v){return {name:v.name,id:v.id}})
+                $scope.submitRequest.course=$scope.coursesOpt[0];
                 $scope.loading = false;
 
             });

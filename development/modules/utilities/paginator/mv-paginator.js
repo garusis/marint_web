@@ -67,6 +67,7 @@
                 scope._data = [];
             }
             //validate page length from attributte
+            scope._pageLength=attrs.pagelength
             if (isNaN(scope._pageLength))
             {
                 scope._pageLength = page_length_default;

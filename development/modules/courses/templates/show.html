@@ -2,13 +2,15 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Single Course</h1>
-                <span>Salvia next level crucifix pickled heirloom synth</span>
+                <h1>{{course.name}}</h1>
+                <span>{{course.description}}</span>
                 <div class="page-list">
                     <ul>
-                        <li class="active"><a href="index.html">Home</a></li>
+                        <li class="active"><a href="index.html">Inicio</a></li>
                         <li><i class="fa fa-angle-right"></i></li>
-                        <li><a href="courses-grid.html">Single Course</a></li>
+                        <li class="active"><a href="/cursos">Cursos</a></li>
+                        <li><i class="fa fa-angle-right"></i></li>
+                        <li><a href="javascript:void(0)">{{course.name}}</a></li>
                     </ul>
                 </div>
             </div>
@@ -30,7 +32,6 @@
                             <div class="item course-item">
                                 <div class="up-content">
                                     <a href="javascript:void(0)"><h4>{{course.name}}</h4></a>
-                                    <p>Plaid you probably haven't heard of them fashion axe meditation</p>
                                     <img ng-src="{{course.instructor.imagePreview.thumb_small}}"
                                          alt="Foto: {{course.instructor.name}}">
                                     <h6>{{course.instructor.name}}</h6>
@@ -107,14 +108,10 @@
             <div class="col-md-4">
                 <div class="course-information">
                     <div class="widget-heading">
-                        <h4>Course Information</h4>
+                        <h4>Información del curso</h4>
                     </div>
                     <ul>
-                        <li><span>Starts:</span>14 November 2015</li>
-                        <li><span>Duration:</span>1 Month / 4 Weeks</li>
-                        <li><span>Study Level:</span>Post Graduate</li>
-                        <li><span>Disipline</span>Account &amp; Finance</li>
-                        <li><span>Price:</span>$45 / month</li>
+                        <li><span>Price:</span>$ {{course.price}}</li>
                     </ul>
                 </div>
                 <div class="related-courses">
@@ -127,18 +124,6 @@
                             <span>John Smith</span>
                             <a href="single-course.html"><h6>History of Art Architecture</h6></a>
                             <p>Price: <em>$39.99</em></p>
-                        </li>
-                        <li>
-                            <a href="single-course.html"><img src="http://placehold.it/70x70" alt=""></a>
-                            <span>John Smith</span>
-                            <a href="single-course.html"><h6>Fashion Buying Managment</h6></a>
-                            <p>Price: <em>$29.99</em></p>
-                        </li>
-                        <li>
-                            <a href="single-course.html"><img src="http://placehold.it/70x70" alt=""></a>
-                            <span>John Smith</span>
-                            <a href="single-course.html"><h6>Electronic Engineering</h6></a>
-                            <p>Price: <em>$19.99</em></p>
                         </li>
                     </ul>
                 </div>
@@ -163,9 +148,9 @@
 <div id="call-to-action">
     <div class="container">
         <div class="row">
-            <p>Young people have been 'mis-sold' <em>path to success</em>, business leaders warn.</p>
+            <p>Desarrolla tu <em>máximo potencial</em> y aplícalo a tu vida diaria.</p>
             <div class="accent-button">
-                <a href="courses-list.html">View Courses</a>
+                <a href="/cursos">Ver nuestros cursos</a>
             </div>
         </div>
     </div>

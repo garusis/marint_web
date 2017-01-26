@@ -47,6 +47,18 @@ p {
   line-height: 24px;
   color: #777;
 }
+.loading{
+    width:100%;
+}
+.loading p 
+{
+    text-align:center;
+}
+.loading p i{
+    color: #a12c2f;
+}
+
+i.fa.fa-spinner.fa-pulse.fa-3x.fa-fw {}
 .site-header {
   border-top: 5px solid #8d2729;
   position: relative;
@@ -2127,6 +2139,11 @@ section.gallery-four .item .thumb-holder:hover .hover-content {
   border: 2px solid #eee;
   margin-left: 370px;
 }
+.courses-list .course-item .down-content p
+{
+  text-align:justify;
+  line-height:23px
+}
 @media (max-width: 991px) {
   .courses-list .course-item .down-content {
     float: none;
@@ -3265,7 +3282,20 @@ section.single-teacher .single-teacher-item .description ul li:last-child {
 .request-information .search-form :-ms-input-placeholder {
   color: #fff;
 }
-.request-information .search-form input {
+.request-information .search-form textarea{
+  padding-top:15px !important
+  
+}
+.request-information .search-form select,
+.request-information .search-form input,
+.request-information .search-form textarea
+{
+  margin-bottom: 20px;
+}
+
+
+.request-information .search-form input,
+.request-information .search-form textarea {
   cursor: text;
   padding: 0px 10px;
   width: 100%;
@@ -3276,6 +3306,7 @@ section.single-teacher .single-teacher-item .description ul li:last-child {
   font-size: 12px;
   color: #fff;
   outline: none;
+  
 }
 .request-information .search-form .select {
   overflow: hidden;
@@ -3516,6 +3547,49 @@ section.single-teacher .single-teacher-item .description ul li:last-child {
   padding-top: 7px;
   padding-bottom: 7px;
   border-left: 3px solid #f5a425;
+}
+
+.recent-news  .news-item h1
+{
+  font-size:19px;
+  width:100%;
+  margin:0px
+
+}
+.recent-news  .news-item
+{
+  margin:11px 17px;
+}
+.recent-news  .news-item p{
+  width:100%;
+  text-align:justify
+
+  
+}
+.recent-news  .news-item ul
+{
+  width:100%;
+  padding:0px;
+  margin:3px 0px 11px 0px;
+  display:block
+  margin-top:3px !important;
+  
+}
+.recent-news  .news-item ul li{
+  font-size:11px;
+  float:left;
+  padding:0px !important;
+  margin:0px 2px!important;
+
+  
+}
+.recent-news  .news-item ul li:last-child:after
+{
+  content:"" !important;
+}
+.recent-news  .news-item ul li:after
+{
+    content: "|"
 }
 .recent-news ul {
   padding: 0px 35px;

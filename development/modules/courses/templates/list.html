@@ -55,11 +55,10 @@
                             <div class="course-items">
                                 <div class="row">
                                     <div ng-show="loading" class="loading">
-                                        <p>
-                                            <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-                                        </p>
+                                        <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
+                                        <p>Cargando</p>
                                     </div>
-                                    <paginator  pagedata="courses" length="10">
+                                    <paginator ng-hide="loading"  pagedata="courses" pagelength="10">
                                         <div class="col-md-12">
                                             <div class="item course-item">
                                                 <a href="javascript:void(0)"
@@ -96,31 +95,19 @@
                         <div class="col-md-4">
                             <div class="request-information">
                                 <div class="widget-heading">
-                                    <h4>Request Information</h4>
+                                    <h4>Contáctanos</h4>
                                 </div>
                                 <div class="search-form">
-                                    <input type="text" id="name" name="s" placeholder="Full Name" value="">
-                                    <input type="text" id="address" name="s" placeholder="E-mail Address" value="">
+                                    <input required  type="text" id="name" name="s" placeholder="Nombre" ng-model="submitRequest.name">
+                                    <input required  type="email" id="address" name="s" placeholder="Email"  ng-model="submitRequest.email">
+                                    <textarea required  rows="5" placeholder="Escríbenos"  ng-model="submitRequest.message">
+                                        
+                                    </textarea>
                                     <div class="select">
-                                        <select name="mark" id="campus">
-                                            <option value="-1">Campus of Interests</option>
-                                            <option>Nearby</option>
-                                            <option>High Classes</option>
-                                            <option>Short Time</option>
-                                            <option>Long Time</option>
-                                        </select>
-                                    </div>
-                                    <div class="select">
-                                        <select name="mark" id="program">
-                                            <option value="-1">Program of Interests</option>
-                                            <option>Wroking Process</option>
-                                            <option>Archivements</option>
-                                            <option>Social</option>
-                                            <option>Profits</option>
-                                        </select>
+                                        <select required ng-model="submitRequest.course" ng-options="c.name for c in coursesOpt track by c.id"></select>
                                     </div>
                                     <div class="accent-button">
-                                        <a href="#">Submit Request</a>
+                                        <a href="#">Enviar</a>
                                     </div>
                                 </div>
                             </div>
