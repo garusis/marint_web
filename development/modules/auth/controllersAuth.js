@@ -46,6 +46,11 @@
             .controller('LogoutController', LogoutController)
             .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', 'Course',"$http",
                 function ($scope, Testimony, PublicPublication, Course,$http) {
+                    
+                    $scope.callback = function () {
+                        alert("asdasd")
+                    }
+                    
                     $scope.mainSliderConfigs = {
                         delay: 6000,
                         startwidth: 1170,

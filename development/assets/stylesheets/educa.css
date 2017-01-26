@@ -2386,6 +2386,11 @@ section.gallery-four .item .thumb-holder:hover .hover-content {
 .single-course .accordions .accordion-section {
   margin-bottom: 1px;
 }
+.single-course .accordions .accordion-section h4
+{
+  margin: 19px 0px !important;
+}
+
 .single-course .accordions .second-accordion-section-title {
   background-color: transparent !important;
   border: 2px solid #eee;
