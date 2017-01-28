@@ -94,9 +94,6 @@
                         </div>
                         <div class="col-md-4">
                             <div class="side-bar">
-                                <div class="search-box">
-                                    <input type="text" class="search" name="s" placeholder="Search..." value="">
-                                </div>
                                 <div class="recent-news">
                                     <div class="widget-heading">
                                         <h4>Publicaciones Recientes</h4>
@@ -104,9 +101,9 @@
                                     <div ng-show="loadingRecentNews" class="loading">
                                         <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
                                     </div>
-                                    <slick settings="::newsCarouselConfig" ng-show="!loadingRecentNews" ng-if="recentNews.length > 0">
+                                    <slick ng-cloak="" settings="::newsCarouselConfig" ng-show="!loadingRecentNews" ng-if="recentNews.length > 0">
                                         <div class="news-item" style="height: 150px" ng-repeat="rn in recentNews">
-                                            <h1 ng-click="showNew(rn)">{{::rn.title|truncate:50:'...':true}}</h1>
+                                            <a href="javascript:void(0)" ng-click="showNew(rn)"><h1>{{::rn.title|truncate:50:'...':true}}</h1></a>
                                             <ul class="info clearfix">
                                                 <li>{{::rn.createdAt|date:'dd/MM/yyyy'}} </li>
                                                 <li>{{::rn.instructor.name}}</li>

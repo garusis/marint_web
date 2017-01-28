@@ -74,7 +74,7 @@
                             </div>
                             <div class="accordions" >
                                 <h4>Videos</h4>
-                                <div class="accordion"  mvonload="callback">
+                                <div class="accordion"  mvonload="callback" compile>
                                     <div class="accordion-section" ng-repeat="m in course.moduleList track by $index">
                                         <a class="accordion-section-title"
                                            ng-class="{'second-accordion-section-title':($index%2==0)}"
@@ -114,30 +114,12 @@
                         <li><span>Price:</span>$ {{course.price}}</li>
                     </ul>
                 </div>
-                <div class="related-courses">
+                <div class="tags" ng-show='course.tags.length>0'>
                     <div class="widget-heading">
-                        <h4>Related Courses</h4>
+                        <h4>Tags</h4>
                     </div>
                     <ul>
-                        <li>
-                            <a href="single-course.html"><img src="http://placehold.it/70x70" alt=""></a>
-                            <span>John Smith</span>
-                            <a href="single-course.html"><h6>History of Art Architecture</h6></a>
-                            <p>Price: <em>$39.99</em></p>
-                        </li>
-                    </ul>
-                </div>
-                <div class="categories">
-                    <div class="widget-heading">
-                        <h4>Categories</h4>
-                    </div>
-                    <ul>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Design</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>International</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Learning</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Read</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Education</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i>Finance</a></li>
+                        <li ng-repeat='c in course.tags'><a href="#">{{c}}</a></li>
                     </ul>
                 </div>
             </div>

@@ -13,16 +13,15 @@
         }
     }
     function pre(scope, element, attrs, controller, transcludeFn, $compile) {
+        if(typeof attrs.compile != 'undefined')
+        {
+            compile($compile, element, attrs)(scope)
+        }
         
-        console.log("pre")
-        compile($compile, element, attrs)(scope)
-        scope._mvoloadstatus=true
+        scope._mvoloadstatus=true;
     }
     function post(scope, element, attrs, controller, transcludeFn) {
-        console.log("pos")
-        console.log(scope,attrs)
         if (typeof scope[attrs.mvonload] === "function") {
-            console.log("is a function")
             scope.$watch("_mvoloadstatus",function(){
                 if(scope._mvoloadstatus)
                 {

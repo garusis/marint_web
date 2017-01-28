@@ -117,7 +117,7 @@
 
         }
         function init() {
-            for (var i = 0; i < 24; i++)
+            for (var i = 0; i < 12; i++)
             {
                 $scope.course.moduleList.push({
                     name: "Lorem ipsum dolor sit amet",
@@ -153,6 +153,7 @@
                 }
             }).$promise.then(function (data) {
                 $scope.course = data;
+                
                 init();
             })
         }
@@ -166,6 +167,7 @@
             $scope.course = $stateParams.course;
             init();
         }
+        console.log($scope.course)
         function initAccordion() {
 
         }

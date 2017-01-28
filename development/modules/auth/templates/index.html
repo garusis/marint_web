@@ -1,5 +1,5 @@
-<div id="boxed-slider" ng-if="!dataUser"  >
-    <div class="slider container">
+<div ng-if="!dataUser"  >
+    <div class="slider">
         <div class="fullwidthbanner-container">
             <div class="fullwidthbanner" revolution="::mainSliderConfigs">
                 <ul>
@@ -145,7 +145,7 @@
                         <slick settings="::newsCarouselConfig" ng-if="publications.list.length > 0">
                             <div class="news-item" style="height: 150px" ng-repeat="item in publications.list">
                                 <a ui-sref="news.show({newId:item.id,title:slug(item.title)})">
-                                    <img src="//localhost/cloud/examples/175_130.png" alt="{{::item.title}}">
+                                    <img src="http://placehold.it/150x150" alt="{{::item.title}}">
                                 </a>
 
                                 <div>
@@ -330,16 +330,16 @@
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1 col-md-12 col-md-offset-0">
                 <div id="owl-courses" owl="::coursesCarouselConfig">
-                    <div class="item course-item" owl-item="" ng-repeat="course in courses">
+                    <div class="item course-item" owl-item="" ng-repeat="course in courses track by $index">
                         <a ui-sref="courses.show({courseId:course.id,title:slug(course.name)})">
-                            <img responsive-image is-thumbnail sources="::course.imagePreview" alt="">
+                            <img src="http://placehold.it/345x235" alt="">
                         </a>
 
-                        <div class="down-content">
+                        <div class="down-content ">
                             <img responsive-image is-thumbnail sources="::course.instructor.imagePreview" alt="">
                             <h6 ng-bind="::course.instructor.name"></h6>
 
-                            <div class="price-red">
+                            <div ng-class="{'price-yellow':$index%2!=0,'price-red':$index%2==0}">
                                 <span>{{::course.price|currency:'$':2}}</span>
 
                                 <div class="base"></div>

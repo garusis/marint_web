@@ -615,8 +615,8 @@ nav.responsive-menu a {
   }
 }
 footer {
-  background-image: url(../images/footer-bg.png);
   width: 100%;
+  background-color: #1f272b;
   background-repeat: repeat-x;
   padding: 90px 0px 0px 0px;
 }
@@ -733,6 +733,7 @@ footer .footer-widget .newsletters input[class='email'] {
 footer .copyright-menu {
   margin-top: 80px;
   border-top: 1px solid #2c3437;
+  background: #fff;
 }
 footer .copyright-menu .copyright-text {
   margin-top: 30px;
@@ -3529,7 +3530,6 @@ section.single-teacher .single-teacher-item .description ul li:last-child {
 }
 .recent-news {
   margin-bottom: 60px;
-  margin-top: 40px;
   border: 2px solid #f2f5f6;
 }
 .recent-news .widget-heading {
@@ -4011,7 +4011,11 @@ section.single-teacher .single-teacher-item .description ul li:last-child {
 }
 .welcome-request {
   padding: 80px 30px;
-  background-color: #1f272b;
+  background-image:url(../images/welcome.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position:center;
+      
 }
 .welcome-request .request-information {
   background-color: transparent;
@@ -4030,12 +4034,32 @@ section.single-teacher .single-teacher-item .description ul li:last-child {
     text-align: center;
   }
 }
-.welcome-request .section-heading h1 {
-  color: #fff;
+.welcome-request .service-item .line-dec
+{
+  background: #f5a425!important;
 }
-.welcome-request .section-heading p {
-  color: #fff;
+.welcome-request .section-heading h1,
+.welcome-request .service-item h4,
+.request-information .widget-heading h4{
+  color: #a12c2f !important;
 }
+.welcome-request .request-information .search-form input, 
+.welcome-request .request-information .search-form textarea,
+.welcome-request .request-information .search-form select,
+.welcome-request .request-information .search-form ::-webkit-input-placeholder
+
+{
+  color:#6f6f6f !important;
+}
+
+
+.welcome-request .section-heading span,
+.welcome-request .section-heading p,
+.welcome-request .service-item p
+{
+  color: #6f6f6f !important;
+}
+
 .welcome-request .request-information {
   padding: 0px!important;
 }
@@ -4049,10 +4073,21 @@ section.single-teacher .single-teacher-item .description ul li:last-child {
   text-align: center;
   line-height: 40px;
   display: inline-block;
-  border: 2px solid #f5a425;
+  border: 2px solid #a12c2f;
   border-radius: 50%;
-  color: #fff;
+  background: #a12c2f;
+  color: #fff !important;
   margin-right: 25px;
+  cursor:pointer;
+  transition:0.3s ease-in-out;
+  -moz-transition:0.3s ease-in-out;
+  -o-transition:0.3s ease-in-out;
+  -webkit-transition:0.3s ease-in-out;
+}
+.welcome-request .service-item i:hover
+{
+  background-color:#f5a425;
+  border-color:#f5a425;
 }
 .welcome-request .service-item h4 {
   margin-top: 0px;

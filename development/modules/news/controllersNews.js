@@ -16,21 +16,21 @@
         "medium": "http://placehold.it/1700x380",
         "large": "http://placehold.it/1700x380"
     };
-
+    var newsCarouselConfig = {
+        enabled: true,
+        autoplay: true,
+        draggable: false,
+        autoplaySpeed: 5000,
+        speed: 300,
+        infinite: true,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        vertical: true,
+        pauseOnHover: true
+    };
     var ListPublicationController = function ($scope, PublicPublication, $state) {
         $scope.headerSources = headerSources;
-        $scope.newsCarouselConfig = {
-            enabled: true,
-            autoplay: true,
-            draggable: false,
-            autoplaySpeed: 5000,
-            speed: 300,
-            infinite: true,
-            slidesToShow: 2,
-            slidesToScroll: 1,
-            vertical: true,
-            pauseOnHover: true
-        };
+        $scope.newsCarouselConfig = newsCarouselConfig;
 
         $scope.optorderby = "";
         $scope.loading = true;
@@ -42,7 +42,7 @@
         }
 
         $scope.loadnews = function () {
-            var order = "title "
+            var order = "publishedAt "
             if ($scope.optorderby.length > 0)
             {
                 order = $scope.optorderby
@@ -89,7 +89,7 @@
             }
             $state.go("news.show", aux)
         }
-        
+
         $scope.loadnews();
         $scope.loadRecentNews()
 
@@ -100,7 +100,9 @@
     var ShowPublicPublicationController = function ($scope, $stateParams, $location, PublicPublication) {
         $scope.headerSources = headerSources;
         $scope.location = $location.absUrl();
-
+        $scope.loadingRecentNews = true;
+        $scope.newsCarouselConfig = newsCarouselConfig;
+        
         if (!$stateParams.new)
         {
             PublicPublication.findOne({
@@ -115,6 +117,25 @@
         {
             $scope.new = $stateParams.new
         }
+
+        $scope.loadRecentNews = function () {
+            PublicPublication.find({
+                filter: {
+                    where: {
+                        isPublished: true
+                    },
+                    order: "publishedAt DESC",
+                    limit: 10,
+                    include: ['instructor']
+                }
+            }).$promise.then(function (data) {
+                $scope.recentNews = data;
+                $scope.loadingRecentNews = false;
+                console.log($scope.news)
+            })
+        }
+
+        $scope.loadRecentNews()
 
 
 
