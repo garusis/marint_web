@@ -100,13 +100,7 @@
                 e.preventDefault();
             });
         }
-        function init_slider()
-        {
-            $('.courses-slider').flexslider({
-                animation: "slide",
-                controlNav: "thumbnails"
-            });
-        }
+        
         function sortModules() {
 
             for (var i = 0; i < $scope.course.moduleList.length; i = i + 4)
@@ -137,7 +131,6 @@
         }
         
         $scope.callback=function(){
-            init_slider()
             init_accordion();
         }
         $scope.showVideo=function(video)

@@ -35,7 +35,7 @@
         $scope.optorderby = "";
         $scope.loading = true;
         $scope.loadingRecentNews = true;
-        $scope.asc = true;
+        $scope.asc = false;
         $scope.submitRequest = {};
         $scope.togleAsc = function () {
             $scope.asc = !$scope.asc;
@@ -52,6 +52,7 @@
                 filter: {
                     where: {isPublished: true},
                     order: order,
+                    include: ['instructor']
                 }
             }).$promise.then(function (data) {
                 $scope.news = data;
@@ -97,7 +98,7 @@
     };
     ListPublicationController.$inject = ['$scope', 'PublicPublication', "$state"];
 
-    var ShowPublicPublicationController = function ($scope, $stateParams, $location, PublicPublication) {
+    var ShowPublicPublicationController = function ($scope, $stateParams, $location, PublicPublication,$state) {
         $scope.headerSources = headerSources;
         $scope.location = $location.absUrl();
         $scope.loadingRecentNews = true;
@@ -134,13 +135,21 @@
                 console.log($scope.news)
             })
         }
-
+        $scope.showNew = function (_new)
+        {
+            var aux = {
+                title: _new.title,
+                newId: _new.newId,
+                new : _new
+            }
+            $state.go("news.show", aux)
+        }
         $scope.loadRecentNews()
 
 
 
     };
-    ShowPublicPublicationController.$inject = ['$scope', '$stateParams', '$location', 'PublicPublication'];
+    ShowPublicPublicationController.$inject = ['$scope', '$stateParams', '$location', 'PublicPublication','$state'];
 
     module
             .controller('ListPublicationController', ListPublicationController)
