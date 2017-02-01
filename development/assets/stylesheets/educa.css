@@ -2734,6 +2734,21 @@ section.single-teacher .single-teacher-item .description ul {
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
 }
+section.single-teacher .single-teacher-item .description .courses
+{
+  margin-bottom: 17px;
+}
+
+section.single-teacher .single-teacher-item .description .courses .image
+{
+  padding-left: 0px !important;
+}
+section.single-teacher .single-teacher-item .description .courses h3
+{
+    margin-top:0px;
+    margin-bottom:11px;
+    font-size: 17px;
+}
 @media (max-width: 991px) {
   section.single-teacher .single-teacher-item .description ul {
     margin-top: 40px;

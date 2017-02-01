@@ -1,0 +1,92 @@
+<div class="page-heading teachers-heading">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{instructor.name}}</h1>
+                <span>{{instructor.description| truncate: 100:"..."}}</span>
+                <div class="page-list">
+                    <ul>
+                        <li class="active"><a href="/">Inicio</a></li>
+                        <li><i class="fa fa-angle-right"></i></li>
+                        <li><a href="/instructores">Nuestros Maestros</a></li>
+                        <li><i class="fa fa-angle-right"></i></li>
+                        <li><a href="javascript:void(0)">{{instructor.name| truncate:25:"..."}}</a></li>
+                    </ul>
+                </div>
+            </div>	
+        </div>
+    </div>
+</div>
+
+<section class="single-teacher">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="single-teacher-item">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img src="http://torchtemplates.net/educa/assets/images/single-teacher.jpg" alt="">
+                            <div class="contact-form">
+                                <h4>Contáctame</h4>
+                                <input ng-model="contactData.name" type="text"  placeholder="Nombre completo"/>
+                                <input ng-model="contactData.studentId" type="text"  placeholder="Codigo de alumno">
+                                <textarea ng-model="contactData.message" class="message" placeholder="Mensaje"></textarea>
+                                <div class="accent-button">
+                                    <a href="javascript:void(0)" ng-click="sendMessage(contactData)">Send Message</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="right-info">
+                                <div class="name">
+                                    <h2>{{instructor.name}}</h2>
+                                    <img src="http://torchtemplates.net/educa/assets/images/line-dec.png" alt="">
+                                </div>
+                                <div class="icons">
+                                    <ul ng-show="instructor.socialNetworks">
+                                        <li><a href="{{instructor.socialNetworks.facebook}}"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a href="{{instructor.socialNetworks.twitter}}"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a href="{{instructor.socialNetworks.linkedin}}"><i class="fa fa-linkedin"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="description">
+                                    {{instructor.description}}
+                                    <ul ng-show="instructor.contactInfo">
+                                        <li><i class="fa fa-phone"></i>{{instructor.contactInfo.telphone}}</li>
+                                        <li><i class="fa fa-envelope"></i><a href="#"> {{instructor.contactInfo.email}}</a></li>
+                                        <li><i class="fa fa-skype"></i><a href="#">{{instructor.contactInfo.skype}}</a></li>
+                                    </ul>
+                                </div>
+                                <div class="description">
+                                    <h3>Cursos dictados</h3>
+                                    <div class="courses clearfix" ng-show="courses" ng-repeat="c in courses">
+                                        <div class="image col-md-3">
+                                            <img src="http://placehold.it/250x250">
+                                        </div>
+                                        <div class="col-md-9">
+                                            <h3><a ui-sref="courses.show({title:c.name,courseId:c.id,course:c})">{{c.name}}</a></h3>
+                                            <p class="text-justify">{{c.description | truncate:100:"..."}}</p>
+                                            <a ui-sref="courses.show({title:c.name,courseId:c.id,course:c})">ver Curso</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="call-to-action">
+    <div class="container">
+        <div class="row">
+            <p>Desarrolla tu <em>máximo potencial</em> y aplícalo a tu vida diaria.</p>
+            <div class="accent-button">
+                <a href="/cursos">Ver nuestros cursos</a>
+            </div>
+        </div>
+    </div>
+</div>
