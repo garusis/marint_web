@@ -44,13 +44,13 @@
     module
             .controller('LoginController', LoginController)
             .controller('LogoutController', LogoutController)
-            .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', 'Course',"$http",
-                function ($scope, Testimony, PublicPublication, Course,$http) {
-                    
+            .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', 'Course', "$http",
+                function ($scope, Testimony, PublicPublication, Course, $http) {
+
                     $scope.callback = function () {
                         alert("asdasd")
                     }
-                    
+
                     $scope.mainSliderConfigs = {
                         delay: 6000,
                         startwidth: 1170,
@@ -143,25 +143,42 @@
                         }
                     });
                     $scope.publications = {
-                        limit: 10,
-                        orderBy: 'createAt',
-                        orderDirection: 'DESC'
+                        list: []
                     };
 
-                    this.loadPublications = function (page) {
-                        $scope.publications.count = PublicPublication.count();
-                        $scope.publications.list = PublicPublication.find({
+                    this.loadPublications = function () {
+                        PublicPublication.find({
                             filter: {
-                                skip: (page - 1) * $scope.publications.limit,
-                                limit: $scope.publications.limit,
-                                order: $scope.publications.orderBy + ' ' + $scope.publications.orderDirection,
-                                fields: {content: false},
+                                where: {
+                                    isPublished: true
+                                },
+                                order: "publishedAt DESC",
+                                limit: 10,
                                 include: ['instructor']
                             }
-                        });
-                        $scope.publications.page = page;
+                        }).$promise.then(function (data) {
+                            $scope.publications.list = data;
+                            $scope.publications.list =
+                                    $scope.publications.list.map(function (v,index) {
+                                        v.images={
+                                            _150x150:"http://placehold.it/150x150",
+                                            _370x220:"http://placehold.it/370x220",
+                                            _770x410:"http://placehold.it/770x410",
+                                        }
+                                        if (index < 20)
+                                        {
+                                            v.images = {
+                                                _150x150: "assets/images/publicaciones/posts/150x150/"+(index+1)+".jpg",
+                                                _370x220: "assets/images/publicaciones/posts/370x220/"+(index+1)+".jpg",
+                                                _770x410: "assets/images/publicaciones/posts/770x410/"+(index+1)+".jpg",
+                                            }
+                                        }
+                                        console.log(v)
+                                        return v;
+                                    })
+                        })
                     };
 
-                    this.loadPublications(1);
+                    this.loadPublications();
                 }]);
 })(angular.module('jg.marlininternacional.auth'));

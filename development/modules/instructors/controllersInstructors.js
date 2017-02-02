@@ -8,8 +8,17 @@
 !(function (module) {
 
 
-
+    var headerSources = {
+        "original": "assets/images/instructores/banner.jpg",
+        "thumb_small": "assets/images/instructores/banner.jpg",
+        "thumb_medium": "assets/images/instructores/banner.jpg",
+        "thumb_large": "assets/images/instructores/banner.jpg",
+        "small": "assets/images/instructores/banner.jpg",
+        "medium": "assets/images/instructores/banner.jpg",
+        "large": "assets/images/instructores/banner.jpg"
+    };
     var ListInstructorsController = function ($scope, Instructors) {
+        $scope.headerSources = headerSources;
         Instructors.find({})
                 .$promise
                 .then(function (data) {
@@ -19,7 +28,8 @@
     };
     ListInstructorsController.$inject = ['$scope', "Instructor"];
 
-    var ShowInstructorsController = function ($scope, $stateParams, Instructors,Course) {
+    var ShowInstructorsController = function ($scope, $stateParams, Instructors, Course) {
+        $scope.headerSources = headerSources;
         console.log($stateParams)
         $scope.instructor = $stateParams.instructor;
 
@@ -27,12 +37,12 @@
         function loadCourses()
         {
             Course.find({
-                where:{
-                    instructorId:$scope.instructor.id
+                where: {
+                    instructorId: $scope.instructor.id
                 },
-                limit:1
-            }).$promise.then(function(data){
-                $scope.courses=data;
+                limit: 1
+            }).$promise.then(function (data) {
+                $scope.courses = data;
             });
         }
         function init() {
@@ -46,7 +56,7 @@
                     $scope.instructor = data;
                     loadCourses();
                 })
-            }else
+            } else
             {
                 loadCourses();
             }
@@ -54,7 +64,7 @@
         init()
 
     };
-    ShowInstructorsController.$inject = ['$scope', '$stateParams', "Instructor","Course"];
+    ShowInstructorsController.$inject = ['$scope', '$stateParams', "Instructor", "Course"];
 
     module
             .controller('ListInstructorsController', ListInstructorsController)

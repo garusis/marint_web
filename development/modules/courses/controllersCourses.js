@@ -8,13 +8,13 @@
 !(function (module) {
 
     var headerSources = {
-        "original": "http://placehold.it/1700x380",
-        "thumb_small": "http://placehold.it/1700x380",
-        "thumb_medium": "http://placehold.it/1700x380",
-        "thumb_large": "http://placehold.it/1700x380",
-        "small": "http://placehold.it/1700x380",
-        "medium": "http://placehold.it/1700x380",
-        "large": "http://placehold.it/1700x380"
+        "original": "assets/images/cursos/banner.jpg",
+        "thumb_small": "assets/images/cursos/banner.jpg",
+        "thumb_medium": "assets/images/cursos/banner.jpg",
+        "thumb_large": "assets/images/cursos/banner.jpg",
+        "small": "assets/images/cursos/banner.jpg",
+        "medium": "assets/images/cursos/banner.jpg",
+        "large": "assets/images/cursos/banner.jpg"
     };
 
     ListCourseController.$inject = ['$scope', 'Course', "$state"];

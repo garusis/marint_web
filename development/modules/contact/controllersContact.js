@@ -6,10 +6,18 @@
  */
 ;
 !(function (module) {
-
+    var headerSources = {
+        "original": "assets/images/contactenos/banner.jpg",
+        "thumb_small": "assets/images/contactenos/banner.jpg",
+        "thumb_medium": "assets/images/contactenos/banner.jpg",
+        "thumb_large": "assets/images/contactenos/banner.jpg",
+        "small": "assets/images/contactenos/banner.jpg",
+        "medium": "assets/images/contactenos/banner.jpg",
+        "large": "assets/images/contactenos/banner.jpg"
+    };
     contactController.$inject = ["$scope"]
     function contactController($scope) {
-
+        $scope.headerSources = headerSources;
         document.getElementById("scriptmap")
                 .addEventListener("load", function () {
                     function initialize() {
@@ -29,7 +37,7 @@
 
     maestrosController.$inject = ["$scope"]
     function maestrosController($scope) {
-
+        $scope.headerSources = headerSources;
     }
     module.controller('ContactController', contactController)
             .controller('MaestrosController', maestrosController)

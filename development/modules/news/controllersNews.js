@@ -8,13 +8,13 @@
 !(function (module) {
 
     var headerSources = {
-        "original": "http://placehold.it/1700x380",
-        "thumb_small": "http://placehold.it/1700x380",
-        "thumb_medium": "http://placehold.it/1700x380",
-        "thumb_large": "http://placehold.it/1700x380",
-        "small": "http://placehold.it/1700x380",
-        "medium": "http://placehold.it/1700x380",
-        "large": "http://placehold.it/1700x380"
+        "original": "assets/images/publicaciones/banner.jpg",
+        "thumb_small": "assets/images/publicaciones/banner.jpg",
+        "thumb_medium": "assets/images/publicaciones/banner.jpg",
+        "thumb_large": "assets/images/publicaciones/banner.jpg",
+        "small": "assets/images/publicaciones/banner.jpg",
+        "medium": "assets/images/publicaciones/banner.jpg",
+        "large": "assets/images/publicaciones/banner.jpg"
     };
     var newsCarouselConfig = {
         enabled: true,
@@ -56,6 +56,24 @@
                 }
             }).$promise.then(function (data) {
                 $scope.news = data;
+                $scope.news =
+                        $scope.news.map(function (v, index) {
+                            v.images = {
+                                _150x150: "http://placehold.it/150x150",
+                                _370x220: "http://placehold.it/370x220",
+                                _770x410: "http://placehold.it/770x410",
+                            }
+                            if (index < 20)
+                            {
+                                v.images = {
+                                    _150x150: "assets/images/publicaciones/posts/150x150/" + (index + 1) + ".jpg",
+                                    _370x220: "assets/images/publicaciones/posts/370x220/" + (index + 1) + ".jpg",
+                                    _770x410: "assets/images/publicaciones/posts/770x410/" + (index + 1) + ".jpg",
+                                }
+                            }
+                            console.log(v)
+                            return v;
+                        })
                 $scope.loading = false;
                 console.log($scope.news)
             })
@@ -76,7 +94,6 @@
             }).$promise.then(function (data) {
                 $scope.recentNews = data;
                 $scope.loadingRecentNews = false;
-                console.log($scope.news)
             })
         }
 
@@ -98,12 +115,12 @@
     };
     ListPublicationController.$inject = ['$scope', 'PublicPublication', "$state"];
 
-    var ShowPublicPublicationController = function ($scope, $stateParams, $location, PublicPublication,$state) {
+    var ShowPublicPublicationController = function ($scope, $stateParams, $location, PublicPublication, $state) {
         $scope.headerSources = headerSources;
         $scope.location = $location.absUrl();
         $scope.loadingRecentNews = true;
         $scope.newsCarouselConfig = newsCarouselConfig;
-        
+
         if (!$stateParams.new)
         {
             PublicPublication.findOne({
@@ -149,7 +166,7 @@
 
 
     };
-    ShowPublicPublicationController.$inject = ['$scope', '$stateParams', '$location', 'PublicPublication','$state'];
+    ShowPublicPublicationController.$inject = ['$scope', '$stateParams', '$location', 'PublicPublication', '$state'];
 
     module
             .controller('ListPublicationController', ListPublicationController)

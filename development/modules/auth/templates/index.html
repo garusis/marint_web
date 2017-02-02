@@ -144,8 +144,8 @@
                     <div class="col-md-12">
                         <slick settings="::newsCarouselConfig" ng-if="publications.list.length > 0">
                             <div class="news-item" style="height: 150px" ng-repeat="item in publications.list">
-                                <a ui-sref="news.show({newId:item.id,title:slug(item.title)})">
-                                    <img src="http://placehold.it/150x150" alt="{{::item.title}}">
+                                <a ui-sref="news.show({new:item,newId:item.id,title:slug(item.title)})">
+                                    <img ng-src="{{item.images._150x150}}" alt="{{::item.title}}">
                                 </a>
 
                                 <div>
@@ -156,7 +156,7 @@
                                         </li>
                                         <li>2 Comments</li>
                                     </ul>
-                                    <a ui-sref="news.show({newId:item.id,title:slug(item.title)})">
+                                    <a ui-sref="news.show({new:item,newId:item.id,title:slug(item.title)})">
                                         <h4>{{::item.title|truncate:50:'...':true}}</h4>
 
                                         <p style="text-align:justify;overflow-wrap: break-word;text-overflow: ellipsis">
