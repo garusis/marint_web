@@ -38,6 +38,6 @@
     'lbServices', 'ui.router', 'ui.router.stateHelper', 'ngStorage', 'slickCarousel', 'angular.filter', 'ngSanitize',
     'djds4rce.angular-socialshare',
     'jg.originsManager', 'jg.responsiveImages', 'jg.marlininternacional.auth', 'jg.marlininternacional.utilities',
-    'jg.marlininternacional.news','jg.marlininternacional.instructors', 'jg.marlininternacional.contact', 'jg.overlay', 'jg.marlininternacional.courses', 'jg.marlininternacional.courses.modules', 'com.alphonsegs.paginator', 'com.alphonsegs.mvonload'
+    'jg.marlininternacional.news','jg.marlininternacional.instructors', 'jg.marlininternacional.contact', 'jg.overlay', 'jg.marlininternacional.courses', 'jg.marlininternacional.courses.modules', 'com.alphonsegs.paginator', 'com.alphonsegs.mvonload','ngDialog'
 
 ]));

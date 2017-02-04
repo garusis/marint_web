@@ -323,11 +323,12 @@
             <div class="section-heading text-center">
                 <h1>Cursos Populares</h1>
                 <img src="assets/images/line-dec.png" alt="">
-
                 <p ng-if="!dataUser">Nuestros cursos te enseñaran a tener éxito y cambiar vidas</p>
             </div>
         </div>
         <div class="row">
+            <a href="javascript:void(0)" ng-click="showModal()" >asdasdasd</a>
+            
             <div class="col-lg-10 col-lg-offset-1 col-md-12 col-md-offset-0">
                 <div id="owl-courses" owl="::coursesCarouselConfig">
                     <div class="item course-item" owl-item="" ng-repeat="course in courses track by $index">
@@ -456,3 +457,4 @@
         </div>
     </div>
 </section>
+

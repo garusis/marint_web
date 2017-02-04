@@ -44,11 +44,13 @@
     module
             .controller('LoginController', LoginController)
             .controller('LogoutController', LogoutController)
-            .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', 'Course', "$http",
-                function ($scope, Testimony, PublicPublication, Course, $http) {
+            .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', 'Course', "$http", "ngDialog",
+                function ($scope, Testimony, PublicPublication, Course, $http, ngDialog) {
 
-                    $scope.callback = function () {
-                        alert("asdasd")
+                    $scope.showModal = function () {
+                        ngDialog.open({
+                            template: 'modules/courses/templates/modals/video.html',
+                            className: 'ngdialog-theme-default videoModal'})
                     }
 
                     $scope.mainSliderConfigs = {
@@ -159,18 +161,18 @@
                         }).$promise.then(function (data) {
                             $scope.publications.list = data;
                             $scope.publications.list =
-                                    $scope.publications.list.map(function (v,index) {
-                                        v.images={
-                                            _150x150:"http://placehold.it/150x150",
-                                            _370x220:"http://placehold.it/370x220",
-                                            _770x410:"http://placehold.it/770x410",
+                                    $scope.publications.list.map(function (v, index) {
+                                        v.images = {
+                                            _150x150: "http://placehold.it/150x150",
+                                            _370x220: "http://placehold.it/370x220",
+                                            _770x410: "http://placehold.it/770x410",
                                         }
                                         if (index < 20)
                                         {
                                             v.images = {
-                                                _150x150: "assets/images/publicaciones/posts/150x150/"+(index+1)+".jpg",
-                                                _370x220: "assets/images/publicaciones/posts/370x220/"+(index+1)+".jpg",
-                                                _770x410: "assets/images/publicaciones/posts/770x410/"+(index+1)+".jpg",
+                                                _150x150: "assets/images/publicaciones/posts/150x150/" + (index + 1) + ".jpg",
+                                                _370x220: "assets/images/publicaciones/posts/370x220/" + (index + 1) + ".jpg",
+                                                _770x410: "assets/images/publicaciones/posts/770x410/" + (index + 1) + ".jpg",
                                             }
                                         }
                                         console.log(v)
