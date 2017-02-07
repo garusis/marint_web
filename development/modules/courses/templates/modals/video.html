@@ -7,8 +7,8 @@
     </div>
     <div class="video_sidebar">
         <div class="flex-fix"></div>
-        <div class="comments">
-            <div class="text_container" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12]">
+        <div id="commentsVideoContainer" class="comments" mvonload="callbackvideo" compile>
+            <div class="text_container" ng-repeat="i in x">
                 <div class="imageUser">
                     <img src="http://placehold.it/50x50">
                 </div>

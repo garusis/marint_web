@@ -18,21 +18,13 @@
     contactController.$inject = ["$scope"]
     function contactController($scope) {
         $scope.headerSources = headerSources;
-        document.getElementById("scriptmap")
-                .addEventListener("load", function () {
-                    function initialize() {
-                        var mapCanvas = document.getElementById('map');
-                        var mapOptions = {
-                            center: new google.maps.LatLng(44.5403, -78.5463),
-                            zoom: 8,
-                            scrollwheel: false,
-                            mapTypeId: google.maps.MapTypeId.ROADMAP
-                        }
-                        var map = new google.maps.Map(mapCanvas, mapOptions)
-                    }
-                    google.maps.event.addDomListener(window, 'load', initialize);
-                })
-
+        $scope.mapOptions = {
+            center: new google.maps.LatLng(44.5403, -78.5463),
+            zoom: 8,
+            scrollwheel: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(document.getElementById('map'), $scope.mapOptions)
     }
 
     maestrosController.$inject = ["$scope"]

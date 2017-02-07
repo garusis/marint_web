@@ -22,7 +22,7 @@
 
         $scope.optorderby = null;
         $scope.asc = true;
-        $scope.submitRequest={};
+        $scope.submitRequest = {};
         $scope.togleAsc = function () {
             $scope.asc = !$scope.asc;
         }
@@ -54,8 +54,10 @@
                     return v;
                 })
                 $scope.courses = data
-                $scope.coursesOpt=data.map(function(v){return {name:v.name,id:v.id}})
-                $scope.submitRequest.course=$scope.coursesOpt[0];
+                $scope.coursesOpt = data.map(function (v) {
+                    return {name: v.name, id: v.id}
+                })
+                $scope.submitRequest.course = $scope.coursesOpt[0];
                 $scope.loading = false;
 
             });
@@ -71,8 +73,8 @@
 
     }
 
-    ShowCourseController.$inject = ['$scope', '$stateParams', '$location', 'Course'];
-    function ShowCourseController($scope, $stateParams, $location, Course) {
+    ShowCourseController.$inject = ['$scope', '$stateParams', '$location', 'Course',"ngDialog"];
+    function ShowCourseController($scope, $stateParams, $location, Course,ngDialog) {
         $scope.headerSources = headerSources;
         $scope.location = $location.absUrl();
         $scope.modulos = [];
@@ -100,7 +102,7 @@
                 e.preventDefault();
             });
         }
-        
+
         function sortModules() {
 
             for (var i = 0; i < $scope.course.moduleList.length; i = i + 4)
@@ -126,16 +128,29 @@
                     ]})
             }
             sortModules();
-            
+
             $scope.loading = false;
         }
-        
-        $scope.callback=function(){
+
+        $scope.callback = function () {
             init_accordion();
         }
-        $scope.showVideo=function(video)
+        $scope.showVideo = function (video)
         {
+            var controller=function($scope,$element){
+                $scope.x=[1,2,3,4,5,6,7,8,9,10,11,12]
+                $scope.callbackvideo=function(){
+                    var aux=document.getElementById("commentsVideoContainer");
+                    aux.scrollTop = aux.scrollHeight;
+                }
+            }
+            controller.$inject=["$scope","$element"]
             
+            ngDialog.open({
+                template: 'modules/courses/templates/modals/video.html',
+                className: 'ngdialog-theme-default videoModal',
+                controller: controller
+            })
         }
         $scope.loadCourse = function () {
 
@@ -146,7 +161,7 @@
                 }
             }).$promise.then(function (data) {
                 $scope.course = data;
-                
+
                 init();
             })
         }

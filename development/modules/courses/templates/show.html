@@ -47,20 +47,9 @@
                                 <h4>Descripcion</h4>
                                 <p class="text-justify">{{course.description}}</p>
                             </div>
-                            <div ng-show="modulos.length > 0" class="topics">
-                                <h4>Modulos del curso:</h4>
-                                <div class="row">
-                                    <div ng-init="$colIndex = $index" class="col-md-4" ng-repeat="modulecol in modulos track by $index">
-                                        <ul>
-                                            <li ng-init="$i = $index + ($colIndex * 4)  + 1" ng-repeat="m in modulecol track by $index">
-                                                <i class="fa fa-check"></i>{{($i) + "-" + m.name}}
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+                            
                             <div class="accordions" >
-                                <h4>Videos</h4>
+                                <h4>Módulos del curso:</h4>
                                 <div class="accordion"  mvonload="callback" compile>
                                     <div class="accordion-section" ng-repeat="m in course.moduleList track by $index">
                                         <a class="accordion-section-title"
@@ -76,7 +65,7 @@
                                         <div id="accordion-{{$index}}" class="accordion-section-content">
                                             <p>{{m.description}}</p>
                                             <div ng-show="m.videoList.length>0">
-                                                <h4>Videos de este curso:</h4>
+                                                <h4>Videos de este módulo:</h4>
                                                 <ul class="list-unstyled">
                                                     <li ng-repeat="v in m.videoList track by $index">
                                                         <a href="javascript:void(0)" ng-click="showVideo(v)"> {{$index}} - {{v.title}}</a>

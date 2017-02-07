@@ -44,15 +44,8 @@
     module
             .controller('LoginController', LoginController)
             .controller('LogoutController', LogoutController)
-            .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', 'Course', "$http", "ngDialog",
-                function ($scope, Testimony, PublicPublication, Course, $http, ngDialog) {
-
-                    $scope.showModal = function () {
-                        ngDialog.open({
-                            template: 'modules/courses/templates/modals/video.html',
-                            className: 'ngdialog-theme-default videoModal'})
-                    }
-
+            .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', 'Course', "$http",
+                function ($scope, Testimony, PublicPublication, Course, $http ) {
                     $scope.mainSliderConfigs = {
                         delay: 6000,
                         startwidth: 1170,
