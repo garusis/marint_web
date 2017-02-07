@@ -2114,23 +2114,34 @@ section.gallery-four .item .thumb-holder:hover .hover-content {
     }
     .video_sidebar
     {
+        height:100%;
+        max-height:100%;
         position:absolute;
-        height: 100%;
+        overflow:hidden;
+        
+    }
+    .video_sidebar.hidden;
+    {
+        max-height:0%;
+        overflow:hidden;
+        -webkit-transition: max-height 0.8s;
+	   -moz-transition: max-height 0.8s;
+	   transition: max-height 0.8s;
     }
     .video_sidebar .comments
     {
       flex-grow: 3 !important;
-      max-height:100%;
+      
     }
     .video_sidebar .message_container
     {
-        flex-grow: 1 !important;
+        /* flex-grow: 1 !important; */
     }
     
-    .video_sidebar.show
+    
+    .video_sidebar .message_container textarea
     {
-        flex:1;
-        
+        margin:11px 11px
         
     }
 
