@@ -2114,7 +2114,8 @@ section.gallery-four .item .thumb-holder:hover .hover-content {
     }
     .video_sidebar
     {
-        /* position:absolute; */
+        position:absolute;
+        height: 100%;
     }
     .video_sidebar .comments
     {
