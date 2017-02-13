@@ -2140,6 +2140,7 @@ section.gallery-four .item .thumb-holder:hover .hover-content {
     z-index: 1;
     background: rgba(0, 0, 0, 0.64);
     opacity:0;
+    cursor: pointer;
 }
 
 .video_container .video_overlay .overlay:hover
