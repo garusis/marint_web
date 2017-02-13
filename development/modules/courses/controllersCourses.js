@@ -73,8 +73,8 @@
 
     }
 
-    ShowCourseController.$inject = ['$scope', '$stateParams', '$location', 'Course',"ngDialog"];
-    function ShowCourseController($scope, $stateParams, $location, Course,ngDialog) {
+    ShowCourseController.$inject = ['$scope', '$stateParams', '$location', 'Course', "ngDialog"];
+    function ShowCourseController($scope, $stateParams, $location, Course, ngDialog) {
         $scope.headerSources = headerSources;
         $scope.location = $location.absUrl();
         $scope.modulos = [];
@@ -137,15 +137,24 @@
         }
         $scope.showVideo = function (video)
         {
-            var controller=function($scope,$element){
-                $scope.x=[1,2,3,4,5,6,7,8,9,10,11,12]
-                $scope.callbackvideo=function(){
-                    var aux=document.getElementById("commentsVideoContainer");
+            var controller = function (s, e) {
+                s.x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                s.callbackvideo = function () {
+                    var aux = document.getElementById("commentsVideoContainer");
                     aux.scrollTop = aux.scrollHeight;
                 }
+                s.isStoped = true;
+                s.isFullScreen = false;
+                s.pause = function () {
+                    s.isStoped = !s.isStoped;
+                }
+                s.expand = function () {
+                    s.isFullScreen = !s.isFullScreen;
+                }
+
             }
-            controller.$inject=["$scope","$element"]
-            
+            controller.$inject = ["$scope", "$element"]
+
             ngDialog.open({
                 template: 'modules/courses/templates/modals/video.html',
                 className: 'ngdialog-theme-default videoModal',
