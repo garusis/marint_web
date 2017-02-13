@@ -44,8 +44,36 @@
     module
             .controller('LoginController', LoginController)
             .controller('LogoutController', LogoutController)
-            .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', 'Course', "$http",
-                function ($scope, Testimony, PublicPublication, Course, $http ) {
+            .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', 'Course', "ngDialog",
+                function ($scope, Testimony, PublicPublication, Course, ngDialog) {
+
+                    $scope.showVideo = function (video)
+                    {
+                        var controller = function (s, e) {
+                            s.x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                            s.callbackvideo = function () {
+                                var aux = document.getElementById("commentsVideoContainer");
+                                aux.scrollTop = aux.scrollHeight;
+                            }
+                            s.isStoped = true;
+                            s.isFullScreen = false;
+                            s.pause = function () {
+                                s.isStoped = !s.isStoped;
+                            }
+                            s.expand = function () {
+                                s.isFullScreen = !s.isFullScreen;
+                            }
+
+                        }
+                        controller.$inject = ["$scope", "$element"]
+
+                        ngDialog.open({
+                            template: 'modules/courses/templates/modals/video.html',
+                            className: 'ngdialog-theme-default videoModal',
+                            controller: controller
+                        })
+                    }
+
                     $scope.mainSliderConfigs = {
                         delay: 6000,
                         startwidth: 1170,
