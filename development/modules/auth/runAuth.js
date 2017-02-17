@@ -7,7 +7,8 @@
 ;
 !(function (module) {
     module
-        .run(['$rootScope', '$state', 'LoopBackAuth', 'AppUser', function ($rootScope, $state, Auth, User) {
+        .run(['$rootScope', '$state', 'LoopBackAuth', 'AppUser','authmodule',
+    function ($rootScope, $state, Auth, User) {
             $rootScope.$on('jg.marlininternacional::router::default', function () {
                 $state.go('index', {}, {reload: true});
             });

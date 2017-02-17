@@ -202,7 +202,7 @@
 
             }
 
-            item.setAttribute("ng-repeat", "$paginator_item in _page")
+            item.setAttribute("ng-repeat", "$paginator_item in _page track by $index")
             var html = "<ul class='paginator'>";
             html += "<li ng-click=\"first()\"><a href=\"javascript:void(0)\">" + paginator_label_first + "</a></li>"
             html += "<li ng-click=\"before()\"><a href=\"javascript:void(0)\">" + paginator_label_before + "</a></li>"

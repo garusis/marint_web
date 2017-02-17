@@ -3,7 +3,6 @@ ul.paginator
 {
     margin: 13px 15px;
     list-style: none;
-    border: 1px solid #d8d8d8;
     float: left;
     padding: 0;
 }
@@ -20,8 +19,9 @@ ul.paginator li:first-child
 ul.paginator li{
     float:left;
     padding:7px 11px;
-    border-left: 1px solid #d8d8d8;
     cursor: pointer;
+    margin-right: 10px;
+    box-shadow: 3px 2px 5px rgba(0, 0, 0, 0.07);
 }
 ul.paginator li.active
 {

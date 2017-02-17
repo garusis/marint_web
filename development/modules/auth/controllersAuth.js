@@ -7,8 +7,8 @@
 ;
 !(function (module) {
 
-    LoginController.$inject = ['$scope', '$rootScope', 'AppUser'];
-    function LoginController($scope, $rootScope, User) {
+    LoginController.$inject = ['$scope', '$rootScope', 'AppUser', '$state'];
+    function LoginController($scope, $rootScope, User, $state) {
 
 
         this.initScope = function () {
@@ -18,18 +18,22 @@
             });
         };
 
-        this.login = function ($user) {
-            User.login($user).$promise
-                    .then(function () {
-                        $rootScope.$emit('jg.marlininternacional::users::successLogin');
-                    })
-                    .catch(function (err) {
-                        if (err.status === 401) {
-                            $scope.loginForm.$setValidity('credentials', false);
-                        }
-                        console.error(err);
-                    });
-        };
+        /*this.login = function ($user) {
+         User.login($user).$promise
+         .then(function () {
+         $rootScope.$emit('jg.marlininternacional::users::successLogin');
+         })
+         .catch(function (err) {
+         if (err.status === 401) {
+         $scope.loginForm.$setValidity('credentials', false);
+         }
+         console.error(err);
+         });
+         };*/
+
+        this.login = function () {
+            $state.go("user.activity", {});
+        }
 
         this.initScope();
     }
@@ -44,34 +48,12 @@
     module
             .controller('LoginController', LoginController)
             .controller('LogoutController', LogoutController)
-            .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', 'Course', "ngDialog",
-                function ($scope, Testimony, PublicPublication, Course, ngDialog) {
+            .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', 'CourseService',
+                function ($scope, Testimony, PublicPublication, CourseService) {
 
                     $scope.showVideo = function (video)
                     {
-                        var controller = function (s, e) {
-                            s.x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-                            s.callbackvideo = function () {
-                                var aux = document.getElementById("commentsVideoContainer");
-                                aux.scrollTop = aux.scrollHeight;
-                            }
-                            s.isStoped = true;
-                            s.isFullScreen = false;
-                            s.pause = function () {
-                                s.isStoped = !s.isStoped;
-                            }
-                            s.expand = function () {
-                                s.isFullScreen = !s.isFullScreen;
-                            }
-
-                        }
-                        controller.$inject = ["$scope", "$element"]
-
-                        ngDialog.open({
-                            template: 'modules/courses/templates/modals/video.html',
-                            className: 'ngdialog-theme-default videoModal',
-                            controller: controller
-                        })
+                        CourseService.showModalVideo(video)
                     }
 
                     $scope.mainSliderConfigs = {
@@ -160,11 +142,18 @@
                     };
 
                     $scope.testimonies = Testimony.find();
-                    $scope.courses = Course.find({
+
+                    CourseService.loadCourses({
                         filter: {
+                            order: "name DESC",
                             include: ['instructor']
                         }
-                    });
+                    }, function (data) {
+                        $scope.courses = data;
+                    }, function (error) {
+
+                    })
+
                     $scope.publications = {
                         list: []
                     };
@@ -196,7 +185,6 @@
                                                 _770x410: "assets/images/publicaciones/posts/770x410/" + (index + 1) + ".jpg",
                                             }
                                         }
-                                        console.log(v)
                                         return v;
                                     })
                         })

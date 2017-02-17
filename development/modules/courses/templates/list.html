@@ -61,9 +61,9 @@
                                     <paginator ng-hide="loading"  pagedata="courses" pagelength="10">
                                         <div class="col-md-12">
                                             <div class="item course-item">
-                                                <a href="javascript:void(0)"
-                                                   ng-click="showCourse($paginator_item)">
-                                                    <img  ng-src="http://placehold.it/345x235" alt="">
+                                                <a  href="javascript:void(0)"
+                                                    ng-click="showCourse($paginator_item)">
+                                                    <img  ng-src="{{$paginator_item.images._370x240}}" alt="">
                                                 </a>
                                                 <div class="down-content">
                                                     <img ng-src="{{$paginator_item.instructor.imagePreview.thumb_small}}" alt="">
@@ -76,11 +76,11 @@
                                                        ng-click="showCourse($paginator_item)">
                                                         <h4>{{$paginator_item.name}}</h4>
                                                     </a>
-                                                    <p>{{$paginator_item.descriptionCaption}}</p>
+                                                    <p>{{$paginator_item.description | truncate:150:'...':true}}</p>
 
                                                     <div class="text-button">
                                                         <a href="javascript:void(0)"
-                                                           ng-click="showCourse($paginator_item)">Ver más.<i class="fa fa-arrow-right"></i></a>
+                                                           ng-click="showCourse($paginator_item)"> Ver más.<i class="fa fa-arrow-right"></i></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -89,7 +89,7 @@
 
                                 </div>
                             </div>
-                            
+
 
                         </div>
                         <div class="col-md-4">

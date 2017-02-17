@@ -28,7 +28,7 @@
         vertical: true,
         pauseOnHover: true
     };
-    var ListPublicationController = function ($scope, PublicPublication, $state) {
+    var ListPublicationController = function ($scope, NewsService, $state) {
         $scope.headerSources = headerSources;
         $scope.newsCarouselConfig = newsCarouselConfig;
 
@@ -48,56 +48,32 @@
                 order = $scope.optorderby
             }
             order += ($scope.asc ? " ASC" : " DESC")
-            PublicPublication.find({
+
+            NewsService.loadPublications({
                 filter: {
                     where: {isPublished: true},
                     order: order,
                     include: ['instructor']
                 }
-            }).$promise.then(function (data) {
+            }, function (data) {
                 $scope.news = data;
-                $scope.news =
-                        $scope.news.map(function (v, index) {
-                            v.images = {
-                                _150x150: "http://placehold.it/150x150",
-                                _370x220: "http://placehold.it/370x220",
-                                _770x410: "http://placehold.it/770x410",
-                            }
-                            if (index < 20)
-                            {
-                                v.images = {
-                                    _150x150: "assets/images/publicaciones/posts/150x150/" + (index + 1) + ".jpg",
-                                    _370x220: "assets/images/publicaciones/posts/370x220/" + (index + 1) + ".jpg",
-                                    _770x410: "assets/images/publicaciones/posts/770x410/" + (index + 1) + ".jpg",
-                                }
-                            }
-                            console.log(v)
-                            return v;
-                        })
                 $scope.loading = false;
                 console.log($scope.news)
-            })
+            }
+            , function (error) {
+                
+            });
         }
-
-
 
         $scope.loadRecentNews = function () {
-            PublicPublication.find({
-                filter: {
-                    where: {
-                        isPublished: true
-                    },
-                    order: "publishedAt DESC",
-                    limit: 10,
-                    include: ['instructor']
-                }
-            }).$promise.then(function (data) {
+            NewsService.loadRecentNews(function (data) {
                 $scope.recentNews = data;
                 $scope.loadingRecentNews = false;
-            })
+            }, function (error) {
+                
+            });
         }
-
-
+        
         $scope.showNew = function (_new)
         {
             var aux = {
@@ -113,9 +89,9 @@
 
 
     };
-    ListPublicationController.$inject = ['$scope', 'PublicPublication', "$state"];
+    ListPublicationController.$inject = ['$scope', 'NewsService', "$state"];
 
-    var ShowPublicPublicationController = function ($scope, $stateParams, $location, PublicPublication, $state) {
+    var ShowPublicPublicationController = function ($scope, $stateParams, $location, NewsService, $state) {
         $scope.headerSources = headerSources;
         $scope.location = $location.absUrl();
         $scope.loadingRecentNews = true;
@@ -123,13 +99,15 @@
 
         if (!$stateParams.new)
         {
-            PublicPublication.findOne({
+            NewsService.loadPublication({
                 filter: {
                     where: {isPublished: true, id: $stateParams.newId},
                     include: 'instructor'
                 }
-            }).$promise.then(function (data) {
+            }, function (data) {
                 $scope.new = data;
+            }, function (error) {
+
             })
         } else
         {
@@ -137,21 +115,15 @@
         }
 
         $scope.loadRecentNews = function () {
-            PublicPublication.find({
-                filter: {
-                    where: {
-                        isPublished: true
-                    },
-                    order: "publishedAt DESC",
-                    limit: 10,
-                    include: ['instructor']
-                }
-            }).$promise.then(function (data) {
+            NewsService.loadRecentNews(function (data) {
                 $scope.recentNews = data;
                 $scope.loadingRecentNews = false;
                 console.log($scope.news)
+            }, function (error) {
+
             })
         }
+
         $scope.showNew = function (_new)
         {
             var aux = {
@@ -166,7 +138,7 @@
 
 
     };
-    ShowPublicPublicationController.$inject = ['$scope', '$stateParams', '$location', 'PublicPublication', '$state'];
+    ShowPublicPublicationController.$inject = ['$scope', '$stateParams', '$location', 'NewsService', '$state'];
 
     module
             .controller('ListPublicationController', ListPublicationController)

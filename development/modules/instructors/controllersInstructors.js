@@ -13,8 +13,8 @@
         "thumb_small": "assets/images/instructores/banner.jpg",
         "thumb_medium": "assets/images/instructores/banner.jpg",
         "thumb_large": "assets/images/instructores/banner.jpg",
-        "small": "assets/images/instructores/banner.jpg",
-        "medium": "assets/images/instructores/banner.jpg",
+        "small": "assets/images/instructores/bannera.jpg",
+        "medium": "assets/images/instructores/bannera.jpg",
         "large": "assets/images/instructores/banner.jpg"
     };
     var ListInstructorsController = function ($scope, Instructors) {
@@ -28,7 +28,7 @@
     };
     ListInstructorsController.$inject = ['$scope', "Instructor"];
 
-    var ShowInstructorsController = function ($scope, $stateParams, Instructors, Course) {
+    var ShowInstructorController = function ($scope, $stateParams, Instructors, CourseService) {
         $scope.headerSources = headerSources;
         console.log($stateParams)
         $scope.instructor = $stateParams.instructor;
@@ -36,14 +36,18 @@
 
         function loadCourses()
         {
-            Course.find({
-                where: {
-                    instructorId: $scope.instructor.id
-                },
-                limit: 1
-            }).$promise.then(function (data) {
+            CourseService.loadCourses({
+                filter: {
+                    where: {instructorId: $scope.instructor.id},
+                    include: 'instructor'
+                }
+
+            }, function (data) {
                 $scope.courses = data;
-            });
+            }, function (error) {
+
+            })
+
         }
         function init() {
             if (!$scope.instructor)
@@ -64,9 +68,9 @@
         init()
 
     };
-    ShowInstructorsController.$inject = ['$scope', '$stateParams', "Instructor", "Course"];
+    ShowInstructorController.$inject = ['$scope', '$stateParams', "Instructor", "CourseService"];
 
     module
             .controller('ListInstructorsController', ListInstructorsController)
-            .controller('ShowInstructorsController', ShowInstructorsController);
+            .controller('ShowInstructorsController', ShowInstructorController);
 })(angular.module('jg.marlininternacional.instructors'));

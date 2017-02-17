@@ -17,8 +17,8 @@
         "large": "assets/images/cursos/banner.jpg"
     };
 
-    ListCourseController.$inject = ['$scope', 'Course', "$state"];
-    function ListCourseController($scope, Course, $state) {
+    ListCourseController.$inject = ['$scope', 'Course', "$state","CourseService"];
+    function ListCourseController($scope, Course, $state,CourseService) {
 
         $scope.optorderby = null;
         $scope.asc = true;
@@ -40,19 +40,14 @@
                 }
             }
             order += ($scope.asc ? "ASC" : "DESC")
-
-            Course.find({
+            
+            CourseService.loadCourses({
                 filter: {
                     where: {isPublished: true},
                     order: order,
                     include: 'instructor'
                 }
-            }).$promise.then(function (data) {
-
-                data = data.map(function (v) {
-                    v.descriptionCaption = v.description.substr(0, 150) + ("...");
-                    return v;
-                })
+            },function(data){
                 $scope.courses = data
                 $scope.coursesOpt = data.map(function (v) {
                     return {name: v.name, id: v.id}
@@ -60,7 +55,10 @@
                 $scope.submitRequest.course = $scope.coursesOpt[0];
                 $scope.loading = false;
 
+            },function(error){
+                
             });
+            
         }
 
         $scope.headerSources = headerSources;
@@ -73,8 +71,8 @@
 
     }
 
-    ShowCourseController.$inject = ['$scope', '$stateParams', '$location', 'Course', "ngDialog"];
-    function ShowCourseController($scope, $stateParams, $location, Course, ngDialog) {
+    ShowCourseController.$inject = ['$scope', '$stateParams', '$location', 'CourseService', "ngDialog"];
+    function ShowCourseController($scope, $stateParams, $location, CourseService, ngDialog) {
         $scope.headerSources = headerSources;
         $scope.location = $location.absUrl();
         $scope.modulos = [];
@@ -113,6 +111,7 @@
 
         }
         function init() {
+            
             for (var i = 0; i < 12; i++)
             {
                 $scope.course.moduleList.push({
@@ -128,8 +127,8 @@
                     ]})
             }
             sortModules();
-
             $scope.loading = false;
+            console.log($scope.course)
         }
 
         $scope.callback = function () {
@@ -137,45 +136,22 @@
         }
         $scope.showVideo = function (video)
         {
-            var controller = function (s, e) {
-                s.x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-                s.callbackvideo = function () {
-                    var aux = document.getElementById("commentsVideoContainer");
-                    aux.scrollTop = aux.scrollHeight;
-                }
-                s.isStoped = true;
-                s.isFullScreen = false;
-                s.pause = function () {
-                    s.isStoped = !s.isStoped;
-                }
-                s.expand = function () {
-                    s.isFullScreen = !s.isFullScreen;
-                }
+            CourseService.showModalVideo(video)
 
-            }
-            controller.$inject = ["$scope", "$element"]
-
-            ngDialog.open({
-                template: 'modules/courses/templates/modals/video.html',
-                className: 'ngdialog-theme-default videoModal',
-                controller: controller
-            })
         }
         $scope.loadCourse = function () {
-
-            Course.findOne({
+            CourseService.loadCourse({
                 filter: {
                     where: {isPublished: true, id: $stateParams.courseId},
                     include: 'instructor'
                 }
-            }).$promise.then(function (data) {
+            }, function (data) {
                 $scope.course = data;
-
                 init();
+            }, function (error) {
+
             })
         }
-
-
         if (!$stateParams.course)
         {
             $scope.loadCourse();
@@ -184,15 +160,7 @@
             $scope.course = $stateParams.course;
             init();
         }
-        console.log($scope.course)
-        function initAccordion() {
-
-        }
-
-
-
-
     }
     module.controller('ListCourseController', ListCourseController)
             .controller('ShowCourseController', ShowCourseController);
-})(angular.module('jg.marlininternacional.news'));
+})(angular.module('jg.marlininternacional.courses'));
