@@ -7,7 +7,7 @@
 ;
 !(function (module) {
 
-    LoginController.$inject = ['$scope', '$rootScope', 'AppUser', '$state'];
+    LoginController.$inject = ['$scope', '$rootScope', 'Student', '$state'];
     function LoginController($scope, $rootScope, User, $state) {
 
 
@@ -37,7 +37,7 @@
 
         this.initScope();
     }
-    LogoutController.$inject = ['$scope', '$rootScope', 'AppUser', 'LoopBackAuth'];
+    LogoutController.$inject = ['$scope', '$rootScope', 'Student', 'LoopBackAuth'];
     function LogoutController($scope, $rootScope, User) {
         this.initScope = function () {
             $rootScope.$emit('jg.marlininternacional::users::logout');
@@ -48,8 +48,8 @@
     module
             .controller('LoginController', LoginController)
             .controller('LogoutController', LogoutController)
-            .controller('IndexPublicController', ['$scope', 'Testimony', 'PublicPublication', 'CourseService',
-                function ($scope, Testimony, PublicPublication, CourseService) {
+            .controller('IndexPublicController', ['$scope', 'Testimony', 'Publication', 'CourseService',
+                function ($scope, Testimony, Publication, CourseService) {
 
                     $scope.showVideo = function (video)
                     {
@@ -159,7 +159,7 @@
                     };
 
                     this.loadPublications = function () {
-                        PublicPublication.find({
+                        Publication.find({
                             filter: {
                                 where: {
                                     isPublished: true
