@@ -23,7 +23,7 @@
                             views: {
                                 '@': {
                                     templateUrl: 'modules/news/templates/show.html',
-                                    controller: 'ShowPublicPublicationController',
+                                    controller: 'ShowPublicationController',
                                     controllerAs: 'showPCtrl'
                                 }
                             }

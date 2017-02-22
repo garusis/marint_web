@@ -6,8 +6,8 @@
  */
 ;
 !(function (module) {
-    service.$inject = ['PublicPublication'];
-    function service(PublicPublication) {
+    service.$inject = ['Publication'];
+    function service(Publication) {
 
         function setImages(publications) {
             if (Array.isArray(publications))
@@ -41,14 +41,14 @@
         }
         this.loadPublication = function (options, callback, error)
         {
-            PublicPublication.findOne(options).$promise.then(function (data) {
+            Publication.findOne(options).$promise.then(function (data) {
                 data = setImages(data)
                 callback(data);
             })
         }
 
         this.loadPublications = function (options, callback, error) {
-            PublicPublication.find(options).$promise.then(function (data) {
+            Publication.find(options).$promise.then(function (data) {
                 data = setImages(data);
                 callback(data);
             })

@@ -18,6 +18,40 @@
   box-shadow: rgba(193, 176, 176, 0.7) 0px 0px 1px 3px;
 }
 
+.grid-news .grid-item .down-content h4 {
+  height: 30px;
+}
+.grid-news .grid-item .down-content p {
+  height: 70px;
+}
+.single-post .single-item .tags-share .share .second-button a > * {
+  position: relative;
+  top: -9px;
+}
+.single-post .single-item .tags-share .share .second-button a .facebookButton {
+  width: 78px;
+}
+.single-post .single-item .tags-share .share .second-button a .facebookCount .pluginCountButton {
+  padding-left: 8px;
+}
+
+
+.grid-news .grid-item .down-content h4 {
+  height: 30px;
+}
+.grid-news .grid-item .down-content p {
+  height: 70px;
+}
+.single-post .single-item .tags-share .share .second-button a > * {
+  position: relative;
+  top: -9px;
+}
+.single-post .single-item .tags-share .share .second-button a .facebookButton {
+  width: 78px;
+}
+.single-post .single-item .tags-share .share .second-button a .facebookCount .pluginCountButton {
+  padding-left: 8px;
+}
 
 
 .grid-news .grid-item .down-content h4 {

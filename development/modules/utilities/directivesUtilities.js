@@ -7,58 +7,58 @@
 ;
 !(function (module) {
     module
-            .directive('revolution', [function () {
-                    return {
-                        restrict: 'A',
-                        scope: {
-                            revolution: "=?"
-                        },
-                        link: function (scope, element, attrs) {
-                            if (!scope.revolution) {
-                                scope.revolution = {};
-                            }
-                            element.revolution(scope.revolution);
+        .directive('revolution', [function () {
+            return {
+                restrict: 'A',
+                scope: {
+                    revolution: "=?"
+                },
+                link: function (scope, element, attrs) {
+                    if (!scope.revolution) {
+                        scope.revolution = {};
+                    }
+                    element.revolution(scope.revolution);
+                }
+            };
+        }])
+        .directive('owl', [function () {
+            return {
+                restrict: 'A',
+                transclude: false,
+                scope: {
+                    owl: '=?'
+                },
+                controller: function ($scope, $element) {
+                    var owl;
+                    this.initOwl = function () {
+                        if (owl) {
+                            owlCarousel.destroy();
                         }
+                        $element.owlCarousel($scope.owl);
+                        owl = $element.data('owlCarousel');
                     };
-                }])
-            .directive('owl', [function () {
-                    return {
-                        restrict: 'A',
-                        transclude: false,
-                        scope: {
-                            owl: '=?'
-                        },
-                        controller: function ($scope, $element) {
-                            var owl;
-                            this.initOwl = function () {
-                                if (owl) {
-                                    owlCarousel.destroy();
-                                }
-                                $element.owlCarousel($scope.owl);
-                                owl = $element.data('owlCarousel');
-                            };
-                        },
-                        link: function (scope, element, attrs) {
-                            element.addClass("owl-carousel");
-                            if (!scope.owl) {
-                                scope.owl = {};
-                            }
-                        }
-                    };
-                }])
-            .directive('owlItem', [function () {
-                    return {
-                        restrict: 'A',
-                        priority: -1,
-                        require: '^owl',
-                        link: function (scope, element, attrs, owlCtrl) {
-                            element.addClass("owl-item").addClass("item");
-                            if (scope.$last) {
-                                owlCtrl.initOwl();
-                            }
-                        }
-                    };
-                }]);
+                },
+                link: function (scope, element, attrs) {
+                    element.addClass("owl-carousel");
+                    if (!scope.owl) {
+                        scope.owl = {};
+                    }
+                }
+            };
+        }])
+        .directive('owlItem', [function () {
+            return {
+                restrict: 'A',
+                priority: -1,
+                require: '^owl',
+                link: function (scope, element, attrs, owlCtrl) {
+                    element.addClass("owl-item").addClass("item");
+                    if (scope.$last) {
+                        owlCtrl.initOwl();
+                    }
+                }
+            };
+        }]);
 })(angular.module('jg.marlininternacional.utilities'));
 
 
@@ -126,6 +126,8 @@
 
                 var makeImagesResponsive = function () {
                     var sources = scope.sources;
+                    if (!sources) return
+
                     var lastValidSource = queries[queries.length - 1].source;
                     for (var i = 0, j = queries.length - 1, query; i <= j; j--) {
                         query = queries[j];
@@ -192,10 +194,10 @@
     $run.$inject = ['$window', '$rootScope', 'responsiveImages'];
 
     module
-            .provider('responsiveImages', responsiveImagesProvider)
-            .directive('responsiveImage', responsiveImageDirective)
-            .config($config)
-            .run($run);
+        .provider('responsiveImages', responsiveImagesProvider)
+        .directive('responsiveImage', responsiveImageDirective)
+        .config($config)
+        .run($run);
 })(angular.module('jg.responsiveImages', []));
 
 (function (module) {
@@ -250,8 +252,7 @@
                 element.data('jg::overlay::tooltip', tooltipContainer);
 
                 switch (settings.overlayTooltipPosition) {
-                    case 'left':
-                    {
+                    case 'left': {
                         tooltipContainer.css({left: offset.left});
                         overlayLine1.css({height: $canvas.height(), width: '1px'});
                         overlayLine2.css({height: '1px', width: '100px', left: -100, top: $canvas.height() / 2});
@@ -432,6 +433,6 @@
     overlayDirective.$inject = ['overlay'];
 
     module
-            .provider('overlay', overlayProvider)
-            .directive('overlay', overlayDirective);
+        .provider('overlay', overlayProvider)
+        .directive('overlay', overlayDirective);
 })(angular.module('jg.overlay', []));
