@@ -138,6 +138,7 @@
         } else
         {
             $scope.course = $stateParams.course;
+            $scope.loading = false;
         }
     }
     module.controller('ListCourseController', ListCourseController)
