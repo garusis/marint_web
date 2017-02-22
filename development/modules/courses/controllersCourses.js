@@ -40,7 +40,7 @@
                 }
             }
             order += ($scope.asc ? "ASC" : "DESC")
-            
+
             CourseService.loadCourses({
                 filter: {
                     where: {isPublished: true},
@@ -56,9 +56,9 @@
                 $scope.loading = false;
 
             },function(error){
-                
+
             });
-            
+
         }
 
         $scope.headerSources = headerSources;
@@ -110,26 +110,6 @@
             }
 
         }
-        function init() {
-            
-            for (var i = 0; i < 12; i++)
-            {
-                $scope.course.moduleList.push({
-                    name: "Lorem ipsum dolor sit amet",
-                    description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-                    videoList: [
-                        {title: "Video 1"},
-                        {title: "Video 2"},
-                        {title: "Video 3"},
-                        {title: "Video 4"},
-                        {title: "Video 5"},
-                        {title: "Video 6"},
-                    ]})
-            }
-            sortModules();
-            $scope.loading = false;
-            console.log($scope.course)
-        }
 
         $scope.callback = function () {
             init_accordion();
@@ -143,11 +123,11 @@
             CourseService.loadCourse({
                 filter: {
                     where: {isPublished: true, id: $stateParams.courseId},
-                    include: 'instructor'
+                    include: ['instructor',"modules"]
                 }
             }, function (data) {
                 $scope.course = data;
-                init();
+                $scope.loading = false;
             }, function (error) {
 
             })
@@ -158,7 +138,6 @@
         } else
         {
             $scope.course = $stateParams.course;
-            init();
         }
     }
     module.controller('ListCourseController', ListCourseController)
