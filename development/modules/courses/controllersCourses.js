@@ -12,9 +12,10 @@
         "thumb_small": "assets/images/cursos/banner.jpg",
         "thumb_medium": "assets/images/cursos/banner.jpg",
         "thumb_large": "assets/images/cursos/banner.jpg",
-        "small": "assets/images/cursos/banner.jpg",
-        "medium": "assets/images/cursos/banner.jpg",
-        "large": "assets/images/cursos/banner.jpg"
+        "small": "assets/images/cursos/banner_small.jpg",
+        "medium": "assets/images/cursos/banner_medium.jpg",
+        "large": "assets/images/cursos/banner_large.jpg",
+        "xlarge": "assets/images/cursos/banner.jpg"
     };
 
     ListCourseController.$inject = ['$scope', 'Course', "$state","CourseService"];

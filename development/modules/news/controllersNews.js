@@ -12,9 +12,10 @@
         "thumb_small": "assets/images/publicaciones/banner.jpg",
         "thumb_medium": "assets/images/publicaciones/banner.jpg",
         "thumb_large": "assets/images/publicaciones/banner.jpg",
-        "small": "assets/images/publicaciones/banner.jpg",
-        "medium": "assets/images/publicaciones/banner.jpg",
-        "large": "assets/images/publicaciones/banner.jpg"
+        "small": "assets/images/publicaciones/banner_small.jpg",
+        "medium": "assets/images/publicaciones/banner_medium.jpg",
+        "large": "assets/images/publicaciones/banner_large.jpg",
+        "xlarge": "assets/images/publicaciones/banner.jpg"
     };
     var newsCarouselConfig = {
         enabled: true,

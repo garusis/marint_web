@@ -11,9 +11,10 @@
         "thumb_small": "assets/images/contactenos/banner.jpg",
         "thumb_medium": "assets/images/contactenos/banner.jpg",
         "thumb_large": "assets/images/contactenos/banner.jpg",
-        "small": "assets/images/contactenos/banner.jpg",
-        "medium": "assets/images/contactenos/banner.jpg",
-        "large": "assets/images/contactenos/banner.jpg"
+        "small": "assets/images/contactenos/banner_small.jpg",
+        "medium": "assets/images/contactenos/banner_medium.jpg",
+        "large": "assets/images/contactenos/banner_large.jpg",
+        "xlarge": "assets/images/contactenos/banner.jpg"
     };
     contactController.$inject = ["$scope"]
     function contactController($scope) {

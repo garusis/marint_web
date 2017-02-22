@@ -76,7 +76,7 @@
             thumbnailKey: 'thumb_',
             viewport: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
             isRetina: window.devicePixelRatio && window.devicePixelRatio >= 1.2,
-            defaultBreakpoints: "768=small,992=medium,1200=large"
+            defaultBreakpoints: "768=small,992=medium,1200=large,1600=xlarge"
         };
 
         var $provider = this;
