@@ -4,6 +4,7 @@
   "repository": "https://garusis@bitbucket.org/garusis/marlininternacional_web.git",
   "license": "UNLICENSED",
   "author": "JarviGames <maryinortiz@jarvigames.com>(http://jarvigames.com)",
+  "main": "./app.js",
   "contributors": [
     "Marcos Javier Alvarez Maestre <garusis@jarvigames.com>(http://jarvigames.com)",
     "Brigitte Carolina Guerrero Silvera <carolina.guerrero.silvera@gmail.com>(http://jarvigames.com)"
