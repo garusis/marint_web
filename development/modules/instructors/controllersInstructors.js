@@ -13,9 +13,10 @@
         "thumb_small": "assets/images/instructores/banner.jpg",
         "thumb_medium": "assets/images/instructores/banner.jpg",
         "thumb_large": "assets/images/instructores/banner.jpg",
-        "small": "assets/images/instructores/bannera.jpg",
-        "medium": "assets/images/instructores/bannera.jpg",
-        "large": "assets/images/instructores/banner.jpg"
+        "small": "assets/images/instructores/banner_small.jpg",
+        "medium": "assets/images/instructores/banner_medium.jpg",
+        "large": "assets/images/instructores/banner_large.jpg",
+        "xlarge": "assets/images/instructores/banner.jpg"
     };
     var ListInstructorsController = function ($scope, Instructors) {
         $scope.headerSources = headerSources;

@@ -11,9 +11,10 @@
         "thumb_small": "assets/images/usuario/banner.jpg",
         "thumb_medium": "assets/images/usuario/banner.jpg",
         "thumb_large": "assets/images/usuario/banner.jpg",
-        "small": "assets/images/usuario/banner.jpg",
-        "medium": "assets/images/usuario/banner.jpg",
-        "large": "assets/images/usuario/banner.jpg"
+        "small": "assets/images/usuario/banner_small.jpg",
+        "medium": "assets/images/usuario/banner_medium.jpg",
+        "large": "assets/images/usuario/banner_large.jpg",
+        "xlarge": "assets/images/usuario/banner.jpg"
     };
     UserProfileController.$inject = ["$scope"]
     function UserProfileController($scope) {

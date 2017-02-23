@@ -7,58 +7,58 @@
 ;
 !(function (module) {
     module
-        .directive('revolution', [function () {
-            return {
-                restrict: 'A',
-                scope: {
-                    revolution: "=?"
-                },
-                link: function (scope, element, attrs) {
-                    if (!scope.revolution) {
-                        scope.revolution = {};
-                    }
-                    element.revolution(scope.revolution);
-                }
-            };
-        }])
-        .directive('owl', [function () {
-            return {
-                restrict: 'A',
-                transclude: false,
-                scope: {
-                    owl: '=?'
-                },
-                controller: function ($scope, $element) {
-                    var owl;
-                    this.initOwl = function () {
-                        if (owl) {
-                            owlCarousel.destroy();
+            .directive('revolution', [function () {
+                    return {
+                        restrict: 'A',
+                        scope: {
+                            revolution: "=?"
+                        },
+                        link: function (scope, element, attrs) {
+                            if (!scope.revolution) {
+                                scope.revolution = {};
+                            }
+                            element.revolution(scope.revolution);
                         }
-                        $element.owlCarousel($scope.owl);
-                        owl = $element.data('owlCarousel');
                     };
-                },
-                link: function (scope, element, attrs) {
-                    element.addClass("owl-carousel");
-                    if (!scope.owl) {
-                        scope.owl = {};
-                    }
-                }
-            };
-        }])
-        .directive('owlItem', [function () {
-            return {
-                restrict: 'A',
-                priority: -1,
-                require: '^owl',
-                link: function (scope, element, attrs, owlCtrl) {
-                    element.addClass("owl-item").addClass("item");
-                    if (scope.$last) {
-                        owlCtrl.initOwl();
-                    }
-                }
-            };
-        }]);
+                }])
+            .directive('owl', [function () {
+                    return {
+                        restrict: 'A',
+                        transclude: false,
+                        scope: {
+                            owl: '=?'
+                        },
+                        controller: function ($scope, $element) {
+                            var owl;
+                            this.initOwl = function () {
+                                if (owl) {
+                                    owlCarousel.destroy();
+                                }
+                                $element.owlCarousel($scope.owl);
+                                owl = $element.data('owlCarousel');
+                            };
+                        },
+                        link: function (scope, element, attrs) {
+                            element.addClass("owl-carousel");
+                            if (!scope.owl) {
+                                scope.owl = {};
+                            }
+                        }
+                    };
+                }])
+            .directive('owlItem', [function () {
+                    return {
+                        restrict: 'A',
+                        priority: -1,
+                        require: '^owl',
+                        link: function (scope, element, attrs, owlCtrl) {
+                            element.addClass("owl-item").addClass("item");
+                            if (scope.$last) {
+                                owlCtrl.initOwl();
+                            }
+                        }
+                    };
+                }]);
 })(angular.module('jg.marlininternacional.utilities'));
 
 
@@ -76,13 +76,16 @@
             thumbnailKey: 'thumb_',
             viewport: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
             isRetina: window.devicePixelRatio && window.devicePixelRatio >= 1.2,
-            defaultBreakpoints: "768=small,992=medium,1200=large"
+            defaultBreakpoints: "768=small,992=medium,1200=large,1600=xlarge"
         };
 
         var $provider = this;
         this.config = function (nConfigs) {
             configs = angular.extend({}, configs, nConfigs);
             return configs;
+            ;
+            ;
+            ;
         };
 
         this.$get = function ($window, $document) {
@@ -126,8 +129,8 @@
 
                 var makeImagesResponsive = function () {
                     var sources = scope.sources;
-                    if (!sources) return
-
+                    if(!sources) return
+                  
                     var lastValidSource = queries[queries.length - 1].source;
                     for (var i = 0, j = queries.length - 1, query; i <= j; j--) {
                         query = queries[j];
@@ -194,10 +197,10 @@
     $run.$inject = ['$window', '$rootScope', 'responsiveImages'];
 
     module
-        .provider('responsiveImages', responsiveImagesProvider)
-        .directive('responsiveImage', responsiveImageDirective)
-        .config($config)
-        .run($run);
+            .provider('responsiveImages', responsiveImagesProvider)
+            .directive('responsiveImage', responsiveImageDirective)
+            .config($config)
+            .run($run);
 })(angular.module('jg.responsiveImages', []));
 
 (function (module) {
@@ -252,7 +255,8 @@
                 element.data('jg::overlay::tooltip', tooltipContainer);
 
                 switch (settings.overlayTooltipPosition) {
-                    case 'left': {
+                    case 'left':
+                    {
                         tooltipContainer.css({left: offset.left});
                         overlayLine1.css({height: $canvas.height(), width: '1px'});
                         overlayLine2.css({height: '1px', width: '100px', left: -100, top: $canvas.height() / 2});
@@ -433,6 +437,6 @@
     overlayDirective.$inject = ['overlay'];
 
     module
-        .provider('overlay', overlayProvider)
-        .directive('overlay', overlayDirective);
+            .provider('overlay', overlayProvider)
+            .directive('overlay', overlayDirective);
 })(angular.module('jg.overlay', []));
