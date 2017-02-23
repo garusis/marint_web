@@ -92,7 +92,7 @@
     };
     ListPublicationController.$inject = ['$scope', 'NewsService', "$state"];
 
-    var ShowPublicPublicationController = function ($scope, $stateParams, $location, NewsService, $state) {
+    var ShowPublicationController = function ($scope, $stateParams, $location, NewsService, $state) {
         $scope.headerSources = headerSources;
         $scope.location = $location.absUrl();
         $scope.loadingRecentNews = true;
@@ -139,9 +139,9 @@
 
 
     };
-    ShowPublicPublicationController.$inject = ['$scope', '$stateParams', '$location', 'NewsService', '$state'];
+    ShowPublicationController.$inject = ['$scope', '$stateParams', '$location', 'NewsService', '$state'];
 
     module
             .controller('ListPublicationController', ListPublicationController)
-            .controller('ShowPublicPublicationController', ShowPublicPublicationController);
+            .controller('ShowPublicationController', ShowPublicationController);
 })(angular.module('jg.marlininternacional.news'));

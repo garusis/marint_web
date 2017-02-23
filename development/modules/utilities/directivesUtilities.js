@@ -129,6 +129,8 @@
 
                 var makeImagesResponsive = function () {
                     var sources = scope.sources;
+                    if(!sources) return
+                  
                     var lastValidSource = queries[queries.length - 1].source;
                     for (var i = 0, j = queries.length - 1, query; i <= j; j--) {
                         query = queries[j];

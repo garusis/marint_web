@@ -51,12 +51,12 @@
                             <div class="accordions" >
                                 <h4>Módulos del curso:</h4>
                                 <div class="accordion"  mvonload="callback" compile>
-                                    <div class="accordion-section" ng-repeat="m in course.moduleList track by $index">
+                                    <div class="accordion-section" ng-repeat="m in course.modules|orderBy:'position'">
                                         <a class="accordion-section-title"
                                            ng-class="{'second-accordion-section-title':($index%2==0)}"
                                            href="#accordion-{{$index}}">
                                             <span class="first-icon"><i class="fa fa-play-circle-o"></i></span>
-                                            <span>{{$index+1}} - {{m.name}}</span>
+                                            <span>Modulo {{m.position}} <span ng-show="m.description">-</span> {{m.description}}</span>
                                             <h6>
                                                 <em ng-show="m.videoList.length>0">{{m.videoList.length}} Videos</em>
                                                 <span id="1" class="second-icon"><i class="fa fa-sort-desc"></i></span>
