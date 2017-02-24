@@ -12,7 +12,7 @@
             return{
                 
                 passwordWasChanged: function () {
-                    return false;
+                    return true;
                 },
                 showModalChangePassword: function () {
                    

@@ -50,31 +50,31 @@
             }
             order += ($scope.asc ? " ASC" : " DESC")
 
-            NewsService.loadPublications({
-                filter: {
-                    where: {isPublished: true},
-                    order: order,
-                    include: ['instructor']
-                }
-            }, function (data) {
-                $scope.news = data;
-                $scope.loading = false;
-                console.log($scope.news)
-            }
-            , function (error) {
-                
-            });
+            NewsService
+                    .loadPublications({
+                        filter: {
+                            where: {isPublished: true},
+                            order: order,
+                            include: ['instructor']
+                        }
+                    })
+                    .then(function (data) {
+                        $scope.news = data;
+                        $scope.loading = false;
+                    })
+
         }
 
         $scope.loadRecentNews = function () {
-            NewsService.loadRecentNews(function (data) {
-                $scope.recentNews = data;
-                $scope.loadingRecentNews = false;
-            }, function (error) {
-                
-            });
+            NewsService
+                    .loadRecentNews()
+                    .then(function (data) {
+                        $scope.recentNews = data;
+                        $scope.loadingRecentNews = false;
+                    })
         }
-        
+
+
         $scope.showNew = function (_new)
         {
             var aux = {
@@ -97,43 +97,34 @@
         $scope.location = $location.absUrl();
         $scope.loadingRecentNews = true;
         $scope.newsCarouselConfig = newsCarouselConfig;
-
+        console.log($stateParams)
         if (!$stateParams.new)
         {
-            NewsService.loadPublication({
-                filter: {
-                    where: {isPublished: true, id: $stateParams.newId},
-                    include: 'instructor'
-                }
-            }, function (data) {
-                $scope.new = data;
-            }, function (error) {
+            NewsService
+                    .loadPublication({
+                        filter: {
+                            where: {isPublished: true, id: $stateParams.newId},
+                            include: 'instructor'
+                        }
+                    })
+                    .then(function (data) {
+                        $scope.new = data;
+                    })
 
-            })
         } else
         {
             $scope.new = $stateParams.new
         }
 
         $scope.loadRecentNews = function () {
-            NewsService.loadRecentNews(function (data) {
-                $scope.recentNews = data;
-                $scope.loadingRecentNews = false;
-                console.log($scope.news)
-            }, function (error) {
-
-            })
+            NewsService
+                    .loadRecentNews()
+                    .then(function (data) {
+                        $scope.recentNews = data;
+                        $scope.loadingRecentNews = false;
+                    })
         }
 
-        $scope.showNew = function (_new)
-        {
-            var aux = {
-                title: _new.title,
-                newId: _new.newId,
-                new : _new
-            }
-            $state.go("news.show", aux)
-        }
         $scope.loadRecentNews()
 
 

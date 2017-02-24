@@ -39,24 +39,28 @@
 
             return publications;
         }
-        this.loadPublication = function (options, callback, error)
+        this.loadPublication = function (options)
         {
-            Publication.findOne(options).$promise.then(function (data) {
-                data = setImages(data)
-                callback(data);
-            })
+            return Publication.findOne(options)
+                    .$promise
+                    .then(function (data) {
+                        data = setImages(data)
+                        return data;
+                    })
         }
 
-        this.loadPublications = function (options, callback, error) {
-            Publication.find(options).$promise.then(function (data) {
-                data = setImages(data);
-                callback(data);
-            })
+        this.loadPublications = function (options) {
+            return Publication.find(options)
+                    .$promise
+                    .then(function (data) {
+                        data = setImages(data);
+                        return data;
+                    })
         }
 
-        this.loadRecentNews = function (callback, error)
+        this.loadRecentNews = function ()
         {
-            this.loadPublications({
+            return this.loadPublications({
                 filter: {
                     where: {
                         isPublished: true
@@ -65,7 +69,7 @@
                     limit: 10,
                     include: ['instructor']
                 }
-            }, callback, error);
+            });
         }
 
     }

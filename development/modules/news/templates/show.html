@@ -33,7 +33,7 @@
                         <div class="col-md-8">
                             <div class="classic-posts">
                                 <div class="single-item">
-                                    <img ng-src="{{new.images._770x410}}" alt="">
+                                    <img ng-src="{{new .images._770x410}}" alt="">
                                     <ul>
                                         <li>Publicado: <em>{{new .publishedAt|date:'dd MMM yyyy'}}</em></li>
                                         <li>Autor: <em>{{new .instructor.name}}</em></li>
@@ -41,7 +41,7 @@
                                     </ul>
                                     <h4>{{new .title}}</h4>
 
-                                    <div ng-bind-html="new .content">
+                                    <div class="text-justify" ng-bind-html="(new .content | cleanStringSpaces)">
 
                                     </div>
 
@@ -150,7 +150,7 @@
                                     </div>
                                     <slick ng-cloak="" settings="::newsCarouselConfig" ng-show="!loadingRecentNews" ng-if="recentNews.length > 0">
                                         <div class="news-item" style="height: 150px" ng-repeat="rn in recentNews">
-                                            <a href="javascript:void(0)" ng-click="showNew(rn)"><h1>{{::rn.title|truncate:50:'...':true}}</h1></a>
+                                            <a ui-sref="news.show({title:rn.title,newId:rn.id,new:rn})" ><h1>{{::rn.title|truncate:50:'...':true}}</h1></a>
                                             <ul class="info clearfix">
                                                 <li>{{::rn.createdAt|date:'dd/MM/yyyy'}} </li>
                                                 <li>{{::rn.instructor.name}}</li>
@@ -160,12 +160,12 @@
                                         </div>
                                     </slick>
                                 </div>
-                                <div class="tags" ng-show='new.tags.length > 0'>
+                                <div class="tags" ng-show='new .tags.length > 0'>
                                     <div class="widget-heading">
                                         <h4>Tags</h4>
                                     </div>
                                     <ul>
-                                        <li ng-repeat='c in new.tags'><a href="#">{{c}}</a></li>
+                                        <li ng-repeat='c in new .tags'><a href="#">{{c}}</a></li>
                                     </ul>
                                 </div>
                             </div>
