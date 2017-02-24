@@ -14,14 +14,26 @@
             return !!LoopBackAuth.accessTokenId
         }
 
+        function processStudent(student) {
+            if (!student.__is_process__) {
+                student.__is_process__ = true
+                student.coursesStudent = new CourseStudentRelation(student)
+            }
+            return student
+        }
+
         this.getCurrent = function (force) {
             if (!LoopBackAuth.currentUserData || force) {
-                return Student.getCurrent()
-                    .then(function (student) {
-                        student.coursesStudent = new CourseStudentRelation(student)
-                    })
+                return Student.getCurrent().$promise
+                    .then(processStudent)
             }
-            return $q.resolve(LoopBackAuth.currentUserData)
+            return $q.resolve(processStudent(LoopBackAuth.currentUserData))
+        }
+
+        this.logout = function () {
+            LoopBackAuth.clearUser();
+            LoopBackAuth.clearStorage();
+            return Student.logout()
         }
 
         function CourseStudentRelation(student) {
@@ -37,6 +49,7 @@
         }
 
         CourseStudentRelation.prototype.__process__ = function (courseStudent) {
+            courseStudent.modules = new ModuleRelation(courseStudent, this)
             return courseStudent
         }
 
@@ -49,9 +62,41 @@
             }
             return $http.get(this.basePath, {params: {filter: filter}})
                 .then(function (response) {
-                    return relation.__process__(response.data)
+                    return relation.__process__(response.data[0])
                 })
         }
+
+        ModuleRelation.prototype = new Array()
+        function ModuleRelation(courseStudent, courseStudentRelation) {
+            this.basePath = courseStudentRelation.basePath + "/" + courseStudent.id + "/" + ROUTES.STUDENTS.COURSES_STUDENT.MODULES
+        }
+
+        ModuleRelation.prototype.__addToCache__ = function (module) {
+            this.push(this.__process__(module))
+        }
+
+        ModuleRelation.prototype.__process__ = function (module) {
+            return module
+        }
+
+        ModuleRelation.prototype.get = function (filter) {
+            var relation = this
+            if(!filter){
+                filter = {}
+            }
+            if(!filter.include){
+                filter.include = []
+            }
+            filter.include.push("videos")
+
+            return $http.get(this.basePath, {params: {filter: filter}})
+                .then(function (response) {
+                    relation.length = 0
+                    response.data.forEach(relation.__addToCache__.bind(relation))
+                    return relation
+                })
+        }
+
     }
 
     module.service('StudentService', StudentService)

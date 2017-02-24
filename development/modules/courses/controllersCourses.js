@@ -127,10 +127,16 @@
                         })
                 });
 
-            if(StudentService.isAuthenticated()){
+            if (StudentService.isAuthenticated()) {
                 promises[1] = StudentService.getCurrent()
                     .then(function (loggedStudent) {
                         return loggedStudent.coursesStudent.getById($stateParams.courseId)
+                    })
+                    .then(function (course) {
+                        return course.modules.get()
+                            .then(function () {
+                                return course
+                            })
                     })
             }
 
@@ -140,7 +146,15 @@
                     var course = resolved[0]
                     var courseStudent = resolved[1]
 
+                    if (!courseStudent)return
 
+                    _.forEach(courseStudent.modules, function (moduleStudent) {
+                        var module = _.find(course.modules, {id:moduleStudent.id})
+                        module.enabled = true
+                        module.videos = moduleStudent.videos
+                    })
+                    console.log(course)
+                    //console.log(courseStudent)
                 })
                 .catch(function (error) {
                     console.log(error)
