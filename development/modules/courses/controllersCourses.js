@@ -152,9 +152,8 @@
                         var module = _.find(course.modules, {id:moduleStudent.id})
                         module.enabled = true
                         module.videos = moduleStudent.videos
+                        console.log(module.videos)
                     })
-                    console.log(course)
-                    //console.log(courseStudent)
                 })
                 .catch(function (error) {
                     console.log(error)
