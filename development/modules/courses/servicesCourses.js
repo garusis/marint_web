@@ -58,8 +58,10 @@
                 .then(function (response) {
                     relation.length = 0
                     response.data.forEach(relation.__addToCache__.bind(relation))
+                    return relation
                 })
         }
+
 
         this.loadCourses = function (options, callback, error) {
             Course.find(options).$promise.then(function (data) {

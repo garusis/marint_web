@@ -69,8 +69,10 @@
 
     }
 
-    ShowCourseController.$inject = ['$scope', '$stateParams', '$location', 'CourseService', "ngDialog"];
-    function ShowCourseController($scope, $stateParams, $location, CourseService, ngDialog) {
+    ShowCourseController.$inject = [
+        '$scope', "$q", '$stateParams', '$location', 'CourseService', "StudentService", "ngDialog"
+    ];
+    function ShowCourseController($scope, $q, $stateParams, $location, CourseService, StudentService, ngDialog) {
         $scope.headerSources = headerSources;
         $scope.location = $location.absUrl();
         $scope.modulos = [];
@@ -108,7 +110,8 @@
         }
 
         $scope.loadCourse = function () {
-            CourseService
+            var promises = []
+            promises[0] = CourseService
                 .loadCourse($stateParams.course, {
                     filter: {
                         where: {isPublished: true, id: $stateParams.courseId},
@@ -118,7 +121,26 @@
                 .then(function (data) {
                     $scope.course = data
                     $scope.loading = false
-                    data.modules.get()
+                    return data.modules.get()
+                        .then(function () {
+                            return data
+                        })
+                });
+
+            if(StudentService.isAuthenticated()){
+                promises[1] = StudentService.getCurrent()
+                    .then(function (loggedStudent) {
+                        return loggedStudent.coursesStudent.getById($stateParams.courseId)
+                    })
+            }
+
+
+            $q.all(promises)
+                .then(function (resolved) {
+                    var course = resolved[0]
+                    var courseStudent = resolved[1]
+
+
                 })
                 .catch(function (error) {
                     console.log(error)

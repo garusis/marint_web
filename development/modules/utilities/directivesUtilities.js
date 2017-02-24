@@ -156,7 +156,7 @@
                         }
                     }
 
-                    console.log(src, queries)
+                    //console.log(src, queries)
                 };
 
                 scope.$watch('sources', function (newVal) {
@@ -181,7 +181,7 @@
         var notifyResize = function () {
             responsiveImages.updateViewport();
             $rootScope.$broadcast('jg.responsiveImages::resize');
-            console.log("resize")
+            //console.log("resize")
         };
         var resizeEvent = function () {
             $rootScope.$apply(function () {

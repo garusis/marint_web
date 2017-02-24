@@ -7,6 +7,14 @@
             __BASE__: 'courses',
             MODULES: 'modules'
         },
+        STUDENTS: {
+            __BASE__: 'students',
+            COMMENTS: 'comments',
+            COURSES_STUDENT: {
+                __BASE__: "courses",
+                MODULES: "modules"
+            }
+        },
         UPLOAD: {
             ROOT: 'files',
             ICONS: 'files/icons',
