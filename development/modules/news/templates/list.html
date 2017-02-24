@@ -62,24 +62,24 @@
                                     <paginator pagedata="news" pagelength="4">
                                         <div class="col-md-6">
                                             <div class="grid-item">
-                                                <a href="javascript:void(0)" ng-click="showNew($paginator_item)">
+                                                <a ui-sref="news.show({title:$paginator_item.title,newId:$paginator_item.id,new:$paginator_item})" >
                                                     <img ng-src="{{$paginator_item.images._370x220}}" alt=""></a>
 
                                                 <div class="down-content">
                                                     <ul>
                                                         <li>Publicado: <em>{{$paginator_item.publishedAt|date:'dd MMM yyyy'}}</em></li>
-                                                        <li>Comentarios: <em>2</em></li>
+                                                        <li>Comentarios: <em>{{$paginator_item.comments.length}}</em></li>
                                                     </ul>
-                                                    <a href="javascript:void(0)" ng-click="showNew($paginator_item)">
+                                                    <a ui-sref="news.show({title:$paginator_item.title,newId:$paginator_item.id,new:$paginator_item})" >
                                                         <h4>{{$paginator_item.title| truncate : 50:'...':true}}</h4>
                                                     </a>
 
                                                     <p>
-                                                        {{$paginator_item.preview| truncate : 100:'...':true}}
+                                                        {{$paginator_item.preview| cleanStringSpaces | truncate : 90:'...':true }}
                                                     </p>
 
                                                     <div class="text-button">
-                                                        <a href="javascript:void(0)" ng-click="showNew($paginator_item)">
+                                                        <a ui-sref="news.show({title:$paginator_item.title,newId:$paginator_item.id,new:$paginator_item})" >
                                                             Continuar leyendo<i class="fa fa-arrow-right"></i>
                                                         </a>
                                                     </div>
