@@ -55,7 +55,7 @@
                         filter: {
                             where: {isPublished: true},
                             order: order,
-                            include: ['instructor']
+                            include: ['instructor',"comments"]
                         }
                     })
                     .then(function (data) {
@@ -97,18 +97,19 @@
         $scope.location = $location.absUrl();
         $scope.loadingRecentNews = true;
         $scope.newsCarouselConfig = newsCarouselConfig;
-        console.log($stateParams)
+
         if (!$stateParams.new)
         {
             NewsService
                     .loadPublication({
                         filter: {
                             where: {isPublished: true, id: $stateParams.newId},
-                            include: 'instructor'
+                            include: ['instructor', 'comments']
                         }
                     })
                     .then(function (data) {
                         $scope.new = data;
+                        console.log(data)
                     })
 
         } else

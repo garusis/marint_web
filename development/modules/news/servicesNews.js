@@ -71,6 +71,8 @@
                 }
             });
         }
+        
+        
 
     }
     module.service('NewsService', service)
