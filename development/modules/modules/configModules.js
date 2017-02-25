@@ -7,13 +7,14 @@
 ;
 !(function (module) {
   module
-    .config(['stateHelperProvider', function (stateHelperProvider) {
+    .config(['stateHelperProvider',
+      function (stateHelperProvider) {
         stateHelperProvider
           .state({
             name: 'courses.show.modules',
             abstract: true,
             url: '/modulos',
-            template: '<div> asdasdasdasdasdasdasd</div>',
+            template: '<div> </div>',
             children: [
               {
                 name: 'show',
@@ -30,4 +31,4 @@
             ]
           });
       }]);
-})(angular.module('jg.marlininternacional.courses.modules', ['ui.router', 'ui.router.stateHelper']));
+})(angular.module('jg.marlininternacional.courses.modules',['ui.router','ui.router.stateHelper']));
