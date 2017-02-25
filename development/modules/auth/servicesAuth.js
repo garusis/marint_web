@@ -8,11 +8,13 @@
 !(function (module) {
 
     function AuthProvider( ) {
-        this.$get = function (ngDialog) {
+        this.$get = function (ngDialog,$rootScope) {
             return{
-                
+                isLogin:function(){
+                    
+                },
                 passwordWasChanged: function () {
-                    return false;
+                    return true;
                 },
                 showModalChangePassword: function () {
                    
@@ -44,7 +46,7 @@
             }
 
         }
-        this.$get.$inject = ["ngDialog"];
+        this.$get.$inject = ["ngDialog","$rootScope"];
     }
     module.provider('authmodule', AuthProvider)
 })(angular.module('jg.marlininternacional.auth'));

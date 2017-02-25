@@ -33,15 +33,15 @@
                         <div class="col-md-8">
                             <div class="classic-posts">
                                 <div class="single-item">
-                                    <img ng-src="{{new.images._770x410}}" alt="">
+                                    <img ng-src="{{new .images._770x410}}" alt="">
                                     <ul>
                                         <li>Publicado: <em>{{new .publishedAt|date:'dd MMM yyyy'}}</em></li>
                                         <li>Autor: <em>{{new .instructor.name}}</em></li>
-                                        <li>Comentarios: <em>2</em></li>
+                                        <li>Comentarios: <em>{{new .comments.length}}</em></li>
                                     </ul>
                                     <h4>{{new .title}}</h4>
 
-                                    <div ng-bind-html="new .content">
+                                    <div class="text-justify" ng-bind-html="(new .content | cleanStringSpaces)">
 
                                     </div>
 
@@ -62,71 +62,32 @@
                                     </div>
                                 </div>
                             </div>
-                            <div  class="comments">
+                            <div ng-show="new .comments.lenght>0" class="comments">
                                 <div class="heading">
-                                    <h2>Comments</h2>
+                                    <h2>Comentarios</h2>
                                 </div>
-                                <div class="comment-item">
+                                <div class="comment-item"  ng-repeat="c in new .comments">
                                     <img src="http://placehold.it/54x54" alt="">
-                                    <h4>John Smith</h4>
-                                    <span>1 hour ago</span>
+                                    <h4>{{c.publisherName}}</h4>
+                                    <span>{{c.createdAt| date:'dd MMM yyyy h:MMa'}}</span>
 
                                     <div class="reply-button">
                                         <a href="#">Reply</a>
                                     </div>
-                                    <p>Blue Bottle occupy fanny pack hashtag, cronut brunch PBR Odd Future. Brooklyn
-                                        cray fap Meggings quinoa 8-bit, blog actually roof party master cleanse iPhone
-                                        four dollar toast.Tofu dreamcatcher 90's letterpress vinyl megging</p>
-                                </div>
-                                <div class="comment-item replied-comment">
-                                    <img src="http://placehold.it/54x54" alt="">
-                                    <h4>Endris Flenderno</h4>
-                                    <span>1 hour ago</span>
-
-                                    <div class="reply-button">
-                                        <a href="#">Reply</a>
-                                    </div>
-                                    <p>Blue Bottle occupy fanny pack hashtag, cronut brunch PBR Odd Future. Brooklyn
-                                        cray fap Meggings quinoa 8-bit, blog actually roof party master cleanse iPhone
-                                        four dollar toast.Tofu dreamcatcher 90's letterpress vinyl megging</p>
-                                </div>
-                                <div class="comment-item replied-comment">
-                                    <img src="http://placehold.it/54x54" alt="">
-                                    <h4>Marcos Marrison</h4>
-                                    <span>1 hour ago</span>
-
-                                    <div class="reply-button">
-                                        <a href="#">Reply</a>
-                                    </div>
-                                    <p>Blue Bottle occupy fanny pack hashtag, cronut brunch PBR Odd Future. Brooklyn
-                                        cray fap Meggings quinoa 8-bit, blog actually roof party master cleanse iPhone
-                                        four dollar toast.Tofu dreamcatcher 90's letterpress vinyl megging</p>
-                                </div>
-                                <div class="comment-item">
-                                    <img src="http://placehold.it/54x54" alt="">
-                                    <h4>Robert Landerson</h4>
-                                    <span>1 hour ago</span>
-
-                                    <div class="reply-button">
-                                        <a href="#">Reply</a>
-                                    </div>
-                                    <p>Blue Bottle occupy fanny pack hashtag, cronut brunch PBR Odd Future. Brooklyn
-                                        cray fap Meggings quinoa 8-bit, blog actually roof party master cleanse iPhone
-                                        four dollar toast.Tofu dreamcatcher 90's letterpress vinyl megging</p>
+                                    <p>{{c.content}}</p>
                                 </div>
                             </div>
-                            <div ng-if="false" class="leave-comment">
+                            <div class="leave-comment">
                                 <div class="heading">
-                                    <h2>Leave a comment</h2>
+                                    <h2>Deja un comentario</h2>
                                 </div>
                                 <div class="comment-form">
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <input type="text" id="name" name="s" placeholder="Full Name" value="">
+                                        <div ng-hide="$rootScope.dataUser" class="col-md-6">
+                                            <input ng-model="comment.name" type="text"  placeholder="Nombre y apellidos" >
                                         </div>
-                                        <div class="col-md-6">
-                                            <input type="text" id="address" name="s" placeholder="E-mail Address"
-                                                   value="">
+                                        <div ng-hide="$rootScope.dataUser" class="col-md-6">
+                                            <input ng-model="comment.email" type="text"   placeholder="Correo electrónico" value="">
                                         </div>
                                         <div class="col-md-12">
                                             <textarea id="message" class="message" name="message"
@@ -150,7 +111,7 @@
                                     </div>
                                     <slick ng-cloak="" settings="::newsCarouselConfig" ng-show="!loadingRecentNews" ng-if="recentNews.length > 0">
                                         <div class="news-item" style="height: 150px" ng-repeat="rn in recentNews">
-                                            <a href="javascript:void(0)" ng-click="showNew(rn)"><h1>{{::rn.title|truncate:50:'...':true}}</h1></a>
+                                            <a ui-sref="news.show({title:rn.title,newId:rn.id,new:rn})" ><h1>{{::rn.title|truncate:50:'...':true}}</h1></a>
                                             <ul class="info clearfix">
                                                 <li>{{::rn.createdAt|date:'dd/MM/yyyy'}} </li>
                                                 <li>{{::rn.instructor.name}}</li>
@@ -160,12 +121,12 @@
                                         </div>
                                     </slick>
                                 </div>
-                                <div class="tags" ng-show='new.tags.length > 0'>
+                                <div class="tags" ng-show='new .tags.length > 0'>
                                     <div class="widget-heading">
                                         <h4>Tags</h4>
                                     </div>
                                     <ul>
-                                        <li ng-repeat='c in new.tags'><a href="#">{{c}}</a></li>
+                                        <li ng-repeat='c in new .tags'><a href="#">{{c}}</a></li>
                                     </ul>
                                 </div>
                             </div>
