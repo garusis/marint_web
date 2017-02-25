@@ -1,183 +1,192 @@
 <div class="sidebar-menu-container" id="sidebar-menu-container">
 
-    <div class="sidebar-menu-push">
-        <div class="sidebar-menu-inner">
-            <div responsive-image="" sources="headerSources" as-background-image class="page-heading news-heading">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1>Publicaciones</h1>
-                            <span>Disfruta, inspirate, reflexiona</span>
+  <div class="sidebar-menu-push">
+    <div class="sidebar-menu-inner">
+      <div responsive-image="" sources="headerSources" as-background-image class="page-heading news-heading">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h1>Publicaciones</h1>
+              <span>Disfruta, inspirate, reflexiona</span>
 
-                            <div class="page-list">
-                                <ul>
-                                    <li class="active"><a ui-sref="index">Inicio</a></li>
-                                    <li><i class="fa fa-angle-right"></i></li>
-                                    <li><a ui-sref="news">Publicaciones</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              <div class="page-list">
+                <ul>
+                  <li class="active"><a ui-sref="index">Inicio</a></li>
+                  <li><i class="fa fa-angle-right"></i></li>
+                  <li><a ui-sref="news">Publicaciones</a></li>
+                </ul>
+              </div>
             </div>
-
-            <section class="grid-news">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="pre-featured">
-                                <div class="right-content">
-                                    <div class="input-select">
-                                        <select ng-model="optorderby">
-                                            <option value="">Ordenar por:</option>
-                                            <option value="title">Nombre</option>
-                                            <option value="modifiedAt">Fecha de modificación</option>
-                                        </select>
-                                    </div>
-                                    <div class="grid-list">
-                                        <ul>
-                                            <li><a href="javascript:void(0)" ng-click="togleAsc()">
-                                                    <i class="fa" ng-class="{'fa-sort-asc':asc,'fa-sort-desc':!asc}"></i>
-                                                </a>
-                                            </li>
-                                            <li><a href="javascript:void(0)" ng-click="loadnews()"><i class="fa fa-search"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div ng-show="loading" class="loading">
-                                <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
-                                <p>Cargando</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div ng-hide="loading" class="row">
-                        <div class="col-md-8">
-                            <div class="classic-posts">
-                                <div class="row">
-                                    <paginator pagedata="news" pagelength="4">
-                                        <div class="col-md-6">
-                                            <div class="grid-item">
-                                                <a ui-sref="news.show({title:$paginator_item.title,newId:$paginator_item.id,new:$paginator_item})" >
-                                                    <img ng-src="{{$paginator_item.images._370x220}}" alt=""></a>
-
-                                                <div class="down-content">
-                                                    <ul>
-                                                        <li>Publicado: <em>{{$paginator_item.publishedAt|date:'dd MMM yyyy'}}</em></li>
-                                                        <li>Comentarios: <em>{{$paginator_item.comments.length}}</em></li>
-                                                    </ul>
-                                                    <a ui-sref="news.show({title:$paginator_item.title,newId:$paginator_item.id,new:$paginator_item})" >
-                                                        <h4>{{$paginator_item.title| truncate : 50:'...':true}}</h4>
-                                                    </a>
-
-                                                    <p>
-                                                        {{$paginator_item.preview| cleanStringSpaces | truncate : 90:'...':true }}
-                                                    </p>
-
-                                                    <div class="text-button">
-                                                        <a ui-sref="news.show({title:$paginator_item.title,newId:$paginator_item.id,new:$paginator_item})" >
-                                                            Continuar leyendo<i class="fa fa-arrow-right"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </paginator>
-
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="side-bar">
-                                <div class="recent-news">
-                                    <div class="widget-heading">
-                                        <h4>Publicaciones Recientes</h4>
-                                    </div>
-                                    <div ng-show="loadingRecentNews" class="loading">
-                                        <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
-                                    </div>
-                                    <slick ng-cloak="" settings="::newsCarouselConfig" ng-show="!loadingRecentNews" ng-if="recentNews.length > 0">
-                                        <div class="news-item" style="height: 150px" ng-repeat="rn in recentNews">
-                                            <a href="javascript:void(0)" ng-click="showNew(rn)"><h1>{{::rn.title|truncate:50:'...':true}}</h1></a>
-                                            <ul class="info clearfix">
-                                                <li>{{::rn.createdAt|date:'dd/MM/yyyy'}} </li>
-                                                <li>{{::rn.instructor.name}}</li>
-                                            </ul>
-                                            <p>{{::rn.preview|truncate:150:'...':true}}</p>
-                                            
-                                        </div>
-                                    </slick>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <div id="call-to-action">
-                <div class="container">
-                    <div class="row">
-                        <p>Desarrolla tu <em>máximo potencial</em> y aplícalo a tu vida diaria.</p>
-                        <div class="accent-button">
-                            <a href="/cursos">Ver nuestros cursos</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <nav class="sidebar-menu slide-from-left">
-        <div class="nano">
-            <div class="content">
-                <nav class="responsive-menu">
+      <section class="grid-news">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="pre-featured">
+                <div class="right-content">
+                  <div class="input-select">
+                    <select ng-model="optorderby">
+                      <option value="">Ordenar por:</option>
+                      <option value="title">Nombre</option>
+                      <option value="modifiedAt">Fecha de modificación</option>
+                    </select>
+                  </div>
+                  <div class="grid-list">
                     <ul>
-                        <li class="menu-item-has-children"><a href="#">Home</a>
-                            <ul class="sub-menu">
-                                <li><a href="index.html">Homepage 1</a></li>
-                                <li><a href="homepage-2.html">Homepage 2</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children"><a href="#">Courses</a>
-                            <ul class="sub-menu">
-                                <li><a href="courses-grid.html">Courses Grids</a></li>
-                                <li><a href="courses-list.html">Courses List</a></li>
-                                <li><a href="single-course.html">Single Course</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children"><a href="#">Events</a>
-                            <ul class="sub-menu">
-                                <li><a href="classic-events.html">Classic Events</a></li>
-                                <li><a href="calendar-events.html">Calendar Events</a></li>
-                                <li><a href="single-event.html">Single Event</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children"><a href="#">Pages</a>
-                            <ul class="sub-menu">
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="our-teachers.html">Our Teachers</a></li>
-                                <li><a href="single-teacher.html">Single Teacher</a></li>
-                                <li><a href="gallery-4.html">Gallery 4 Columns</a></li>
-                                <li><a href="gallery-3.html">Gallery 3 Columns</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children"><a href="#">News</a>
-                            <ul class="sub-menu">
-                                <li><a href="classic-news.html">Classic News</a></li>
-                                <li><a href="grid-news.html">Grid News</a></li>
-                                <li><a href="single-post.html">Single Post</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.html">Contact</a></li>
+                      <li><a href="javascript:void(0)" ng-click="togleAsc()">
+                        <i class="fa" ng-class="{'fa-sort-asc':asc,'fa-sort-desc':!asc}"></i>
+                      </a>
+                      </li>
+                      <li><a href="javascript:void(0)" ng-click="loadnews()"><i
+                        class="fa fa-search"></i></a></li>
                     </ul>
-                </nav>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+              <div ng-show="loading" class="loading">
+                <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
+                <p>Cargando</p>
+              </div>
+            </div>
+          </div>
+          <div ng-hide="loading" class="row">
+            <div class="col-md-8">
+              <div class="classic-posts">
+                <div class="row">
+                  <paginator pagedata="news" pagelength="4">
+                    <div class="col-md-6">
+                      <div class="grid-item">
+                        <a
+                          ui-sref="news.show({title:$paginator_item.title,newId:$paginator_item.id,new:$paginator_item})">
+                          <img ng-src="{{$paginator_item.images._370x220}}" alt=""></a>
+
+                        <div class="down-content">
+                          <ul>
+                            <li>Publicado: <em>{{$paginator_item.publishedAt|date:'dd MMM
+                              yyyy'}}</em></li>
+                            <li>Comentarios: <em>{{$paginator_item.comments.length}}</em>
+                            </li>
+                          </ul>
+                          <a
+                            ui-sref="news.show({title:$paginator_item.title,newId:$paginator_item.id,new:$paginator_item})">
+                            <h4>{{$paginator_item.title| truncate : 50:'...':true}}</h4>
+                          </a>
+
+                          <p>
+                            {{$paginator_item.preview| cleanStringSpaces | truncate :
+                            90:'...':true }}
+                          </p>
+
+                          <div class="text-button">
+                            <a
+                              ui-sref="news.show({title:$paginator_item.title,newId:$paginator_item.id,new:$paginator_item})">
+                              Continuar leyendo<i class="fa fa-arrow-right"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </paginator>
+
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="side-bar">
+                <div class="recent-news">
+                  <div class="widget-heading">
+                    <h4>Publicaciones Recientes</h4>
+                  </div>
+                  <div ng-show="loadingRecentNews" class="loading">
+                    <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
+                  </div>
+                  <slick ng-cloak="" settings="::newsCarouselConfig" ng-show="!loadingRecentNews"
+                         ng-if="recentNews.length > 0">
+                    <div class="news-item" style="height: 150px" ng-repeat="rn in recentNews">
+                      <a href="javascript:void(0)" ng-click="showNew(rn)"><h1>
+                        {{::rn.title|truncate:50:'...':true}}</h1></a>
+                      <ul class="info clearfix">
+                        <li>{{::rn.createdAt|date:'dd/MM/yyyy'}}</li>
+                        <li>{{::rn.instructor.name}}</li>
+                      </ul>
+                      <p>{{::rn.preview|truncate:150:'...':true}}</p>
+
+                    </div>
+                  </slick>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </nav>
+      </section>
+
+      <div id="call-to-action">
+        <div class="container">
+          <div class="row">
+            <p>Desarrolla tu <em>máximo potencial</em> y aplícalo a tu vida diaria.</p>
+            <div class="accent-button">
+              <a href="/cursos">Ver nuestros cursos</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="sidebar-menu slide-from-left">
+    <div class="nano">
+      <div class="content">
+        <nav class="responsive-menu">
+          <ul>
+            <li class="menu-item-has-children"><a href="#">Home</a>
+              <ul class="sub-menu">
+                <li><a href="index.html">Homepage 1</a></li>
+                <li><a href="homepage-2.html">Homepage 2</a></li>
+              </ul>
+            </li>
+            <li class="menu-item-has-children"><a href="#">Courses</a>
+              <ul class="sub-menu">
+                <li><a href="courses-grid.html">Courses Grids</a></li>
+                <li><a href="courses-list.html">Courses List</a></li>
+                <li><a href="single-course.html">Single Course</a></li>
+              </ul>
+            </li>
+            <li class="menu-item-has-children"><a href="#">Events</a>
+              <ul class="sub-menu">
+                <li><a href="classic-events.html">Classic Events</a></li>
+                <li><a href="calendar-events.html">Calendar Events</a></li>
+                <li><a href="single-event.html">Single Event</a></li>
+              </ul>
+            </li>
+            <li class="menu-item-has-children"><a href="#">Pages</a>
+              <ul class="sub-menu">
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="our-teachers.html">Our Teachers</a></li>
+                <li><a href="single-teacher.html">Single Teacher</a></li>
+                <li><a href="gallery-4.html">Gallery 4 Columns</a></li>
+                <li><a href="gallery-3.html">Gallery 3 Columns</a></li>
+              </ul>
+            </li>
+            <li class="menu-item-has-children"><a href="#">News</a>
+              <ul class="sub-menu">
+                <li><a href="classic-news.html">Classic News</a></li>
+                <li><a href="grid-news.html">Grid News</a></li>
+                <li><a href="single-post.html">Single Post</a></li>
+              </ul>
+            </li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </nav>
 
 </div>

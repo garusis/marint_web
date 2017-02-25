@@ -6,28 +6,28 @@
  */
 ;
 !(function (module) {
-    module
-        .config(['stateHelperProvider', function (stateHelperProvider) {
-            stateHelperProvider
-                .state({
-                  name: 'courses.show.modules',
-                  abstract: true,
-                  url: '/modulos',
-                  template: '<div> </div>',
-                  children:[
-                    {
-                        name: 'show',
-                        url: '/{moduleTitle}-:moduleId',
-                        views:{
-                          '@':{
-                            templateUrl: 'modules/modules/templates/show.html',
-                            controller: 'ShowModuleController',
-                            controllerAs: 'showMCtrl'
-                          }
-                        }
+  module
+    .config(['stateHelperProvider', function (stateHelperProvider) {
+      stateHelperProvider
+        .state({
+          name: 'courses.show.modules',
+          abstract: true,
+          url: '/modulos',
+          template: '<div> </div>',
+          children: [
+            {
+              name: 'show',
+              url: '/{moduleTitle}-:moduleId',
+              views: {
+                '@': {
+                  templateUrl: 'modules/modules/templates/show.html',
+                  controller: 'ShowModuleController',
+                  controllerAs: 'showMCtrl'
+                }
+              }
 
-                    }
-                  ]
-                });
-        }]);
+            }
+          ]
+        });
+    }]);
 })(angular.module('jg.marlininternacional.courses.modules', ['ui.router', 'ui.router.stateHelper']));

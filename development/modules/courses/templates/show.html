@@ -1,165 +1,167 @@
 <div class="page-heading" responsive-image="" sources="headerSources" as-background-image>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>{{course.name}}</h1>
-                <span>{{course.description}}</span>
-                <div class="page-list">
-                    <ul>
-                        <li class="active"><a href="index.html">Inicio</a></li>
-                        <li><i class="fa fa-angle-right"></i></li>
-                        <li class="active"><a href="/cursos">Cursos</a></li>
-                        <li><i class="fa fa-angle-right"></i></li>
-                        <li><a href="javascript:void(0)">{{course.name}}</a></li>
-                    </ul>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>{{course.name}}</h1>
+        <span>{{course.description}}</span>
+        <div class="page-list">
+          <ul>
+            <li class="active"><a href="index.html">Inicio</a></li>
+            <li><i class="fa fa-angle-right"></i></li>
+            <li class="active"><a href="/cursos">Cursos</a></li>
+            <li><i class="fa fa-angle-right"></i></li>
+            <li><a href="javascript:void(0)">{{course.name}}</a></li>
+          </ul>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <div ng-show="loading" class="loading">
-    <p>
-        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-    </p>
+  <p>
+    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+  </p>
 </div>
 <section ng-show="!loading" class="single-course">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="single-item">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="item course-item">
-                                <div class="up-content">
-                                    <a href="javascript:void(0)"><h4>{{course.name}}</h4></a>
-                                    <img ng-src="{{course.instructor.imagePreview.thumb_small}}"
-                                         alt="Foto: {{course.instructor.name}}">
-                                    <h6>{{course.instructor.name}}</h6>
-                                    <div class="price-red">
-                                        <div id="base"></div>
-                                    </div>
-                                </div>
-                                <div class="courses-slider">
-                                     <img  ng-src="{{course.images._770x410}}" alt="">
-                                </div>
-                            </div>
-                            <div class="description">
-                                <h4>Descripcion</h4>
-                                <p class="text-justify">{{course.description}}</p>
-                            </div>
-                            
-                            <div class="accordions" >
-                                <h4>Módulos del curso:</h4>
-                                <div class="accordion"  mvonload="callback" compile>
-                                    <div class="accordion-section" ng-class="{enabled:m.enabled}" ng-repeat="m in course.modules|orderBy:'position'">
-                                        <a class="accordion-section-title"
-                                           ng-class="{'second-accordion-section-title':($index%2==0)}"
-                                           href="#accordion-{{$index}}">
-                                            <span class="first-icon"><i class="fa fa-play-circle-o"></i></span>
-                                            <span>Modulo {{m.position}} <span ng-show="m.description">-</span> {{m.description}}</span>
-                                            <h6>
-                                                <em ng-show="m.enabled">{{m.videos.length}} Videos</em>
-                                                <span id="1" class="second-icon"><i class="fa fa-sort-desc"></i></span>
-                                            </h6>
-                                        </a>
-                                        <div id="accordion-{{$index}}" class="accordion-section-content">
-                                            <p>{{m.description}}</p>
-                                            <div ng-show="m.enabled">
-                                                <h4>Videos de este módulo:</h4>
-                                                <ul class="list-unstyled">
-                                                    <li ng-repeat="v in m.videos|orderBy:'position'">
-                                                        <a href="javascript:void(0)" ng-click="showVideo(v)">Video {{v.position}} <span ng-show="v.title">-</span> {{v.title}}</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="single-item">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="item course-item">
+                <div class="up-content">
+                  <a href="javascript:void(0)"><h4>{{course.name}}</h4></a>
+                  <img ng-src="{{course.instructor.imagePreview.thumb_small}}"
+                       alt="Foto: {{course.instructor.name}}">
+                  <h6>{{course.instructor.name}}</h6>
+                  <div class="price-red">
+                    <div id="base"></div>
+                  </div>
                 </div>
+                <div class="courses-slider">
+                  <img ng-src="{{course.images._770x410}}" alt="">
+                </div>
+              </div>
+              <div class="description">
+                <h4>Descripcion</h4>
+                <p class="text-justify">{{course.description}}</p>
+              </div>
+
+              <div class="accordions">
+                <h4>Módulos del curso:</h4>
+                <div class="accordion" mvonload="callback" compile>
+                  <div class="accordion-section" ng-class="{enabled:m.enabled}"
+                       ng-repeat="m in course.modules|orderBy:'position'">
+                    <a class="accordion-section-title"
+                       ng-class="{'second-accordion-section-title':($index%2==0)}"
+                       href="#accordion-{{$index}}">
+                      <span class="first-icon"><i class="fa fa-play-circle-o"></i></span>
+                      <span>Modulo {{m.position}} <span ng-show="m.description">-</span> {{m.description}}</span>
+                      <h6>
+                        <em ng-show="m.enabled">{{m.videos.length}} Videos</em>
+                        <span id="1" class="second-icon"><i class="fa fa-sort-desc"></i></span>
+                      </h6>
+                    </a>
+                    <div id="accordion-{{$index}}" class="accordion-section-content">
+                      <p>{{m.description}}</p>
+                      <div ng-show="m.enabled">
+                        <h4>Videos de este módulo:</h4>
+                        <ul class="list-unstyled">
+                          <li ng-repeat="v in m.videos|orderBy:'position'">
+                            <a href="javascript:void(0)" ng-click="showVideo(v)">Video
+                              {{v.position}} <span ng-show="v.title">-</span> {{v.title}}</a>
+                          </li>
+                        </ul>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-md-4">
-                <div class="course-information">
-                    <div class="widget-heading">
-                        <h4>Información del curso</h4>
-                    </div>
-                    <ul>
-                        <li><span>Price:</span>$ {{course.price}}</li>
-                    </ul>
-                </div>
-                <div class="tags" ng-show='course.tags.length>0'>
-                    <div class="widget-heading">
-                        <h4>Tags</h4>
-                    </div>
-                    <ul>
-                        <li ng-repeat='c in course.tags'><a href="#">{{c}}</a></li>
-                    </ul>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
+      <div class="col-md-4">
+        <div class="course-information">
+          <div class="widget-heading">
+            <h4>Información del curso</h4>
+          </div>
+          <ul>
+            <li><span>Price:</span>$ {{course.price}}</li>
+          </ul>
+        </div>
+        <div class="tags" ng-show='course.tags.length>0'>
+          <div class="widget-heading">
+            <h4>Tags</h4>
+          </div>
+          <ul>
+            <li ng-repeat='c in course.tags'><a href="#">{{c}}</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
 <div id="call-to-action">
-    <div class="container">
-        <div class="row">
-            <p>Desarrolla tu <em>máximo potencial</em> y aplícalo a tu vida diaria.</p>
-            <div class="accent-button">
-                <a href="/cursos">Ver nuestros cursos</a>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <p>Desarrolla tu <em>máximo potencial</em> y aplícalo a tu vida diaria.</p>
+      <div class="accent-button">
+        <a href="/cursos">Ver nuestros cursos</a>
+      </div>
     </div>
+  </div>
 </div>
 <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
 <nav class="sidebar-menu slide-from-left">
-    <div class="nano">
-        <div class="content">
-            <nav class="responsive-menu">
-                <ul>
-                    <li class="menu-item-has-children"><a href="#">Home</a>
-                        <ul class="sub-menu">
-                            <li><a href="index.html">Homepage 1</a></li>
-                            <li><a href="homepage-2.html">Homepage 2</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children"><a href="#">Courses</a>
-                        <ul class="sub-menu">
-                            <li><a href="courses-grid.html">Courses Grids</a></li>
-                            <li><a href="courses-list.html">Courses List</a></li>
-                            <li><a href="single-course.html">Single Course</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children"><a href="#">Events</a>
-                        <ul class="sub-menu">
-                            <li><a href="classic-events.html">Classic Events</a></li>
-                            <li><a href="calendar-events.html">Calendar Events</a></li>
-                            <li><a href="single-event.html">Single Event</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children"><a href="#">Pages</a>
-                        <ul class="sub-menu">
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="our-teachers.html">Our Teachers</a></li>
-                            <li><a href="single-teacher.html">Single Teacher</a></li>
-                            <li><a href="gallery-4.html">Gallery 4 Columns</a></li>
-                            <li><a href="gallery-3.html">Gallery 3 Columns</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children"><a href="#">News</a>
-                        <ul class="sub-menu">
-                            <li><a href="classic-news.html">Classic News</a></li>
-                            <li><a href="grid-news.html">Grid News</a></li>
-                            <li><a href="single-post.html">Single Post</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
+  <div class="nano">
+    <div class="content">
+      <nav class="responsive-menu">
+        <ul>
+          <li class="menu-item-has-children"><a href="#">Home</a>
+            <ul class="sub-menu">
+              <li><a href="index.html">Homepage 1</a></li>
+              <li><a href="homepage-2.html">Homepage 2</a></li>
+            </ul>
+          </li>
+          <li class="menu-item-has-children"><a href="#">Courses</a>
+            <ul class="sub-menu">
+              <li><a href="courses-grid.html">Courses Grids</a></li>
+              <li><a href="courses-list.html">Courses List</a></li>
+              <li><a href="single-course.html">Single Course</a></li>
+            </ul>
+          </li>
+          <li class="menu-item-has-children"><a href="#">Events</a>
+            <ul class="sub-menu">
+              <li><a href="classic-events.html">Classic Events</a></li>
+              <li><a href="calendar-events.html">Calendar Events</a></li>
+              <li><a href="single-event.html">Single Event</a></li>
+            </ul>
+          </li>
+          <li class="menu-item-has-children"><a href="#">Pages</a>
+            <ul class="sub-menu">
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="our-teachers.html">Our Teachers</a></li>
+              <li><a href="single-teacher.html">Single Teacher</a></li>
+              <li><a href="gallery-4.html">Gallery 4 Columns</a></li>
+              <li><a href="gallery-3.html">Gallery 3 Columns</a></li>
+            </ul>
+          </li>
+          <li class="menu-item-has-children"><a href="#">News</a>
+            <ul class="sub-menu">
+              <li><a href="classic-news.html">Classic News</a></li>
+              <li><a href="grid-news.html">Grid News</a></li>
+              <li><a href="single-post.html">Single Post</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
     </div>
+  </div>
 </nav>
 
 </div>

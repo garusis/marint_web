@@ -6,46 +6,48 @@
  */
 ;
 !(function (module) {
-    function compile($compile, element, attrs) {
-        var compiled = $compile(element, null, 5000);
-        return function (scope) {
-            compiled(scope);
-        }
+  function compile ($compile, element, attrs) {
+    var compiled = $compile(element, null, 5000);
+    return function (scope) {
+      compiled(scope);
     }
-    function pre(scope, element, attrs, controller, transcludeFn, $compile) {
-        if(typeof attrs.compile != 'undefined')
-        {
-            compile($compile, element, attrs)(scope)
-        }
-        
-        scope._mvoloadstatus=true;
+  }
+
+  function pre (scope, element, attrs, controller, transcludeFn, $compile) {
+    if (typeof attrs.compile != 'undefined') {
+      compile($compile, element, attrs)(scope)
     }
-    function post(scope, element, attrs, controller, transcludeFn) {
-        if (typeof scope[attrs.mvonload] === "function") {
-            scope.$watch("_mvoloadstatus",function(){
-                if(scope._mvoloadstatus)
-                {
-                    scope[attrs.mvonload]()
-                }
-            })
+
+    scope._mvoloadstatus = true;
+  }
+
+  function post (scope, element, attrs, controller, transcludeFn) {
+    if (typeof scope[attrs.mvonload] === "function") {
+      scope.$watch("_mvoloadstatus", function () {
+        if (scope._mvoloadstatus) {
+          scope[attrs.mvonload]()
         }
+      })
     }
-    directive.$inject = ["$compile"]
-    function directive($compile) {
-        return  {
-            restrict: 'A',
-            priority: 5000,
-            terminal: true,
-            scope: false,
-            link: {
-                pre: function (scope, element, attrs, controller, transcludeFn) {
-                    pre(scope, element, attrs, controller, transcludeFn,$compile);
-                },
-                post: function (scope, element, attrs, controller, transcludeFn) {
-                    post(scope, element, attrs, controller, transcludeFn);
-                }
-            }
+  }
+
+  directive.$inject = ["$compile"]
+  function directive ($compile) {
+    return {
+      restrict: 'A',
+      priority: 5000,
+      terminal: true,
+      scope: false,
+      link: {
+        pre: function (scope, element, attrs, controller, transcludeFn) {
+          pre(scope, element, attrs, controller, transcludeFn, $compile);
+        },
+        post: function (scope, element, attrs, controller, transcludeFn) {
+          post(scope, element, attrs, controller, transcludeFn);
         }
+      }
     }
-    module.directive("mvonload", directive);
+  }
+
+  module.directive("mvonload", directive);
 })(angular.module('com.alphonsegs.mvonload', []));

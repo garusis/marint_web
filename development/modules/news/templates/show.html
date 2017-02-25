@@ -1,188 +1,191 @@
 <div class="sidebar-menu-container" id="sidebar-menu-container">
 
-    <div class="sidebar-menu-push">
+  <div class="sidebar-menu-push">
 
-        <div class="sidebar-menu-overlay"></div>
+    <div class="sidebar-menu-overlay"></div>
 
-        <div class="sidebar-menu-inner">
+    <div class="sidebar-menu-inner">
 
-            <div responsive-image="" sources="headerSources" as-background-image class="page-heading news-heading">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1>Publicaciones</h1>
-                            <span>Disfruta, inspirate, reflexiona</span>
+      <div responsive-image="" sources="headerSources" as-background-image class="page-heading news-heading">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h1>Publicaciones</h1>
+              <span>Disfruta, inspirate, reflexiona</span>
 
-                            <div class="page-list">
-                                <ul>
-                                    <li class="active"><a ui-sref="index">Inicio</a></li>
-                                    <li><i class="fa fa-angle-right"></i></li>
-                                    <li><a ui-sref="news">Publicaciones</a></li>
-                                    <li><i class="fa fa-angle-right"></i></li>
-                                    <li><a ui-sref="news">{{new .title| truncate:20:'...':true}}</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              <div class="page-list">
+                <ul>
+                  <li class="active"><a ui-sref="index">Inicio</a></li>
+                  <li><i class="fa fa-angle-right"></i></li>
+                  <li><a ui-sref="news">Publicaciones</a></li>
+                  <li><i class="fa fa-angle-right"></i></li>
+                  <li><a ui-sref="news">{{new .title| truncate:20:'...':true}}</a></li>
+                </ul>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <section class="single-post">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="classic-posts">
-                                <div class="single-item">
-                                    <img ng-src="{{new .images._770x410}}" alt="">
-                                    <ul>
-                                        <li>Publicado: <em>{{new .publishedAt|date:'dd MMM yyyy'}}</em></li>
-                                        <li>Autor: <em>{{new .instructor.name}}</em></li>
-                                        <li>Comentarios: <em>{{new .comments.length}}</em></li>
-                                    </ul>
-                                    <h4>{{new .title}}</h4>
+      <section class="single-post">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="classic-posts">
+                <div class="single-item">
+                  <img ng-src="{{new .images._770x410}}" alt="">
+                  <ul>
+                    <li>Publicado: <em>{{new .publishedAt|date:'dd MMM yyyy'}}</em></li>
+                    <li>Autor: <em>{{new .instructor.name}}</em></li>
+                    <li>Comentarios: <em>{{new .comments.length}}</em></li>
+                  </ul>
+                  <h4>{{new .title}}</h4>
 
-                                    <div class="text-justify" ng-bind-html="(new .content | cleanStringSpaces)">
+                  <div class="text-justify" ng-bind-html="(new .content | cleanStringSpaces)">
 
-                                    </div>
+                  </div>
 
 
-                                    <div class="tags-share">
-                                        <div class="tag">
-                                            <i class="fa fa-tags"></i>
+                  <div class="tags-share">
+                    <div class="tag">
+                      <i class="fa fa-tags"></i>
 
-                                            <p>Tags:</p>
-                                            <span><a ng-repeat="tag in new .tags" ui-sref="new">{{tag}}</a></span>
-                                        </div>
-                                        <div class="share">
-                                            <div class="second-button">
-                                                <a facebook class="facebookShare" data-url='{{location}}'
-                                                   data-shares='shares'>{{shares}}</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div ng-show="new .comments.length>0" class="comments">
-                                <div class="heading">
-                                    <h2>Comentarios</h2>
-                                </div>
-                                <div class="comment-item"  ng-repeat="c in new .comments">
-                                    <img src="http://placehold.it/54x54" alt="">
-                                    <h4>{{c.publisherName}}</h4>
-                                    <span>{{c.createdAt| date:'dd MMM yyyy h:MMa'}}</span>
+                      <p>Tags:</p>
+                      <span><a ng-repeat="tag in new .tags" ui-sref="new">{{tag}}</a></span>
+                    </div>
+                    <div class="share">
+                      <div class="second-button">
+                        <a facebook class="facebookShare" data-url='{{location}}'
+                           data-shares='shares'>{{shares}}</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div ng-show="new .comments.length>0" class="comments">
+                <div class="heading">
+                  <h2>Comentarios</h2>
+                </div>
+                <div class="comment-item" ng-repeat="c in new .comments">
+                  <img src="http://placehold.it/54x54" alt="">
+                  <h4>{{c.publisherName}}</h4>
+                  <span>{{c.createdAt| date:'dd MMM yyyy h:MMa'}}</span>
 
-                                    <div class="reply-button">
-                                        <a href="#">Reply</a>
-                                    </div>
-                                    <p>{{c.content}}</p>
-                                </div>
-                            </div>
-                            <div class="leave-comment">
-                                <div class="heading">
-                                    <h2>Deja un comentario</h2>
-                                </div>
-                                <div class="comment-form">
-                                    <div class="row">
-                                        <div ng-hide="$rootScope.dataUser" class="col-md-6">
-                                            <input ng-model="comment.name" type="text"  placeholder="Nombre y apellidos" >
-                                        </div>
-                                        <div ng-hide="$rootScope.dataUser" class="col-md-6">
-                                            <input ng-model="comment.email" type="text"   placeholder="Correo electrónico" value="">
-                                        </div>
-                                        <div class="col-md-12">
+                  <div class="reply-button">
+                    <a href="#">Reply</a>
+                  </div>
+                  <p>{{c.content}}</p>
+                </div>
+              </div>
+              <div class="leave-comment">
+                <div class="heading">
+                  <h2>Deja un comentario</h2>
+                </div>
+                <div class="comment-form">
+                  <div class="row">
+                    <div ng-hide="$rootScope.dataUser" class="col-md-6">
+                      <input ng-model="comment.name" type="text" placeholder="Nombre y apellidos">
+                    </div>
+                    <div ng-hide="$rootScope.dataUser" class="col-md-6">
+                      <input ng-model="comment.email" type="text" placeholder="Correo electrónico"
+                             value="">
+                    </div>
+                    <div class="col-md-12">
                                             <textarea id="message" class="message" name="message"
                                                       placeholder="Write comment"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="accent-button">
-                                        <a href="#">Submit Comment</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="side-bar">
-                                <div class="recent-news">
-                                    <div class="widget-heading">
-                                        <h4>Publicaciones Recientes</h4>
-                                    </div>
-                                    <div ng-show="loadingRecentNews" class="loading">
-                                        <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
-                                    </div>
-                                    <slick ng-cloak="" settings="::newsCarouselConfig" ng-show="!loadingRecentNews" ng-if="recentNews.length > 0">
-                                        <div class="news-item" style="height: 150px" ng-repeat="rn in recentNews">
-                                            <a ui-sref="news.show({title:rn.title,newId:rn.id,new:rn})" ><h1>{{::rn.title|truncate:50:'...':true}}</h1></a>
-                                            <ul class="info clearfix">
-                                                <li>{{::rn.createdAt|date:'dd/MM/yyyy'}} </li>
-                                                <li>{{::rn.instructor.name}}</li>
-                                            </ul>
-                                            <p>{{::rn.preview|truncate:150:'...':true}}</p>
-
-                                        </div>
-                                    </slick>
-                                </div>
-                                <div class="tags" ng-show='new .tags.length > 0'>
-                                    <div class="widget-heading">
-                                        <h4>Tags</h4>
-                                    </div>
-                                    <ul>
-                                        <li ng-repeat='c in new .tags'><a href="#">{{c}}</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                     </div>
+                  </div>
+                  <div class="accent-button">
+                    <a href="#">Submit Comment</a>
+                  </div>
                 </div>
-            </section>
-        </div>
-    </div>
-
-    <nav class="sidebar-menu slide-from-left">
-        <div class="nano">
-            <div class="content">
-                <nav class="responsive-menu">
-                    <ul>
-                        <li class="menu-item-has-children"><a href="#">Home</a>
-                            <ul class="sub-menu">
-                                <li><a href="index.html">Homepage 1</a></li>
-                                <li><a href="homepage-2.html">Homepage 2</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children"><a href="#">Courses</a>
-                            <ul class="sub-menu">
-                                <li><a href="courses-grid.html">Courses Grids</a></li>
-                                <li><a href="courses-list.html">Courses List</a></li>
-                                <li><a href="single-course.html">Single Course</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children"><a href="#">Events</a>
-                            <ul class="sub-menu">
-                                <li><a href="classic-events.html">Classic Events</a></li>
-                                <li><a href="calendar-events.html">Calendar Events</a></li>
-                                <li><a href="single-event.html">Single Event</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children"><a href="#">Pages</a>
-                            <ul class="sub-menu">
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="our-teachers.html">Our Teachers</a></li>
-                                <li><a href="single-teacher.html">Single Teacher</a></li>
-                                <li><a href="gallery-4.html">Gallery 4 Columns</a></li>
-                                <li><a href="gallery-3.html">Gallery 3 Columns</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children"><a href="#">News</a>
-                            <ul class="sub-menu">
-                                <li><a href="classic-news.html">Classic News</a></li>
-                                <li><a href="grid-news.html">Grid News</a></li>
-                                <li><a href="single-post.html">Single Post</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </nav>
+              </div>
             </div>
+            <div class="col-md-4">
+              <div class="side-bar">
+                <div class="recent-news">
+                  <div class="widget-heading">
+                    <h4>Publicaciones Recientes</h4>
+                  </div>
+                  <div ng-show="loadingRecentNews" class="loading">
+                    <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
+                  </div>
+                  <slick ng-cloak="" settings="::newsCarouselConfig" ng-show="!loadingRecentNews"
+                         ng-if="recentNews.length > 0">
+                    <div class="news-item" style="height: 150px" ng-repeat="rn in recentNews">
+                      <a ui-sref="news.show({title:rn.title,newId:rn.id,new:rn})"><h1>
+                        {{::rn.title|truncate:50:'...':true}}</h1></a>
+                      <ul class="info clearfix">
+                        <li>{{::rn.createdAt|date:'dd/MM/yyyy'}}</li>
+                        <li>{{::rn.instructor.name}}</li>
+                      </ul>
+                      <p>{{::rn.preview|truncate:150:'...':true}}</p>
+
+                    </div>
+                  </slick>
+                </div>
+                <div class="tags" ng-show='new .tags.length > 0'>
+                  <div class="widget-heading">
+                    <h4>Tags</h4>
+                  </div>
+                  <ul>
+                    <li ng-repeat='c in new .tags'><a href="#">{{c}}</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </nav>
+      </section>
+    </div>
+  </div>
+
+  <nav class="sidebar-menu slide-from-left">
+    <div class="nano">
+      <div class="content">
+        <nav class="responsive-menu">
+          <ul>
+            <li class="menu-item-has-children"><a href="#">Home</a>
+              <ul class="sub-menu">
+                <li><a href="index.html">Homepage 1</a></li>
+                <li><a href="homepage-2.html">Homepage 2</a></li>
+              </ul>
+            </li>
+            <li class="menu-item-has-children"><a href="#">Courses</a>
+              <ul class="sub-menu">
+                <li><a href="courses-grid.html">Courses Grids</a></li>
+                <li><a href="courses-list.html">Courses List</a></li>
+                <li><a href="single-course.html">Single Course</a></li>
+              </ul>
+            </li>
+            <li class="menu-item-has-children"><a href="#">Events</a>
+              <ul class="sub-menu">
+                <li><a href="classic-events.html">Classic Events</a></li>
+                <li><a href="calendar-events.html">Calendar Events</a></li>
+                <li><a href="single-event.html">Single Event</a></li>
+              </ul>
+            </li>
+            <li class="menu-item-has-children"><a href="#">Pages</a>
+              <ul class="sub-menu">
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="our-teachers.html">Our Teachers</a></li>
+                <li><a href="single-teacher.html">Single Teacher</a></li>
+                <li><a href="gallery-4.html">Gallery 4 Columns</a></li>
+                <li><a href="gallery-3.html">Gallery 3 Columns</a></li>
+              </ul>
+            </li>
+            <li class="menu-item-has-children"><a href="#">News</a>
+              <ul class="sub-menu">
+                <li><a href="classic-news.html">Classic News</a></li>
+                <li><a href="grid-news.html">Grid News</a></li>
+                <li><a href="single-post.html">Single Post</a></li>
+              </ul>
+            </li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </nav>
 
 </div>

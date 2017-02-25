@@ -1,88 +1,92 @@
 <div class="user-section">
-    <div class="page-heading news-heading" responsive-image="" sources="headerSources" as-background-image>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="profile-header">
-                        <div class="user-image">
-                            <img src="http://blog.soundidea.co.za/home/22/files/A%20quick%20guide%20to%20opt%20pic%202.jpg" alt="user profile photo">
-                        </div>
-                        <div class="name">
-                            <h2>Eliecer Alejandro Molina Vergel</h2>
-                            <a ui-sref="user.account()" ><i class="fa fa-cogs"></i> Editar información</a>
-                        </div>
+  <div class="page-heading news-heading" responsive-image="" sources="headerSources" as-background-image>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="profile-header">
+            <div class="user-image">
+              <img src="http://blog.soundidea.co.za/home/22/files/A%20quick%20guide%20to%20opt%20pic%202.jpg"
+                   alt="user profile photo">
+            </div>
+            <div class="name">
+              <h2>Eliecer Alejandro Molina Vergel</h2>
+              <a ui-sref="user.account()"><i class="fa fa-cogs"></i> Editar información</a>
+            </div>
 
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="page-list">
-                        <ul>
-                            <li class="active"><a ui-sref="user()">Tu perfil</a></li>
-                            <li><i class="fa fa-angle-right"></i></li>
-                            <li class="active"><a ui-sref="user.activity()">Actividad </a></li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>	
+          </div>
         </div>
+        <div class="col-md-12">
+          <div class="page-list">
+            <ul>
+              <li class="active"><a ui-sref="user()">Tu perfil</a></li>
+              <li><i class="fa fa-angle-right"></i></li>
+              <li class="active"><a ui-sref="user.activity()">Actividad </a></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </div>
 
 </div>
 <section class="user-section">
-    <div class="container">
-        <div class="row  user-information">
-            <div class="col-md-12">
-                <div class="heading">
-                    <h1>Tu Actividad</h1>
-                </div>
-            </div>
-            <div class="col-md-6 single-courses-list">
-                <h2 class="title">Tus cursos</h2>
-                <div class="course clearfix" ng-repeat="i in [1, 2]">
-                    <a href="javascript:void(0)"
-                       ng-click="showCourse($paginator_item)">
-                        <img  ng-src="http://placehold.it/345x235" alt="">
-                    </a>
-                    <div class="description">
-                        <a href="javascript:void(0)"
-                           ng-click="showCourse($paginator_item)">
-                            <h4>Curso Vital de Programación Neuro-Lingüistica</h4>
-                        </a>
-                        <h6>Marco Lino Alvarez Burgos</h6>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...
-                        </p>
-                        <div class="text-button">
-                            <a href="javascript:void(0)"
-                               ng-click="showCourse($paginator_item)">Ver más.<i class="fa fa-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 single-publications-list">
-                <h2 class="title">Tus Comentarios</h2>
-                <paginator  pagedata="comments" pagelength="3">
-                    <div class="publication clearfix">
-                        <a href="javascript:void(0)"
-                           ng-click="showCourse($paginator_item)">
-                            <img  ng-src="http://placehold.it/345x235" alt="">
-                        </a>
-                        <div class="description">
-                            <a href="javascript:void(0)"ng-click="showCourse($paginator_item)">
-                                <h4>Aprovecha el estrés para triunfar</h4>
-                            </a>
-                            <h6>Marco Lino Alvarez Burgos | Publicado: 13 Feb 2017 Comentarios: 2</h6>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-                            <div class="text-button">
-                                <a href="javascript:void(0)"
-                                   ng-click="showCourse($paginator_item)">Ver comentario <i class="fa fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </paginator>
-
-            </div>
+  <div class="container">
+    <div class="row  user-information">
+      <div class="col-md-12">
+        <div class="heading">
+          <h1>Tu Actividad</h1>
         </div>
+      </div>
+      <div class="col-md-6 single-courses-list">
+        <h2 class="title">Tus cursos</h2>
+        <div class="course clearfix" ng-repeat="i in [1, 2]">
+          <a href="javascript:void(0)"
+             ng-click="showCourse($paginator_item)">
+            <img ng-src="http://placehold.it/345x235" alt="">
+          </a>
+          <div class="description">
+            <a href="javascript:void(0)"
+               ng-click="showCourse($paginator_item)">
+              <h4>Curso Vital de Programación Neuro-Lingüistica</h4>
+            </a>
+            <h6>Marco Lino Alvarez Burgos</h6>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+              ut labore et dolore magna aliqua. Ut enim ad minim veniam...
+            </p>
+            <div class="text-button">
+              <a href="javascript:void(0)"
+                 ng-click="showCourse($paginator_item)">Ver más.<i class="fa fa-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 single-publications-list">
+        <h2 class="title">Tus Comentarios</h2>
+        <paginator pagedata="comments" pagelength="3">
+          <div class="publication clearfix">
+            <a href="javascript:void(0)"
+               ng-click="showCourse($paginator_item)">
+              <img ng-src="http://placehold.it/345x235" alt="">
+            </a>
+            <div class="description">
+              <a href="javascript:void(0)" ng-click="showCourse($paginator_item)">
+                <h4>Aprovecha el estrés para triunfar</h4>
+              </a>
+              <h6>Marco Lino Alvarez Burgos | Publicado: 13 Feb 2017 Comentarios: 2</h6>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
+              <div class="text-button">
+                <a href="javascript:void(0)"
+                   ng-click="showCourse($paginator_item)">Ver comentario <i
+                  class="fa fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </paginator>
+
+      </div>
     </div>
+  </div>
 </section>

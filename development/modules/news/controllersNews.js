@@ -7,133 +7,125 @@
 ;
 !(function (module) {
 
-    var headerSources = {
-        "original": "assets/images/publicaciones/banner.jpg",
-        "thumb_small": "assets/images/publicaciones/banner.jpg",
-        "thumb_medium": "assets/images/publicaciones/banner.jpg",
-        "thumb_large": "assets/images/publicaciones/banner.jpg",
-        "small": "assets/images/publicaciones/banner_small.jpg",
-        "medium": "assets/images/publicaciones/banner_medium.jpg",
-        "large": "assets/images/publicaciones/banner_large.jpg",
-        "xlarge": "assets/images/publicaciones/banner.jpg"
-    };
-    var newsCarouselConfig = {
-        enabled: true,
-        autoplay: true,
-        draggable: false,
-        autoplaySpeed: 5000,
-        speed: 300,
-        infinite: true,
-        slidesToShow: 2,
-        slidesToScroll: 1,
-        vertical: true,
-        pauseOnHover: true
-    };
-    var ListPublicationController = function ($scope, NewsService, $state) {
-        $scope.headerSources = headerSources;
-        $scope.newsCarouselConfig = newsCarouselConfig;
+  var headerSources = {
+    "original": "assets/images/publicaciones/banner.jpg",
+    "thumb_small": "assets/images/publicaciones/banner.jpg",
+    "thumb_medium": "assets/images/publicaciones/banner.jpg",
+    "thumb_large": "assets/images/publicaciones/banner.jpg",
+    "small": "assets/images/publicaciones/banner_small.jpg",
+    "medium": "assets/images/publicaciones/banner_medium.jpg",
+    "large": "assets/images/publicaciones/banner_large.jpg",
+    "xlarge": "assets/images/publicaciones/banner.jpg"
+  };
+  var newsCarouselConfig = {
+    enabled: true,
+    autoplay: true,
+    draggable: false,
+    autoplaySpeed: 5000,
+    speed: 300,
+    infinite: true,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    vertical: true,
+    pauseOnHover: true
+  };
+  var ListPublicationController = function ($scope, NewsService, $state) {
+    $scope.headerSources = headerSources;
+    $scope.newsCarouselConfig = newsCarouselConfig;
 
-        $scope.optorderby = "";
-        $scope.loading = true;
-        $scope.loadingRecentNews = true;
-        $scope.asc = false;
-        $scope.submitRequest = {};
-        $scope.togleAsc = function () {
-            $scope.asc = !$scope.asc;
-        }
+    $scope.optorderby = "";
+    $scope.loading = true;
+    $scope.loadingRecentNews = true;
+    $scope.asc = false;
+    $scope.submitRequest = {};
+    $scope.togleAsc = function () {
+      $scope.asc = !$scope.asc;
+    }
 
-        $scope.loadnews = function () {
-            var order = "publishedAt "
-            if ($scope.optorderby.length > 0)
-            {
-                order = $scope.optorderby
-            }
-            order += ($scope.asc ? " ASC" : " DESC")
+    $scope.loadnews = function () {
+      var order = "publishedAt "
+      if ($scope.optorderby.length > 0) {
+        order = $scope.optorderby
+      }
+      order += ($scope.asc ? " ASC" : " DESC")
 
-            NewsService
-                    .loadPublications({
-                        filter: {
-                            where: {isPublished: true},
-                            order: order,
-                            include: ['instructor',"comments"]
-                        }
-                    })
-                    .then(function (data) {
-                        $scope.news = data;
-                        $scope.loading = false;
-                    })
+      NewsService
+        .loadPublications({
+          filter: {
+            where: {isPublished: true},
+            order: order,
+            include: ['instructor', "comments"]
+          }
+        })
+        .then(function (data) {
+          $scope.news = data;
+          $scope.loading = false;
+        })
 
-        }
+    }
 
-        $scope.loadRecentNews = function () {
-            NewsService
-                    .loadRecentNews()
-                    .then(function (data) {
-                        $scope.recentNews = data;
-                        $scope.loadingRecentNews = false;
-                    })
-        }
+    $scope.loadRecentNews = function () {
+      NewsService
+        .loadRecentNews()
+        .then(function (data) {
+          $scope.recentNews = data;
+          $scope.loadingRecentNews = false;
+        })
+    }
 
+    $scope.showNew = function (_new) {
+      var aux = {
+        title: _new.title,
+        newId: _new.newId,
+        new: _new
+      }
+      $state.go("news.show", aux)
+    }
 
-        $scope.showNew = function (_new)
-        {
-            var aux = {
-                title: _new.title,
-                newId: _new.newId,
-                new : _new
-            }
-            $state.go("news.show", aux)
-        }
+    $scope.loadnews();
+    $scope.loadRecentNews()
 
-        $scope.loadnews();
-        $scope.loadRecentNews()
+  };
+  ListPublicationController.$inject = ['$scope', 'NewsService', "$state"];
 
+  var ShowPublicationController = function ($scope, $stateParams, $location, NewsService, $state) {
+    $scope.headerSources = headerSources;
+    $scope.location = $location.absUrl();
+    $scope.loadingRecentNews = true;
+    $scope.newsCarouselConfig = newsCarouselConfig;
 
-    };
-    ListPublicationController.$inject = ['$scope', 'NewsService', "$state"];
+    if (!$stateParams.new) {
+      NewsService
+        .loadPublication({
+          filter: {
+            where: {isPublished: true, id: $stateParams.newId},
+            include: ['instructor', 'comments']
+          }
+        })
+        .then(function (data) {
+          $scope.new = data;
+          console.log(data)
+        })
 
-    var ShowPublicationController = function ($scope, $stateParams, $location, NewsService, $state) {
-        $scope.headerSources = headerSources;
-        $scope.location = $location.absUrl();
-        $scope.loadingRecentNews = true;
-        $scope.newsCarouselConfig = newsCarouselConfig;
+    } else {
+      $scope.new = $stateParams.new
+    }
 
-        if (!$stateParams.new)
-        {
-            NewsService
-                    .loadPublication({
-                        filter: {
-                            where: {isPublished: true, id: $stateParams.newId},
-                            include: ['instructor', 'comments']
-                        }
-                    })
-                    .then(function (data) {
-                        $scope.new = data;
-                        console.log(data)
-                    })
+    $scope.loadRecentNews = function () {
+      NewsService
+        .loadRecentNews()
+        .then(function (data) {
+          $scope.recentNews = data;
+          $scope.loadingRecentNews = false;
+        })
+    }
 
-        } else
-        {
-            $scope.new = $stateParams.new
-        }
+    $scope.loadRecentNews()
 
-        $scope.loadRecentNews = function () {
-            NewsService
-                    .loadRecentNews()
-                    .then(function (data) {
-                        $scope.recentNews = data;
-                        $scope.loadingRecentNews = false;
-                    })
-        }
+  };
+  ShowPublicationController.$inject = ['$scope', '$stateParams', '$location', 'NewsService', '$state'];
 
-        $scope.loadRecentNews()
-
-
-
-    };
-    ShowPublicationController.$inject = ['$scope', '$stateParams', '$location', 'NewsService', '$state'];
-
-    module
-            .controller('ListPublicationController', ListPublicationController)
-            .controller('ShowPublicationController', ShowPublicationController);
+  module
+    .controller('ListPublicationController', ListPublicationController)
+    .controller('ShowPublicationController', ShowPublicationController);
 })(angular.module('jg.marlininternacional.news'));

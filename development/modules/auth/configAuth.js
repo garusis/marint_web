@@ -6,20 +6,20 @@
  */
 ;
 !(function (module) {
-    module
-        .config(['stateHelperProvider', function (stateHelperProvider) {
-            stateHelperProvider
-                .state({
-                    name: 'index',
-                    url: '/',
-                    templateUrl: 'modules/auth/templates/index.html',
-                    controller: 'IndexPublicController',
-                    controllerAs: 'authIPCtrl'
-                })
-                .state({
-                    name: 'logout',
-                    url: '/logout',
-                    controller: 'LogoutController'
-                });
-        }]);
+  module
+    .config(['stateHelperProvider', function (stateHelperProvider) {
+      stateHelperProvider
+        .state({
+          name: 'index',
+          url: '/',
+          templateUrl: 'modules/auth/templates/index.html',
+          controller: 'IndexPublicController',
+          controllerAs: 'authIPCtrl'
+        })
+        .state({
+          name: 'logout',
+          url: '/logout',
+          controller: 'LogoutController'
+        });
+    }]);
 })(angular.module('jg.marlininternacional.auth', ['ui.router', 'ui.router.stateHelper']));

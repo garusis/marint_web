@@ -1,54 +1,54 @@
 <div class="page-heading " responsive-image="" sources="headerSources" as-background-image>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Nuestros Maestros</h1>
-                <span>Nuestro maestros especializados estarán dispuestos a ayudarte en cualquier circunstancia.</span>
-                <div class="page-list">
-                    <ul>
-                        <li class="active"><a href="/">Inicio</a></li>
-                        <li><i class="fa fa-angle-right"></i></li>
-                        <li><a href="our-teachers.html">Nuestros Maestros</a></li>
-                    </ul>
-                </div>
-            </div>	
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Nuestros Maestros</h1>
+        <span>Nuestro maestros especializados estarán dispuestos a ayudarte en cualquier circunstancia.</span>
+        <div class="page-list">
+          <ul>
+            <li class="active"><a href="/">Inicio</a></li>
+            <li><i class="fa fa-angle-right"></i></li>
+            <li><a href="our-teachers.html">Nuestros Maestros</a></li>
+          </ul>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <section class="teachers-page">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3" ng-repeat="i in instructors">
-                <div class="teacher-item">
-                    <a ui-sref="instructors.show({id:i.id,name:i.name,instructor:i})">
-                        <img src="http://torchtemplates.net/educa/assets/images/teacher-1.jpg" alt="">
-                    </a>
-                    <div class="down-content">
-                        
-                        <a ui-sref="instructors.show({id:i.id,name:i.name,instructor:i})">
-                            <h4>{{i.name}}</h4>
-                            <p class="text-justify">{{i.description | truncate:100:'...':true}}</p>
-                        </a>
-                        <ul ng-show="i.socialNetworks">
-                            <li><a href="{{i.socialNetworks.facebook}}"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="{{i.socialNetworks.twitter}}"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="{{i.socialNetworks.linkedin}}"><i class="fa fa-linkedin"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3" ng-repeat="i in instructors">
+        <div class="teacher-item">
+          <a ui-sref="instructors.show({id:i.id,name:i.name,instructor:i})">
+            <img src="http://torchtemplates.net/educa/assets/images/teacher-1.jpg" alt="">
+          </a>
+          <div class="down-content">
+
+            <a ui-sref="instructors.show({id:i.id,name:i.name,instructor:i})">
+              <h4>{{i.name}}</h4>
+              <p class="text-justify">{{i.description | truncate:100:'...':true}}</p>
+            </a>
+            <ul ng-show="i.socialNetworks">
+              <li><a href="{{i.socialNetworks.facebook}}"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="{{i.socialNetworks.twitter}}"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="{{i.socialNetworks.linkedin}}"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </section>
 
 <div id="call-to-action">
-    <div class="container">
-        <div class="row">
-            <p>Desarrolla tu <em>máximo potencial</em> y aplícalo a tu vida diaria.</p>
-            <div class="accent-button">
-                <a href="/cursos">Ver nuestros cursos</a>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <p>Desarrolla tu <em>máximo potencial</em> y aplícalo a tu vida diaria.</p>
+      <div class="accent-button">
+        <a href="/cursos">Ver nuestros cursos</a>
+      </div>
     </div>
+  </div>
 </div>

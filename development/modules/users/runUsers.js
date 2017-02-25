@@ -6,7 +6,7 @@
  */
 ;
 !(function (module) {
-    module
-        .run(['$rootScope', '$state', function ($rootScope, $state) {
-        }]);
+  module
+    .run(['$rootScope', '$state', function ($rootScope, $state) {
+    }]);
 })(angular.module('jg.marlininternacional.users'));

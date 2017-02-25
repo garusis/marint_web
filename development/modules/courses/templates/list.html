@@ -1,173 +1,180 @@
 <div class="sidebar-menu-container" id="sidebar-menu-container">
 
-    <div class="sidebar-menu-push">
+  <div class="sidebar-menu-push">
 
-        <div class="sidebar-menu-overlay"></div>
+    <div class="sidebar-menu-overlay"></div>
 
-        <div class="sidebar-menu-inner">
-            <div responsive-image="" sources="headerSources" as-background-image class="page-heading news-heading">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h1>Cursos</h1>
-                            <span>Pendiente</span>
+    <div class="sidebar-menu-inner">
+      <div responsive-image="" sources="headerSources" as-background-image class="page-heading news-heading">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h1>Cursos</h1>
+              <span>Pendiente</span>
 
-                            <div class="page-list">
-                                <ul>
-                                    <li class="active"><a ui-sref="index">Inicio</a></li>
-                                    <li><i class="fa fa-angle-right"></i></li>
-                                    <li><a ui-sref="courses">Cursos</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              <div class="page-list">
+                <ul>
+                  <li class="active"><a ui-sref="index">Inicio</a></li>
+                  <li><i class="fa fa-angle-right"></i></li>
+                  <li><a ui-sref="courses">Cursos</a></li>
+                </ul>
+              </div>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <section class="courses-list">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="pre-featured">
-                                <div class="right-content">
-                                    <div class="input-select">
-                                        <select ng-model="optorderby">
-                                            <option value="">Ordenar por:</option>
-                                            <option value="1">Nombre</option>
-                                            <option value="2">Precio</option>
-                                        </select>
-                                    </div>
-                                    <div class="grid-list">
-                                        <ul>
-                                            <li><a href="javascript:void(0)" ng-click="togleAsc()">
-                                                    <i class="fa" ng-class="{'fa-sort-asc':asc,'fa-sort-desc':!asc}"></i>
-                                                </a>
-                                            </li>
-                                            <li><a href="javascript:void(0)" ng-click="loadCourses()"><i class="fa fa-search"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
+      <section class="courses-list">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="pre-featured">
+                <div class="right-content">
+                  <div class="input-select">
+                    <select ng-model="optorderby">
+                      <option value="">Ordenar por:</option>
+                      <option value="1">Nombre</option>
+                      <option value="2">Precio</option>
+                    </select>
+                  </div>
+                  <div class="grid-list">
+                    <ul>
+                      <li><a href="javascript:void(0)" ng-click="togleAsc()">
+                        <i class="fa" ng-class="{'fa-sort-asc':asc,'fa-sort-desc':!asc}"></i>
+                      </a>
+                      </li>
+                      <li><a href="javascript:void(0)" ng-click="loadCourses()"><i
+                        class="fa fa-search"></i></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+              <div class="course-items">
+                <div class="row">
+                  <div ng-show="loading" class="loading">
+                    <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
+                    <p>Cargando</p>
+                  </div>
+                  <paginator ng-hide="loading" pagedata="courses" pagelength="10">
+                    <div class="col-md-12">
+                      <div class="item course-item">
+                        <a href="javascript:void(0)"
+                           ng-click="showCourse($paginator_item)">
+                          <img ng-src="{{$paginator_item.images._370x240}}" alt="">
+                        </a>
+                        <div class="down-content">
+                          <img ng-src="{{$paginator_item.instructor.imagePreview.thumb_small}}"
+                               alt="">
+                          <h6>{{$paginator_item.instructor.name}}</h6>
+                          <div class="price-yellow">
+                            <span>{{$paginator_item.price}}</span>
+                            <div class="base"></div>
+                          </div>
+                          <a href="javascript:void(0)"
+                             ng-click="showCourse($paginator_item)">
+                            <h4>{{$paginator_item.name}}</h4>
+                          </a>
+                          <p>{{$paginator_item.description | truncate:150:'...':true}}</p>
+
+                          <div class="text-button">
+                            <a href="javascript:void(0)"
+                               ng-click="showCourse($paginator_item)"> Ver más.<i
+                              class="fa fa-arrow-right"></i></a>
+                          </div>
                         </div>
+                      </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="course-items">
-                                <div class="row">
-                                    <div ng-show="loading" class="loading">
-                                        <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
-                                        <p>Cargando</p>
-                                    </div>
-                                    <paginator ng-hide="loading"  pagedata="courses" pagelength="10">
-                                        <div class="col-md-12">
-                                            <div class="item course-item">
-                                                <a  href="javascript:void(0)"
-                                                    ng-click="showCourse($paginator_item)">
-                                                    <img  ng-src="{{$paginator_item.images._370x240}}" alt="">
-                                                </a>
-                                                <div class="down-content">
-                                                    <img ng-src="{{$paginator_item.instructor.imagePreview.thumb_small}}" alt="">
-                                                    <h6>{{$paginator_item.instructor.name}}</h6>
-                                                    <div class="price-yellow">
-                                                        <span>{{$paginator_item.price}}</span>
-                                                        <div class="base"></div>
-                                                    </div>
-                                                    <a href="javascript:void(0)"
-                                                       ng-click="showCourse($paginator_item)">
-                                                        <h4>{{$paginator_item.name}}</h4>
-                                                    </a>
-                                                    <p>{{$paginator_item.description | truncate:150:'...':true}}</p>
+                  </paginator>
 
-                                                    <div class="text-button">
-                                                        <a href="javascript:void(0)"
-                                                           ng-click="showCourse($paginator_item)"> Ver más.<i class="fa fa-arrow-right"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </paginator>
-
-                                </div>
-                            </div>
+                </div>
+              </div>
 
 
-                        </div>
-                        <div class="col-md-4">
-                            <div class="request-information">
-                                <div class="widget-heading">
-                                    <h4>Contáctanos</h4>
-                                </div>
-                                <div class="search-form">
-                                    <input required  type="text" id="name" name="s" placeholder="Nombre" ng-model="submitRequest.name">
-                                    <input required  type="email" id="address" name="s" placeholder="Email"  ng-model="submitRequest.email">
-                                    <textarea required  rows="5" placeholder="Escríbenos"  ng-model="submitRequest.message">
+            </div>
+            <div class="col-md-4">
+              <div class="request-information">
+                <div class="widget-heading">
+                  <h4>Contáctanos</h4>
+                </div>
+                <div class="search-form">
+                  <input required type="text" id="name" name="s" placeholder="Nombre"
+                         ng-model="submitRequest.name">
+                  <input required type="email" id="address" name="s" placeholder="Email"
+                         ng-model="submitRequest.email">
+                  <textarea required rows="5" placeholder="Escríbenos"
+                            ng-model="submitRequest.message">
                                         
                                     </textarea>
-                                    <div class="select">
-                                        <select required ng-model="submitRequest.course" ng-options="c.name for c in coursesOpt track by c.id"></select>
-                                    </div>
-                                    <div class="accent-button">
-                                        <a href="#">Enviar</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  <div class="select">
+                    <select required ng-model="submitRequest.course"
+                            ng-options="c.name for c in coursesOpt track by c.id"></select>
+                  </div>
+                  <div class="accent-button">
+                    <a href="#">Enviar</a>
+                  </div>
                 </div>
-            </section>
-
-            <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
-
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
+
+      <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
 
     </div>
 
-    <nav class="sidebar-menu slide-from-left">
-        <div class="nano">
-            <div class="content">
-                <nav class="responsive-menu">
-                    <ul>
-                        <li class="menu-item-has-children"><a href="#">Home</a>
-                            <ul class="sub-menu">
-                                <li><a href="index.html">Homepage 1</a></li>
-                                <li><a href="homepage-2.html">Homepage 2</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children"><a href="#">Courses</a>
-                            <ul class="sub-menu">
-                                <li><a href="courses-grid.html">Courses Grids</a></li>
-                                <li><a href="courses-list.html">Courses List</a></li>
-                                <li><a href="single-course.html">Single Course</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children"><a href="#">Events</a>
-                            <ul class="sub-menu">
-                                <li><a href="classic-events.html">Classic Events</a></li>
-                                <li><a href="calendar-events.html">Calendar Events</a></li>
-                                <li><a href="single-event.html">Single Event</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children"><a href="#">Pages</a>
-                            <ul class="sub-menu">
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="our-teachers.html">Our Teachers</a></li>
-                                <li><a href="single-teacher.html">Single Teacher</a></li>
-                                <li><a href="gallery-4.html">Gallery 4 Columns</a></li>
-                                <li><a href="gallery-3.html">Gallery 3 Columns</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children"><a href="#">News</a>
-                            <ul class="sub-menu">
-                                <li><a href="classic-news.html">Classic News</a></li>
-                                <li><a href="grid-news.html">Grid News</a></li>
-                                <li><a href="single-post.html">Single Post</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </nav>
+  </div>
+
+  <nav class="sidebar-menu slide-from-left">
+    <div class="nano">
+      <div class="content">
+        <nav class="responsive-menu">
+          <ul>
+            <li class="menu-item-has-children"><a href="#">Home</a>
+              <ul class="sub-menu">
+                <li><a href="index.html">Homepage 1</a></li>
+                <li><a href="homepage-2.html">Homepage 2</a></li>
+              </ul>
+            </li>
+            <li class="menu-item-has-children"><a href="#">Courses</a>
+              <ul class="sub-menu">
+                <li><a href="courses-grid.html">Courses Grids</a></li>
+                <li><a href="courses-list.html">Courses List</a></li>
+                <li><a href="single-course.html">Single Course</a></li>
+              </ul>
+            </li>
+            <li class="menu-item-has-children"><a href="#">Events</a>
+              <ul class="sub-menu">
+                <li><a href="classic-events.html">Classic Events</a></li>
+                <li><a href="calendar-events.html">Calendar Events</a></li>
+                <li><a href="single-event.html">Single Event</a></li>
+              </ul>
+            </li>
+            <li class="menu-item-has-children"><a href="#">Pages</a>
+              <ul class="sub-menu">
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="our-teachers.html">Our Teachers</a></li>
+                <li><a href="single-teacher.html">Single Teacher</a></li>
+                <li><a href="gallery-4.html">Gallery 4 Columns</a></li>
+                <li><a href="gallery-3.html">Gallery 3 Columns</a></li>
+              </ul>
+            </li>
+            <li class="menu-item-has-children"><a href="#">News</a>
+              <ul class="sub-menu">
+                <li><a href="classic-news.html">Classic News</a></li>
+                <li><a href="grid-news.html">Grid News</a></li>
+                <li><a href="single-post.html">Single Post</a></li>
+              </ul>
+            </li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </nav>
 
 </div>

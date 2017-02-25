@@ -6,39 +6,39 @@
  */
 ;
 !(function (module) {
-    module
-            .config(['stateHelperProvider', function (stateHelperProvider) {
-                    stateHelperProvider
-                            .state({
-                                name: 'user',
-                                url: '/usuario',
-                                templateUrl: 'modules/users/templates/perfil.html',
-                                controller: 'UserProfileController',
-                                controllerAs: 'upCtrl',
-                                children: [
-                                    {
-                                        name: 'activity',
-                                        url: '/actividad',
-                                        views: {
-                                            '@': {
-                                                templateUrl: 'modules/users/templates/activity.html',
-                                                controller: 'UserActivityController',
-                                                controllerAs: 'maestrosCtrl'
-                                            }
-                                        }
-                                    },
-                                    {
-                                        name: 'account',
-                                        url: '/configuracion',
-                                        views: {
-                                            '@': {
-                                                templateUrl: 'modules/users/templates/account.html',
-                                                controller: 'UserConfigurationController',
-                                                controllerAs: 'maestrosCtrl'
-                                            }
-                                        }
-                                    }
-                                ]
-                            });
-                }]);
+  module
+    .config(['stateHelperProvider', function (stateHelperProvider) {
+      stateHelperProvider
+        .state({
+          name: 'user',
+          url: '/usuario',
+          templateUrl: 'modules/users/templates/perfil.html',
+          controller: 'UserProfileController',
+          controllerAs: 'upCtrl',
+          children: [
+            {
+              name: 'activity',
+              url: '/actividad',
+              views: {
+                '@': {
+                  templateUrl: 'modules/users/templates/activity.html',
+                  controller: 'UserActivityController',
+                  controllerAs: 'maestrosCtrl'
+                }
+              }
+            },
+            {
+              name: 'account',
+              url: '/configuracion',
+              views: {
+                '@': {
+                  templateUrl: 'modules/users/templates/account.html',
+                  controller: 'UserConfigurationController',
+                  controllerAs: 'maestrosCtrl'
+                }
+              }
+            }
+          ]
+        });
+    }]);
 })(angular.module('jg.marlininternacional.users', ['ui.router', 'ui.router.stateHelper']));

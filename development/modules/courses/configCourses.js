@@ -7,29 +7,29 @@
  */
 ;
 !(function (module) {
-    module
-        .config(['stateHelperProvider', function (stateHelperProvider) {
-            stateHelperProvider
-                .state({
-                    name: 'courses',
-                    url: '/cursos',
-                    templateUrl: 'modules/courses/templates/list.html',
-                    controller: 'ListCourseController',
-                    controllerAs: 'listCCtrl',
-                    params: {course: null},
-                    children: [
-                        {
-                            name: 'show',
-                            url: '/{title}-:courseId',
-                            views: {
-                                '@': {
-                                    templateUrl: 'modules/courses/templates/show.html',
-                                    controller: 'ShowCourseController',
-                                    controllerAs: 'showCCtrl'
-                                }
-                            }
-                        }
-                    ]
-                });
-        }]);
+  module
+    .config(['stateHelperProvider', function (stateHelperProvider) {
+      stateHelperProvider
+        .state({
+          name: 'courses',
+          url: '/cursos',
+          templateUrl: 'modules/courses/templates/list.html',
+          controller: 'ListCourseController',
+          controllerAs: 'listCCtrl',
+          params: {course: null},
+          children: [
+            {
+              name: 'show',
+              url: '/{title}-:courseId',
+              views: {
+                '@': {
+                  templateUrl: 'modules/courses/templates/show.html',
+                  controller: 'ShowCourseController',
+                  controllerAs: 'showCCtrl'
+                }
+              }
+            }
+          ]
+        });
+    }]);
 })(angular.module('jg.marlininternacional.courses', ['ui.router', 'ui.router.stateHelper']));

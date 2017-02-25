@@ -6,9 +6,9 @@
  */
 ;
 !(function (module) {
-    module.filter('cleanStringSpaces', function () {
-        return function (input) {
-            return input.replace(/\s/g, ' ');
-        };
-    });
+  module.filter('cleanStringSpaces', function () {
+    return function (input) {
+      return input.replace(/\s/g, ' ');
+    };
+  });
 })(angular.module('jg.marlininternacional.utilities'));
