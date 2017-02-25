@@ -1,3 +1,4 @@
+"use strict"
 /**
  * Created by Constantino Celis Peñaranda on 04/06/2016.
  * @author Constantino Celis Peñaranda

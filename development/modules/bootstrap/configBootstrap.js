@@ -27,6 +27,9 @@
                     originsManagerProvider.setOrigin("base", "https://mibackend.herokuapp.com");
                     originsManagerProvider.setOrigin("origin", originsManagerProvider.getOrigin("base") + "/api");
                 }])
+            .config(["AppAuthProvider", function (AppAuthProvider) {
+                AppAuthProvider.config({tokenLocalstorageKey:"accessTokenId"})
+            }])
             .config(['LoopBackResourceProvider', 'originsManagerProvider', function (LoopBackResourceProvider, originsManagerProvider) {
                     // Use a custom auth header instead of the default 'Authorization'
                     //LoopBackResourceProvider.setAuthHeader('X-Access-Token');
@@ -38,6 +41,8 @@
     'lbServices', 'ui.router', 'ui.router.stateHelper', 'ngStorage', 'slickCarousel', 'angular.filter', 'ngSanitize',
     'djds4rce.angular-socialshare',
     'jg.originsManager', 'jg.responsiveImages', 'jg.marlininternacional.auth', 'jg.marlininternacional.utilities',
-    'jg.marlininternacional.news','jg.marlininternacional.instructors', 'jg.marlininternacional.contact','jg.marlininternacional.users', 'jg.overlay', 'jg.marlininternacional.courses', 'jg.marlininternacional.courses.modules', 'com.alphonsegs.paginator', 'com.alphonsegs.mvonload','ngDialog'
-
+    'jg.marlininternacional.news','jg.marlininternacional.instructors', 'jg.marlininternacional.contact',
+    'jg.marlininternacional.users', 'jg.overlay', 'jg.marlininternacional.courses', 'jg.marlininternacional.courses.modules',
+    "jg.marlininternacional.students",
+    'com.alphonsegs.paginator', 'com.alphonsegs.mvonload','ngDialog'
 ]));

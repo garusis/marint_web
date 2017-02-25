@@ -1,3 +1,4 @@
+"use strict"
 /**
  * Created by Constantino Celis Peñaranda on 04/06/2016.
  * @author Constantino Celis Peñaranda
@@ -6,24 +7,20 @@
  */
 ;
 !(function (module) {
-    service.$inject = ['Course', "ngDialog"];
-    function service(Course, ngDialog) {
+    service.$inject = ['Course', "ngDialog", "$q", "$http", "ROUTES", "originsManager"];
+    function service(Course, ngDialog, $q, $http, ROUTES, originsManager) {
 
         function setImages(courses) {
-            if (Array.isArray(courses))
-            {
-                for (var c in courses)
-                {
-
-                    var i = parseInt(c) + 1;
-                    courses[c].images = {
+            if (Array.isArray(courses)) {
+                _.forEach(courses, function (course, i) {
+                    i = i+1
+                    course.images = {
                         _150x150: "assets/images/cursos/cursos/150x150/" + i + ".jpg",
                         _370x240: "assets/images/cursos/cursos/370x240/" + i + ".jpg",
                         _770x410: "assets/images/cursos/cursos/770x410/" + i + ".jpg"
                     }
-                }
-            } else
-            {
+                })
+            } else {
                 courses.images = {
                     _150x150: "assets/images/cursos/cursos/150x150/1.jpg",
                     _370x240: "assets/images/cursos/cursos/370x240/1.jpg",
@@ -33,13 +30,38 @@
 
             return courses;
         }
-        this.loadCourse = function (options, callback, error)
-        {
-            Course.findOne(options).$promise.then(function (data) {
-                data = setImages(data);
-                callback(data);
-            })
+
+        this.loadCourse = function (instance, filter) {
+            var promise = instance ? $q.resolve(instance) : Course.findOne(filter).$promise
+            return promise
+                .then(function (data) {
+                    data = setImages(data);
+                    data.modules = new ModuleRelation(data)
+                    return data;
+                })
         }
+
+        function ModuleRelation(course) {
+            this.basePath = originsManager.getOrigin() +
+                "/" + ROUTES.COURSES.__BASE__ + "/" + course.id +
+                "/" + ROUTES.COURSES.MODULES
+        }
+        ModuleRelation.prototype = new Array()
+
+        ModuleRelation.prototype.__addToCache__ = function (module) {
+            this.push(module)
+        }
+
+        ModuleRelation.prototype.get = function (filter) {
+            var relation = this
+            return $http.get(this.basePath, {params: {filter: filter}})
+                .then(function (response) {
+                    relation.length = 0
+                    response.data.forEach(relation.__addToCache__.bind(relation))
+                    return relation
+                })
+        }
+
 
         this.loadCourses = function (options, callback, error) {
             Course.find(options).$promise.then(function (data) {
@@ -89,6 +111,7 @@
         }
 
     }
+
     module.service('CourseService', service)
 })(angular.module('jg.marlininternacional.courses'));
 
