@@ -14,7 +14,7 @@
             name: 'courses.show.modules',
             abstract: true,
             url: '/modulos',
-            template: '<div> </div>',
+            template: '<div>asdasdasdasdasd </div>',
             children: [
               {
                 name: 'show',
