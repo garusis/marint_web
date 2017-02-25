@@ -1,0 +1,8 @@
+* text=lf
+
+*.png binary
+*.jpg binary
+*.gif binary
+*.xcf binary
+*.psd binary
+*.mp4 binary
