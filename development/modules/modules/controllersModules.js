@@ -5,20 +5,17 @@
  * @version 0.0.1
  */
 ;
-!(function (module) {
+!(function (modulessssss) {
 
   var headerSources = {
     "original": "//localhost/cloud/headers/news.jpg",
-    "thumb_small": "//localhost/cloud/headers/news.jpg",
     "thumb_medium": "//localhost/cloud/headers/news.jpg",
-    "thumb_large": "//localhost/cloud/headers/news.jpg",
     "small": "//localhost/cloud/headers/news.jpg",
-    "medium": "//localhost/cloud/headers/news.jpg",
     "large": "//localhost/cloud/headers/news.jpg"
   };
 
-  ShowModuleController.$inject = ['$scope', '$stateParams', '$location', 'Course'];
-  function ShowModuleController ($scope, $stateParams, $location, Course) {
+  ShowModuleController.$inject = ['$scope', '$stateParams', '$location', 'Course', "asdasdasd"];
+  function ShowModuleController($scope, $stateParams, $location, Course, mod) {
     $scope.headerSources = headerSources;
     $scope.location = $location.absUrl();
     $scope.module = {
@@ -34,12 +31,13 @@
         },
         {
           "title": "video3",
-          "url": "http://localhost/videos_prueba/3.mp4"
+          "url": "http://localhost/videos_prueba/3.mp4",
+          "prueba": mod
         }
       ]
     };
   }
 
-  module
-    .controller('ShowModuleController', ShowModuleController);
+  modulessssss
+    .controller('ShowMoaaaduleController', ShowModuleController);
 })(angular.module('jg.marlininternacional.courses.modules'));
