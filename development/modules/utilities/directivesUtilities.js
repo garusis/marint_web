@@ -82,9 +82,6 @@
     this.config = function (nConfigs) {
       configs = angular.extend({}, configs, nConfigs);
       return configs;
-      ;
-      ;
-      ;
     };
 
     this.$get = function ($window, $document) {
