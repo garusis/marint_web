@@ -65,12 +65,11 @@
                       <div class="grid-item">
                         <a
                           ui-sref="news.show({title:$paginator_item.title,newId:$paginator_item.id,new:$paginator_item})">
-                          <img ng-src="{{$paginator_item.images._370x220}}" alt=""></a>
+                          <img responsive-image="" sources="$paginator_item.image" alt=""></a>
 
                         <div class="down-content">
                           <ul>
-                            <li>Publicado: <em>{{$paginator_item.publishedAt|date:'dd MMM
-                              yyyy'}}</em></li>
+                            <li>Publicado: <em>{{$paginator_item.publishedAt|date:'dd MMM yyyy'}}</em></li>
                             <li>Comentarios: <em>{{$paginator_item.comments.length}}</em>
                             </li>
                           </ul>
