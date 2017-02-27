@@ -45,5 +45,6 @@
   'jg.marlininternacional.news', 'jg.marlininternacional.instructors', 'jg.marlininternacional.contact',
   'jg.marlininternacional.users', 'jg.overlay', 'jg.marlininternacional.courses', 'jg.marlininternacional.courses.modules',
   "jg.marlininternacional.students",
-  'com.alphonsegs.paginator', 'com.alphonsegs.mvonload', 'ngDialog'
+  'com.alphonsegs.paginator', 'com.alphonsegs.mvonload', 'ngDialog',
+  "ui.bootstrap"
 ]));
