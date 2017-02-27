@@ -1,5 +1,5 @@
 #main-header .info-user {
-  text-decoration: none!important;
+  text-decoration: none !important;
 }
 #main-header .info-user > * {
   display: inline-block;
@@ -72,7 +72,7 @@
 }
 
 .site-header {
-  z-index: 9999999999!important;
+  z-index: 9999999999 !important;
 }
 .site-header .header-info ul li {
   vertical-align: middle;
@@ -85,26 +85,26 @@
   color: #FFF;
 }
 .no-padding {
-  padding: 0!important;
+  padding: 0 !important;
 }
 .no-padding-y {
-  padding-top: 0!important;
-  padding-bottom: 0!important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 .no-padding-x {
-  padding-left: 0!important;
-  padding-right: 0!important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 .no-margin {
-  margin: 0!important;
+  margin: 0 !important;
 }
 .no-margin-y {
-  margin-top: 0!important;
-  margin-bottom: 0!important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 .no-margin-x {
-  margin-left: 0!important;
-  margin-right: 0!important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 .main-background-opaque {
   background-color: #f2f5f6 !important;

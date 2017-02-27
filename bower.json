@@ -1,5 +1,5 @@
 {
-  "name": "MarlininternacionalWeb",
+  "name": "marlininternacionalweb",
   "version": "0.0.1",
   "repository": "https://garusis@bitbucket.org/garusis/marlininternacional_web.git",
   "license": "UNLICENSED",
@@ -28,7 +28,8 @@
     "angular-owl-carousel": "~0.2.3",
     "angular": "^1.5.5",
     "angular-slick-carousel": "^3.1.5",
-    "slick-carousel": "^1.6.0"
+    "slick-carousel": "^1.6.0",
+    "angular-bootstrap": "^2.5.0"
   },
   "resolutions": {
     "angular": "^1.5.5"

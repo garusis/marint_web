@@ -50,7 +50,7 @@
 
               <div class="accordions">
                 <h4>Módulos del curso:</h4>
-                <div class="accordion" mvonload="callback" compile>
+                <uib-accordion class="accordion" close-others="true">
                   <div class="accordion-section" ng-class="{enabled:m.enabled}"
                        ng-repeat="m in course.modules|orderBy:'position'">
                     <a class="accordion-section-title"
@@ -77,7 +77,7 @@
 
                     </div>
                   </div>
-                </div>
+                </uib-accordion>
               </div>
             </div>
           </div>

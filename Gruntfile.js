@@ -128,7 +128,8 @@ module.exports = function (grunt) {
               './development/components/angular-filter/dist/angular-filter.min.js',
               './development/components/angular-sanitize/angular-sanitize.min.js',
               './development/components/angular-socialshare/angular-socialshare.min.js',
-              './development/components/html2canvas/build/html2canvas.min.js'
+              './development/components/html2canvas/build/html2canvas.min.js',
+              './development/components/angular-bootstrap/ui-bootstrap-tpls.min.js'
             ],
             dest: './development/assets/js/',
             flatten: true,
