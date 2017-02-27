@@ -153,38 +153,15 @@
           list: []
         };
 
-        this.loadPublications = function () {
-          Publication.find({
-            filter: {
-              where: {
-                isPublished: true
-              },
-              order: "publishedAt DESC",
-              limit: 10,
-              include: ['instructor']
-            }
-          }).$promise.then(function (data) {
-            $scope.publications.list = data;
-            $scope.publications.list =
-              $scope.publications.list.map(function (v, index) {
-                if (index++ < 20) {
-                  v.image = {
-                    "original": "publication/original/1.jpg",
-                    "thumb_small": "assets/images/publicaciones/posts/150x150/" + (index) + ".jpg",
-                    "thumb_medium": "assets/images/publicaciones/posts/150x150/" + (index) + ".jpg",
-                    "thumb_large": "assets/images/publicaciones/posts/150x150/" + (index) + ".jpg",
-                    "thumb_xlarge": "assets/images/publicaciones/posts/150x150/" + (index) + ".jpg",
-                    "small": "assets/images/publicaciones/posts/370x220/" + (index) + ".jpg",
-                    "medium": "assets/images/publicaciones/posts/770x410/" + (index) + ".jpg",
-                    "large": "assets/images/publicaciones/posts/770x410/" + (index) + ".jpg",
-                    "xlarge": "assets/images/publicaciones/posts/770x410/" + (index) + ".jpg"
-                  }
-                }
-                return v;
-              })
-          })
-        };
-
-        this.loadPublications();
+        $scope.publications.list = Publication.find({
+          filter: {
+            where: {
+              isPublished: true
+            },
+            order: "publishedAt DESC",
+            limit: 10,
+            include: ['instructor', 'image']
+          }
+        })
       }]);
 })(angular.module('jg.marlininternacional.auth'));

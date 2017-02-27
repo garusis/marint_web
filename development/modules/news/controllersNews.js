@@ -54,7 +54,7 @@
           filter: {
             where: {isPublished: true},
             order: order,
-            include: ['instructor', "comments"]
+            include: ['instructor', "image"]
           }
         })
         .then(function (data) {
@@ -99,7 +99,7 @@
         .loadPublication({
           filter: {
             where: {isPublished: true, id: $stateParams.newId},
-            include: ['instructor', 'comments']
+            include: ['instructor', 'comments', 'image']
           }
         })
         .then(function (data) {

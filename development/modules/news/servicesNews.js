@@ -9,51 +9,12 @@
   service.$inject = ['Publication'];
   function service (Publication) {
 
-    function setImages (publications) {
-      if (Array.isArray(publications)) {
-        for (var p in publications) {
-          if (p < 20) {
-            var index = parseInt(p) + 1;
-            publications[p].image = {
-              "original": "publication/original/1.jpg",
-              "thumb_small": "assets/images/publicaciones/posts/150x150/" + (index) + ".jpg",
-              "thumb_medium": "assets/images/publicaciones/posts/150x150/" + (index) + ".jpg",
-              "thumb_large": "assets/images/publicaciones/posts/150x150/" + (index) + ".jpg",
-              "thumb_xlarge": "assets/images/publicaciones/posts/150x150/" + (index) + ".jpg",
-              "small": "assets/images/publicaciones/posts/370x220/" + (index) + ".jpg",
-              "medium": "assets/images/publicaciones/posts/770x410/" + (index) + ".jpg",
-              "large": "assets/images/publicaciones/posts/770x410/" + (index) + ".jpg",
-              "xlarge": "assets/images/publicaciones/posts/770x410/" + (index) + ".jpg"
-            }
-          }
-        }
-      } else {
-        publications.image = {
-          _150x150: "http://placehold.it/150x150",
-          _370x220: "http://placehold.it/370x220",
-          _770x410: "http://placehold.it/770x410",
-        }
-      }
-
-      return publications;
-    }
-
     this.loadPublication = function (options) {
       return Publication.findOne(options)
-        .$promise
-        .then(function (data) {
-          data = setImages(data)
-          return data;
-        })
     }
 
     this.loadPublications = function (options) {
       return Publication.find(options)
-        .$promise
-        .then(function (data) {
-          data = setImages(data);
-          return data;
-        })
     }
 
     this.loadRecentNews = function () {
@@ -64,7 +25,7 @@
           },
           order: "publishedAt DESC",
           limit: 10,
-          include: ['instructor']
+          include: ['instructor', 'image']
         }
       });
     }
