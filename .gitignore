@@ -1,5 +1,6 @@
 development/resources
 development/components
+development/assets/fonts/*
 node_modules
 .idea
 nbproject
