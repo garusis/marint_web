@@ -52,17 +52,16 @@
                 <h4>Módulos del curso:</h4>
                 <script type="text/ng-template" id="courses/templates/show/accordion-group.html">
                   <div class="panel-heading">
-                    <h4 class="panel-title">
-                      <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()"
-                         uib-accordion-transclude="heading">
-                        <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
+                    <a class="panel-title" style="display: block" href="javascript:void(0)" ng-click="toggleOpen()">
+                      <h4 class="accordion-section-title" uib-accordion-transclude="heading">
+                      <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
                           {{heading}}
-                        </span>
-                      </a>
-                    </h4>
+                      </span>
+                      </h4>
+                    </a>
                   </div>
                   <div class="accordion-section-content panel-collapse collapse" uib-collapse="!isOpen">
-                    <div class="panel-body" style="text-align: right" ng-transclude></div>
+                    <div class="panel-body" ng-transclude></div>
                   </div>
                 </script>
 

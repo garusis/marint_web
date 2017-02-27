@@ -35,6 +35,15 @@
   padding-left: 8px;
 }
 
+.single-course .accordions .accordion-section-content {
+  padding: 0;
+}
+.single-course .accordions .panel {
+  margin: 0;
+}
+.single-course .accordions .panel .panel-heading {
+  padding: 0;
+}
 
 .grid-news .grid-item .down-content h4 {
   height: 30px;
