@@ -128,10 +128,19 @@
 
     $scope.publishComment = function (comment)
     {
-      
       $scope.commentStatus = null;
+      var captchaResponse=  grecaptcha.getResponse();
+
+      if (!captchaResponse)
+      {
+        setCommentStatusRequest(-1,"Por favor completa el captcha de verificacion.")
+        return;
+      }
+
+
       var publication = {
         id: $scope.new.id,
+        captchaResponse:captchaResponse,
         comment: {
           content: comment.content
         }
@@ -141,9 +150,9 @@
       {
         setCommentStatusRequest(-1,'Por favor escribe tu nombre. Si eres estudiante inicia sesión.')
         return;
-      }else
+      } else
       {
-        publication.comment.publisherName=comment.publisherName;
+        publication.comment.publisherName = comment.publisherName;
       }
 
       setLoading(true);
@@ -162,9 +171,7 @@
           setLoading(false)
         });
 
-      $timeout(2000,function () {
-        flushCommentStatusRequest();
-      })
+
     }
     function setLoading(status)
     {
@@ -172,7 +179,7 @@
     }
     function addCommentToArrayInPublish(comment)
     {
-      
+
       $scope.new.comments.push(comment);
     }
     function setCommentStatusRequest(status,text)
@@ -181,6 +188,9 @@
         status: status,
         text: text
       };
+      $timeout(2000,function () {
+        flushCommentStatusRequest();
+      })
     }
     function flushCommentStatusRequest()
     {
