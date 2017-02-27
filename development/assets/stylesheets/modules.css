@@ -1,10 +1,6 @@
 #main-header .info-user {
   text-decoration: none !important;
 }
-
-
-
-
 #main-header .info-user > * {
   display: inline-block;
   vertical-align: middle;
@@ -91,6 +87,16 @@
   padding-left: 8px;
 }
 
+.single-course .accordions .panel {
+  border: none;
+  box-shadow: none;
+}
+.nologin {
+  cursor: pointer;
+}
+.nologin .accordion-section-content {
+  height: 0px !important;
+}
 .site-header {
   z-index: 9999999999 !important;
 }

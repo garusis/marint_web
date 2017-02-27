@@ -77,6 +77,7 @@
     $scope.location = $location.absUrl();
     $scope.modulos = [];
     $scope.loading = true;
+    $scope.hola=true;
 
     $scope.showVideo = function (video) {
       CourseService.showModalVideo(video)

@@ -61,7 +61,7 @@
                       </h4>
                     </a>
                   </div>
-                  <div class="accordion-section-content panel-collapse collapse" uib-collapse="!isOpen">
+                  <div class="accordion-section-content  panel-collapse collapse" uib-collapse="!isOpen">
                     <div class="panel-body" ng-transclude></div>
                   </div>
                 </script>
@@ -69,23 +69,24 @@
 
                 <uib-accordion class="accordion" close-others="true">
                   <div uib-accordion-group template-url="courses/templates/show/accordion-group.html"
-                       class="accordion-section" ng-class="{enabled:m.enabled}"
-                       ng-repeat="m in course.modules|orderBy:'position'">
+                       class="accordion-section" 
+                       ng-class="{nologin:!dataUser || !module.enabled}"
+                       ng-repeat="module in course.modules|orderBy:'position'">
                     <uib-accordion-heading>
                       <span class="first-icon"><i class="fa fa-play-circle-o"></i></span>
-                      <span>Modulo {{m.position}} <span ng-show="m.description">-</span> {{m.description}}</span>
+                      <span>Modulo {{module.position}} <span ng-show="module.description">-</span> {{module.description}}</span>
                       <h6>
-                        <em ng-show="m.enabled">{{m.videos.length}} Videos</em>
+                        <em ng-show="module.enabled">{{module.videos.length}} Videos</em>
                         <span id="1" class="second-icon"><i class="fa fa-sort-desc"></i></span>
                       </h6>
                     </uib-accordion-heading>
-                    <p>{{m.description}}</p>
-                    <div ng-show="m.enabled">
+                    <p>{{module.description}}</p>
+                    <div ng-show="module.enabled">
                       <h4>Videos de este módulo:</h4>
                       <ul class="list-unstyled">
-                        <li ng-repeat="v in m.videos|orderBy:'position'">
-                          <a href="javascript:void(0)" ng-click="showVideo(v)">Video
-                            {{v.position}} <span ng-show="v.title">-</span> {{v.title}}</a>
+                        <li ng-repeat="videoModule in module.videos|orderBy:'position'">
+                          <a href="javascript:void(0)" ng-click="showVideo(videoModule)">Video
+                            {{videoModule.position}} <span ng-show="videoModule.title">-</span> {{videoModule.title}}</a>
                         </li>
                       </ul>
                     </div>
