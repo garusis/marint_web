@@ -4,3 +4,4 @@ development/assets/fonts/*
 node_modules
 .idea
 nbproject
+!.gitkeep
