@@ -1,6 +1,10 @@
 #main-header .info-user {
   text-decoration: none !important;
 }
+
+
+
+
 #main-header .info-user > * {
   display: inline-block;
   vertical-align: middle;
