@@ -10,11 +10,11 @@
   function service (Publication) {
 
     this.loadPublication = function (options) {
-      return Publication.findOne(options)
+      return Publication.findOne(options).$promise
     }
 
     this.loadPublications = function (options) {
-      return Publication.find(options)
+      return Publication.find(options).$promise
     }
 
     this.loadRecentNews = function () {
