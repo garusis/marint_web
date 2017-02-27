@@ -145,7 +145,7 @@
             <slick settings="::newsCarouselConfig" ng-if="publications.list.length > 0">
               <div class="news-item" style="height: 150px" ng-repeat="item in publications.list">
                 <a ui-sref="news.show({new:item,newId:item.id,title:slug(item.title)})">
-                  <img responsive-image="" sources="item.image" is-thumbnail src-format="$source|concatOrigin:'bucket'" alt="{{::item.title}}">
+                  <img responsive-image="" sources="::item.image" is-thumbnail src-format="::$source|concatOrigin:'bucket'" alt="{{::item.title}}">
                 </a>
 
                 <div>
