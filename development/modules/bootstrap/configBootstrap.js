@@ -26,6 +26,7 @@
       originsManagerProvider.config();
       originsManagerProvider.setOrigin("base", "https://mibackend.herokuapp.com");
       originsManagerProvider.setOrigin("origin", originsManagerProvider.getOrigin("base") + "/api");
+      originsManagerProvider.setOrigin("bucket", "http://s3-sa-east-1.amazonaws.com/marlininternacional");
     }])
     .config(["AppAuthProvider", function (AppAuthProvider) {
       AppAuthProvider.config({tokenLocalstorageKey: "accessTokenId"})

@@ -113,7 +113,8 @@
         config: '@responsiveImage',
         breakpoints: '@',
         sources: '=',
-        backgroundSettings: '=?'
+        backgroundSettings: '=?',
+        srcFormat: '@?'
       },
       link: function (scope, element, attrs) {
         var breakpoints = scope.config || scope.breakpoints || responsiveImages.getDefaultBreakpoints();
@@ -122,6 +123,10 @@
           var q = query.split('=');
           return {maxViewport: Number(q[0]), source: q[1]};
         });
+
+        if("undefined" === typeof scope.srcFormat){
+          scope.srcFormat = "$source"
+        }
 
         var makeImagesResponsive = function () {
           var sources = scope.sources;
@@ -142,6 +147,8 @@
           } else {
             src = sources[lastValidSource];
           }
+          scope.$source = src
+          src = scope.$eval(scope.srcFormat)
 
           if ("undefined" === typeof attrs.asBackgroundImage) {
             if (element.attr('src') !== src) {
@@ -156,7 +163,7 @@
           //console.log(src, queries)
         };
 
-        scope.$watch('sources', function (newVal) {
+        scope.$watchGroup(['sources', 'srcFormat'], function (newVal) {
           if (newVal) {
             makeImagesResponsive();
           }

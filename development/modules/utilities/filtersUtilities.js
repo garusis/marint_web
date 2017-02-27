@@ -6,9 +6,21 @@
  */
 ;
 !(function (module) {
-  module.filter('cleanStringSpaces', function () {
-    return function (input) {
-      return input.replace(/\s/g, ' ');
-    };
-  });
+  module
+    .filter('cleanStringSpaces', function () {
+      return function (input) {
+        return input.replace(/\s/g, ' ');
+      };
+    })
+    .filter('concatOrigin', [
+      "originsManager",
+      function (originsManager) {
+        return function (input, origin) {
+          if (input[0] !== "/") {
+            input = "/" + input
+          }
+          return originsManager.getOrigin(origin) + input;
+        };
+      }
+    ]);
 })(angular.module('jg.marlininternacional.utilities'));
