@@ -2,10 +2,15 @@
  * Created by garusis on 24/02/17.
  */
 !(function (module) {
-  module.constant('ROUTES', {
+  module.constant('ROUTES',{
     COURSES: {
       __BASE__: 'courses',
       MODULES: 'modules'
+    },
+    PUBLICATIONS: {
+      __BASE__: 'publications',
+      COMMENTS: 'comments',
+      COUNT: 'count'
     },
     STUDENTS: {
       __BASE__: 'students',
