@@ -2835,14 +2835,11 @@ a.show-comments {
 .single-course .accordions .accordion-section {
   margin-bottom: 1px;
 }
-.single-course .accordions .accordion-section h4 {
-  margin: 19px 0px !important;
-}
-.single-course .accordions .second-accordion-section-title {
+.single-course .accordions .accordion-section:nth-child(odd) .accordion-section-title {
   background-color: transparent !important;
   border: 2px solid #eee;
 }
-.single-course .accordions .second-accordion-section-title em {
+.single-course .accordions .accordion-section:nth-child(odd) .accordion-section-title em {
   margin-right: 10px;
   font-size: 10px;
   font-family: 'Montserrat', sans-serif;
@@ -2915,10 +2912,6 @@ a.show-comments {
   -ms-transform: rotate(-180deg);
   transform: rotate(-180deg);
   transition: all 0.5s;
-}
-.single-course .accordions .accordion-section-content {
-  padding: 15px;
-  display: none;
 }
 .our-teachers {
   background-color: #f2f5f6;
