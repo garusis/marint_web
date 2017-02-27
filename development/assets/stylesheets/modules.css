@@ -38,6 +38,9 @@
 .single-course .accordions .accordion-section-content {
   padding: 0;
 }
+.single-course .accordions .accordion-section h4 {
+  margin: 0!important;
+}
 .single-course .accordions .panel {
   margin: 0;
 }
