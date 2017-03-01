@@ -95,7 +95,7 @@
                           {{commentStatus.text}}
                         </p>
                       </div>
-                      <div ng-hide="dataUser" class="col-md-12">
+                      <div ng-if="!dataUser" class="col-md-12">
                         <input ng-model="comment.publisherName" ng-required="!dataUser" name="publisherName" type="text" placeholder="Nombre y apellidos">
                       </div>
 
@@ -104,7 +104,7 @@
                                   placeholder="Escribe un comentario..."></textarea>
                       </div>
                     </div>
-                    <div class="row">
+                    <div ng-if="!dataUser" class="row">
                       <div class="col-md-12">
                         <div vc-recaptcha key="APP_CONSTANTS.RECAPTCHA_KEY.value" ng-model="comment.gRecaptchaResponse" required=""></div>
                       </div>
