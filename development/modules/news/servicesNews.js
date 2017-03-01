@@ -6,8 +6,10 @@
  */
 ;
 !(function (module) {
-  service.$inject = ['Publication'];
-  function service (Publication) {
+  service.$inject = ['Publication','$http','ROUTES','originsManager','StudentService'];
+  function service(Publication,$http,ROUTES,originsManager,StudentService) {
+
+    this.baseUri =  originsManager.getOrigin() + '/' + ROUTES.PUBLICATIONS.__BASE__ + "/";
 
     this.loadPublication = function (options) {
       return Publication.findOne(options).$promise
@@ -25,14 +27,19 @@
           },
           order: "publishedAt DESC",
           limit: 10,
-          include: ['instructor', 'image']
+          include: ['instructor','image']
         }
       });
     }
 
+    this.publish = function (publication) {
+      var ep=this.baseUri+publication.id+'/'+ROUTES.PUBLICATIONS.COMMENTS;
+      return $http.post(ep,publication.comment)
+    }
+
   }
 
-  module.service('NewsService', service)
+  module.service('NewsService',service)
 })(angular.module('jg.marlininternacional.news'));
 
 

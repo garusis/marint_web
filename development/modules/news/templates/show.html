@@ -41,7 +41,7 @@
                   </ul>
                   <h4>{{new .title}}</h4>
 
-                  <div class="text-justify" ng-bind-html="(new .content | cleanStringSpaces)">
+                  <div class="text-justify" ng-bind-html="(new.content | cleanStringSpaces)">
 
                   </div>
 
@@ -62,7 +62,7 @@
                   </div>
                 </div>
               </div>
-              <div ng-show="new .comments.length>0" class="comments">
+              <div ng-show="new .comments.length > 0" class="comments">
                 <div class="heading">
                   <h2>Comentarios</h2>
                 </div>
@@ -82,22 +82,37 @@
                   <h2>Deja un comentario</h2>
                 </div>
                 <div class="comment-form">
-                  <div class="row">
-                    <div ng-hide="$rootScope.dataUser" class="col-md-6">
-                      <input ng-model="comment.name" type="text" placeholder="Nombre y apellidos">
+                  <form name="commentForm" ng-submit="commentForm.$valid && publishComment(comment)">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div ng-show="loadingPublishComment" class="loading">
+                          <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
+                        </div>
+                        <p ng-show="commentStatus" ng-class="{
+                          'bg-warning text-warning': commentStatus.id < -1,
+                          'bg-success text-success': commentStatus.id > 1
+                        }">
+                          {{commentStatus.text}}
+                        </p>
+                      </div>
+                      <div ng-if="!dataUser" class="col-md-12">
+                        <input ng-model="comment.publisherName" ng-required="!dataUser" name="publisherName" type="text" placeholder="Nombre y apellidos">
+                      </div>
+
+                      <div class="col-md-12">
+                        <textarea ng-model="comment.content" required class="message" name="message"
+                                  placeholder="Escribe un comentario..."></textarea>
+                      </div>
                     </div>
-                    <div ng-hide="$rootScope.dataUser" class="col-md-6">
-                      <input ng-model="comment.email" type="text" placeholder="Correo electrónico"
-                             value="">
+                    <div ng-if="!dataUser" class="row">
+                      <div class="col-md-12">
+                        <div vc-recaptcha key="APP_CONSTANTS.RECAPTCHA_KEY.value" ng-model="comment.gRecaptchaResponse" required=""></div>
+                      </div>
                     </div>
-                    <div class="col-md-12">
-                                            <textarea id="message" class="message" name="message"
-                                                      placeholder="Write comment"></textarea>
+                    <div class="accent-button">
+                      <input type="submit" value="enviar" ng-disabled="commentForm.$invalid" />
                     </div>
-                  </div>
-                  <div class="accent-button">
-                    <a href="#">Submit Comment</a>
-                  </div>
+                  </form>
                 </div>
               </div>
             </div>
