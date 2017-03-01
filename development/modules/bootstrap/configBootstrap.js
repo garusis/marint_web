@@ -60,5 +60,6 @@
   "jg.marlininternacional.students",
   'com.alphonsegs.paginator',
   'com.alphonsegs.mvonload',
-  'ngDialog'
+  'ngDialog',
+  "ui.bootstrap"
 ]));

@@ -4,8 +4,7 @@
  * @email garusis@gmail.com
  * @version 0.0.1
  */
-;
-!(function (module) {
+;!(function (module) {
   module
     .directive('revolution', [function () {
       return {
@@ -58,10 +57,40 @@
           }
         }
       };
-    }]);
-})(angular.module('jg.marlininternacional.utilities'));
+    }])
+    .directive('accordion', [function () {
+      return {
+        restrict: 'A',
+        link: function (scope, element, attrs, owlCtrl) {
 
-(function (module) {
+          function close_accordion_section () {
+            $(element).find('.accordion .accordion-section-title').removeClass('active');
+            $(element).find('.accordion .accordion-section-content').slideUp(300).removeClass('open');
+          }
+
+          $(element).find('.accordion-section-title').on("click", function (e) {
+            // Grab current anchor value
+            var currentAttrValue = $(this).attr('href');
+
+            if ($(e.target).is('.active')) {
+              close_accordion_section();
+            } else {
+              close_accordion_section();
+
+              // Add active class to section title
+              $(element).addClass('active');
+              // Open up the hidden content panel
+              $(element).find('.accordion ' + currentAttrValue).slideDown(300).addClass('open');
+            }
+            e.preventDefault();
+          });
+        }
+      }
+    }]);
+
+})(angular.module('jg.marlininternacional.utilities'))
+
+;!(function (module) {
   /*
    // @name: JG Responsive images
    // @version: 0.0.1
@@ -205,9 +234,9 @@
     .directive('responsiveImage', responsiveImageDirective)
     .config($config)
     .run($run);
-})(angular.module('jg.responsiveImages', []));
+})(angular.module('jg.responsiveImages', []))
 
-(function (module) {
+;!(function (module) {
   /*
    // @name: JG Overlay
    // @version: 0.0.1
@@ -442,4 +471,5 @@
   module
     .provider('overlay', overlayProvider)
     .directive('overlay', overlayDirective);
-})(angular.module('jg.overlay', []));
+})(angular.module('jg.overlay', []))
+
