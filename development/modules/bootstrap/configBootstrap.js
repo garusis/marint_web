@@ -37,7 +37,13 @@
 
         // Change the URL where to access the LoopBack REST API server
         LoopBackResourceProvider.setUrlBase(originsManagerProvider.getOrigin());
-      }]);
+      }])
+    .config(["vcRecaptchaServiceProvider",function(vcRecaptchaServiceProvider){
+      vcRecaptchaServiceProvider.setTheme('light')
+      vcRecaptchaServiceProvider.setSize('normal')
+      vcRecaptchaServiceProvider.setType('image')
+      vcRecaptchaServiceProvider.setLang('es')
+    }]);
 })(angular.module('jg.marlininternacional',[
   'lbServices','ui.router',
   'ui.router.stateHelper',
@@ -61,5 +67,6 @@
   'com.alphonsegs.paginator',
   'com.alphonsegs.mvonload',
   'ngDialog',
-  "ui.bootstrap"
+  "ui.bootstrap",
+  "vcRecaptcha"
 ]));

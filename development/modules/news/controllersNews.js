@@ -29,7 +29,7 @@
     vertical: true,
     pauseOnHover: true
   };
-  var ListPublicationController = function ($scope,NewsService,$state) {
+  var ListPublicationController = function ($scope, NewsService, $state) {
     $scope.headerSources = headerSources;
     $scope.newsCarouselConfig = newsCarouselConfig;
 
@@ -54,7 +54,7 @@
           filter: {
             where: {isPublished: true},
             order: order,
-            include: ['instructor',"image"]
+            include: ['instructor', "image"]
           }
         })
         .then(function (data) {
@@ -77,18 +77,18 @@
       var aux = {
         title: _new.title,
         newId: _new.newId,
-        new : _new
+        new: _new
       }
-      $state.go("news.show",aux)
+      $state.go("news.show", aux)
     }
 
     $scope.loadnews();
     $scope.loadRecentNews()
 
   };
-  ListPublicationController.$inject = ['$scope','NewsService',"$state"];
+  ListPublicationController.$inject = ['$scope', 'NewsService', "$state"];
 
-  var ShowPublicationController = function ($scope,$stateParams,$location,NewsService,$state,StudentService,$timeout) {
+  var ShowPublicationController = function ($scope, $stateParams, $location, NewsService, $state, StudentService, $timeout) {
     $scope.headerSources = headerSources;
     $scope.location = $location.absUrl();
     $scope.loadingRecentNews = true;
@@ -96,7 +96,7 @@
     $scope.newsCarouselConfig = newsCarouselConfig;
     $scope.userIsAuthenticated = StudentService.isAuthenticated();
 
-    $scope.$on('jg.marlininternacional::users::successLogin',function (data) {
+    $scope.$on('jg.marlininternacional::users::successLogin', function (data) {
       $scope.userIsAuthenticated = true;
     })
 
@@ -104,8 +104,8 @@
       NewsService
         .loadPublication({
           filter: {
-            where: {isPublished: true,id: $stateParams.newId},
-            include: ['instructor','comments','image']
+            where: {isPublished: true, id: $stateParams.newId},
+            include: ['instructor', 'comments', 'image']
           }
         })
         .then(function (data) {
@@ -117,6 +117,8 @@
       $scope.new = $stateParams.new
     }
 
+    $scope.comment = {}
+
     $scope.loadRecentNews = function () {
       NewsService
         .loadRecentNews()
@@ -126,83 +128,64 @@
         })
     }
 
-    $scope.publishComment = function (comment)
-    {
+    $scope.publishComment = function (comment) {
       $scope.commentStatus = null;
-      var captchaResponse=  grecaptcha.getResponse();
-
-      if (!captchaResponse)
-      {
-        setCommentStatusRequest(-1,"Por favor completa el captcha de verificacion.")
-        return;
-      }
-
-
       var publication = {
         id: $scope.new.id,
-        captchaResponse:captchaResponse,
-        comment: {
-          content: comment.content
-        }
+        comment: comment
       }
 
-      if (!$scope.userIsAuthenticated && (!comment.publisherName))
-      {
-        setCommentStatusRequest(-1,'Por favor escribe tu nombre. Si eres estudiante inicia sesión.')
+      if (!$scope.userIsAuthenticated && (!comment.publisherName)) {
+        setCommentStatusRequest(-1, 'Por favor escribe tu nombre. Si eres estudiante inicia sesión.')
         return;
-      } else
-      {
-        publication.comment.publisherName = comment.publisherName;
       }
 
       setLoading(true);
       NewsService
         .publish(publication)
         .then(function (data) {
-          comment = {
+          $scope.comment = {
             publisherName: '',
             content: ''
           }
-          setCommentStatusRequest(1,'Se ha publicado exitósamente.')
+          setCommentStatusRequest(1, 'Se ha publicado exitósamente.')
           addCommentToArrayInPublish(data.data)
           setLoading(false)
-        },function (error) {
-          setCommentStatusRequest(-1,'Ha ocurrido un error. Inténtalo más tarde.')
+        }, function (error) {
+          setCommentStatusRequest(-1, 'Ha ocurrido un error. Inténtalo más tarde.')
           setLoading(false)
         });
 
-
     }
-    function setLoading(status)
-    {
+    function setLoading (status) {
       $scope.loadingPublishComment = status;
     }
-    function addCommentToArrayInPublish(comment)
-    {
+
+    function addCommentToArrayInPublish (comment) {
 
       $scope.new.comments.push(comment);
     }
-    function setCommentStatusRequest(status,text)
-    {
+
+    function setCommentStatusRequest (status, text) {
       $scope.commentStatus = {
         status: status,
         text: text
       };
-      $timeout(2000,function () {
+      $timeout(2000, function () {
         flushCommentStatusRequest();
       })
     }
-    function flushCommentStatusRequest()
-    {
+
+    function flushCommentStatusRequest () {
       $scope.commentStatus = null;
     }
 
     $scope.loadRecentNews()
 
   };
-  ShowPublicationController.$inject = ['$scope','$stateParams','$location','NewsService','$state','StudentService','$timeout'];
+  ShowPublicationController.$inject = ['$scope', '$stateParams', '$location', 'NewsService', '$state', 'StudentService', '$timeout'];
 
   module
-    .controller('ListPublicationController',ListPublicationController)
-    .controller('ShowPublicationController',ShowPublicationController);
+    .controller('ListPublicationController', ListPublicationController)
+    .controller('ShowPublicationController', ShowPublicationController);
 })(angular.module('jg.marlininternacional.news'));

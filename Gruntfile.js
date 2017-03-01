@@ -114,7 +114,7 @@ module.exports = function (grunt) {
               './development/components/bootstrap/dist/js/bootstrap.min.js',
               './development/components/angular/angular.min.js',
               './development/components/angular/angular.min.js.map',
-              './development/components/lodash/lodash.min.js',
+              './development/components/lodash/dist/lodash.min.js',
               './development/components/jg-origins-manager/dist/jg-origins-manager.min.js',
               './development/components/ngstorage/ngStorage.min.js',
               './development/components/angular-ui-router/release/angular-ui-router.min.js',
@@ -130,7 +130,8 @@ module.exports = function (grunt) {
               './development/components/angular-socialshare/angular-socialshare.min.js',
               './development/components/html2canvas/build/html2canvas.min.js',
               './development/components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-              './development/components/angular-animate/angular-animate.min.js'
+              './development/components/angular-animate/angular-animate.min.js',
+              './development/components/angular-recaptcha/release/angular-recaptcha.min.js'
             ],
             dest: './development/assets/js/',
             flatten: true,

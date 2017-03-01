@@ -1,4 +1,3 @@
-<script src='https://www.google.com/recaptcha/api.js'></script>
 <div class="sidebar-menu-container" id="sidebar-menu-container">
 
   <div class="sidebar-menu-push">
@@ -83,30 +82,35 @@
                   <h2>Deja un comentario</h2>
                 </div>
                 <div class="comment-form">
-                  <form ng-submit="publishComment(comment)">
+                  <form name="commentForm" ng-submit="commentForm.$valid && publishComment(comment)">
                     <div class="row">
                       <div class="col-md-12">
                         <div ng-show="loadingPublishComment" class="loading">
                           <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
                         </div>
                         <p ng-show="commentStatus" ng-class="{
-                          'bg-warning text-warning'commentStatus.id<-1,
-                            'bg-success text-success'commentStatus.id>1
+                          'bg-warning text-warning': commentStatus.id < -1,
+                          'bg-success text-success': commentStatus.id > 1
                         }">
                           {{commentStatus.text}}
                         </p>
                       </div>
                       <div ng-hide="dataUser" class="col-md-12">
-                        <input ng-model="comment.publisherName" type="text" placeholder="Nombre y apellidos">
+                        <input ng-model="comment.publisherName" ng-required="!dataUser" name="publisherName" type="text" placeholder="Nombre y apellidos">
                       </div>
 
                       <div class="col-md-12">
-                        <textarea ng-model="comment.content" class="message" name="message" placeholder="Escribe un comentario..."></textarea>
+                        <textarea ng-model="comment.content" required class="message" name="message"
+                                  placeholder="Escribe un comentario..."></textarea>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div vc-recaptcha key="APP_CONSTANTS.RECAPTCHA_KEY.value" ng-model="comment.gRecaptchaResponse"></div>
                       </div>
                     </div>
                     <div class="accent-button">
-                      <div class="g-recaptcha" data-sitekey="6LfyzxYUAAAAAIKRgD1XVfhAPUVDv01cuKfy8baG"></div>
-                      <input type="submit" value="enviar"></input>
+                      <input type="submit" value="enviar" ng-disabled="commentForm.$invalid" />
                     </div>
                   </form>
                 </div>
@@ -125,7 +129,7 @@
                          ng-if="recentNews.length > 0">
                     <div class="news-item" style="height: 150px" ng-repeat="rn in recentNews">
                       <a ui-sref="news.show({title:rn.title,newId:rn.id,new:rn})"><h1>
-                          {{::rn.title|truncate:50:'...':true}}</h1></a>
+                        {{::rn.title|truncate:50:'...':true}}</h1></a>
                       <ul class="info clearfix">
                         <li>{{::rn.createdAt|date:'dd/MM/yyyy'}}</li>
                         <li>{{::rn.instructor.name}}</li>
