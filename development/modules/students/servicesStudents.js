@@ -1,20 +1,20 @@
 "use strict"
-/**
- * Created by Constantino Celis Peñaranda on 04/06/2016.
- * @author Constantino Celis Peñaranda
- * @email celisconstantino01@gmail.com
- * @version 0.0.1
- */
-;
+  /**
+   * Created by Constantino Celis Peñaranda on 04/06/2016.
+   * @author Constantino Celis Peñaranda
+   * @email celisconstantino01@gmail.com
+   * @version 0.0.1
+   */
+  ;
 !(function (module) {
-  StudentService.$inject = ['Student', "LoopBackAuth", "ngDialog", "$q", "$http", "ROUTES", "originsManager"];
-  function StudentService (Student, LoopBackAuth, ngDialog, $q, $http, ROUTES, originsManager) {
+  StudentService.$inject = ['Student',"LoopBackAuth","ngDialog","$q","$http","ROUTES","originsManager"];
+  function StudentService(Student,LoopBackAuth,ngDialog,$q,$http,ROUTES,originsManager) {
 
     this.isAuthenticated = function () {
       return !!LoopBackAuth.accessTokenId
     }
 
-    function processStudent (student) {
+    function processStudent(student) {
       if (!student.__is_process__) {
         student.__is_process__ = true
         student.coursesStudent = new CourseStudentRelation(student)
@@ -36,7 +36,7 @@
       return Student.logout()
     }
 
-    function CourseStudentRelation (student) {
+    function CourseStudentRelation(student) {
       this.basePath = originsManager.getOrigin() +
         "/" + ROUTES.STUDENTS.__BASE__ + "/" + student.id +
         "/" + ROUTES.STUDENTS.COURSES_STUDENT.__BASE__
@@ -49,7 +49,7 @@
     }
 
     CourseStudentRelation.prototype.__process__ = function (courseStudent) {
-      courseStudent.modules = new ModuleRelation(courseStudent, this)
+      courseStudent.modules = new ModuleRelation(courseStudent,this)
       return courseStudent
     }
 
@@ -60,14 +60,14 @@
           course_id: courseId
         }
       }
-      return $http.get(this.basePath, {params: {filter: filter}})
+      return $http.get(this.basePath,{params: {filter: filter}})
         .then(function (response) {
           return relation.__process__(response.data[0])
         })
     }
 
     ModuleRelation.prototype = new Array()
-    function ModuleRelation (courseStudent, courseStudentRelation) {
+    function ModuleRelation(courseStudent,courseStudentRelation) {
       this.basePath = courseStudentRelation.basePath + "/" + courseStudent.id + "/" + ROUTES.STUDENTS.COURSES_STUDENT.MODULES
     }
 
@@ -87,10 +87,16 @@
       if (!filter.include) {
         filter.include = []
       }
-      filter.include.push("videos")
 
-      return $http.get(this.basePath, {params: {filter: filter}})
+      var ep="https://mibackend.herokuapp.com/api/students/53/courses/109/modules";
+      $http.get(ep)
         .then(function (response) {
+          console.log(ep,response)
+        })
+      filter.include.push("videos")
+      return $http.get(this.basePath,{params: {filter: filter}})
+        .then(function (response) {
+          console.log(response)
           relation.length = 0
           response.data.forEach(relation.__addToCache__.bind(relation))
           return relation
@@ -99,7 +105,7 @@
 
   }
 
-  module.service('StudentService', StudentService)
-})(angular.module('jg.marlininternacional.students', []));
+  module.service('StudentService',StudentService)
+})(angular.module('jg.marlininternacional.students',[]));
 
 
