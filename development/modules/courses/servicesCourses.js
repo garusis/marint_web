@@ -1,18 +1,18 @@
 "use strict"
-/**
- * Created by Constantino Celis Peñaranda on 04/06/2016.
- * @author Constantino Celis Peñaranda
- * @email celisconstantino01@gmail.com
- * @version 0.0.1
- */
-;
+  /**
+   * Created by Constantino Celis Peñaranda on 04/06/2016.
+   * @author Constantino Celis Peñaranda
+   * @email celisconstantino01@gmail.com
+   * @version 0.0.1
+   */
+  ;
 !(function (module) {
-  service.$inject = ['Course', "ngDialog", "$q", "$http", "ROUTES", "originsManager"];
-  function service (Course, ngDialog, $q, $http, ROUTES, originsManager) {
+  service.$inject = ['Course',"ngDialog","$q","$http","ROUTES","originsManager"];
+  function service(Course,ngDialog,$q,$http,ROUTES,originsManager) {
 
-    function setImages (courses) {
+    function setImages(courses) {
       if (Array.isArray(courses)) {
-        _.forEach(courses, function (course, i) {
+        _.forEach(courses,function (course,i) {
           i = i + 1
           course.images = {
             _150x150: "assets/images/cursos/cursos/150x150/" + i + ".jpg",
@@ -31,7 +31,23 @@
       return courses;
     }
 
-    this.loadCourse = function (instance, filter) {
+    this.loadCourseVideoComments = function (courseId,moduleId,videoId)
+    {
+      //https://mibackend.herokuapp.com/api/courses/9/modules/49/videos?filter={"include":"comments","where":{"id":77}}
+      var ep = originsManager.getOrigin() +
+        "/" + ROUTES.COURSES.__BASE__ + "/" + courseId +
+        "/" + ROUTES.COURSES.MODULES + "/" + moduleId +
+        "/videos";
+      var filter = {
+        include: "comments",
+        where: {
+          id: videoId
+        }
+      }
+      return $http.get(ep,{params: {filter: filter}})
+    }
+
+    this.loadCourse = function (instance,filter) {
       var promise = instance ? $q.resolve(instance) : Course.findOne(filter).$promise
       return promise
         .then(function (data) {
@@ -41,7 +57,7 @@
         })
     }
 
-    function ModuleRelation (course) {
+    function ModuleRelation(course) {
       this.basePath = originsManager.getOrigin() +
         "/" + ROUTES.COURSES.__BASE__ + "/" + course.id +
         "/" + ROUTES.COURSES.MODULES
@@ -55,7 +71,7 @@
 
     ModuleRelation.prototype.get = function (filter) {
       var relation = this
-      return $http.get(this.basePath, {params: {filter: filter}})
+      return $http.get(this.basePath,{params: {filter: filter}})
         .then(function (response) {
           relation.length = 0
           response.data.forEach(relation.__addToCache__.bind(relation))
@@ -63,7 +79,7 @@
         })
     }
 
-    this.loadCourses = function (options, callback, error) {
+    this.loadCourses = function (options,callback,error) {
       Course.find(options).$promise.then(function (data) {
         data = setImages(data);
         callback(data);
@@ -71,8 +87,11 @@
     }
 
     this.showModalVideo = function (video) {
-      var controller = function (s, e) {
-        s.x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+      var controller = function (s,e) {
+        s.video = video;
+        s.video.getComments();
+        console.log(video);
+        s.x = [1,2,3,4,5,6,7,8,9,10,11,12]
         s.callbackvideo = function () {
           var aux = document.getElementById("commentsVideoContainer");
           aux.scrollTop = aux.scrollHeight;
@@ -101,7 +120,7 @@
           });
         }
       }
-      controller.$inject = ["$scope", "$element"]
+      controller.$inject = ["$scope","$element"]
 
       ngDialog.open({
         template: 'modules/courses/templates/modals/video.html',
@@ -112,7 +131,7 @@
 
   }
 
-  module.service('CourseService', service)
+  module.service('CourseService',service)
 })(angular.module('jg.marlininternacional.courses'));
 
 
