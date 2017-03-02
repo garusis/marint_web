@@ -7,8 +7,8 @@
 ;
 !(function (module) {
   module
-    .run(['$rootScope', '$FB', '$localStorage', '$timeout', 'overlay', "authmodule",
-      function ($rootScope, $FB, $localStorage, $timeout, overlay, AuthModule) {
+    .run(['$rootScope', '$FB', '$localStorage', '$timeout', 'overlay', "authmodule", "Constants",
+      function ($rootScope, $FB, $localStorage, $timeout, overlay, AuthModule, Constants) {
         $rootScope.multilanguageEnabled = false;
         $rootScope.slug = function (data) {
           return _.deburr(data).replace(/\W/g, " ").replace(/\s+/g, '_').substr(0, 40);
@@ -24,5 +24,7 @@
           document.body.scrollTop = document.documentElement.scrollTop = 0;
           //AuthModule.showModalChangePassword();
         });
+
+        Constants.load()
       }]);
 })(angular.module('jg.marlininternacional'));
