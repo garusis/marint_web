@@ -394,16 +394,6 @@ a.show-comments {
   }
 }
 
-.single-course .accordions .panel {
-  border: none;
-  box-shadow: none;
-}
-.nologin {
-  cursor: pointer;
-}
-.nologin .accordion-section-content {
-  height: 0px !important;
-}
 .single-post .leave-comment .comment-form input[type="submit"] {
   background: #f5a425 ;
   border: 1px #FFF;
@@ -416,6 +406,16 @@ a.show-comments {
   color: #f5a425 !important;
   background: #FFF !important;
   border: 1px solid #f5a425;
+}
+.single-course .accordions .panel {
+  border: none;
+  box-shadow: none;
+}
+.nologin {
+  cursor: pointer;
+}
+.nologin .accordion-section-content {
+  height: 0px !important;
 }
 .site-header {
   z-index: 9999999999 !important;

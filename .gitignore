@@ -1,6 +1,8 @@
 development/resources
 development/components
 development/assets/fonts/*
+development/assets/stylesheets/educa.css
+development/assets/stylesheets/modules.css
 node_modules
 .idea
 nbproject
