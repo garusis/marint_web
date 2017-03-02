@@ -6,3 +6,8 @@
 *.xcf binary
 *.psd binary
 *.mp4 binary
+*.eot binary
+*.svgbinary
+*.ttf binary
+*.woff binary
+*.woff2 binary
