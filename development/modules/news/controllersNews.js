@@ -88,11 +88,17 @@
   };
   ListPublicationController.$inject = ['$scope', 'NewsService', "$state"];
 
-  var ShowPublicationController = function ($scope, $stateParams, $location, NewsService, $state) {
+  var ShowPublicationController = function ($scope, $stateParams, $location, NewsService, $state, StudentService, $timeout) {
     $scope.headerSources = headerSources;
     $scope.location = $location.absUrl();
     $scope.loadingRecentNews = true;
+    $scope.loadingPublishComment = false;
     $scope.newsCarouselConfig = newsCarouselConfig;
+    $scope.userIsAuthenticated = StudentService.isAuthenticated();
+
+    $scope.$on('jg.marlininternacional::users::successLogin', function (data) {
+      $scope.userIsAuthenticated = true;
+    })
 
     if (!$stateParams.new) {
       NewsService
@@ -111,6 +117,8 @@
       $scope.new = $stateParams.new
     }
 
+    $scope.comment = {}
+
     $scope.loadRecentNews = function () {
       NewsService
         .loadRecentNews()
@@ -120,10 +128,62 @@
         })
     }
 
+    $scope.publishComment = function (comment) {
+      $scope.commentStatus = null;
+      var publication = {
+        id: $scope.new.id,
+        comment: comment
+      }
+
+      if (!$scope.userIsAuthenticated && (!comment.publisherName)) {
+        setCommentStatusRequest(-1, 'Por favor escribe tu nombre. Si eres estudiante inicia sesión.')
+        return;
+      }
+
+      setLoading(true);
+      NewsService
+        .publish(publication)
+        .then(function (data) {
+          $scope.comment = {
+            publisherName: '',
+            content: ''
+          }
+          setCommentStatusRequest(1, 'Se ha publicado exitósamente.')
+          addCommentToArrayInPublish(data.data)
+          setLoading(false)
+        }, function (error) {
+          setCommentStatusRequest(-1, 'Ha ocurrido un error. Inténtalo más tarde.')
+          setLoading(false)
+        });
+
+    }
+    function setLoading (status) {
+      $scope.loadingPublishComment = status;
+    }
+
+    function addCommentToArrayInPublish (comment) {
+
+      $scope.new.comments.push(comment);
+    }
+
+    function setCommentStatusRequest (status, text) {
+      $scope.commentStatus = {
+        status: status,
+        text: text
+      };
+      $timeout(2000, function () {
+        flushCommentStatusRequest();
+      })
+    }
+
+    function flushCommentStatusRequest () {
+      $scope.commentStatus = null;
+    }
+
     $scope.loadRecentNews()
 
   };
-  ShowPublicationController.$inject = ['$scope', '$stateParams', '$location', 'NewsService', '$state'];
+  ShowPublicationController.$inject = ['$scope', '$stateParams', '$location', 'NewsService', '$state', 'StudentService', '$timeout'];
 
   module
     .controller('ListPublicationController', ListPublicationController)

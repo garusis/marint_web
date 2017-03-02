@@ -9,7 +9,7 @@
   module
     .filter('cleanStringSpaces', function () {
       return function (input) {
-        return input.replace(/\s/g, ' ');
+        return input && input.replace(/\s/g, ' ');
       };
     })
     .filter('concatOrigin', [
