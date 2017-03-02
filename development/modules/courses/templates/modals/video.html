@@ -1,7 +1,7 @@
 <div class="row videoModalInner">
   <div class="video_container" mvonload="callback" compile>
     <video id="modulevideo" autoplay="autoplay" style="width:100%;height:100%;" width="100%" height="100%">
-      <source src="{{video.url |concatOrigin:'bucket'}}"   type="video/mp4">
+      <source ng-src="{{video.url |concatOrigin:'bucket'}}"   type="video/mp4">
       Your browser does not support the video tag. 
 
     </video>
