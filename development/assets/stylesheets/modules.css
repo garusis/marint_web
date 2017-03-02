@@ -1,5 +1,5 @@
 #main-header .info-user {
-  text-decoration: none !important;
+  text-decoration: none!important;
 }
 #main-header .info-user > * {
   display: inline-block;
@@ -35,22 +35,6 @@
   padding-left: 8px;
 }
 
-.single-course .accordions .accordion-section-content {
-  padding: 0;
-}
-.single-course .accordions .accordion-section h4 {
-  margin: 20px 0!important;
-}
-.single-course .accordions .panel {
-  margin: 0;
-}
-.single-course .accordions .panel .panel-heading {
-  padding: 0;
-}
-.single-course .accordions .panel .panel-heading h4 {
-  text-transform: none;
-  margin: 0!important;
-}
 
 .grid-news .grid-item .down-content h4 {
   height: 30px;
@@ -86,326 +70,9 @@
 .single-post .single-item .tags-share .share .second-button a .facebookCount .pluginCountButton {
   padding-left: 8px;
 }
-/* VIDEO MODAL STYLE */
-.videoModalInner {
-  margin: 0px !important;
-  padding: 0px !important;
-  display: flex;
-  flex-direction: row;
-  max-height: 100%;
-}
-.video_container {
-  position: relative;
-  background-color: #000;
-  flex: 1;
-}
-.video_container .video_overlay {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 999;
-}
-.video_container .video_overlay .controls {
-  display: flex;
-  flex-direction: row;
-}
-.video_container .video_overlay .controls {
-  padding: 11px 0px;
-  background: rgba(0, 0, 0, 0.72);
-}
-.video_container .video_overlay .controls a {
-  padding: 11px;
-  color: #fff;
-}
-a.show-comments {
-  opacity: 0;
-  display: none;
-}
-.video_container .video_overlay .controls .actions .time {
-  font-size: 11px;
-}
-.video_container .video_overlay .controls input[type="range"] {
-  flex: 1 0 0;
-}
-.video_container .video_overlay .controls input[type=range] {
-  -webkit-appearance: none;
-  /* Hides the slider so that custom slider can be made */
-  width: 100%;
-  /* Specific width is required for Firefox. */
-  background: transparent;
-  /* Otherwise white in Chrome */
-}
-.video_container .video_overlay .controls input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-}
-.video_container .video_overlay .controls input[type=range]:focus {
-  outline: none;
-  /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
-}
-.video_container .video_overlay .controls input[type=range]::-ms-track {
-  width: 100%;
-  cursor: pointer;
-  /* Hides the slider so custom styles can be added */
-  background: transparent;
-  border-color: transparent;
-  color: transparent;
-}
-/* Special styling for WebKit/Blink */
-.video_container .video_overlay .controls input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  height: 16px;
-  width: 16px;
-  margin-top: -6px;
-  border-radius: 100%;
-  background: #f7f7f7;
-  cursor: pointer;
-  /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
-  /* Add cool effects to your sliders! */
-}
-/* All the same stuff for Firefox */
-.video_container .video_overlay .controls input[type=range]::-moz-range-thumb {
-  -webkit-appearance: none;
-  height: 16px;
-  width: 16px;
-  border-radius: 100%;
-  background: #f7f7f7;
-  cursor: pointer;
-}
-/* All the same stuff for IE */
-.video_container .video_overlay .controls input[type=range]::-ms-thumb {
-  -webkit-appearance: none;
-  height: 16px;
-  width: 16px;
-  border-radius: 100%;
-  background: #f7f7f7;
-  cursor: pointer;
-}
-.video_container .video_overlay .controls input[type=range]::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 3px;
-  cursor: pointer;
-  background: #037ee8;
-  border-radius: 32px;
-}
-.video_container .video_overlay .controls input[type=range]:focus::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 3px;
-  cursor: pointer;
-  background: #037ee8;
-  border-radius: 32px;
-}
-.video_container .video_overlay .controls input[type=range]::-moz-range-track {
-  width: 100%;
-  height: 3px;
-  cursor: pointer;
-  background: #037ee8;
-  border-radius: 32px;
-}
-.video_container .video_overlay .controls input[type=range]::-ms-track {
-  width: 100%;
-  height: 3px;
-  cursor: pointer;
-  background: #037ee8;
-  border-radius: 32px;
-}
-.video_container .video_overlay .controls input[type=range]::-ms-fill-lower {
-  background: #2a6495;
-  border: 0.2px solid #010101;
-  border-radius: 2.6px;
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-}
-.video_container .video_overlay .controls input[type=range]:focus::-ms-fill-lower {
-  background: #3071a9;
-}
-.video_container .video_overlay .controls input[type=range]::-ms-fill-upper {
-  background: #3071a9;
-  border: 0.2px solid #010101;
-  border-radius: 2.6px;
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-}
-.video_container .video_overlay .controls input[type=range]:focus::-ms-fill-upper {
-  background: #367ebd;
-}
-.video_container .video_overlay .overlay {
-  display: flex;
-  text-align: center;
-  flex-direction: row;
-  align-items: center;
-  align-content: center;
-  flex: 1 0 0;
-  -o-transition: 0.1s ease-in-out;
-  -moz-transition: 0.1s ease-in-out;
-  -webkit-transition: 0.1s ease-in-out;
-  z-index: 1;
-  background: rgba(0, 0, 0, 0.64);
-  opacity: 0;
-  cursor: pointer;
-}
-.video_container .video_overlay .overlay:hover {
-  opacity: 1;
-}
-.video_container .video_overlay .overlay a.play {
-  font-size: 85px;
-  flex: 1;
-  color: #ffffff;
-}
-.video_container .video_overlay .overlay a.play:focus {
-  box-shadow: none;
-  border: none;
-  text-shadow: none;
-  outline: none;
-}
-.video_container video {
-  width: 100%;
-  z-index: 0;
-}
-.video_sidebar {
-  display: flex !important;
-  flex-direction: column;
-  width: 33%;
-  max-height: 100%;
-}
-.video_sidebar .comments {
-  overflow-y: scroll;
-  margin: 33px 11px 11px 11px;
-  flex: 3 0 0;
-}
-.video_sidebar .comments::-webkit-scrollbar {
-  border-radius: 100%;
-  width: 3px;
-  /* for vertical scrollbars */
-  height: 3px;
-  /* for horizontal scrollbars */
-}
-.video_sidebar .comments::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
-}
-.video_sidebar .comments::-webkit-scrollbar-thumb {
-  background: #b30000;
-}
-.video_sidebar .comments .text_container {
-  display: flex;
-  flex-direction: row;
-  padding-bottom: 17px;
-  border-bottom: 1px solid #f3f3f3;
-  margin-bottom: 17px;
-}
-.video_sidebar .comments .text_container:last-child {
-  border: none;
-}
-.video_sidebar .comments .text_container .imageUser img {
-  border-radius: 100%;
-}
-.video_sidebar .comments .text_container .text {
-  margin: 0px 19px;
-}
-.video_sidebar .comments .text_container .text h3 {
-  font-size: 14px;
-  margin-top: 0px;
-  color: #b30000;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 100;
-  text-transform: capitalize;
-}
-.video_sidebar .comments .text_container .text p {
-  text-align: justify;
-  margin: 0px;
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 20px;
-  color: #636363;
-}
-.video_sidebar .comments .text_container .text span.date {
-  font-size: 11px;
-  color: #cecece;
-}
-.video_sidebar .message_container {
-  display: flex;
-  align-items: center;
-  margin-top: 11px;
-  border-top: 1px solid #eaeaea;
-}
-.video_sidebar {
-  background: #fff;
-}
-.video_sidebar .message_container textarea {
-  flex-grow: 1;
-  margin: 11px;
-  border: 1px solid #e2e2e2;
-  padding: 7px;
-  font-family: 'Roboto', sans-serif;
-  font-size: 14px;
-  font-weight: 300;
-  resize: none;
-}
-.video_sidebar .message_container a {
-  padding: 10px;
-  font-size: 23px;
-  transition: 0.3s ease-in-out;
-  -o-transition: 0.3s ease-in-out;
-  -moz-transition: 0.3s ease-in-out;
-  -webkit-transition: 0.3s ease-in-out;
-}
-.video_sidebar .message_container a {
-  font-size: 23px;
-  margin-right: 11px;
-  color: #b30000;
-}
-.video_sidebar .message_container a:hover {
-  font-size: 27px;
-}
-.video_sidebar .message_container textarea:focus {
-  outline: 0;
-}
-@media (max-width: 1200px) {
-  .video_sidebar {
-    width: 100%;
-  }
-}
-@media (max-width: 900px) {
-  a.show-comments {
-    opacity: 1;
-    display: inline;
-  }
-  .videoModalInner {
-    flex-direction: column;
-  }
-  .video_sidebar {
-    height: 100%;
-    max-height: 100%;
-    position: absolute;
-    overflow: hidden;
-    z-index: 9999;
-  }
-  .video_sidebar.hidden {
-    max-height: 0%;
-    overflow: hidden;
-    -webkit-transition: max-height 0.8s;
-    -moz-transition: max-height 0.8s;
-    transition: max-height 0.8s;
-  }
-  .video_sidebar .comments {
-    flex-grow: 3 !important;
-  }
-  .video_sidebar .message_container textarea {
-    margin: 11px 11px;
-  }
-}
 
-.single-course .accordions .panel {
-  border: none;
-  box-shadow: none;
-}
-.nologin {
-  cursor: pointer;
-}
-.nologin .accordion-section-content {
-  height: 0px !important;
-}
 .site-header {
-  z-index: 9999999999 !important;
+  z-index: 9999999999!important;
 }
 .site-header .header-info ul li {
   vertical-align: middle;
@@ -418,26 +85,26 @@ a.show-comments {
   color: #FFF;
 }
 .no-padding {
-  padding: 0 !important;
+  padding: 0!important;
 }
 .no-padding-y {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+  padding-top: 0!important;
+  padding-bottom: 0!important;
 }
 .no-padding-x {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+  padding-left: 0!important;
+  padding-right: 0!important;
 }
 .no-margin {
-  margin: 0 !important;
+  margin: 0!important;
 }
 .no-margin-y {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
+  margin-top: 0!important;
+  margin-bottom: 0!important;
 }
 .no-margin-x {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+  margin-left: 0!important;
+  margin-right: 0!important;
 }
 .main-background-opaque {
   background-color: #f2f5f6 !important;
