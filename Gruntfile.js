@@ -91,7 +91,8 @@ module.exports = function (grunt) {
             src: [
               './development/components/simple-line-icons/fonts/*',
               './development/components/font-awesome/fonts/*',
-              './development/components/slick-carousel/slick/fonts/*'
+              './development/components/slick-carousel/slick/fonts/*',
+              './development/assets/static_fonts/*'
             ],
             dest: './development/assets/fonts/',
             flatten: true,
