@@ -7,8 +7,8 @@
  */
 ;
 !(function (module) {
-  service.$inject = ['Course', "ngDialog", "$q", "$http", "ROUTES", "originsManager"];
-  function service (Course, ngDialog, $q, $http, ROUTES, originsManager) {
+  service.$inject = ['Course', "ngDialog", "$q", "$http", "ROUTES", "originsManager", "$timeout"];
+  function service (Course, ngDialog, $q, $http, ROUTES, originsManager, $timeout) {
 
     function setImages (courses) {
       if (Array.isArray(courses)) {
@@ -92,12 +92,17 @@
     this.showModalVideo = function (video) {
       var controller = function ($scope, e) {
         $scope.video = video;
-        $scope.video.comments.get();
+        $scope.video.comments.get()
+          .then(function () {
+            $scope.callbackvideo()
+          });
 
         $scope.x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
         $scope.callbackvideo = function () {
-          var aux = document.getElementById("commentsVideoContainer");
-          aux.scrollTop = aux.scrollHeight;
+          $timeout(function () {
+            var aux = document.getElementById("commentsVideoContainer");
+            aux.scrollTop = aux.scrollHeight;
+          })
         }
         $scope.isStoped = true;
         $scope.isFullScreen = false;
@@ -126,6 +131,9 @@
         $scope.sendComment = function (comment) {
           $scope.currentComment = {}
           video.comments.create(comment)
+            .then(function () {
+              $scope.callbackvideo()
+            })
             .catch(function () {
               $scope.currentComment = comment
             })
