@@ -1,3 +1,4 @@
+
 "use strict"
   /**
    * Created by Constantino Celis Peñaranda on 04/06/2016.
@@ -37,9 +38,12 @@
     }
 
     function CourseStudentRelation(student) {
+
       this.basePath = originsManager.getOrigin() +
-        "/" + ROUTES.STUDENTS.__BASE__ + "/" + student.id +
+        "/" + ROUTES.STUDENTS.__BASE__ +
+        "/" + student.id +
         "/" + ROUTES.STUDENTS.COURSES_STUDENT.__BASE__
+      console.log(this.basePath)
     }
 
     CourseStudentRelation.prototype = new Array()
@@ -66,6 +70,14 @@
         })
     }
 
+    CourseStudentRelation.prototype.getAll = function ()
+    {
+      var filter = {
+        include:["course"]
+      }
+      return $http.get(this.basePath,{params: {filter: filter}});
+    }
+
     ModuleRelation.prototype = new Array()
     function ModuleRelation(courseStudent,courseStudentRelation) {
       this.basePath = courseStudentRelation.basePath + "/" + courseStudent.id + "/" + ROUTES.STUDENTS.COURSES_STUDENT.MODULES
@@ -87,16 +99,10 @@
       if (!filter.include) {
         filter.include = []
       }
-
-      var ep="https://mibackend.herokuapp.com/api/students/53/courses/109/modules";
-      $http.get(ep)
-        .then(function (response) {
-          console.log(ep,response)
-        })
       filter.include.push("videos")
+
       return $http.get(this.basePath,{params: {filter: filter}})
         .then(function (response) {
-          console.log(response)
           relation.length = 0
           response.data.forEach(relation.__addToCache__.bind(relation))
           return relation

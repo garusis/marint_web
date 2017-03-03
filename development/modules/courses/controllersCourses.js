@@ -39,24 +39,22 @@
         }
       }
       order += ($scope.asc ? "ASC" : "DESC")
-
       CourseService.loadCourses({
         filter: {
           where: {isPublished: true},
           order: order,
           include: 'instructor'
         }
-      },function (data) {
+      }).then(function (data) {
         $scope.courses = data
         $scope.coursesOpt = data.map(function (v) {
           return {name: v.name,id: v.id}
         })
         $scope.submitRequest.course = $scope.coursesOpt[0];
         $scope.loading = false;
+      })
 
-      },function (error) {
 
-      });
 
     }
 

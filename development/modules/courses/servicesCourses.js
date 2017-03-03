@@ -1,3 +1,4 @@
+
 "use strict"
   /**
    * Created by Constantino Celis Peñaranda on 04/06/2016.
@@ -9,8 +10,8 @@
 !(function (module) {
   service.$inject = ['Course',"ngDialog","$q","$http","ROUTES","originsManager"];
   function service(Course,ngDialog,$q,$http,ROUTES,originsManager) {
-
-    function setImages(courses) {
+    var __instance__=this;
+    this.setImages = function (courses) {
       if (Array.isArray(courses)) {
         _.forEach(courses,function (course,i) {
           i = i + 1
@@ -30,28 +31,21 @@
 
       return courses;
     }
-
-    this.loadCourseVideoComments = function (courseId,moduleId,videoId)
-    {
-      //https://mibackend.herokuapp.com/api/courses/9/modules/49/videos?filter={"include":"comments","where":{"id":77}}
-      var ep = originsManager.getOrigin() +
-        "/" + ROUTES.COURSES.__BASE__ + "/" + courseId +
-        "/" + ROUTES.COURSES.MODULES + "/" + moduleId +
-        "/videos";
-      var filter = {
-        include: "comments",
-        where: {
-          id: videoId
-        }
-      }
-      return $http.get(ep,{params: {filter: filter}})
+    this.loadCourses = function (options) {
+      return Course.find(options)
+        .$promise
+        .then(function (data) {
+          console.log(options,data);
+          data = __instance__.setImages(data);
+          return data;
+        })
     }
-
     this.loadCourse = function (instance,filter) {
       var promise = instance ? $q.resolve(instance) : Course.findOne(filter).$promise
+      
       return promise
         .then(function (data) {
-          data = setImages(data);
+          data = __instance__.setImages(data);
           data.modules = new ModuleRelation(data)
           return data;
         })
@@ -79,18 +73,10 @@
         })
     }
 
-    this.loadCourses = function (options,callback,error) {
-      Course.find(options).$promise.then(function (data) {
-        data = setImages(data);
-        callback(data);
-      })
-    }
+
 
     this.showModalVideo = function (video) {
       var controller = function (s,e) {
-        s.video = video;
-        s.video.getComments();
-        console.log(video);
         s.x = [1,2,3,4,5,6,7,8,9,10,11,12]
         s.callbackvideo = function () {
           var aux = document.getElementById("commentsVideoContainer");

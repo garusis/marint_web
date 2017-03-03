@@ -1,3 +1,4 @@
+
 /**
  * Created by Marcos J. Alvarez on 20/12/2015.
  * @author Marcos J. Alvarez
@@ -17,7 +18,7 @@
     "large": "assets/images/instructores/banner_large.jpg",
     "xlarge": "assets/images/instructores/banner.jpg"
   };
-  var ListInstructorsController = function ($scope, Instructors) {
+  var ListInstructorsController = function ($scope,Instructors) {
     $scope.headerSources = headerSources;
     Instructors.find({})
       .$promise
@@ -26,29 +27,26 @@
         console.log(data)
       })
   };
-  ListInstructorsController.$inject = ['$scope', "Instructor"];
+  ListInstructorsController.$inject = ['$scope',"Instructor"];
 
-  var ShowInstructorController = function ($scope, $stateParams, Instructors, CourseService) {
+  var ShowInstructorController = function ($scope,$stateParams,Instructors,CourseService) {
     $scope.headerSources = headerSources;
     console.log($stateParams)
     $scope.instructor = $stateParams.instructor;
 
-    function loadCourses () {
+    function loadCourses() {
       CourseService.loadCourses({
         filter: {
           where: {instructorId: $scope.instructor.id},
           include: 'instructor'
         }
 
-      }, function (data) {
+      }).then(function (data) {
         $scope.courses = data;
-      }, function (error) {
-
       })
-
     }
 
-    function init () {
+    function init() {
       if (!$scope.instructor) {
         Instructors.find({
           where: {
@@ -66,9 +64,9 @@
     init()
 
   };
-  ShowInstructorController.$inject = ['$scope', '$stateParams', "Instructor", "CourseService"];
+  ShowInstructorController.$inject = ['$scope','$stateParams',"Instructor","CourseService"];
 
   module
-    .controller('ListInstructorsController', ListInstructorsController)
-    .controller('ShowInstructorsController', ShowInstructorController);
+    .controller('ListInstructorsController',ListInstructorsController)
+    .controller('ShowInstructorsController',ShowInstructorController);
 })(angular.module('jg.marlininternacional.instructors'));

@@ -40,24 +40,19 @@
       </div>
       <div class="col-md-6 single-courses-list">
         <h2 class="title">Tus cursos</h2>
-        <div class="course clearfix" ng-repeat="i in [1, 2]">
-          <a href="javascript:void(0)"
-             ng-click="showCourse($paginator_item)">
-            <img ng-src="http://placehold.it/345x235" alt="">
+        <div class="course clearfix" ng-repeat="curso in student.cursos">
+          <a ui-sref="courses.show({title:curso.name,course:curso,courseId:curso.id})">
+            <img ng-src="{{curso.images._370x240}}" alt="">
           </a>
           <div class="description">
-            <a href="javascript:void(0)"
-               ng-click="showCourse($paginator_item)">
-              <h4>Curso Vital de Programación Neuro-Lingüistica</h4>
+            <a href="javascript:void(0)" ui-sref="courses.show({title:curso.name,course:curso,courseId:curso.id})">
+              <h4>{{curso.name}}</h4>
             </a>
             <h6>Marco Lino Alvarez Burgos</h6>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-              ut labore et dolore magna aliqua. Ut enim ad minim veniam...
-            </p>
+            <p>{{curso.description}}</p>
             <div class="text-button">
-              <a href="javascript:void(0)"
-                 ng-click="showCourse($paginator_item)">Ver más.<i class="fa fa-arrow-right"></i></a>
+              <a ui-sref="courses.show({title:curso.name,course:curso,courseId:curso.id})">
+                Ver más.<i class="fa fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
@@ -80,7 +75,7 @@
               <div class="text-button">
                 <a href="javascript:void(0)"
                    ng-click="showCourse($paginator_item)">Ver comentario <i
-                  class="fa fa-arrow-right"></i></a>
+                      class="fa fa-arrow-right"></i></a>
               </div>
             </div>
           </div>
