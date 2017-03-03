@@ -132,6 +132,10 @@
 
     CommentRelation.prototype = new Array()
 
+    CommentRelation.prototype.__process__ = function (video) {
+      return video
+    }
+
     CommentRelation.prototype.__addToCache__ = function (video) {
       this.push(this.__process__(video))
     }
@@ -143,6 +147,15 @@
           relation.length = 0
           response.data.forEach(relation.__addToCache__.bind(relation))
           return relation
+        })
+    }
+
+    CommentRelation.prototype.create = function (data) {
+      var relation = this
+      return $http.post(this.basePath, data)
+        .then(function (response) {
+          relation.__addToCache__(response.data)
+          return data
         })
     }
 

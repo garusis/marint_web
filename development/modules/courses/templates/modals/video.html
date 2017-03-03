@@ -24,8 +24,8 @@
     <div class="message_container">
       <a href="javascript:void(0)" class="show-comments" ng-click="showComments()"><i
             class="fa fa-commenting"></i></a>
-      <textarea placeholder="Déjanos tu comentario" ng-model="video_comment"></textarea>
-      <a href="javascript:void(0)" ng-click='sendComment()'><i class="fa fa-paper-plane"></i></a>
+      <textarea placeholder="Déjanos tu comentario" ng-model="currentComment.content"></textarea>
+      <a href="javascript:void(0)" ng-click='sendComment(currentComment)'><i class="fa fa-paper-plane"></i></a>
     </div>
   </div>
 

@@ -90,38 +90,47 @@
     }
 
     this.showModalVideo = function (video) {
-      var controller = function (s, e) {
-        s.video = video;
-        s.video.comments.get();
-        console.log(video);
-        s.x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-        s.callbackvideo = function () {
+      var controller = function ($scope, e) {
+        $scope.video = video;
+        $scope.video.comments.get();
+
+        $scope.x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        $scope.callbackvideo = function () {
           var aux = document.getElementById("commentsVideoContainer");
           aux.scrollTop = aux.scrollHeight;
         }
-        s.isStoped = true;
-        s.isFullScreen = false;
-        s.commentsVisible = false;
-        s.pause = function () {
-          s.isStoped = !s.isStoped;
+        $scope.isStoped = true;
+        $scope.isFullScreen = false;
+        $scope.commentsVisible = false;
+        $scope.pause = function () {
+          $scope.isStoped = !$scope.isStoped;
         }
-        s.expand = function () {
-          s.isFullScreen = !s.isFullScreen;
+        $scope.expand = function () {
+          $scope.isFullScreen = !$scope.isFullScreen;
         }
 
-        s.showComments = function () {
-          s.commentsVisible = !s.commentsVisible
+        $scope.showComments = function () {
+          $scope.commentsVisible = !$scope.commentsVisible
         }
-        s.callback = function () {
-          console.log(document.getElementById("modulevideo"))
+        $scope.callback = function () {
           $('#modulevideo').mediaelementplayer({
-            // Configuration
             success: function (media) {
               var isNative = media.rendererName.match(/html5|native/);
               var isYoutube = media.rendererName.match(/youtube/);
             }
           });
         }
+
+        $scope.currentComment = {}
+
+        $scope.sendComment = function (comment) {
+          $scope.currentComment = {}
+          video.comments.create(comment)
+            .catch(function () {
+              $scope.currentComment = comment
+            })
+        }
+
       }
       controller.$inject = ["$scope", "$element"]
 
