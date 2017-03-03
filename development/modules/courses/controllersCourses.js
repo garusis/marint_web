@@ -126,6 +126,7 @@
             var module = _.find(course.modules,{id: moduleStudent.id})
             module.enabled = true
             module.videos = moduleStudent.videos
+            /*
             module.videos.map(function (video) {
               video.getComments = function ()
               {
@@ -135,7 +136,7 @@
                   });
               }
             })
-
+            */
           })
         })
         .catch(function (error) {
