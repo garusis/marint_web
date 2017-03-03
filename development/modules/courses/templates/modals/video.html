@@ -8,7 +8,7 @@
   </div>
   <div class="video_sidebar" ng-class="{'hidden':commentsVisible}">
     <div class="flex-fix"></div>
-    <div id="commentsVideoContainer" class="comments" mvonload="callbackvideo" compile>
+    <div id="commentsVideoContainer" class="comments">
       <div class="text_container" ng-repeat="comment in video.comments">
         <div class="imageUser">
           <img src="http://placehold.it/50x50">
@@ -24,8 +24,8 @@
     <div class="message_container">
       <a href="javascript:void(0)" class="show-comments" ng-click="showComments()"><i
             class="fa fa-commenting"></i></a>
-      <textarea placeholder="Déjanos tu comentario" ng-model="video_comment"></textarea>
-      <a href="javascript:void(0)" ng-click='sendComment()'><i class="fa fa-paper-plane"></i></a>
+      <textarea placeholder="Déjanos tu comentario" ng-model="currentComment.content"></textarea>
+      <a href="javascript:void(0)" ng-click='sendComment(currentComment)'><i class="fa fa-paper-plane"></i></a>
     </div>
   </div>
 
