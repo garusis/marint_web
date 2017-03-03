@@ -7,8 +7,7 @@
     COURSES: {
       __BASE__: "courses",
       MODULES: {
-        __BASE__: "modules",
-        VIDEOS: "videos"
+        __BASE__: "modules"
       }
     },
     PUBLICATIONS: {

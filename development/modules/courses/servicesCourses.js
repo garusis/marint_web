@@ -65,7 +65,6 @@
     ModuleRelation.prototype = new Array()
 
     ModuleRelation.prototype.__process__ = function (module) {
-      module.videos = new VideoRelation(module)
       return module
     }
 
@@ -74,52 +73,6 @@
     }
 
     ModuleRelation.prototype.get = function (filter) {
-      var relation = this
-      return $http.get(this.basePath, {params: {filter: filter}})
-        .then(function (response) {
-          relation.length = 0
-          response.data.forEach(relation.__addToCache__.bind(relation))
-          return relation
-        })
-    }
-
-    function VideoRelation (module) {
-      this.basePath = module.basePath + "/" + module.id + "/"+ROUTES.COURSES.MODULES.VIDEOS
-    }
-
-    VideoRelation.prototype = new Array()
-
-    VideoRelation.prototype.__process__ = function (video) {
-      video.comments = new CommentRelation(video)
-      return video
-    }
-
-    VideoRelation.prototype.__addToCache__ = function (video) {
-      this.push(this.__process__(video))
-    }
-
-    VideoRelation.prototype.get = function (filter) {
-      var relation = this
-      return $http.get(this.basePath, {params: {filter: filter}})
-        .then(function (response) {
-          relation.length = 0
-          response.data.forEach(relation.__addToCache__.bind(relation))
-          return relation
-        })
-    }
-
-    function CommentRelation (video) {
-      this.basePath = originsManager.getOrigin() +
-      "/" + ROUTES.VIDEOS.__BASE__ + "/" + video.id + "/"+ROUTES.VIDEOS.COMMENTS
-    }
-
-    CommentRelation.prototype = new Array()
-
-    CommentRelation.prototype.__addToCache__ = function (video) {
-      this.push(this.__process__(video))
-    }
-
-    CommentRelation.prototype.get = function (filter) {
       var relation = this
       return $http.get(this.basePath, {params: {filter: filter}})
         .then(function (response) {
