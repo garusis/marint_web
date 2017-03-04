@@ -116,7 +116,6 @@
         .then(function (resolved) {
           var course = resolved[0]
           var courseStudent = resolved[1]
-          console.log("resolved",resolved)
           if (!courseStudent)
             return
 
