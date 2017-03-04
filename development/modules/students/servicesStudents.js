@@ -1,23 +1,20 @@
-
 "use strict"
-  /**
-   * Created by Constantino Celis Peñaranda on 04/06/2016.
-   * @author Constantino Celis Peñaranda
-   * @email celisconstantino01@gmail.com
-   * @version 0.0.1
-   */
-  ;
+/**
+ * Created by Constantino Celis Peñaranda on 04/06/2016.
+ * @author Constantino Celis Peñaranda
+ * @email celisconstantino01@gmail.com
+ * @version 0.0.1
+ */
+;
 !(function (module) {
-  StudentService.$inject = ['Student',"LoopBackAuth","ngDialog","$q","$http","ROUTES","originsManager"];
-  function StudentService(Student,LoopBackAuth,ngDialog,$q,$http,ROUTES,originsManager) {
-
-
+  StudentService.$inject = ['Student', "LoopBackAuth", "$q", "$http", "ROUTES", "originsManager"];
+  function StudentService (Student, LoopBackAuth, $q, $http, ROUTES, originsManager) {
 
     this.isAuthenticated = function () {
       return !!LoopBackAuth.accessTokenId
     }
 
-    function processStudent(student) {
+    function processStudent (student) {
       if (!student.__is_process__) {
         student.__is_process__ = true
         student.coursesStudent = new CourseStudentRelation(student)
@@ -40,8 +37,7 @@
       return Student.logout()
     }
 
-    function CommentStudentRelation(student)
-    {
+    function CommentStudentRelation (student) {
       this.basePath = originsManager.getOrigin() +
         "/" + ROUTES.STUDENTS.__BASE__ +
         "/" + student.id +
@@ -50,8 +46,7 @@
     }
 
     CommentStudentRelation.prototype = new Array();
-    CommentStudentRelation.prototype.getComments = function ()
-    {
+    CommentStudentRelation.prototype.getComments = function () {
       return $http.get(this.basePath)
         .then(function (response) {
           response.data.forEach(function (comment) {
@@ -61,15 +56,13 @@
               isPublicationLoaded: false
             };
             comment.getPublication = function () {
-              if (!comment.publication.isPublicationLoaded)
-              {
+              if (!comment.publication.isPublicationLoaded) {
                 var path = originsManager.getOrigin() +
                   "/" + ROUTES.PUBLICATIONS.__BASE__ +
                   "/" + comment.publication_id;
                 $http.get(path)
                   .error(function (error) {
-                    if (error && error.error.status == 404)
-                    {
+                    if (error && error.error.status == 404) {
                       comment.publication.isPublicationLoaded = true;
                     }
                   })
@@ -84,20 +77,19 @@
           return response;
         })
     }
-    CommentStudentRelation.prototype.getPublication = function (comment)
-    {
+
+    CommentStudentRelation.prototype.getPublication = function (comment) {
       var relation = this
       var filter = {
-        where: {
-        }
+        where: {}
       }
-      return $http.get(this.basePath,{params: {filter: filter}})
+      return $http.get(this.basePath, {params: {filter: filter}})
         .then(function (response) {
           return relation.__process__(response.data[0])
         })
     }
 
-    function CourseStudentRelation(student) {
+    function CourseStudentRelation (student) {
       this.basePath = originsManager.getOrigin() +
         "/" + ROUTES.STUDENTS.__BASE__ +
         "/" + student.id +
@@ -111,7 +103,7 @@
     }
 
     CourseStudentRelation.prototype.__process__ = function (courseStudent) {
-      courseStudent.modules = new ModuleRelation(courseStudent,this)
+      courseStudent.modules = new ModuleRelation(courseStudent, this)
       return courseStudent
     }
 
@@ -122,22 +114,21 @@
           course_id: courseId
         }
       }
-      return $http.get(this.basePath,{params: {filter: filter}})
+      return $http.get(this.basePath, {params: {filter: filter}})
         .then(function (response) {
           return relation.__process__(response.data[0])
         })
     }
 
-    CourseStudentRelation.prototype.getAll = function ()
-    {
+    CourseStudentRelation.prototype.getAll = function () {
       var filter = {
         include: ["course"]
       }
-      return $http.get(this.basePath,{params: {filter: filter}});
+      return $http.get(this.basePath, {params: {filter: filter}});
     }
 
     ModuleRelation.prototype = new Array()
-    function ModuleRelation(courseStudent,courseStudentRelation) {
+    function ModuleRelation (courseStudent, courseStudentRelation) {
       this.basePath = courseStudentRelation.basePath + "/" + courseStudent.id + "/" + ROUTES.STUDENTS.COURSES_STUDENT.MODULES
     }
 
@@ -146,6 +137,10 @@
     }
 
     ModuleRelation.prototype.__process__ = function (module) {
+      var videos = module.videos;
+      var videoRelation = new VideoRelation(module, this)
+      videos.forEach(videoRelation.__addToCache__.bind(videoRelation))
+      module.videos = videoRelation
       return module
     }
 
@@ -157,9 +152,11 @@
       if (!filter.include) {
         filter.include = []
       }
-      filter.include.push("videos")
 
-      return $http.get(this.basePath,{params: {filter: filter}})
+      filter.include.push("videos")
+      return $http.get(this.basePath, {params: {filter: filter}})
+
+      return $http.get(this.basePath, {params: {filter: filter}})
         .then(function (response) {
           relation.length = 0
           response.data.forEach(relation.__addToCache__.bind(relation))
@@ -167,9 +164,67 @@
         })
     }
 
+    function VideoRelation (module, moduleRelation) {
+      this.basePath = originsManager.getOrigin() + "/" + ROUTES.VIDEOS.__BASE__
+    }
+
+    VideoRelation.prototype = new Array()
+
+    VideoRelation.prototype.__process__ = function (video) {
+      video.comments = new CommentRelation(video, this)
+      return video
+    }
+
+    VideoRelation.prototype.__addToCache__ = function (video) {
+      this.push(this.__process__(video))
+    }
+
+    VideoRelation.prototype.get = function (filter) {
+      var relation = this
+      return $http.get(this.basePath, {params: {filter: filter}})
+        .then(function (response) {
+          relation.length = 0
+          response.data.forEach(relation.__addToCache__.bind(relation))
+          return relation
+        })
+    }
+
+    function CommentRelation (video, videoRelation) {
+      this.basePath = videoRelation.basePath + "/" + video.id + "/" + ROUTES.VIDEOS.COMMENTS
+    }
+
+    CommentRelation.prototype = new Array()
+
+    CommentRelation.prototype.__process__ = function (video) {
+      return video
+    }
+
+    CommentRelation.prototype.__addToCache__ = function (video) {
+      this.push(this.__process__(video))
+    }
+
+    CommentRelation.prototype.get = function (filter) {
+      var relation = this
+      return $http.get(this.basePath, {params: {filter: filter}})
+        .then(function (response) {
+          relation.length = 0
+          response.data.forEach(relation.__addToCache__.bind(relation))
+          return relation
+        })
+    }
+
+    CommentRelation.prototype.create = function (data) {
+      var relation = this
+      return $http.post(this.basePath, data)
+        .then(function (response) {
+          relation.__addToCache__(response.data)
+          return data
+        })
+    }
+
   }
 
-  module.service('StudentService',StudentService)
-})(angular.module('jg.marlininternacional.students',[]));
+  module.service('StudentService', StudentService)
+})(angular.module('jg.marlininternacional.students', []));
 
 

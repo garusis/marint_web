@@ -1,11 +1,11 @@
 "use strict"
-  /**
-   * Created by Constantino Celis Peñaranda on 04/06/2016.
-   * @author Constantino Celis Peñaranda
-   * @email celisconstantino01@gmail.com
-   * @version 0.0.1
-   */
-  ;
+/**
+ * Created by Constantino Celis Peñaranda on 04/06/2016.
+ * @author Constantino Celis Peñaranda
+ * @email celisconstantino01@gmail.com
+ * @version 0.0.1
+ */
+;
 !(function (module) {
 
   var headerSources = {
@@ -19,8 +19,8 @@
     "xlarge": "assets/images/cursos/banner.jpg"
   };
 
-  ListCourseController.$inject = ['$scope','Course',"$state","CourseService"];
-  function ListCourseController($scope,Course,$state,CourseService) {
+  ListCourseController.$inject = ['$scope', 'Course', "$state", "CourseService"];
+  function ListCourseController ($scope, Course, $state, CourseService) {
 
     $scope.optorderby = null;
     $scope.asc = true;
@@ -48,7 +48,7 @@
       }).then(function (data) {
         $scope.courses = data
         $scope.coursesOpt = data.map(function (v) {
-          return {name: v.name,id: v.id}
+          return {name: v.name, id: v.id}
         })
         $scope.submitRequest.course = $scope.coursesOpt[0];
         $scope.loading = false;
@@ -62,15 +62,15 @@
     $scope.loadCourses();
     $scope.showCourse = function (course) {
 
-      $state.go("courses.show",{title: course.name,courseId: course.id,course: course})
+      $state.go("courses.show", {title: course.name, courseId: course.id, course: course})
     }
 
   }
 
   ShowCourseController.$inject = [
-    '$scope',"$q",'$stateParams','$location','CourseService',"StudentService"
+    '$scope', "$q", '$stateParams', '$location', 'CourseService', "StudentService"
   ];
-  function ShowCourseController($scope,$q,$stateParams,$location,CourseService,StudentService) {
+  function ShowCourseController ($scope, $q, $stateParams, $location, CourseService, StudentService) {
     $scope.headerSources = headerSources;
     $scope.location = $location.absUrl();
     $scope.modulos = [];
@@ -84,9 +84,9 @@
     $scope.loadCourse = function () {
       var promises = []
       promises[0] = CourseService
-        .loadCourse($stateParams.course,{
+        .loadCourse($stateParams.course, {
           filter: {
-            where: {isPublished: true,id: $stateParams.courseId},
+            where: {isPublished: true, id: $stateParams.courseId},
             include: ['instructor']
           }
         })
@@ -116,23 +116,12 @@
         .then(function (resolved) {
           var course = resolved[0]
           var courseStudent = resolved[1]
-          if (!courseStudent)
-            return
+          if (!courseStudent) return
 
-          _.forEach(courseStudent.modules,function (moduleStudent) {
-            var module = _.find(course.modules,{id: moduleStudent.id})
+          _.forEach(courseStudent.modules, function (moduleStudent) {
+            var module = _.find(course.modules, {id: moduleStudent.id})
             module.enabled = true
             module.videos = moduleStudent.videos
-            module.videos.map(function (video) {
-              video.getComments = function ()
-              {
-                CourseService.loadCourseVideoComments(course.id,module.id,video.id)
-                  .then(function (data) {
-                    video.comments = data.data[0].comments;
-                  });
-              }
-            })
-
           })
         })
         .catch(function (error) {
@@ -142,6 +131,6 @@
     $scope.loadCourse();
   }
 
-  module.controller('ListCourseController',ListCourseController)
-    .controller('ShowCourseController',ShowCourseController);
+  module.controller('ListCourseController', ListCourseController)
+    .controller('ShowCourseController', ShowCourseController);
 })(angular.module('jg.marlininternacional.courses'));

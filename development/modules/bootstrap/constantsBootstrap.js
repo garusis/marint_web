@@ -1,30 +1,36 @@
-'use strict'
+"use strict"
 /**
  * Created by garusis on 24/02/17.
  */
 !(function (module) {
-  module.constant('ROUTES', {
+  module.constant("ROUTES", {
     COURSES: {
-      __BASE__: 'courses',
-      MODULES: 'modules'
+      __BASE__: "courses",
+      MODULES: {
+        __BASE__: "modules"
+      }
     },
     PUBLICATIONS: {
-      __BASE__: 'publications',
-      COMMENTS: 'comments',
-      COUNT: 'count'
+      __BASE__: "publications",
+      COMMENTS: "comments",
+      COUNT: "count"
     },
     STUDENTS: {
-      __BASE__: 'students',
-      COMMENTS: 'comments',
+      __BASE__: "students",
+      COMMENTS: "comments",
       COURSES_STUDENT: {
         __BASE__: "courses",
         MODULES: "modules"
       }
     },
     UPLOAD: {
-      ROOT: 'files',
-      ICONS: 'files/icons',
-      IMAGES: 'files/images'
+      ROOT: "files",
+      ICONS: "files/icons",
+      IMAGES: "files/images"
+    },
+    VIDEOS: {
+      __BASE__: "videos",
+      COMMENTS: "comments"
     }
   });
 
@@ -43,7 +49,7 @@
         return AppConstant.getPublic()
           .$promise
           .then(function (con) {
-            constants = _.keyBy(con, 'name')
+            constants = _.keyBy(con, "name")
             $rootScope.APP_CONSTANTS = constants
             return constants
           })
@@ -56,4 +62,4 @@
       }
     }
   }]);
-})(angular.module('jg.marlininternacional'));
+})(angular.module("jg.marlininternacional"));
