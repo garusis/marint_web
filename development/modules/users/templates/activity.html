@@ -57,21 +57,26 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6 single-publications-list">
+      <div class="col-md-6 single-publications-list my-publications">
         <h2 class="title">Tus Comentarios</h2>
-        <paginator pagedata="comments" pagelength="3">
-          <div class="publication clearfix">
-            <a href="javascript:void(0)"
-               ng-click="showCourse($paginator_item)">
-              <img ng-src="http://placehold.it/345x235" alt="">
-            </a>
-            <div class="description">
-              <a href="javascript:void(0)" ng-click="showCourse($paginator_item)">
-                <h4>Aprovecha el estrés para triunfar</h4>
+
+        <paginator pagedata="student.comments" pagelength="3" >
+
+          <div  ng-init="$paginator_item.getPublication();" class="publication clearfix">
+            <div ng-show="!$paginator_item.publication.isPublicationLoaded" class="loading">
+              <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
+            </div>
+            <div ng-show="$paginator_item.publication.isPublicationLoaded" class="description" ng-class="{'publication-erased':!$paginator_item.publication.active}">
+              <a ng-show="$paginator_item.publication.active" 
+                 ui-sref="news.show({title:$paginator_item.publication.title,newId:$paginator_item.publication.id,new:$paginator_item.publication})">
+                <h4>{{$paginator_item.publication.title}}</h4>
               </a>
-              <h6>Marco Lino Alvarez Burgos | Publicado: 13 Feb 2017 Comentarios: 2</h6>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
+              <a ng-show="!$paginator_item.publication.active" href="javascript:void(0)">
+                <h4>Publicacion eliminada</h4>
+              </a>
+
+              <h6 ng-show="$paginator_item.publication.active">Marco Lino Alvarez Burgos | Publicado: 13 Feb 2017 Comentarios: 2</h6>
+              <p><em>[{{$paginator_item.updatedAt| date:'dd MMM yyyy h:MMa'}}]</em>  {{$paginator_item.content}}</p>
               <div class="text-button">
                 <a href="javascript:void(0)"
                    ng-click="showCourse($paginator_item)">Ver comentario <i

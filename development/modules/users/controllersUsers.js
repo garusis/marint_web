@@ -39,10 +39,14 @@
               return relation.course;
             });
             CourseService.setImages($scope.student.cursos)
-            console.log($scope.student.cursos);
           })
+        student.commentStudent
+          .getComments()
+          .then(function (response) {
+            $scope.student.comments = response.data
+          });
       })
-    $scope.comments = [1,2,3,4,5,6,7,8,9]
+
   }
 
   UserConfigurationController.$inject = ["$scope"]

@@ -11,6 +11,8 @@
   StudentService.$inject = ['Student',"LoopBackAuth","ngDialog","$q","$http","ROUTES","originsManager"];
   function StudentService(Student,LoopBackAuth,ngDialog,$q,$http,ROUTES,originsManager) {
 
+
+
     this.isAuthenticated = function () {
       return !!LoopBackAuth.accessTokenId
     }
@@ -19,6 +21,7 @@
       if (!student.__is_process__) {
         student.__is_process__ = true
         student.coursesStudent = new CourseStudentRelation(student)
+        student.commentStudent = new CommentStudentRelation(student);
       }
       return student
     }
@@ -37,13 +40,68 @@
       return Student.logout()
     }
 
-    function CourseStudentRelation(student) {
+    function CommentStudentRelation(student)
+    {
+      this.basePath = originsManager.getOrigin() +
+        "/" + ROUTES.STUDENTS.__BASE__ +
+        "/" + student.id +
+        "/" + ROUTES.STUDENTS.COMMENTS;
 
+    }
+
+    CommentStudentRelation.prototype = new Array();
+    CommentStudentRelation.prototype.getComments = function ()
+    {
+      return $http.get(this.basePath)
+        .then(function (response) {
+          response.data.forEach(function (comment) {
+
+            comment.publication = {
+              active: false,
+              isPublicationLoaded: false
+            };
+            comment.getPublication = function () {
+              if (!comment.publication.isPublicationLoaded)
+              {
+                var path = originsManager.getOrigin() +
+                  "/" + ROUTES.PUBLICATIONS.__BASE__ +
+                  "/" + comment.publication_id;
+                $http.get(path)
+                  .error(function (error) {
+                    if (error && error.error.status == 404)
+                    {
+                      comment.publication.isPublicationLoaded = true;
+                    }
+                  })
+                  .then(function (pub) {
+                    comment.publication = pub.data;
+                    comment.publication.active = true;
+                    comment.publication.isPublicationLoaded = true;
+                  })
+              }
+            }
+          })
+          return response;
+        })
+    }
+    CommentStudentRelation.prototype.getPublication = function (comment)
+    {
+      var relation = this
+      var filter = {
+        where: {
+        }
+      }
+      return $http.get(this.basePath,{params: {filter: filter}})
+        .then(function (response) {
+          return relation.__process__(response.data[0])
+        })
+    }
+
+    function CourseStudentRelation(student) {
       this.basePath = originsManager.getOrigin() +
         "/" + ROUTES.STUDENTS.__BASE__ +
         "/" + student.id +
         "/" + ROUTES.STUDENTS.COURSES_STUDENT.__BASE__
-      console.log(this.basePath)
     }
 
     CourseStudentRelation.prototype = new Array()
@@ -73,7 +131,7 @@
     CourseStudentRelation.prototype.getAll = function ()
     {
       var filter = {
-        include:["course"]
+        include: ["course"]
       }
       return $http.get(this.basePath,{params: {filter: filter}});
     }
