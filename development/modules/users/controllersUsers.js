@@ -33,7 +33,7 @@
       .then(function (student) {
         $scope.student = student;
         student.coursesStudent
-          .getAll()
+          .get()
           .then(function (response) {
             $scope.student.cursos = response.data.map(function (relation) {
               return relation.course;

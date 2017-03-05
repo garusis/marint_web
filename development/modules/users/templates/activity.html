@@ -48,7 +48,7 @@
             <a href="javascript:void(0)" ui-sref="courses.show({title:curso.name,course:curso,courseId:curso.id})">
               <h4>{{curso.name}}</h4>
             </a>
-            <h6>Marco Lino Alvarez Burgos</h6>
+            <h6>{{curso.instructor.name}} {{curso.instructor.surname}}</h6>
             <p>{{curso.description}}</p>
             <div class="text-button">
               <a ui-sref="courses.show({title:curso.name,course:curso,courseId:curso.id})">

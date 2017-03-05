@@ -120,9 +120,17 @@
         })
     }
 
-    CourseStudentRelation.prototype.getAll = function () {
-      var filter = {
-        include: ["course"]
+    CourseStudentRelation.prototype.get = function (filter) {
+      if (!filter) {
+        filter = {}
+      }
+      if (!filter.include) {
+        filter.include = [{
+          relation: "course",
+          scope: {
+            include: "instructor"
+          }
+        }]
       }
       return $http.get(this.basePath, {params: {filter: filter}});
     }
