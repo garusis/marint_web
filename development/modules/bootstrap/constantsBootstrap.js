@@ -17,7 +17,10 @@
     },
     STUDENTS: {
       __BASE__: "students",
-      COMMENTS: "comments",
+      COMMENTS: {
+        __BASE__: "comments",
+        PUBLICATION: "publication"
+      },
       COURSES_STUDENT: {
         __BASE__: "courses",
         MODULES: "modules"

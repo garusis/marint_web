@@ -20,7 +20,7 @@
           children: [
             {
               name: 'show',
-              url: '/{title}-:courseId',
+              url: '/{title}-:courseId?module&video',
               views: {
                 '@': {
                   templateUrl: 'modules/courses/templates/show.html',

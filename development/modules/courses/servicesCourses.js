@@ -9,8 +9,8 @@
 !(function (module) {
   service.$inject = ['Course', "ngDialog", "$q", "$http", "ROUTES", "originsManager", "$timeout"];
   function service (Course, ngDialog, $q, $http, ROUTES, originsManager, $timeout) {
-
-    function setImages (courses) {
+    var __instance__ = this;
+    this.setImages = function (courses) {
       if (Array.isArray(courses)) {
         _.forEach(courses, function (course, i) {
           i = i + 1
@@ -31,26 +31,24 @@
       return courses;
     }
 
-    this.loadCourseVideoComments = function (courseId, moduleId, videoId) {
-      //https://mibackend.herokuapp.com/api/courses/9/modules/49/videos?filter={"include":"comments","where":{"id":77}}
-      var ep = originsManager.getOrigin() +
-        "/" + ROUTES.COURSES.__BASE__ + "/" + courseId +
-        "/" + ROUTES.COURSES.MODULES + "/" + moduleId +
-        "/videos";
-      var filter = {
-        include: "comments",
-        where: {
-          id: videoId
-        }
-      }
-      return $http.get(ep, {params: {filter: filter}})
+    this.loadCourses = function (options) {
+      return Course.find(options)
+        .$promise
+        .then(function (data) {
+          data = __instance__.setImages(data);
+          _.forEach(data, function (course) {
+            course.modules = new ModuleRelation(course)
+          })
+          return data;
+        })
     }
 
     this.loadCourse = function (instance, filter) {
       var promise = instance ? $q.resolve(instance) : Course.findOne(filter).$promise
+
       return promise
         .then(function (data) {
-          data = setImages(data);
+          data = __instance__.setImages(data);
           data.modules = new ModuleRelation(data)
           return data;
         })
@@ -80,13 +78,6 @@
           response.data.forEach(relation.__addToCache__.bind(relation))
           return relation
         })
-    }
-
-    this.loadCourses = function (options, callback, error) {
-      Course.find(options).$promise.then(function (data) {
-        data = setImages(data);
-        callback(data);
-      })
     }
 
     this.showModalVideo = function (video) {

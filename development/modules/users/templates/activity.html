@@ -40,47 +40,49 @@
       </div>
       <div class="col-md-6 single-courses-list">
         <h2 class="title">Tus cursos</h2>
-        <div class="course clearfix" ng-repeat="i in [1, 2]">
-          <a href="javascript:void(0)"
-             ng-click="showCourse($paginator_item)">
-            <img ng-src="http://placehold.it/345x235" alt="">
+        <div class="course clearfix" ng-repeat="curso in student.cursos">
+          <a ui-sref="courses.show({title:curso.name,course:curso,courseId:curso.id})">
+            <img ng-src="{{curso.images._370x240}}" alt="">
           </a>
           <div class="description">
-            <a href="javascript:void(0)"
-               ng-click="showCourse($paginator_item)">
-              <h4>Curso Vital de Programación Neuro-Lingüistica</h4>
+            <a href="javascript:void(0)" ui-sref="courses.show({title:curso.name,course:curso,courseId:curso.id})">
+              <h4>{{curso.name}}</h4>
             </a>
-            <h6>Marco Lino Alvarez Burgos</h6>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-              ut labore et dolore magna aliqua. Ut enim ad minim veniam...
-            </p>
+            <h6>{{curso.instructor.name}} {{curso.instructor.surname}}</h6>
+            <p>{{curso.description}}</p>
             <div class="text-button">
-              <a href="javascript:void(0)"
-                 ng-click="showCourse($paginator_item)">Ver más.<i class="fa fa-arrow-right"></i></a>
+              <a ui-sref="courses.show({title:curso.name,course:curso,courseId:curso.id})">
+                Ver más.<i class="fa fa-arrow-right"></i></a>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-6 single-publications-list">
+      <div class="col-md-6 single-publications-list my-publications">
         <h2 class="title">Tus Comentarios</h2>
-        <paginator pagedata="comments" pagelength="3">
+
+        <paginator pagedata="student.comments" pagelength="3" >
+
           <div class="publication clearfix">
-            <a href="javascript:void(0)"
-               ng-click="showCourse($paginator_item)">
-              <img ng-src="http://placehold.it/345x235" alt="">
-            </a>
-            <div class="description">
-              <a href="javascript:void(0)" ng-click="showCourse($paginator_item)">
-                <h4>Aprovecha el estrés para triunfar</h4>
+            <div class="description" ng-class="{'publication-erased':!$paginator_item.publication.id}">
+              <a ng-show="$paginator_item.publication.publication_type == 'Publication' && $paginator_item.publication.id"
+                 ui-sref="news.show({title:$paginator_item.publication.title,newId:$paginator_item.publication.id,new:$paginator_item.publication})">
+                <h4>{{$paginator_item.publication.title}}</h4>
               </a>
-              <h6>Marco Lino Alvarez Burgos | Publicado: 13 Feb 2017 Comentarios: 2</h6>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
+              <a ng-show="$paginator_item.publication.publication_type == 'ModuleVideo' && $paginator_item.publication.id"
+                 ui-sref="courses.show({title:$paginator_item.publication.module.course.name,courseId:$paginator_item.publication.module.course.id,module:$paginator_item.publication.module.position,video:$paginator_item.publication.position})">
+                <h4>{{$paginator_item.publication.module.course.name}}, <em>Modulo {{$paginator_item.publication.module.position}} - video {{$paginator_item.publication.position}}</em></h4>
+              </a>
+              <a ng-show="!$paginator_item.publication.id" href="javascript:void(0)">
+                <h4>Publicacion eliminada</h4>
+              </a>
+              <p>
+                <em>
+                  [{{$paginator_item.updatedAt| date:'dd MMM yyyy h:MMa'}}]
+                </em>
+                {{$paginator_item.content}}
+              </p>
               <div class="text-button">
-                <a href="javascript:void(0)"
-                   ng-click="showCourse($paginator_item)">Ver comentario <i
-                  class="fa fa-arrow-right"></i></a>
+                <a ng-click="showCourse($paginator_item)">Ver comentario <i class="fa fa-arrow-right"></i></a>
               </div>
             </div>
           </div>
