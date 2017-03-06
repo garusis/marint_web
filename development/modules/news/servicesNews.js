@@ -6,8 +6,8 @@
  */
 ;
 !(function (module) {
-  service.$inject = ['Publication','$http','ROUTES','originsManager','StudentService'];
-  function service(Publication,$http,ROUTES,originsManager,StudentService) {
+  service.$inject = ['Publication','$http','ROUTES','originsManager'];
+  function service(Publication,$http,ROUTES,originsManager) {
 
     this.baseUri =  originsManager.getOrigin() + '/' + ROUTES.PUBLICATIONS.__BASE__ + "/";
 

@@ -41,9 +41,12 @@
             CourseService.setImages($scope.student.cursos)
           })
         student.commentStudent
-          .getComments()
-          .then(function (response) {
-            $scope.student.comments = response.data
+          .get()
+          .then(function (comments) {
+            $scope.student.comments = comments
+            _.forEach(comments, function (comment) {
+              comment.publication.load()
+            })
           });
       })
 

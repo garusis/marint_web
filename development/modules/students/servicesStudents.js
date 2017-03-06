@@ -7,8 +7,8 @@
  */
 ;
 !(function (module) {
-  StudentService.$inject = ['Student', "LoopBackAuth", "$q", "$http", "ROUTES", "originsManager"];
-  function StudentService (Student, LoopBackAuth, $q, $http, ROUTES, originsManager) {
+  StudentService.$inject = ['Student', "LoopBackAuth", "$q", "$http", "ROUTES", "originsManager", "NewsService"];
+  function StudentService (Student, LoopBackAuth, $q, $http, ROUTES, originsManager, NewsService) {
 
     this.isAuthenticated = function () {
       return !!LoopBackAuth.accessTokenId
@@ -41,52 +41,82 @@
       this.basePath = originsManager.getOrigin() +
         "/" + ROUTES.STUDENTS.__BASE__ +
         "/" + student.id +
-        "/" + ROUTES.STUDENTS.COMMENTS;
+        "/" + ROUTES.STUDENTS.COMMENTS.__BASE__;
 
     }
 
     CommentStudentRelation.prototype = new Array();
-    CommentStudentRelation.prototype.getComments = function () {
-      return $http.get(this.basePath)
-        .then(function (response) {
-          response.data.forEach(function (comment) {
 
-            comment.publication = {
-              active: false,
-              isPublicationLoaded: false
-            };
-            comment.getPublication = function () {
-              if (!comment.publication.isPublicationLoaded) {
-                var path = originsManager.getOrigin() +
-                  "/" + ROUTES.PUBLICATIONS.__BASE__ +
-                  "/" + comment.publication_id;
-                $http.get(path)
-                  .error(function (error) {
-                    if (error && error.error.status == 404) {
-                      comment.publication.isPublicationLoaded = true;
-                    }
-                  })
-                  .then(function (pub) {
-                    comment.publication = pub.data;
-                    comment.publication.active = true;
-                    comment.publication.isPublicationLoaded = true;
-                  })
-              }
-            }
-          })
-          return response;
+    CommentStudentRelation.prototype.__process__ = function (comment) {
+      comment.publication = new PublicationCommentRelation(comment, this)
+      return comment
+    }
+
+    CommentStudentRelation.prototype.__addToCache__ = function (comment) {
+      this.push(this.__process__(comment))
+    }
+
+    CommentStudentRelation.prototype.get = function (filter) {
+      if (!filter) {
+        filter = {}
+      }
+      if (!filter.include) {
+        filter.include = []
+      }
+
+      filter.include.push("publication")
+
+      var relation = this
+      return $http.get(this.basePath, {params: {filter: filter}})
+        .then(function (response) {
+          _.forEach(response.data, relation.__addToCache__.bind(relation))
+          return response.data
         })
     }
 
-    CommentStudentRelation.prototype.getPublication = function (comment) {
-      var relation = this
-      var filter = {
-        where: {}
+    function PublicationCommentRelation (comment, commentStudentRelation) {
+      this.publication_type = comment.publication_type
+
+      if (this.publication_type == "Publication") {
+        this.basePath = originsManager.getOrigin() + "/" + ROUTES.PUBLICATIONS.__BASE__
+      } else {
+        this.basePath = originsManager.getOrigin() + "/" + ROUTES.VIDEOS.__BASE__
       }
+      this.basePath += "/" + comment.publication_id
+    }
+
+    PublicationCommentRelation.prototype = new Object()
+
+    PublicationCommentRelation.prototype.load = function (filter) {
+      if (!filter) {
+        filter = {}
+      }
+      if (!filter.include) {
+        filter.include = []
+      }
+
+      var relation = this;
+      var promise
+      if (this.publication_type == "Publication") {
+        promise = this.loadAsPublication(filter)
+      } else {
+        promise = this.loadAsVideo(filter)
+      }
+      promise.then(function (response) {
+        _.assign(relation, response.data)
+        return response.data
+      })
+      return promise
+    }
+
+    PublicationCommentRelation.prototype.loadAsPublication = function (filter) {
+      filter.include.push({relation: "instructor"})
       return $http.get(this.basePath, {params: {filter: filter}})
-        .then(function (response) {
-          return relation.__process__(response.data[0])
-        })
+    }
+
+    PublicationCommentRelation.prototype.loadAsVideo = function (filter) {
+      filter.include.push({relation: "module"})
+      return $http.get(this.basePath, {params: {filter: filter}})
     }
 
     function CourseStudentRelation (student) {
@@ -162,8 +192,6 @@
       }
 
       filter.include.push("videos")
-      return $http.get(this.basePath, {params: {filter: filter}})
-
       return $http.get(this.basePath, {params: {filter: filter}})
         .then(function (response) {
           relation.length = 0

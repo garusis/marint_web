@@ -62,25 +62,27 @@
 
         <paginator pagedata="student.comments" pagelength="3" >
 
-          <div  ng-init="$paginator_item.getPublication();" class="publication clearfix">
-            <div ng-show="!$paginator_item.publication.isPublicationLoaded" class="loading">
-              <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
-            </div>
-            <div ng-show="$paginator_item.publication.isPublicationLoaded" class="description" ng-class="{'publication-erased':!$paginator_item.publication.active}">
-              <a ng-show="$paginator_item.publication.active" 
+          <div class="publication clearfix">
+            <div class="description" ng-class="{'publication-erased':!$paginator_item.publication}">
+              <a ng-show="::$paginator_item.publication.publication_type == 'Publication'"
                  ui-sref="news.show({title:$paginator_item.publication.title,newId:$paginator_item.publication.id,new:$paginator_item.publication})">
                 <h4>{{$paginator_item.publication.title}}</h4>
               </a>
-              <a ng-show="!$paginator_item.publication.active" href="javascript:void(0)">
+              <a ng-show="::$paginator_item.publication.publication_type == 'ModuleVideo'"
+                 ui-sref="news.show({title:$paginator_item.publication.title,newId:$paginator_item.publication.id,new:$paginator_item.publication})">
+                <h4>{{$paginator_item.publication.title}}</h4>
+              </a>
+              <a ng-show="!$paginator_item.publication" href="javascript:void(0)">
                 <h4>Publicacion eliminada</h4>
               </a>
-
-              <h6 ng-show="$paginator_item.publication.active">Marco Lino Alvarez Burgos | Publicado: 13 Feb 2017 Comentarios: 2</h6>
-              <p><em>[{{$paginator_item.updatedAt| date:'dd MMM yyyy h:MMa'}}]</em>  {{$paginator_item.content}}</p>
+              <p>
+                <em>
+                  [{{$paginator_item.updatedAt| date:'dd MMM yyyy h:MMa'}}]
+                </em>
+                {{$paginator_item.content}}
+              </p>
               <div class="text-button">
-                <a href="javascript:void(0)"
-                   ng-click="showCourse($paginator_item)">Ver comentario <i
-                      class="fa fa-arrow-right"></i></a>
+                <a ng-click="showCourse($paginator_item)">Ver comentario <i class="fa fa-arrow-right"></i></a>
               </div>
             </div>
           </div>
