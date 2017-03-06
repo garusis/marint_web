@@ -63,16 +63,16 @@
         <paginator pagedata="student.comments" pagelength="3" >
 
           <div class="publication clearfix">
-            <div class="description" ng-class="{'publication-erased':!$paginator_item.publication}">
-              <a ng-show="::$paginator_item.publication.publication_type == 'Publication'"
+            <div class="description" ng-class="{'publication-erased':!$paginator_item.publication.id}">
+              <a ng-show="$paginator_item.publication.publication_type == 'Publication' && $paginator_item.publication.id"
                  ui-sref="news.show({title:$paginator_item.publication.title,newId:$paginator_item.publication.id,new:$paginator_item.publication})">
                 <h4>{{$paginator_item.publication.title}}</h4>
               </a>
-              <a ng-show="::$paginator_item.publication.publication_type == 'ModuleVideo'"
-                 ui-sref="news.show({title:$paginator_item.publication.title,newId:$paginator_item.publication.id,new:$paginator_item.publication})">
-                <h4>{{$paginator_item.publication.title}}</h4>
+              <a ng-show="$paginator_item.publication.publication_type == 'ModuleVideo' && $paginator_item.publication.id"
+                 ui-sref="courses.show({title:$paginator_item.publication.module.course.name,courseId:$paginator_item.publication.module.course.id,module:$paginator_item.publication.module.position,video:$paginator_item.publication.position})">
+                <h4>{{$paginator_item.publication.module.course.name}}, <em>Modulo {{$paginator_item.publication.module.position}} - video {{$paginator_item.publication.position}}</em></h4>
               </a>
-              <a ng-show="!$paginator_item.publication" href="javascript:void(0)">
+              <a ng-show="!$paginator_item.publication.id" href="javascript:void(0)">
                 <h4>Publicacion eliminada</h4>
               </a>
               <p>

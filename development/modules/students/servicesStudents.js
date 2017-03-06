@@ -64,8 +64,6 @@
         filter.include = []
       }
 
-      filter.include.push("publication")
-
       var relation = this
       return $http.get(this.basePath, {params: {filter: filter}})
         .then(function (response) {
@@ -102,10 +100,17 @@
       } else {
         promise = this.loadAsVideo(filter)
       }
-      promise.then(function (response) {
-        _.assign(relation, response.data)
-        return response.data
-      })
+      promise
+        .then(function (response) {
+          _.assign(relation, response.data)
+          return response.data
+        })
+        .catch(function (response) {
+          if (response.status == 404) {
+            relation.id = null
+          }
+          throw response
+        })
       return promise
     }
 
@@ -115,7 +120,12 @@
     }
 
     PublicationCommentRelation.prototype.loadAsVideo = function (filter) {
-      filter.include.push({relation: "module"})
+      filter.include.push({
+        relation: "module",
+        scope: {
+          include: "course"
+        }
+      })
       return $http.get(this.basePath, {params: {filter: filter}})
     }
 
