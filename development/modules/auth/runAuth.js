@@ -19,7 +19,10 @@
 
         $rootScope.$on('jg.marlininternacional::users::successLogin', function () {
           $rootScope.dataAuth = Auth;
-          $rootScope.dataUser = User.getCurrent();
+          User.getCurrent()
+            .then(function (user) {
+              $rootScope.dataUser = user
+            });
           $rootScope.$emit('jg.marlininternacional::router::default');
         });
 

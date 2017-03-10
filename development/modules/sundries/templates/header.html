@@ -37,9 +37,7 @@
           <li ng-if="dataUser">
             <a class="info-user" href="javascript:void(0);">
               <div class="user-image">
-
-                <img class="photo-user" responsive-image is-thumbnail sources="dataUser.imagePreview"
-                     alt=""/>
+                <img class="photo-user" responsive-image sources="dataUser.image" is-thumbnail src-format="::$source|concatOrigin:'bucket'" alt="{{dataUser.name}} Profile"/>
               </div>
               <div class="user-data">
                 <div class="message center-block text-center">Bienvenido</div>
@@ -59,31 +57,8 @@
 
           </li>
           <li><a ui-sref="courses">Cursos</a>
-            <!--
-            <ul class="sub-menu">
-                <li><a href="courses-grid.html">Courses Grids</a></li>
-                <li><a href="courses-list.html">Courses List</a></li>
-                <li><a href="single-course.html">Single Course</a></li>
-            </ul>
-            -->
           </li>
-          <!--
-          <li><a href="#" class="has-submenu">Eventos</a>
-              <ul class="sub-menu">
-                  <li><a href="classic-events.html">Classic Events</a></li>
-                  <li><a href="calendar-events.html">Calendar Events</a></li>
-                  <li><a href="single-event.html">Single Event</a></li>
-              </ul>
-          </li>
-          -->
           <li><a ui-sref="news" class="has-submenu">Publicaciones</a>
-            <!--
-            <ul class="sub-menu">
-                <li><a href="classic-news.html">Classic News</a></li>
-                <li><a href="grid-news.html">Grid News</a></li>
-                <li><a href="single-post.html">Single Post</a></li>
-            </ul>
-            -->
           </li>
           <li><a href="#" class="has-submenu">Conócenos</a>
             <ul class="sub-menu">

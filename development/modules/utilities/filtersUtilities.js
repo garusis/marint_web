@@ -16,6 +16,9 @@
       "originsManager",
       function (originsManager) {
         return function (input, origin) {
+          if (!input) {
+            input = ""
+          }
           if (input[0] !== "/") {
             input = "/" + input
           }

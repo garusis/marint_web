@@ -5,12 +5,11 @@
         <div class="col-md-12">
           <div class="profile-header">
             <div class="user-image">
-              <img src="http://blog.soundidea.co.za/home/22/files/A%20quick%20guide%20to%20opt%20pic%202.jpg"
-                   alt="user profile photo">
+              <img responsive-image="" sources="dataUser.image" is-thumbnail src-format="::$source|concatOrigin:'bucket'" alt="{{dataUser.name}} Profile">
             </div>
             <div class="name">
-              <h2>Eliecer Alejandro Molina Vergel</h2>
-              <a ui-sref="user.account()"><i class="fa fa-cogs"></i> Editar información</a>
+              <h2>{{dataUser.name}} {{dataUser.surname}}</h2>
+              <a ui-sref="user.account"><i class="fa fa-cogs"></i> Editar información</a>
             </div>
 
           </div>
@@ -18,9 +17,9 @@
         <div class="col-md-12">
           <div class="page-list">
             <ul>
-              <li class="active"><a ui-sref="user()">Tu perfil</a></li>
+              <li class="active"><a ui-sref="user.activity">Tu perfil</a></li>
               <li><i class="fa fa-angle-right"></i></li>
-              <li class="active"><a ui-sref="user.activity()">Actividad </a></li>
+              <li class="active"><a ui-sref="user.activity">Actividad </a></li>
             </ul>
           </div>
         </div>

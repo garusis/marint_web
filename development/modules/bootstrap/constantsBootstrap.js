@@ -24,7 +24,8 @@
       COURSES_STUDENT: {
         __BASE__: "courses",
         MODULES: "modules"
-      }
+      },
+      IMAGE: "image"
     },
     UPLOAD: {
       ROOT: "files",

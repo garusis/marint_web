@@ -18,7 +18,12 @@
       if (!student.__is_process__) {
         student.__is_process__ = true
         student.coursesStudent = new CourseStudentRelation(student)
-        student.commentStudent = new CommentStudentRelation(student);
+        student.commentStudent = new CommentStudentRelation(student)
+        student.image = new ImageStudentRelation(student)
+        student.image.get()
+          .then(function () {
+            console.log(student)
+          })
       }
       return student
     }
@@ -35,6 +40,24 @@
       LoopBackAuth.clearUser();
       LoopBackAuth.clearStorage();
       return Student.logout()
+    }
+
+    function ImageStudentRelation (student) {
+      this.basePath = originsManager.getOrigin() +
+        "/" + ROUTES.STUDENTS.__BASE__ +
+        "/" + student.id +
+        "/" + ROUTES.STUDENTS.IMAGE;
+    }
+
+    ImageStudentRelation.prototype = new Object();
+
+    ImageStudentRelation.prototype.get = function () {
+      var relation = this
+      return $http.get(this.basePath)
+        .then(function (response) {
+          _.assign(relation, response.data)
+          return relation
+        })
     }
 
     function CommentStudentRelation (student) {

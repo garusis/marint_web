@@ -12,7 +12,6 @@
         .state({
           name: 'user',
           url: '/usuario',
-          templateUrl: 'modules/users/templates/perfil.html',
           controller: 'UserProfileController',
           controllerAs: 'upCtrl',
           children: [
@@ -23,7 +22,7 @@
                 '@': {
                   templateUrl: 'modules/users/templates/activity.html',
                   controller: 'UserActivityController',
-                  controllerAs: 'maestrosCtrl'
+                  controllerAs: 'usersCtrl'
                 }
               },
               params:{
@@ -37,7 +36,7 @@
                 '@': {
                   templateUrl: 'modules/users/templates/account.html',
                   controller: 'UserConfigurationController',
-                  controllerAs: 'maestrosCtrl'
+                  controllerAs: 'usersCtrl'
                 }
               }
             }
