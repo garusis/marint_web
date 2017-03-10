@@ -25,6 +25,9 @@
 .request-information .search-form .warning-message {
   color: #f0ad4e;
 }
+.request-information .search-form .success-message {
+  color: #2b542c;
+}
 .request-information .search-form .has-error {
   border-width: 2px!important;
 }

@@ -37,7 +37,8 @@
     contactCtrl.vm = {
       data:{},
       courses:[],
-      success: false
+      success: false,
+      error: false
     }
 
     CourseService.loadCourses()
@@ -51,9 +52,17 @@
       sendData.subject = "Solicitud de información sobre el curso "+data.course.name
       sendData.body = "Solicito informacion sobre el curso "+data.course.name
       Contact.create(sendData)
+        .$promise
         .then(function () {
           contactCtrl.vm.data = {}
           contactCtrl.vm.success = true
+          contactCtrl.vm.error = false
+          $scope.contactForm.$setPristine()
+          $scope.contactForm.$setUntouched()
+        })
+        .catch(function () {
+          contactCtrl.vm.success = false
+          contactCtrl.vm.error = true
         })
     }
 

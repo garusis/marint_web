@@ -241,6 +241,12 @@
             <div class="warning-message" ng-show="contactForm.$submitted && contactForm.$invalid">
               <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Por favor verifique los datos ingresados.
             </div>
+            <div class="success-message" ng-show="contactCtrl.vm.success">
+              <i class="fa fa-check" aria-hidden="true"></i> Tu solicitud ha sido enviada.
+            </div>
+            <div class="warning-message" ng-show="contactCtrl.vm.error">
+              <i class="fa fa-times" aria-hidden="true"></i> Ha ocurrido un error, por favor intentelo de nuevo mas tarde.
+            </div>
             <input type="text" id="name" name="name"
                    ng-class="{'has-error':(contactForm.$submitted || contactForm.name.$touched) && contactForm.name.$invalid}"
                    ng-model="contactCtrl.vm.data.toName" required
@@ -276,7 +282,7 @@
       <div class="section-heading text-center">
         <h1>Cursos Populares</h1>
         <img src="assets/images/line-dec.png" alt="">
-        <p ng-if="!dataUser">Nuestros cursos te enseñaran a tener éxito y cambiar vidas</p>
+        <p>Nuestros cursos te enseñaran a tener éxito y cambiar vidas</p>
       </div>
     </div>
     <div class="row">
