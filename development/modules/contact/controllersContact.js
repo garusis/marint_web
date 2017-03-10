@@ -1,3 +1,4 @@
+"use strict"
 /**
  * Created by Marcos J. Alvarez on 20/12/2015.
  * @author Marcos J. Alvarez
@@ -16,6 +17,7 @@
     "large": "assets/images/contactenos/banner_large.jpg",
     "xlarge": "assets/images/contactenos/banner.jpg"
   };
+
   contactController.$inject = ["$scope"]
   function contactController ($scope) {
     $scope.headerSources = headerSources;
@@ -28,11 +30,35 @@
     var map = new google.maps.Map(document.getElementById('map'), $scope.mapOptions)
   }
 
+  CourseInfoRequestController.$inject = ["$scope","CourseService"]
+  function CourseInfoRequestController($scope, CourseService){
+    var contactCtrl = this;
+
+    contactCtrl.vm = {
+      data:{},
+      courses:[]
+    }
+
+    CourseService.loadCourses()
+      .then(function (courses) {
+        contactCtrl.vm.courses = courses
+      })
+
+    contactCtrl.submit = function (data) {
+      var sendData = _.clone(data)
+      delete sendData.course
+      sendData.subject = "Solicitud de información sobre el curso "+data.course.name
+      sendData.body = "Solicito informacion sobre el curso "+data.course.name
+    }
+
+  }
+
   maestrosController.$inject = ["$scope"]
   function maestrosController ($scope) {
     $scope.headerSources = headerSources;
   }
 
   module.controller('ContactController', contactController)
+    .controller('CourseInfoRequestController', CourseInfoRequestController)
     .controller('MaestrosController', maestrosController)
 })(angular.module('jg.marlininternacional.contact'));

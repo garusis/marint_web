@@ -13,7 +13,7 @@ module.exports = function (grunt) {
         }
       },
       less_modules: {
-        files: ['./development/modules/**/*.less'],
+        files: ['./development/modules/assets/less/educa.less', './development/modules/**/*.less'],
         tasks: ['less:development_own'],
         options: {
           spawn: false
@@ -29,7 +29,7 @@ module.exports = function (grunt) {
       livereload: {
         files: [
           '/development/components/*', '/development/components/**/', '/development/components/**/*',
-          './development/modules/**/*.less', './development/modules/**/*.js'
+          './development/modules/**/*.less', './development/modules/**/*.js','./development/modules/**/*.html'
         ],
         tasks: [],
         options: {

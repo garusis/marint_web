@@ -3895,7 +3895,7 @@ section.single-teacher .single-teacher-item .description ul li:last-child {
 .request-information .form-search #program {
   margin-bottom: 40px!important;
 }
-.request-information .form-search .accent-button a {
+.request-information .form-search .accent-button button {
   border: 2px solid #c47b09;
 }
 .request-information .search-form #name {
@@ -4673,7 +4673,8 @@ section.single-teacher .single-teacher-item .description ul li:last-child {
 .welcome-request .request-information .search-form textarea,
 .welcome-request .request-information .search-form select,
 .welcome-request .request-information .search-form ::-webkit-input-placeholder {
-  color: #6f6f6f !important;
+  color: #000 !important;
+  font-weight: bold;
 }
 .welcome-request .section-heading span,
 .welcome-request .section-heading p,
@@ -5104,7 +5105,8 @@ section.testimonials-page #owl-testimonials .owl-buttons .owl-prev:hover:after {
   letter-spacing: 2px!important;
   display: inline-block;
 }
-.accent-button a {
+.accent-button a,
+.accent-button button {
   background-color: #f5a425;
   padding: 15px 30px;
   font-family: 'Montserrat', sans-serif;
@@ -5121,7 +5123,8 @@ section.testimonials-page #owl-testimonials .owl-buttons .owl-prev:hover:after {
   text-shadow: 0 0 3px #905800;
   border: 1px solid #f5a425;
 }
-.accent-button a:hover {
+.accent-button a:hover,
+.accent-button button:hover {
   border: 1px solid #f5a425;
   color: #f5a425;
   background: none;
@@ -5225,7 +5228,7 @@ section.testimonials-page #owl-testimonials .owl-buttons .owl-prev:hover:after {
   transition: all 0.5s;
   cursor: pointer;
 }
-/* 
+/*
  * 	Core Owl Carousel CSS File
  *	v1.3.3
  */
@@ -5541,7 +5544,7 @@ section.testimonials-page #owl-testimonials .owl-buttons .owl-prev:hover:after {
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
  * Contributing author: Tyler Smith (@mbmufffin)
- * 
+ *
  */
 /* ====================================================================================================================
  * FONT-FACE
