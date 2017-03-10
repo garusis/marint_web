@@ -235,7 +235,7 @@
           <div class="widget-heading">
             <h4>Solicita Información</h4>
           </div>
-          <form name="contactForm" ng-submit="contactForm.$valid && contactCtrl.submit(contactCtrl.vm.data)"
+          <form name="contactForm" ng-submit="contactForm.$valid && contactCtrl.submit(contactCtrl.vm.data, contactCtrl.vm.selectedCourse)"
                 class="search-form" novalidate>
             <br/>
             <div class="warning-message" ng-show="contactForm.$submitted && contactForm.$invalid">
@@ -255,7 +255,7 @@
                    ng-class="{'has-error':(contactForm.$submitted || contactForm.email.$touched) && contactForm.email.$invalid}"
                    ng-model="contactCtrl.vm.data.to" required placeholder="E-Mail">
             <div class="select">
-              <select name="course" ng-model="contactCtrl.vm.data.course" required id="campus"
+              <select name="course" ng-model="contactCtrl.vm.selectedCourse" required id="campus"
                       ng-class="{'has-error':(contactForm.$submitted || contactForm.course.$touched) && contactForm.course.$invalid}"
                       ng-options="course.name for course in contactCtrl.vm.courses">
                 <option value="" disabled>Curso de Interes</option>

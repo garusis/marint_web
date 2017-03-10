@@ -1,4 +1,3 @@
-
 /**
  * Created by Marcos J. Alvarez on 20/12/2015.
  * @author Marcos J. Alvarez
@@ -18,44 +17,43 @@
     "large": "assets/images/instructores/banner_large.jpg",
     "xlarge": "assets/images/instructores/banner.jpg"
   };
-  var ListInstructorsController = function ($scope,Instructors) {
+  var ListInstructorsController = function ($scope, Instructors) {
     $scope.headerSources = headerSources;
-    Instructors.find({})
-      .$promise
-      .then(function (data) {
-        $scope.instructors = data;
-        console.log(data)
-      })
+    $scope.instructors = Instructors.find({filter: {include: ["image"]}})
   };
-  ListInstructorsController.$inject = ['$scope',"Instructor"];
+  ListInstructorsController.$inject = ['$scope', "Instructor"];
 
-  var ShowInstructorController = function ($scope,$stateParams,Instructors,CourseService) {
+  var ShowInstructorController = function ($scope, $stateParams, Instructors, CourseService) {
     $scope.headerSources = headerSources;
-    console.log($stateParams)
     $scope.instructor = $stateParams.instructor;
 
-    function loadCourses() {
+    function loadCourses () {
       CourseService.loadCourses({
         filter: {
           where: {instructorId: $scope.instructor.id},
           include: 'instructor'
         }
-
       }).then(function (data) {
         $scope.courses = data;
       })
     }
 
-    function init() {
+    function init () {
       if (!$scope.instructor) {
-        Instructors.find({
-          where: {
-            id: $stateParams.id
-          }
-        }).$promise.then(function (data) {
-          $scope.instructor = data;
-          loadCourses();
-        })
+        $scope.instructor = Instructors
+          .findOne({
+            filter: {
+              where: {
+                id: $stateParams.id
+              },
+              include: "image"
+            }
+          });
+
+        $scope.instructor.$promise
+          .then(function (data) {
+            loadCourses();
+          })
       } else {
         loadCourses();
       }
@@ -64,9 +62,9 @@
     init()
 
   };
-  ShowInstructorController.$inject = ['$scope','$stateParams',"Instructor","CourseService"];
+  ShowInstructorController.$inject = ['$scope', '$stateParams', "Instructor", "CourseService"];
 
   module
-    .controller('ListInstructorsController',ListInstructorsController)
-    .controller('ShowInstructorsController',ShowInstructorController);
+    .controller('ListInstructorsController', ListInstructorsController)
+    .controller('ShowInstructorsController', ShowInstructorController);
 })(angular.module('jg.marlininternacional.instructors'));

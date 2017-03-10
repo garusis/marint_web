@@ -3139,6 +3139,9 @@ section.single-teacher .single-teacher-item .description {
   display: inline-block;
   margin-top: 20px;
 }
+section.single-teacher .single-teacher-item .description p {
+  text-align: justify;
+}
 section.single-teacher .single-teacher-item .description h4 {
   font-size: 13px;
   text-transform: uppercase;

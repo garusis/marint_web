@@ -46,17 +46,16 @@
         contactCtrl.vm.courses = courses
       })
 
-    contactCtrl.submit = function (data) {
+    contactCtrl.submit = function (data, course) {
       var sendData = _.clone(data)
-      delete sendData.course
-      sendData.subject = "Solicitud de información sobre el curso "+data.course.name
-      sendData.body = "Solicito informacion sobre el curso "+data.course.name
+      sendData.subject = "Solicitud de información sobre el curso "+course.name
+      sendData.body = "Solicito información sobre el curso "+course.name
       Contact.create(sendData)
         .$promise
         .then(function () {
           contactCtrl.vm.data.toName = ""
           contactCtrl.vm.data.to = ""
-          contactCtrl.vm.data.course = ""
+          contactCtrl.vm.selectedCourse = null
           contactCtrl.vm.success = true
           contactCtrl.vm.error = false
           $scope.contactForm.$setPristine()

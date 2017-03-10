@@ -22,18 +22,18 @@
       <div class="col-md-3" ng-repeat="i in instructors">
         <div class="teacher-item">
           <a ui-sref="instructors.show({id:i.id,name:i.name,instructor:i})">
-            <img src="http://torchtemplates.net/educa/assets/images/teacher-1.jpg" alt="">
+            <img responsive-image="" sources="i.image" is-thumbnail src-format="::$source|concatOrigin:'bucket'" alt="">
           </a>
           <div class="down-content">
 
             <a ui-sref="instructors.show({id:i.id,name:i.name,instructor:i})">
-              <h4>{{i.name}}</h4>
+              <h4>{{i.name}} {{i.surname}}</h4>
               <p class="text-justify">{{i.description | truncate:100:'...':true}}</p>
             </a>
             <ul ng-show="i.socialNetworks">
-              <li><a href="{{i.socialNetworks.facebook}}"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="{{i.socialNetworks.twitter}}"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="{{i.socialNetworks.linkedin}}"><i class="fa fa-linkedin"></i></a></li>
+              <li><a target="_blank" ng-href="{{i.socialNetworks.facebook}}"><i class="fa fa-facebook"></i></a></li>
+              <li><a target="_blank" ng-href="{{i.socialNetworks.twitter}}"><i class="fa fa-twitter"></i></a></li>
+              <li><a target="_blank" ng-href="{{i.socialNetworks.linkedin}}"><i class="fa fa-linkedin"></i></a></li>
             </ul>
           </div>
         </div>
