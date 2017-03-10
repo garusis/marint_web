@@ -25,6 +25,9 @@
                   controller: 'UserActivityController',
                   controllerAs: 'maestrosCtrl'
                 }
+              },
+              params:{
+                redirect: false
               }
             },
             {

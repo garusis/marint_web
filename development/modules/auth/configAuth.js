@@ -14,7 +14,10 @@
           url: '/',
           templateUrl: 'modules/auth/templates/index.html',
           controller: 'IndexPublicController',
-          controllerAs: 'authIPCtrl'
+          controllerAs: 'authIPCtrl',
+          params:{
+            redirect: false
+          }
         })
         .state({
           name: 'logout',

@@ -11,9 +11,9 @@
       function ($rootScope, $state, Auth, User) {
         $rootScope.$on('jg.marlininternacional::router::default', function () {
           if (User.isAuthenticated()) {
-            $state.go("user.activity", {});
+            $state.go("user.activity", {redirect: true}, {reload: true});
           } else {
-            $state.go('index', {}, {reload: true});
+            $state.go('index', {redirect: true}, {reload: true});
           }
         });
 
