@@ -8,7 +8,7 @@
 !(function (module) {
   module
     .run(['$rootScope', '$state', 'LoopBackAuth', 'StudentService', 'authmodule',
-      function ($rootScope, $state, Auth, User) {
+      function ($rootScope, $state, Auth, User, AuthModule) {
         $rootScope.$on('jg.marlininternacional::router::default', function () {
           if (User.isAuthenticated()) {
             $state.go("user.activity", {redirect: true}, {reload: true});
@@ -22,6 +22,8 @@
           User.getCurrent()
             .then(function (user) {
               $rootScope.dataUser = user
+              if(user)
+              AuthModule.showModalChangePassword();
             });
           $rootScope.$emit('jg.marlininternacional::router::default');
         });

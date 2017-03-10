@@ -192,7 +192,15 @@
           //console.log(src, queries)
         };
 
-        scope.$watchGroup(['sources', 'srcFormat'], function (newVal) {
+        scope.$watch(function () {
+          return JSON.stringify(scope.sources||{})
+        }, function (newVal) {
+          if (newVal) {
+            makeImagesResponsive();
+          }
+        });
+
+        scope.$watchGroup(['srcFormat'], function (newVal) {
           if (newVal) {
             makeImagesResponsive();
           }
@@ -373,15 +381,15 @@
         }
 
         div.css({opacity: 0});
-        $canvas.css({opacity: 0});
-        tooltipContainer.css({opacity: 0});
-        element.removeClass(settings.overlayClass);
+        $canvas && $canvas.css({opacity: 0});
+        tooltipContainer && tooltipContainer.css({opacity: 0});
+        settings && element.removeClass(settings.overlayClass);
         setTimeout(function () {
           if (overlaysActive === 0) {
             div.remove();
           }
-          $canvas.remove();
-          tooltipContainer.remove();
+          $canvas && $canvas.remove();
+          tooltipContainer && tooltipContainer.remove();
         }, 200);
       };
 
@@ -409,7 +417,7 @@
         },
         dismissOverlay: function (idOrElement) {
           if ('string' === typeof idOrElement) {
-            var overlay = registeredOverlays[id];
+            var overlay = registeredOverlays[idOrElement];
             if (overlay) {
               dismissOverlay(overlay.element);
             }

@@ -21,9 +21,6 @@
         student.commentStudent = new CommentStudentRelation(student)
         student.image = new ImageStudentRelation(student)
         student.image.get()
-          .then(function () {
-            console.log(student)
-          })
       }
       return student
     }

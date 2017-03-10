@@ -30,7 +30,6 @@
         })
         $rootScope.$on('$stateChangeSuccess', function () {
           document.body.scrollTop = document.documentElement.scrollTop = 0;
-          //AuthModule.showModalChangePassword();
         });
 
         Constants.load()
