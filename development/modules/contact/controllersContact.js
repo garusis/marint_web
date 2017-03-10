@@ -54,7 +54,9 @@
       Contact.create(sendData)
         .$promise
         .then(function () {
-          contactCtrl.vm.data = {}
+          contactCtrl.vm.data.toName = ""
+          contactCtrl.vm.data.to = ""
+          contactCtrl.vm.data.course = ""
           contactCtrl.vm.success = true
           contactCtrl.vm.error = false
           $scope.contactForm.$setPristine()
