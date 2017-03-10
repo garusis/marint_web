@@ -18,8 +18,10 @@
     "xlarge": "assets/images/contactenos/banner.jpg"
   };
 
-  contactController.$inject = ["$scope"]
-  function contactController ($scope) {
+  contactController.$inject = ["$scope", "Contact"]
+  function contactController ($scope, Contact) {
+    var contactCtrl = this;
+
     $scope.headerSources = headerSources;
     $scope.mapOptions = {
       center: new google.maps.LatLng(44.5403, -78.5463),
@@ -28,6 +30,35 @@
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     var map = new google.maps.Map(document.getElementById('map'), $scope.mapOptions)
+
+    contactCtrl.vm = {
+      data: {},
+      success: false,
+      error: false
+    }
+
+    contactCtrl.submit = function (data) {
+      var sendData = _.clone(data)
+
+      Contact.create(sendData)
+        .$promise
+        .then(function () {
+          data.toName = ""
+          data.to = ""
+          data.body = ""
+          data.subject = ""
+          contactCtrl.vm.selectedCourse = null
+          contactCtrl.vm.success = true
+          contactCtrl.vm.error = false
+          $scope.contactForm.$setPristine()
+          $scope.contactForm.$setUntouched()
+        })
+        .catch(function () {
+          contactCtrl.vm.success = false
+          contactCtrl.vm.error = true
+        })
+    }
+
   }
 
   CourseInfoRequestController.$inject = ["$scope", "CourseService", "Contact"]

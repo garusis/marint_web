@@ -22,14 +22,20 @@
 .request-information .search-form select {
   color: #000;
 }
-.request-information .search-form .warning-message {
-  color: #f0ad4e;
-}
-.request-information .search-form .success-message {
-  color: #2b542c;
-}
 .request-information .search-form .has-error {
-  border-width: 2px!important;
+  border-width: 2px !important;
+}
+.warning-message {
+  color: #f0ad4e!important;
+}
+.success-message {
+  color: #2b542c!important;
+}
+.contact-form .has-error {
+  border-color: #8d2729 !important;
+}
+.contact-form textarea {
+  resize: none;
 }
 
 .single-course .accordions .accordion-section-content {

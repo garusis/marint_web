@@ -24,7 +24,7 @@
           <div class="contact-item">
             <i class="fa fa-map-marker"></i>
             <h4>Contáctanos</h4>
-            <p>CC. Plaza de los Andes. Oficina 130, Cúcuta N.S. Colombia</p>
+            <p>CC. Plaza de los Andes. Oficina 130,<br/>Cúcuta N.S. Colombia</p>
           </div>
           <div class="contact-item">
             <i class="fa fa-envelope-o"></i>
@@ -63,20 +63,58 @@
             <h4>Contáctanos</h4>
           </div>
           <div class="message-content">
-            <div class="row">
-              <div class="col-md-6">
-                <input type="text" id="name" name="s" placeholder="Nombre" value="">
+            <form name="contactForm" class="contact-form" novalidate
+                  ng-submit="contactForm.$valid && contactCtrl.submit(contactCtrl.vm.data)">
+              <div class="warning-message" ng-show="contactForm.$submitted && contactForm.$invalid">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Por favor verifique los datos ingresados.
               </div>
-              <div class="col-md-6">
-                <input type="text" id="address" name="s" placeholder="Email" value="">
+              <div class="success-message" ng-show="contactCtrl.vm.success">
+                <i class="fa fa-check" aria-hidden="true"></i> Tu solicitud ha sido enviada.
               </div>
-              <div class="col-md-12">
-                <textarea id="message" class="message" name="message" placeholder="Mensaje"></textarea>
+              <div class="warning-message" ng-show="contactCtrl.vm.error">
+                <i class="fa fa-times" aria-hidden="true"></i> Ha ocurrido un error, por favor intentelo de nuevo mas
+                tarde.
               </div>
-            </div>
-            <div class="accent-button">
-              <a href="#">Enviar</a>
-            </div>
+              <br/>
+              <div class="row">
+                <div class="col-md-6">
+                  <input type="text" id="name" ng-show="!dataUser" name="name"
+                         ng-class="{'has-error':(contactForm.$submitted || contactForm.name.$touched) && contactForm.name.$invalid}"
+                         ng-model="contactCtrl.vm.data.toName" ng-required="!dataUser"
+                         placeholder="Nombre Completo">
+                </div>
+                <div class="col-md-6">
+                  <input type="email" id="address" name="email"
+                         ng-show="!dataUser"
+                         ng-class="{'has-error':(contactForm.$submitted || contactForm.email.$touched) && contactForm.email.$invalid}"
+                         ng-model="contactCtrl.vm.data.to" ng-required="!dataUser"
+                         placeholder="E-Mail">
+                </div>
+                <div class="col-md-12">
+                  <input type="text" id="subject" name="subject"
+                         ng-class="{'has-error':(contactForm.$submitted || contactForm.subject.$touched) && contactForm.subject.$invalid}"
+                         ng-model="contactCtrl.vm.data.subject" required placeholder="Asunto">
+                </div>
+                <div class="col-md-12">
+                  <textarea ng-model="contactCtrl.vm.data.body" name="body" class="message" required
+                            ng-class="{'has-error':(contactForm.$submitted || contactForm.body.$touched) && contactForm.body.$invalid}"
+                            placeholder="Mensaje"></textarea>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div ng-if="!dataUser" class="text-center">
+                    <div vc-recaptcha key="APP_CONSTANTS.RECAPTCHA_KEY.value"
+                         ng-model="contactCtrl.vm.data.gRecaptchaResponse" required="">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br/>
+              <div class="accent-button">
+                <button type="submit">Enviar</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
