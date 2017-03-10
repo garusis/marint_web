@@ -26,16 +26,44 @@
           <div class="row">
             <div class="col-md-5">
               <img responsive-image="" sources="instructor.image" src-format="::$source|concatOrigin:'bucket'" alt="">
-              <form class="contact-form">
-                <h4>Contáctame</h4>
-                <input ng-model="contactData.name" type="text" placeholder="Nombre completo"/>
-                <input ng-model="contactData.studentId" type="text" placeholder="Codigo de alumno">
-                <textarea ng-model="contactData.message" class="message"
-                          placeholder="Mensaje" style="resize: none"></textarea>
-                <div class="accent-button">
-                  <a href="javascript:void(0)" ng-click="sendMessage(contactData)">Send Message</a>
+              <div class="row">
+                <div class="col-md-12" ng-controller="InstructorContactController as contactCtrl">
+                  <form  name="contactForm" ng-submit="contactForm.$valid && contactCtrl.submit(contactCtrl.vm.data, instCtrl.vm.instructor)"
+                         class="contact-form" novalidate>
+                    <h4>Contáctame</h4>
+                    <div class="warning-message" ng-show="contactForm.$submitted && contactForm.$invalid">
+                      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Por favor verifique los datos ingresados.
+                    </div>
+                    <div class="success-message" ng-show="contactCtrl.vm.success">
+                      <i class="fa fa-check" aria-hidden="true"></i> Tu solicitud ha sido enviada.
+                    </div>
+                    <div class="warning-message" ng-show="contactCtrl.vm.error">
+                      <i class="fa fa-times" aria-hidden="true"></i> Ha ocurrido un error, por favor intentelo de nuevo mas tarde.
+                    </div>
+                    <br/>
+                    <input type="text" id="name" ng-show="!dataUser" name="name"
+                           ng-class="{'has-error':(contactForm.$submitted || contactForm.name.$touched) && contactForm.name.$invalid}"
+                           ng-model="contactCtrl.vm.data.toName" ng-required="!dataUser"
+                           placeholder="Nombre Completo">
+                    <input type="email" id="address" name="email"
+                           ng-show="!dataUser"
+                           ng-class="{'has-error':(contactForm.$submitted || contactForm.email.$touched) && contactForm.email.$invalid}"
+                           ng-model="contactCtrl.vm.data.to" ng-required="!dataUser"
+                           placeholder="E-Mail">
+                    <textarea ng-model="contactCtrl.vm.data.body" name="body" class="message" required
+                              ng-class="{'has-error':(contactForm.$submitted || contactForm.body.$touched) && contactForm.body.$invalid}"
+                              placeholder="Mensaje" ></textarea>
+                    <div ng-if="!dataUser" class="text-center">
+                      <div vc-recaptcha key="APP_CONSTANTS.RECAPTCHA_KEY.value" ng-model="contactCtrl.vm.data.gRecaptchaResponse"
+                           required=""></div>
+                    </div>
+                    <br/>
+                    <div class="accent-button">
+                      <button type="submit">Enviar</button>
+                    </div>
+                  </form>
                 </div>
-              </form>
+              </div>
             </div>
             <div class="col-md-7">
               <div class="right-info">

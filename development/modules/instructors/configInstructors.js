@@ -23,6 +23,7 @@
                 '@': {
                   templateUrl: 'modules/instructors/templates/show.html',
                   controller: 'ShowInstructorsController',
+                  controllerAs: "instCtrl"
                 }
               }
             }

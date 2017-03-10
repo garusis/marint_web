@@ -24,8 +24,11 @@
   ListInstructorsController.$inject = ['$scope', "Instructor"];
 
   var ShowInstructorController = function ($scope, $stateParams, Instructors, CourseService) {
+    var instCtrl = this;
+
+    instCtrl.vm = {}
     $scope.headerSources = headerSources;
-    $scope.instructor = $stateParams.instructor;
+    instCtrl.vm.instructor = $scope.instructor = $stateParams.instructor;
 
     function loadCourses () {
       CourseService.loadCourses({
@@ -40,7 +43,7 @@
 
     function init () {
       if (!$scope.instructor) {
-        $scope.instructor = Instructors
+        instCtrl.vm.instructor = $scope.instructor = Instructors
           .findOne({
             filter: {
               where: {
