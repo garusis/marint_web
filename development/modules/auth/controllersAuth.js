@@ -138,16 +138,16 @@
 
         $scope.testimonies = Testimony.find();
 
-        CourseService.loadCourses({
-          filter: {
-            order: "name DESC",
-            include: ['instructor']
-          }
-        }, function (data) {
-          $scope.courses = data;
-        }, function (error) {
-
-        })
+        CourseService
+          .loadCourses({
+            filter: {
+              order: "name DESC",
+              include: ['instructor']
+            }
+          })
+          .then(function (data) {
+            $scope.courses = data;
+          })
 
         $scope.publications = {
           list: []

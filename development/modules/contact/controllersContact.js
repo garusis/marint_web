@@ -30,13 +30,14 @@
     var map = new google.maps.Map(document.getElementById('map'), $scope.mapOptions)
   }
 
-  CourseInfoRequestController.$inject = ["$scope","CourseService"]
-  function CourseInfoRequestController($scope, CourseService){
+  CourseInfoRequestController.$inject = ["$scope","CourseService", "Contact"]
+  function CourseInfoRequestController($scope, CourseService, Contact){
     var contactCtrl = this;
 
     contactCtrl.vm = {
       data:{},
-      courses:[]
+      courses:[],
+      success: false
     }
 
     CourseService.loadCourses()
@@ -49,6 +50,11 @@
       delete sendData.course
       sendData.subject = "Solicitud de información sobre el curso "+data.course.name
       sendData.body = "Solicito informacion sobre el curso "+data.course.name
+      Contact.create(sendData)
+        .then(function () {
+          contactCtrl.vm.data = {}
+          contactCtrl.vm.success = true
+        })
     }
 
   }

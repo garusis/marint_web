@@ -1,4 +1,4 @@
-<div ng-if="!dataUser">
+<div>
   <div class="slider">
     <div class="fullwidthbanner-container">
       <div class="fullwidthbanner" revolution="::mainSliderConfigs">
@@ -112,7 +112,7 @@
   </div>
 </div>
 
-<section ng-if="!dataUser" class="testimonials-news">
+<section class="testimonials-news">
   <div class="container">
     <div class="row">
       <div class="col-md-6">
@@ -174,7 +174,7 @@
   </div>
 </section>
 
-<section ng-if="!dataUser" class="welcome-request">
+<section class="welcome-request">
   <div class="container">
     <div class="row">
       <div class="col-md-8">
@@ -270,66 +270,6 @@
   </div>
 </section>
 
-<section ng-if="dataUser" class="grid-news main-background-opaque-dark">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <div class="classic-posts">
-          <div class="row">
-            <div class="col-md-4" ng-repeat="new in publications.list.slice(0,3)">
-              <div class="grid-item">
-                <a ui-sref="news.show({title:slug(new.title), newId: new.id})">
-                  <img src="http://placehold.it/370x220" alt=""></a>
-
-                <div class="down-content">
-                  <ul>
-                    <li>Publicado: <em>{{new.publishedAt|date:'dd MMM yyyy'}}</em></li>
-                  </ul>
-                  <a ui-sref="news.show({title:slug(new.title), newId: new.id})">
-                    <h4>{{new.title| truncate : 50:'...':true}}</h4>
-                  </a>
-
-                  <p>
-                    {{new.preview | truncate : 100:'...':true}}
-                  </p>
-
-                  <div class="text-button">
-                    <a ui-sref="news.show({title:slug(new.title), newId: new.id})">
-                      Continuar leyendo<i class="fa fa-arrow-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="pagination-navigation">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="pagination">
-                  <ul>
-                    <li><a href="#">1</a></li>
-                    <li class="active"><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="navigation">
-                  <ul>
-                    <li><a href="#"><i class="fa fa-arrow-left"></i></a></li>
-                    <li><a href="#"><i class="fa fa-arrow-right"></i></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="popular-courses">
   <div class="container">
     <div class="row">
@@ -340,11 +280,9 @@
       </div>
     </div>
     <div class="row">
-      <a href="javascript:void(0)" ng-click="showVideo()">vervideo</a>
-
       <div class="col-lg-10 col-lg-offset-1 col-md-12 col-md-offset-0">
         <div id="owl-courses" owl="::coursesCarouselConfig">
-          <div class="item course-item" owl-item="" ng-repeat="course in courses track by $index">
+          <div class="item course-item" owl-item="" ng-repeat="course in courses">
             <a ui-sref="courses.show({courseId:course.id,course:course,title:slug(course.name)})">
               <img ng-src="{{course.images._370x240}}" alt="">
             </a>
