@@ -9,6 +9,7 @@
 !(function (module) {
   StudentService.$inject = ['Student', "LoopBackAuth", "$q", "$http", "ROUTES", "originsManager", "NewsService"];
   function StudentService (Student, LoopBackAuth, $q, $http, ROUTES, originsManager, NewsService) {
+    var studentService = this
 
     this.isAuthenticated = function () {
       return !!LoopBackAuth.accessTokenId
@@ -16,6 +17,7 @@
 
     function processStudent (student) {
       if (!student.__is_process__) {
+        studentService.currentUserData = student
         student.__is_process__ = true
         student.coursesStudent = new CourseStudentRelation(student)
         student.commentStudent = new CommentStudentRelation(student)
@@ -26,11 +28,11 @@
     }
 
     this.getCurrent = function (force) {
-      if (!LoopBackAuth.currentUserData || force) {
+      if (!studentService.currentUserData || force) {
         return Student.getCurrent().$promise
           .then(processStudent)
       }
-      return $q.resolve(processStudent(LoopBackAuth.currentUserData))
+      return $q.resolve(processStudent(studentService.currentUserData))
     }
 
     this.logout = function () {

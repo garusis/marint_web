@@ -49,15 +49,32 @@
 
   }
 
-  UserConfigurationController.$inject = ["$scope", "StudentService", "$timeout"]
-  function UserConfigurationController ($scope, StudentService, $timeout) {
+  UserConfigurationController.$inject = ["$scope", "StudentService", "$timeout","authmodule"]
+  function UserConfigurationController ($scope, StudentService, $timeout, AuthModule) {
     var usersCtrl = this
 
     usersCtrl.vm = {
       success: false,
       error: false,
-      pending: false
+      pending: false,
+      passwordConfirm: ""
     }
+
+    $scope.$watchGroup([
+      function () {
+        return usersCtrl.vm.passwordConfirm
+      },
+      function () {
+        return usersCtrl.vm.student && usersCtrl.vm.student.password
+      }
+    ], function () {
+      if(usersCtrl.vm.student){
+        try{
+          $scope.userForm.password_confirm.$setValidity('confirm', usersCtrl.vm.passwordConfirm === usersCtrl.vm.student.password)
+        }catch(err){
+        }
+      }
+    })
 
     $scope.headerSources = headerSources;
     StudentService.getCurrent()
@@ -72,6 +89,7 @@
           usersCtrl.vm.success = true
           $scope.userForm.$setPristine()
           $scope.userForm.$setUntouched()
+          usersCtrl.vm.passwordConfirm = ""
           $timeout(function () {
             usersCtrl.vm.success = false
           }, 10000)
@@ -82,6 +100,10 @@
         .finally(function () {
           usersCtrl.vm.pending = false
         })
+    }
+
+    usersCtrl.openChangePasswordModal = function () {
+      AuthModule.showModalChangePassword();
     }
   }
 

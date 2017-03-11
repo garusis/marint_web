@@ -9,11 +9,23 @@
                 <a href="javascript:void(0)" ng-click="uploadPhoto()"><i class="fa fa-pencil"></i></a>
                 <a href="javascript:void(0)" ng-click="removePhoto()"><i class="fa fa-times"></i></a>
               </div>
-              <img responsive-image="" sources="dataUser.image" is-thumbnail src-format="::$source|concatOrigin:'bucket'" alt="{{dataUser.name}} Profile">
+              <img responsive-image="" sources="dataUser.image" is-thumbnail
+                   src-format="::$source|concatOrigin:'bucket'" alt="{{dataUser.name}} Profile">
             </div>
             <div class="name">
               <h2>{{dataUser.name}} {{dataUser.surname}}</h2>
-              <a ui-sref="user.activity"><i class="fa fa-cogs"></i> Ver Actividad</a>
+              <div>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a ui-sref="user.activity">
+                  <i class="fa fa-cogs"></i>
+                  Ver Actividad
+                </a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="javascript:void(0)" ng-click="usersCtrl.openChangePasswordModal()">
+                  <i class="fa fa-lock"></i>
+                  Actualizar Contraseña
+                </a>
+              </div>
             </div>
 
           </div>
@@ -42,7 +54,8 @@
           <p>Manten actualizados tus datos, esto nos permitirá prestar un mejor servicio.</p>
         </div>
       </div>
-      <form class="col-md-12" name="userForm" ng-submit="userForm.$valid && !usersCtrl.vm.pending && usersCtrl.save(usersCtrl.vm.student)" novalidate>
+      <form class="col-md-12" name="userForm"
+            ng-submit="userForm.$valid && !usersCtrl.vm.pending && usersCtrl.save(usersCtrl.vm.student)" novalidate>
         <div class="col-md-12">
           <div class="warning-message" ng-show="userForm.$submitted && userForm.$invalid">
             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Por favor verifique los datos ingresados.
@@ -57,15 +70,17 @@
           <br/>
         </div>
         <div class="col-md-6">
-          <div class="form-group" ng-class="{'has-error':(userForm.$submitted || userForm.dni.$touched) && userForm.dni.$invalid}">
+          <div class="form-group"
+               ng-class="{'has-error':(userForm.$submitted || userForm.dni.$touched) && userForm.dni.$invalid}">
             <label>Cedula</label>
             <div class="error-block">
               <em><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Este campo no puede estar vacio</em>
             </div>
-            <input class="form-control" type="text" name="dni" ng-model="usersCtrl.vm.student.dni" required />
+            <input class="form-control" type="text" name="dni" ng-model="usersCtrl.vm.student.dni" required/>
           </div>
 
-          <div class="form-group" ng-class="{'has-error':(userForm.$submitted || userForm.name.$touched) && userForm.name.$invalid}">
+          <div class="form-group"
+               ng-class="{'has-error':(userForm.$submitted || userForm.name.$touched) && userForm.name.$invalid}">
             <label>Nombre</label>
             <div class="error-block">
               <em><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Este campo no puede estar vacio</em>
@@ -73,7 +88,8 @@
             <input class="form-control" type="text" name="name" ng-model="usersCtrl.vm.student.name" required/>
           </div>
 
-          <div class="form-group" ng-class="{'has-error':(userForm.$submitted || userForm.surname.$touched) && userForm.surname.$invalid}">
+          <div class="form-group"
+               ng-class="{'has-error':(userForm.$submitted || userForm.surname.$touched) && userForm.surname.$invalid}">
             <label>Apellidos</label>
             <div class="error-block">
               <em><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Este campo no puede estar vacio</em>
@@ -81,7 +97,8 @@
             <input class="form-control" type="text" name="surname" ng-model="usersCtrl.vm.student.surname" required/>
           </div>
 
-          <div class="form-group" ng-class="{'has-error':(userForm.$submitted || userForm.address.$touched) && userForm.address.$invalid}">
+          <div class="form-group"
+               ng-class="{'has-error':(userForm.$submitted || userForm.address.$touched) && userForm.address.$invalid}">
             <label>Dirección</label>
             <div class="error-block">
             </div>
@@ -89,48 +106,70 @@
           </div>
 
 
-          <div class="form-group" ng-class="{'has-error':(userForm.$submitted || userForm.cellphone.$touched) && userForm.cellphone.$invalid}">
+          <div class="form-group"
+               ng-class="{'has-error':(userForm.$submitted || userForm.cellphone.$touched) && userForm.cellphone.$invalid}">
             <label>Celular</label>
             <div class="error-block">
-              <em ng-show="userForm.cellphone.$error.maxlength"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> El numero no puede tener mas de 10 digitos</em>
-              <em ng-show="userForm.cellphone.$error.minlength"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> El numero no puede tener menos de 10 digitos</em>
-              <em ng-show="userForm.cellphone.$error.number"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> El valor ingresado debe ser un numero</em>
+              <em ng-show="userForm.cellphone.$error.maxlength"><i class="fa fa-exclamation-triangle"
+                                                                   aria-hidden="true"></i> El numero no puede tener mas
+                de 10 digitos</em>
+              <em ng-show="userForm.cellphone.$error.minlength"><i class="fa fa-exclamation-triangle"
+                                                                   aria-hidden="true"></i> El numero no puede tener
+                menos de 10 digitos</em>
+              <em ng-show="userForm.cellphone.$error.number"><i class="fa fa-exclamation-triangle"
+                                                                aria-hidden="true"></i> El valor ingresado debe ser un
+                numero</em>
             </div>
-            <input class="form-control" type="number" name="cellphone" ng-model="usersCtrl.vm.student.socialNetworks.cellphone" maxlength="10" minlength="10"/>
+            <input class="form-control" type="number" name="cellphone"
+                   ng-model="usersCtrl.vm.student.socialNetworks.cellphone" maxlength="10" minlength="10"/>
           </div>
 
         </div>
         <div class="col-md-6">
 
-          <div class="form-group" ng-class="{'has-error':(userForm.$submitted || userForm.whatsapp.$touched) && userForm.whatsapp.$invalid}">
+          <div class="form-group"
+               ng-class="{'has-error':(userForm.$submitted || userForm.whatsapp.$touched) && userForm.whatsapp.$invalid}">
             <label>WhatsApp</label>
             <div class="error-block">
-              <em ng-show="userForm.cellphone.$error.maxlength"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> El numero no puede tener mas de 10 digitos</em>
-              <em ng-show="userForm.cellphone.$error.minlength"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> El numero no puede tener menos de 10 digitos</em>
-              <em ng-show="userForm.cellphone.$error.number"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> El valor ingresado debe ser un numero</em>
+              <em ng-show="userForm.cellphone.$error.maxlength"><i class="fa fa-exclamation-triangle"
+                                                                   aria-hidden="true"></i> El numero no puede tener mas
+                de 10 digitos</em>
+              <em ng-show="userForm.cellphone.$error.minlength"><i class="fa fa-exclamation-triangle"
+                                                                   aria-hidden="true"></i> El numero no puede tener
+                menos de 10 digitos</em>
+              <em ng-show="userForm.cellphone.$error.number"><i class="fa fa-exclamation-triangle"
+                                                                aria-hidden="true"></i> El valor ingresado debe ser un
+                numero</em>
             </div>
-            <input class="form-control" type="text" name="whatsapp" ng-model="usersCtrl.vm.student.socialNetworks.whatsapp"/>
+            <input class="form-control" type="text" name="whatsapp"
+                   ng-model="usersCtrl.vm.student.socialNetworks.whatsapp"/>
           </div>
 
-          <div class="form-group" ng-class="{'has-error':(userForm.$submitted || userForm.facebook.$touched) && userForm.facebook.$invalid}">
+          <div class="form-group"
+               ng-class="{'has-error':(userForm.$submitted || userForm.facebook.$touched) && userForm.facebook.$invalid}">
             <label>Facebook</label>
             <div class="error-block">
             </div>
-            <input class="form-control" type="text" name="facebook" ng-model="usersCtrl.vm.student.socialNetworks.facebook"/>
+            <input class="form-control" type="text" name="facebook"
+                   ng-model="usersCtrl.vm.student.socialNetworks.facebook"/>
           </div>
 
-          <div class="form-group" ng-class="{'has-error':(userForm.$submitted || userForm.twitter.$touched) && userForm.twitter.$invalid}">
+          <div class="form-group"
+               ng-class="{'has-error':(userForm.$submitted || userForm.twitter.$touched) && userForm.twitter.$invalid}">
             <label>Twitter</label>
             <div class="error-block">
             </div>
-            <input class="form-control" type="text" name="whatsapp" ng-model="usersCtrl.vm.student.socialNetworks.twitter"/>
+            <input class="form-control" type="text" name="whatsapp"
+                   ng-model="usersCtrl.vm.student.socialNetworks.twitter"/>
           </div>
 
-          <div class="form-group" ng-class="{'has-error':(userForm.$submitted || userForm.description.$touched) && userForm.description.$invalid}">
+          <div class="form-group"
+               ng-class="{'has-error':(userForm.$submitted || userForm.description.$touched) && userForm.description.$invalid}">
             <label>Dinos algo sobre ti:</label>
             <div class="error-block">
             </div>
-            <textarea class="form-control" rows="5" name="description" ng-model="usersCtrl.vm.student.description"> </textarea>
+            <textarea class="form-control" rows="5" name="description"
+                      ng-model="usersCtrl.vm.student.description"> </textarea>
           </div>
 
           <div class="accent-button">
