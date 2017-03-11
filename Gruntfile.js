@@ -245,6 +245,7 @@ module.exports = function (grunt) {
 
   // Default task(s).
   grunt.registerTask('buildAssets', ['clean:development', 'copy:development', 'less:development', 'less:development_own']);
+  grunt.registerTask('heroku:production',["buildAssets"])
   grunt.registerTask('default', ['buildAssets', 'concurrent:watch']);
   //grunt.registerTask('default', ['clean:development', 'copy:development', 'less:development']);
   grunt.registerTask('production', ['uglify']);

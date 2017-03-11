@@ -96,7 +96,7 @@
                   <div class="courses clearfix" ng-show="courses" ng-repeat="c in courses">
                     <a ui-sref="courses.show({title:c.name,courseId:c.id,course:c})">
                       <div class="image col-md-3">
-                        <img ng-src="{{c.images._150x150}}">
+                        <img responsive-image="" sources="c.image" src-format="::$source|concatOrigin:'bucket'" is-thumbnail alt="">
                       </div>
                       <div class="col-md-9">
                         <h3><a ui-sref="courses.show({title:c.name,courseId:c.id,course:c})">{{c.name}}</a>
