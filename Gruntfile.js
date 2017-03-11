@@ -217,7 +217,7 @@ module.exports = function (grunt) {
           replacements: [
             {
               pattern: '<base href="http://localhost:8887/" target="_self">',
-              replacement: `<base href="${process.env.HOST_URL}" target="_self">`
+              replacement: `<base href="${process.env.HOST_URL}/" target="_self">`
             },
             {
               pattern: 'originsManagerProvider.setOrigin("base", "http://localhost:3000");',

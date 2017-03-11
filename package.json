@@ -9,6 +9,9 @@
     "Marcos Javier Alvarez Maestre <garusis@jarvigames.com>(http://jarvigames.com)",
     "Brigitte Carolina Guerrero Silvera <carolina.guerrero.silvera@gmail.com>(http://jarvigames.com)"
   ],
+  "scripts": {
+    "start": "node ."
+  },
   "engines": {
     "node": "6.1.0"
   },
