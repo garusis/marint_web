@@ -208,7 +208,7 @@
       html += "<li ng-click=\"first()\"><a href=\"javascript:void(0)\">" + paginator_label_first + "</a></li>"
       html += "<li ng-click=\"before()\"><a href=\"javascript:void(0)\">" + paginator_label_before + "</a></li>"
       html += "<li ng-click=\"setPage(page.pageIndex)\" ng-class=\"{active:page.isActive,hidden:!page.visible}\" ng-repeat=\"page in paginator_pages\">"
-      html += "<a href=\"javasscript:void(0)\">{{page.pageIndex+1}}</a>"
+      html += "<a href=\"javascript:void(0)\">{{page.pageIndex+1}}</a>"
       html += "</li>";
       html += "<li ng-click=\"next()\"><a href=\"javascript:void(0)\">" + paginator_label_next + "</a></li>"
       html += "<li ng-click=\"last()\"><a href=\"javascript:void(0)\">" + paginator_label_last + "</a></li>"
