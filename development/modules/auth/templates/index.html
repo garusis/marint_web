@@ -127,7 +127,7 @@
                 <i class="fa fa-quote-right"></i>
 
                 <p>{{::item.content}}</p>
-                <img ng-src="{{::item.photo}}" alt="{{::item.nameStudent}}">
+                <img ng-src="{{::item.photo|concatOrigin:'bucket'}}" alt="{{::item.nameStudent}}">
                 <h4>{{::item.nameStudent}}</h4>
                 <span>{{::item.occupation}}</span>
               </div>
