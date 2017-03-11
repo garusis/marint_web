@@ -74,7 +74,7 @@
           $scope.userForm.$setUntouched()
           $timeout(function () {
             usersCtrl.vm.success = false
-          }, 3000)
+          }, 10000)
         })
         .catch(function () {
           usersCtrl.vm.error = true
