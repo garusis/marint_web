@@ -198,9 +198,9 @@
         ]
       }
       return $http.get(this.basePath, {params: {filter: filter}})
-        .then(function (courses) {
-          debugger
-          _.forEach(courses, function (course) {
+        .then(function (response) {
+          relation.length = 0
+          _.forEach(response.data, function (course) {
             relation.__addToCache__(course)
           })
         });

@@ -28,10 +28,13 @@
     $scope.headerSources = headerSources;
     StudentService.getCurrent()
       .then(function (student) {
-        student.cursos = student.coursesStudent;
-
         $scope.student = student;
-        student.cursos.get()
+
+        student.coursesStudent.get()
+          .then(function () {
+            student.cursos = _.map(student.coursesStudent, "course")
+          });
+
 
         student.commentStudent
           .get()
