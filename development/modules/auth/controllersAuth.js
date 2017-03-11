@@ -140,10 +140,8 @@
 
         CourseService
           .loadCourses({
-            filter: {
-              order: "name DESC",
-              include: ['instructor']
-            }
+            order: "name DESC",
+            include: ['instructor']
           })
           .then(function (data) {
             $scope.courses = data;

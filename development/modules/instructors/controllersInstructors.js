@@ -32,10 +32,8 @@
 
     function loadCourses () {
       CourseService.loadCourses({
-        filter: {
-          where: {instructorId: $scope.instructor.id},
-          include: 'instructor'
-        }
+        where: {instructorId: $scope.instructor.id},
+        include: 'instructor'
       }).then(function (data) {
         $scope.courses = data;
       })

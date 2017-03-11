@@ -10,32 +10,18 @@
   service.$inject = ['Course', "ngDialog", "$q", "$http", "ROUTES", "originsManager", "$timeout"];
   function service (Course, ngDialog, $q, $http, ROUTES, originsManager, $timeout) {
     var __instance__ = this;
-    this.setImages = function (courses) {
-      if (Array.isArray(courses)) {
-        _.forEach(courses, function (course, i) {
-          i = i + 1
-          course.images = {
-            _150x150: "assets/images/cursos/cursos/150x150/" + i + ".jpg",
-            _370x240: "assets/images/cursos/cursos/370x240/" + i + ".jpg",
-            _770x410: "assets/images/cursos/cursos/770x410/" + i + ".jpg"
-          }
-        })
-      } else {
-        courses.images = {
-          _150x150: "assets/images/cursos/cursos/150x150/1.jpg",
-          _370x240: "assets/images/cursos/cursos/370x240/1.jpg",
-          _770x410: "assets/images/cursos/cursos/770x410/1.jpg"
-        }
+
+    this.loadCourses = function (filter) {
+      if(!filter){
+        filter={}
       }
-
-      return courses;
-    }
-
-    this.loadCourses = function (options) {
-      return Course.find(options)
+      if(!filter.include){
+        filter.include = []
+      }
+      filter.include.push("image")
+      return Course.find({filter:filter})
         .$promise
         .then(function (data) {
-          data = __instance__.setImages(data);
           _.forEach(data, function (course) {
             course.modules = new ModuleRelation(course)
           })
@@ -44,11 +30,17 @@
     }
 
     this.loadCourse = function (instance, filter) {
-      var promise = instance ? $q.resolve(instance) : Course.findOne(filter).$promise
+      if(!filter){
+        filter={}
+      }
+      if(!filter.include){
+        filter.include = []
+      }
+      filter.include.push("image")
+      var promise = instance ? $q.resolve(instance) : Course.findOne({filter:filter}).$promise
 
       return promise
         .then(function (data) {
-          data = __instance__.setImages(data);
           data.modules = new ModuleRelation(data)
           return data;
         })

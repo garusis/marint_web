@@ -40,11 +40,9 @@
       }
       order += ($scope.asc ? "ASC" : "DESC")
       CourseService.loadCourses({
-        filter: {
-          where: {isPublished: true},
-          order: order,
-          include: 'instructor'
-        }
+        where: {isPublished: true},
+        order: order,
+        include: 'instructor'
       }).then(function (data) {
         $scope.courses = data
         $scope.coursesOpt = data.map(function (v) {
@@ -53,8 +51,6 @@
         $scope.submitRequest.course = $scope.coursesOpt[0];
         $scope.loading = false;
       })
-
-
 
     }
 
@@ -85,10 +81,8 @@
       var promises = []
       promises[0] = CourseService
         .loadCourse($stateParams.course, {
-          filter: {
-            where: {isPublished: true, id: $stateParams.courseId},
-            include: ['instructor']
-          }
+          where: {isPublished: true, id: $stateParams.courseId},
+          include: ['instructor']
         })
         .then(function (data) {
           $scope.course = data
