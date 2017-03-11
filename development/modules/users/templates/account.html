@@ -132,7 +132,10 @@
           </div>
 
           <div class="accent-button">
-            <button ng-disabled="usersCtrl.vm.pending" type="submit">Actualizar Información</button>
+            <button ng-disabled="usersCtrl.vm.pending" type="submit">
+              <i class="fa fa-refresh" aria-hidden="true" ng-show="usersCtrl.vm.pending"></i>
+              Actualizar Información
+            </button>
           </div>
         </div>
 
