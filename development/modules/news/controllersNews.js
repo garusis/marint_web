@@ -110,10 +110,12 @@
         })
         .then(function (data) {
           $scope.new = data;
+          $scope.new.comments.get()
         })
 
     } else {
       $scope.new = $stateParams.new
+      $scope.new.comments.get()
     }
 
     $scope.comment = {}
