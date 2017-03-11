@@ -110,7 +110,6 @@
         })
         .then(function (data) {
           $scope.new = data;
-          console.log(data)
         })
 
     } else {
