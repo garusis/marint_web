@@ -41,7 +41,7 @@
         <h2 class="title">Tus cursos</h2>
         <div class="course clearfix" ng-repeat="curso in student.cursos">
           <a ui-sref="courses.show({title:curso.name,course:curso,courseId:curso.id})">
-            <img ng-src="{{curso.images._370x240}}" alt="">
+            <img responsive-image="" sources="curso.image" src-format="::$source|concatOrigin:'bucket'" is-thumbnail alt="">
           </a>
           <div class="description">
             <a href="javascript:void(0)" ui-sref="courses.show({title:curso.name,course:curso,courseId:curso.id})">

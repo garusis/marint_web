@@ -17,6 +17,8 @@
       }
       if(!filter.include){
         filter.include = []
+      }else if(_.isString(filter.include)){
+        filter.include = [filter.include]
       }
       filter.include.push("image")
       return Course.find({filter:filter})

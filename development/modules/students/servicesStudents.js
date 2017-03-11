@@ -161,7 +161,7 @@
     CourseStudentRelation.prototype = new Array()
 
     CourseStudentRelation.prototype.__addToCache__ = function (module) {
-      this.push(module)
+      this.push(this.__process__(module))
     }
 
     CourseStudentRelation.prototype.__process__ = function (courseStudent) {
@@ -183,18 +183,27 @@
     }
 
     CourseStudentRelation.prototype.get = function (filter) {
+      var relation = this
       if (!filter) {
         filter = {}
       }
       if (!filter.include) {
-        filter.include = [{
-          relation: "course",
-          scope: {
-            include: "instructor"
+        filter.include = [
+          {
+            relation: "course",
+            scope: {
+              include: ["instructor", "image"]
+            }
           }
-        }]
+        ]
       }
-      return $http.get(this.basePath, {params: {filter: filter}});
+      return $http.get(this.basePath, {params: {filter: filter}})
+        .then(function (courses) {
+          debugger
+          _.forEach(courses, function (course) {
+            relation.__addToCache__(course)
+          })
+        });
     }
 
     ModuleRelation.prototype = new Array()

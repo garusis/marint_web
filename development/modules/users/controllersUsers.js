@@ -28,15 +28,11 @@
     $scope.headerSources = headerSources;
     StudentService.getCurrent()
       .then(function (student) {
+        student.cursos = student.coursesStudent;
+
         $scope.student = student;
-        student.coursesStudent
-          .get()
-          .then(function (response) {
-            $scope.student.cursos = response.data.map(function (relation) {
-              return relation.course;
-            });
-            CourseService.setImages($scope.student.cursos)
-          })
+        student.cursos.get()
+
         student.commentStudent
           .get()
           .then(function (comments) {

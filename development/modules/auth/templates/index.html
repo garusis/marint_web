@@ -290,7 +290,7 @@
         <div id="owl-courses" owl="::coursesCarouselConfig">
           <div class="item course-item" owl-item="" ng-repeat="course in courses">
             <a ui-sref="courses.show({courseId:course.id,course:course,title:slug(course.name)})">
-              <img ng-src="{{course.images._370x240}}" alt="">
+              <img responsive-image="" sources="course.image" src-format="::$source|concatOrigin:'bucket'" is-thumbnail alt="">
             </a>
 
             <div class="down-content ">
