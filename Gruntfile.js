@@ -29,7 +29,7 @@ module.exports = function (grunt) {
       livereload: {
         files: [
           '/development/components/*', '/development/components/**/', '/development/components/**/*',
-          './development/modules/**/*.less', './development/modules/**/*.js','./development/modules/**/*.html'
+          './development/modules/**/*.less', './development/modules/**/*.js', './development/modules/**/*.html'
         ],
         tasks: [],
         options: {
@@ -210,13 +210,18 @@ module.exports = function (grunt) {
     'string-replace': {
       production: {
         files: {
-          './development/index.html': './development/index.html'
+          './development/index.html': './development/index.html',
+          './development/modules/bootstrap/configBootstrap.js': './development/modules/bootstrap/configBootstrap.js'
         },
         options: {
           replacements: [
             {
-              pattern: '<base href="http://localhost/marlininternacional_web/development/" target="_self">',
-              replacement: '<base href="http://marlininternaciona.com" target="_self">'
+              pattern: '<base href="http://localhost:8887/" target="_self">',
+              replacement: `<base href="${process.env.HOST_URL}" target="_self">`
+            },
+            {
+              pattern: 'originsManagerProvider.setOrigin("base", "http://localhost:3000");',
+              replacement: `originsManagerProvider.setOrigin("base", "${process.env.BACKEND_URL}");`
             }
           ]
         }
@@ -245,7 +250,7 @@ module.exports = function (grunt) {
 
   // Default task(s).
   grunt.registerTask('buildAssets', ['clean:development', 'copy:development', 'less:development', 'less:development_own']);
-  grunt.registerTask('heroku:production',["buildAssets"])
+  grunt.registerTask('heroku:production', ["buildAssets", "string-replace:production"])
   grunt.registerTask('default', ['buildAssets', 'concurrent:watch']);
   //grunt.registerTask('default', ['clean:development', 'copy:development', 'less:development']);
   grunt.registerTask('production', ['uglify']);
