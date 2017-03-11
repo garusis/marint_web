@@ -1,3 +1,4 @@
+'use strict'
 /**
  * Created by Marcos J. Alvarez on 20/12/2015.
  * @author Marcos J. Alvarez
@@ -16,20 +17,16 @@
     "large": "assets/images/usuario/banner_large.jpg",
     "xlarge": "assets/images/usuario/banner.jpg"
   };
-  function getCurrent(StudentService)
-  {
-    return StudentService.getCurrent();
-  }
 
   UserProfileController.$inject = ["$scope"]
-  function UserProfileController($scope) {
+  function UserProfileController ($scope) {
     $scope.headerSources = headerSources;
   }
 
-  UserActivityController.$inject = ["$scope",'StudentService',"CourseService"]
-  function UserActivityController($scope,StudentService,CourseService) {
+  UserActivityController.$inject = ["$scope", 'StudentService', "CourseService"]
+  function UserActivityController ($scope, StudentService, CourseService) {
     $scope.headerSources = headerSources;
-    getCurrent(StudentService)
+    StudentService.getCurrent()
       .then(function (student) {
         $scope.student = student;
         student.coursesStudent
@@ -52,13 +49,44 @@
 
   }
 
-  UserConfigurationController.$inject = ["$scope"]
-  function UserConfigurationController($scope) {
+  UserConfigurationController.$inject = ["$scope", "StudentService", "$timeout"]
+  function UserConfigurationController ($scope, StudentService, $timeout) {
+    var usersCtrl = this
+
+    usersCtrl.vm = {
+      success: false,
+      error: false,
+      pending: false
+    }
+
     $scope.headerSources = headerSources;
+    StudentService.getCurrent()
+      .then(function (student) {
+        usersCtrl.vm.student = student;
+      })
+
+    usersCtrl.save = function (student) {
+      usersCtrl.vm.pending = true
+      student.$save()
+        .then(function () {
+          usersCtrl.vm.success = true
+          $scope.userForm.$setPristine()
+          $scope.userForm.$setUntouched()
+          $timeout(function () {
+            usersCtrl.vm.success = false
+          }, 3000)
+        })
+        .catch(function () {
+          usersCtrl.vm.error = true
+        })
+        .finally(function () {
+          usersCtrl.vm.pending = false
+        })
+    }
   }
 
   module
-    .controller('UserProfileController',UserProfileController)
-    .controller('UserActivityController',UserActivityController)
-    .controller('UserConfigurationController',UserConfigurationController)
+    .controller('UserProfileController', UserProfileController)
+    .controller('UserActivityController', UserActivityController)
+    .controller('UserConfigurationController', UserConfigurationController)
 })(angular.module('jg.marlininternacional.users'));

@@ -22,8 +22,9 @@
           User.getCurrent()
             .then(function (user) {
               $rootScope.dataUser = user
-              if(user)
-              AuthModule.showModalChangePassword();
+              if (user.firstPassword) {
+                AuthModule.showModalChangePassword();
+              }
             });
           $rootScope.$emit('jg.marlininternacional::router::default');
         });

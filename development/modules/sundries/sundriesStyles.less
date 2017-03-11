@@ -112,3 +112,19 @@
         display:none;
     }
 }
+
+.form-group{
+  .error-block{
+    display: none;
+    margin: 10px 0;
+    em{
+      color: @second-color;
+    }
+  }
+
+  &.has-error{
+    .error-block{
+      display: block;
+    }
+  }
+}

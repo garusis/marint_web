@@ -472,4 +472,14 @@ a.show-comments {
 .my-publications .publication .description.publication-erased h6 {
   display: none;
 }
+.form-group .error-block {
+  display: none;
+  margin: 10px 0;
+}
+.form-group .error-block em {
+  color: #a12c2f;
+}
+.form-group.has-error .error-block {
+  display: block;
+}
 

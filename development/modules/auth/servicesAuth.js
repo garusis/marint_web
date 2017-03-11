@@ -13,36 +13,30 @@
         isLogin: function () {
 
         },
-        passwordWasChanged: function () {
-          return true;
-        },
         showModalChangePassword: function () {
-
-          if (!this.passwordWasChanged()) {
-
-            var controller = function ($scope) {
+          var controller = function ($scope) {
+            $scope.error = null;
+            $scope.data = {
+              psw: "",
+              psw2: ""
+            }
+            $scope.actualizarContrasena = function () {
               $scope.error = null;
-              $scope.data = {
-                psw: "",
-                psw2: ""
-              }
-              $scope.actualizarContrasena = function () {
-                $scope.error = null;
-                if ($scope.data.psw != $scope.data.psw2) {
-                  $scope.error = "Las contraseñas no coinciden"
-                }
+              if ($scope.data.psw != $scope.data.psw2) {
+                $scope.error = "Las contraseñas no coinciden"
               }
             }
-            controller.$inject = ["$scope"]
-            ngDialog.open({
-              template: 'modules/auth/templates/modals/change password.html',
-              className: 'ngdialog-theme-default changePasswordModal',
-              controller: controller
-            })
           }
+          controller.$inject = ["$scope"]
+          ngDialog.open({
+            template: 'modules/auth/templates/modals/change_password.html',
+            className: 'ngdialog-theme-default changePasswordModal',
+            controller: controller,
+            closeByEscape:false,
+            closeByDocument:false
+          })
         }
       }
-
     }
     this.$get.$inject = ["ngDialog", "$rootScope"];
   }
