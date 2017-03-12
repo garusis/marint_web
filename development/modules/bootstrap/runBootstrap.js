@@ -13,7 +13,7 @@
         $rootScope.slug = function (data) {
           return _.deburr(data).replace(/\W/g, " ").replace(/\s+/g, '_').substr(0, 40);
         };
-        $FB.init('322739587870116');
+        $FB.init("1006298296180905");
         $rootScope.$on('jg.overlay::addedOverlay', function (event, dataOverlay) {
           if (dataOverlay.id === 'login' && !$localStorage.noFirstTime) {
             overlay.requireOverlay('login');

@@ -233,7 +233,8 @@ module.exports = function (grunt) {
       production: {
         files: {
           './production/index.html': './development/index.html',
-          './development/modules/bootstrap/configBootstrap.js': './development/modules/bootstrap/configBootstrap.js'
+          './development/modules/bootstrap/configBootstrap.js': './development/modules/bootstrap/configBootstrap.js',
+          './development/modules/bootstrap/runBootstrap.js': './development/modules/bootstrap/runBootstrap.js'
         },
         options: {
           replacements: [
@@ -248,6 +249,10 @@ module.exports = function (grunt) {
             {
               pattern: '<script src="//localhost:35729/livereload.js"></script>',
               replacement: ""
+            },
+            {
+              pattern: '$FB.init("1006298296180905");',
+              replacement: `$FB.init("${process.env.FB_APP_ID}");`
             }
           ]
         }
