@@ -25,4 +25,4 @@
           controller: 'LogoutController'
         });
     }]);
-})(angular.module('jg.marlininternacional.auth', ['ui.router', 'ui.router.stateHelper']));
+})(angular.module('jg.marlininternacional'));

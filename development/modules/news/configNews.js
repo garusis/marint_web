@@ -31,4 +31,4 @@
           ]
         });
     }]);
-})(angular.module('jg.marlininternacional.news', ['ui.router', 'ui.router.stateHelper']));
+})(angular.module('jg.marlininternacional'));

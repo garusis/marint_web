@@ -7,8 +7,8 @@
  */
 ;!(function (module) {
   module
-    .run(['$rootScope', '$FB', '$localStorage', '$timeout', 'overlay', "Constants",
-      function ($rootScope, $FB, $localStorage, $timeout, overlay, Constants) {
+    .run(['$rootScope', "$state", "LoopBackAuth", '$FB', "StudentService", '$localStorage', '$timeout', 'overlay', "Constants","authmodule",
+      function ($rootScope, $state, Auth, $FB, User, $localStorage, $timeout, overlay, Constants,AuthModule) {
         $rootScope.multilanguageEnabled = false;
         $rootScope.slug = function (data) {
           return _.deburr(data).replace(/\W/g, " ").replace(/\s+/g, '_').substr(0, 40);
@@ -31,6 +31,38 @@
         $rootScope.$on('$stateChangeSuccess', function () {
           document.body.scrollTop = document.documentElement.scrollTop = 0;
         });
+
+        $rootScope.$on('jg.marlininternacional::router::default', function () {
+          if (User.isAuthenticated()) {
+            $state.go("user.activity", {redirect: true}, {reload: true});
+          } else {
+            $state.go('index', {redirect: true}, {reload: true});
+          }
+        });
+
+        $rootScope.$on('jg.marlininternacional::users::successLogin', function () {
+          $rootScope.dataAuth = Auth;
+          User.getCurrent()
+            .then(function (user) {
+              $rootScope.dataUser = user
+              if (user.firstPassword) {
+                AuthModule.showModalChangePassword();
+              }
+            });
+          $rootScope.$emit('jg.marlininternacional::router::default');
+        });
+
+        $rootScope.$on('jg.marlininternacional::users::logout', function () {
+          User.logout();
+          delete $rootScope.dataAuth;
+          delete $rootScope.dataUser;
+          $rootScope.$emit('jg.marlininternacional::router::default');
+        });
+
+        if (Auth.accessTokenId) {
+          $rootScope.$emit('jg.marlininternacional::users::successLogin');
+        }
+
 
         Constants.load()
       }]);

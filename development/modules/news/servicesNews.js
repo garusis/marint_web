@@ -79,6 +79,6 @@
   }
 
   module.service('NewsService', service)
-})(angular.module('jg.marlininternacional.news'));
+})(angular.module('jg.marlininternacional'));
 
 

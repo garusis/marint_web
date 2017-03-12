@@ -26,4 +26,4 @@
         };
       }
     ]);
-})(angular.module('jg.marlininternacional.utilities'));
+})(angular.module('jg.marlininternacional'));

@@ -5,8 +5,7 @@
  * @email celisconstantino01@gmail.com
  * @version 0.0.1
  */
-;
-!(function (module) {
+;(function (module) {
   StudentService.$inject = ['Student', "LoopBackAuth", "$q", "$http", "ROUTES", "originsManager", "NewsService"];
   function StudentService (Student, LoopBackAuth, $q, $http, ROUTES, originsManager, NewsService) {
     var studentService = this
@@ -302,6 +301,6 @@
   }
 
   module.service('StudentService', StudentService)
-})(angular.module('jg.marlininternacional.students', []));
+})(angular.module('jg.marlininternacional'));
 
 

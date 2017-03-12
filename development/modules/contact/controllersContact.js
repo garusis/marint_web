@@ -144,4 +144,4 @@
     .controller('CourseInfoRequestController', CourseInfoRequestController)
     .controller('InstructorContactController', InstructorContactController)
     .controller('MaestrosController', maestrosController)
-})(angular.module('jg.marlininternacional.contact'));
+})(angular.module('jg.marlininternacional'));

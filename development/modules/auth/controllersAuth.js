@@ -162,4 +162,4 @@
           }
         })
       }]);
-})(angular.module('jg.marlininternacional.auth'));
+})(angular.module('jg.marlininternacional'));
