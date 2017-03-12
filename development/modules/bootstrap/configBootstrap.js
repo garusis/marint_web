@@ -25,7 +25,7 @@
     .config(["originsManagerProvider", "$localStorageProvider", function (originsManagerProvider, $localStorageProvider) {
       originsManagerProvider.config();
       //originsManagerProvider.setOrigin("base","https://mibackend.herokuapp.com");
-      originsManagerProvider.setOrigin("base", "http://localhost:3000");
+      originsManagerProvider.setOrigin("base", "https://mibackend.herokuapp.com");
       originsManagerProvider.setOrigin("origin", originsManagerProvider.getOrigin("base") + "/api");
       originsManagerProvider.setOrigin("bucket", "http://s3-sa-east-1.amazonaws.com/marlininternacional");
     }])
