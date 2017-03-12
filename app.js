@@ -6,7 +6,10 @@ const compression = require("compression")
 const favicon = require('serve-favicon')
 let app = express()
 
-let dirEnv = process.env.NODE_ENV || "development"
+let dirEnv = "development"
+if(process.env.NODE_ENV === "staging" || process.env.NODE_ENV === "production" ){
+  dirEnv = "production"
+}
 
 app.use(compression())
 app.use(favicon(path.join(__dirname, dirEnv, "assets", "images", "favicon.ico")))
