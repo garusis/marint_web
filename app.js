@@ -2,6 +2,8 @@
 const express = require('express');
 let app = express();
 
+let dirEnv = process.env.NODE_ENV || 'development'
+
 app.use(/.*\.map$/i, function (req, res) {
   res.sendStatus(404)
 });

@@ -3,6 +3,9 @@ development/components
 development/assets/fonts/*
 development/assets/stylesheets/educa.css
 development/assets/stylesheets/modules.css
+production/**/*
+!production
+!production/assets
 node_modules
 .idea
 nbproject

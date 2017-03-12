@@ -1,5 +1,9 @@
+'use strict'
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
+  const fs = require("fs")
+
+  let filesToUglify = []
 
   // Project configuration.
   grunt.initConfig({
@@ -161,8 +165,8 @@ module.exports = function (grunt) {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       development: {
-        src: 'src/<%= pkg.name %>.js',
-        dest: 'build/<%= pkg.name %>.min.js'
+        src: filesToUglify,
+        dest: 'production/assets/scripts.min.js'
       }
     },
     injector: {
@@ -210,8 +214,8 @@ module.exports = function (grunt) {
     'string-replace': {
       production: {
         files: {
-          './development/index.html': './development/index.html',
-          './development/modules/bootstrap/configBootstrap.js': './development/modules/bootstrap/configBootstrap.js'
+          './development/index.html': './production/index.html',
+          './production/modules/bootstrap/configBootstrap.js': './development/modules/bootstrap/configBootstrap.js'
         },
         options: {
           replacements: [
@@ -222,6 +226,10 @@ module.exports = function (grunt) {
             {
               pattern: 'originsManagerProvider.setOrigin("base", "http://localhost:3000");',
               replacement: `originsManagerProvider.setOrigin("base", "${process.env.BACKEND_URL}");`
+            },
+            {
+              pattern: '<script src="//localhost:35729/livereload.js"></script>',
+              replacement: ""
             }
           ]
         }
@@ -248,10 +256,13 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-string-replace');
   grunt.loadNpmTasks('grunt-concurrent');
 
+  grunt.registerTask("ugly-scrips", function () {
+    let indexFile = fs.readFileSync("development/index.html")
+    console.log(indexFile)
+  })
+
   // Default task(s).
   grunt.registerTask('buildAssets', ['clean:development', 'copy:development', 'less:development', 'less:development_own']);
-  grunt.registerTask('heroku:production', ["buildAssets", "string-replace:production"])
+  grunt.registerTask('heroku:production', ["buildAssets", "string-replace:production", "ugly-scrips"])
   grunt.registerTask('default', ['buildAssets', 'concurrent:watch']);
-  //grunt.registerTask('default', ['clean:development', 'copy:development', 'less:development']);
-  grunt.registerTask('production', ['uglify']);
 };
