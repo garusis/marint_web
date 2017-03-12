@@ -3,7 +3,7 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
   const fs = require("fs")
 
-  let filesToUglify = [], jsToConcat = [], cssToConcat = []
+  let jsToUglify = [], jsPaths=[], jsToConcat = [], cssToConcat = []
 
   // Project configuration.
   grunt.initConfig({
@@ -146,9 +146,14 @@ module.exports = function (grunt) {
       },
       production: {
         files: [
-          {expand: true, cwd: "development/assets/fonts", src: ['**/*'], dest: './production/assets/fonts/'},
+          {expand: true, cwd: "./development/assets/fonts", src: ['**/*'], dest: './production/assets/fonts/'},
           {expand: true, cwd: "./development/assets/images", src: ['**/*'], dest: './production/assets/images/'},
           {expand: true, cwd: "./development/modules", src: ['**/*.html'], dest: './production/modules/'}
+        ]
+      },
+      staging: {
+        files: [
+          {expand: true, cwd: "./development", src: jsPaths, dest: './staging/'}
         ]
       }
     },
@@ -158,10 +163,10 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            src: filesToUglify,
-            dest: 'pre-production/',
+            src: jsToUglify,
+            dest: 'staging/',
             rename: function (dst, src) {
-              return dst+"/"+src.replace(/development\//, "");
+              return dst + "/" + src.replace(/development\//, "");
             }
           }
         ]
@@ -169,7 +174,7 @@ module.exports = function (grunt) {
     },
     concat: {
       options: {
-        process: (src, filepath)=> `//Filename: '${filepath}'\n${src};\n\n`
+        process: (src, filepath) => `//Filename: '${filepath}'\n${src};\n\n`
       },
       production: {
         src: jsToConcat,
@@ -308,8 +313,9 @@ module.exports = function (grunt) {
     let injectorSegment = indexFile.match(/<!-- injector:js -->((.|\n)*)<!-- endinjector:js -->/)[0]
     injectorSegment.match(/src="(.*)"/g).forEach(function (src) {
       src = src.replace(/src="(.*)"/, "$1")
-      filesToUglify.push(`development/${src}`)
-      jsToConcat.push(`pre-production/${src}`)
+      jsPaths.push(src)
+      jsToUglify.push(`development/${src}`)
+      jsToConcat.push(`staging/${src}`)
     })
 
     injectorSegment = indexFile.match(/<!-- injector:css -->((.|\n)*)<!-- endinjector:css -->/)[0]
@@ -322,6 +328,7 @@ module.exports = function (grunt) {
   grunt.registerTask('buildAssets', ['clean:development', 'copy:development', 'less:development', 'less:development_own']);
   grunt.registerTask('heroku:production', ["buildAssets", "string-replace:production", "ugly-scripts", "uglify:production", "concat:production", "cssmin:production", "injector:production", "copy:production"])
   grunt.registerTask('heroku:development', ["buildAssets", "string-replace:development", "ugly-scripts", "uglify:production", "concat:production", "cssmin:production", "injector:production", "copy:production"])
-  grunt.registerTask('test', ["ugly-scripts", "cssmin:production"])
+  grunt.registerTask('heroku:staging', ["buildAssets", "string-replace:development", "ugly-scripts", "copy:staging", "concat:production", "cssmin:production", "injector:production", "copy:production"])
+
   grunt.registerTask('default', ['buildAssets', 'concurrent:watch']);
 };

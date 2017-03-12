@@ -4,8 +4,7 @@ development/assets/fonts/*
 development/assets/stylesheets/educa.css
 development/assets/stylesheets/modules.css
 production/**/*
-!production
-pre-production/**/*
+staging/**/*
 node_modules
 .idea
 nbproject
