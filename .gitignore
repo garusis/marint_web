@@ -5,6 +5,7 @@ development/assets/stylesheets/educa.css
 development/assets/stylesheets/modules.css
 production/**/*
 !production
+pre-production/**/*
 node_modules
 .idea
 nbproject
