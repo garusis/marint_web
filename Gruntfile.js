@@ -3,7 +3,7 @@ module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
   const fs = require("fs")
 
-  let filesToUglify = []
+  let filesToUglify = [], cssToConcat = []
 
   // Project configuration.
   grunt.initConfig({
@@ -144,6 +144,13 @@ module.exports = function (grunt) {
           }
         ]
       },
+      production: {
+        files: [
+          {expand: true, cwd: "development/assets/fonts", src: ['**/*'], dest: './production/assets/fonts/'},
+          {expand: true, cwd: "./development/assets/images", src: ['**/*'], dest: './production/assets/images/'},
+          {expand: true, cwd: "./development/modules", src: ['**/*.html'], dest: './production/modules/'}
+        ]
+      },
       example: {
         files: [
           // includes files within path
@@ -164,17 +171,27 @@ module.exports = function (grunt) {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
-      development: {
+      production: {
         src: filesToUglify,
         dest: 'production/assets/scripts.min.js'
       }
     },
+    concat_css: {
+      options: {},
+      all: {
+        src: cssToConcat,
+        dest: "production/assets/styles.min.css"
+      }
+    },
     injector: {
       options: {
-        // Task-specific options go here.
+        addRootSlash: false,
+        ignorePath: "production/"
       },
-      development: {
-        // Target-specific file lists and/or options go here.
+      production: {
+        files: {
+          'production/index.html': ['production/**/*.js', 'production/**/*.css'],
+        }
       }
     },
     less: {
@@ -213,6 +230,28 @@ module.exports = function (grunt) {
     },
     'string-replace': {
       production: {
+        files: {
+          './production/index.html': './development/index.html',
+          './development/modules/bootstrap/configBootstrap.js': './development/modules/bootstrap/configBootstrap.js'
+        },
+        options: {
+          replacements: [
+            {
+              pattern: '<base href="http://localhost:8887/" target="_self">',
+              replacement: `<base href="${process.env.HOST_URL}/" target="_self">`
+            },
+            {
+              pattern: 'originsManagerProvider.setOrigin("base", "http://localhost:3000");',
+              replacement: `originsManagerProvider.setOrigin("base", "${process.env.BACKEND_URL}");`
+            },
+            {
+              pattern: '<script src="//localhost:35729/livereload.js"></script>',
+              replacement: ""
+            }
+          ]
+        }
+      },
+      development: {
         files: {
           './production/index.html': './development/index.html',
           './production/modules/bootstrap/configBootstrap.js': './development/modules/bootstrap/configBootstrap.js'
@@ -255,18 +294,24 @@ module.exports = function (grunt) {
   // para posiblemente reemplazar los valores del originsManager en desarrollo con los de produccion.
   grunt.loadNpmTasks('grunt-string-replace');
   grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-concat-css');
 
-  grunt.registerTask("ugly-scrips", function () {
+  grunt.registerTask("ugly-scripts", function () {
     let indexFile = fs.readFileSync("development/index.html", "utf-8");
-    let injectorSegment = indexFile.match(/<!--injector:js-->((.|\n)*)<!--endinjector-->/g)[0]
-    let srcFiles = injectorSegment.match(/src="(.*)"/g).forEach(function (src) {
+    let injectorSegment = indexFile.match(/<!-- injector:js -->((.|\n)*)<!-- endinjector:js -->/)[0]
+    injectorSegment.match(/src="(.*)"/g).forEach(function (src) {
       filesToUglify.push(src.replace(/src="(.*)"/, "development/$1"))
+    })
+
+    injectorSegment = indexFile.match(/<!-- injector:css -->((.|\n)*)<!-- endinjector:css -->/)[0]
+    injectorSegment.match(/href="(.*)"/g).forEach(function (src) {
+      cssToConcat.push(src.replace(/href="(.*)"/, "development/$1"))
     })
   })
 
   // Default task(s).
   grunt.registerTask('buildAssets', ['clean:development', 'copy:development', 'less:development', 'less:development_own']);
-  //grunt.registerTask('heroku:production', ["buildAssets", "string-replace:production", "ugly-scrips"])
-  grunt.registerTask('heroku:production', ["ugly-scrips", "uglify:development"])
+  grunt.registerTask('heroku:production', ["buildAssets", "string-replace:production", "ugly-scripts", "uglify:production", "concat_css", "injector:production", "copy:production"])
+  grunt.registerTask('heroku:development', ["buildAssets", "string-replace:development", "ugly-scripts", "uglify:production", "concat_css", "injector:production", "copy:production"])
   grunt.registerTask('default', ['buildAssets', 'concurrent:watch']);
 };

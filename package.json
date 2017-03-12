@@ -23,6 +23,7 @@
     "angular-slick-carousel": "^3.1.5",
     "express": "^4.14.1",
     "grunt": "^1.0.1",
+    "grunt-concat-css": "^0.3.1",
     "grunt-concurrent": "^2.2.1",
     "grunt-contrib-clean": "^0.7.0",
     "grunt-contrib-copy": "^0.8.2",

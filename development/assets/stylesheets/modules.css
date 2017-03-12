@@ -504,3 +504,44 @@ a.show-comments {
   animation: spin 1s linear infinite;
 }
 
+
+ul.paginator {
+  margin: 13px 15px;
+  list-style: none;
+  float: left;
+  padding: 0;
+}
+paginator:after,
+paginator:before,
+ul.paginator:after,
+ul.paginator:before {
+  content: "";
+  display: table;
+  clear: both;
+}
+ul.paginator li:first-child {
+  border-left: none ! important;
+}
+ul.paginator li {
+  float: left;
+  padding: 7px 11px;
+  cursor: pointer;
+  margin-right: 10px;
+  box-shadow: 3px 2px 5px rgba(0, 0, 0, 0.07);
+}
+ul.paginator li.active {
+  background: #a12c2f;
+}
+ul.paginator li.hidden {
+  display: none;
+}
+ul.paginator li a {
+  color: #a12c2f;
+  text-transform: capitalize;
+}
+ul.paginator li.active a {
+  color: #FFF;
+}
+ul.paginator li a:hover {
+  text-decoration: none;
+}
