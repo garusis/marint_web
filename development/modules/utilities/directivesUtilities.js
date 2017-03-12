@@ -27,7 +27,7 @@
         scope: {
           owl: '=?'
         },
-        controller: function ($scope, $element) {
+        controller: ["$scope", "$element",function ($scope, $element) {
           var owl;
           this.initOwl = function () {
             if (owl) {
@@ -36,7 +36,7 @@
             $element.owlCarousel($scope.owl);
             owl = $element.data('owlCarousel');
           };
-        },
+        }],
         link: function (scope, element, attrs) {
           element.addClass("owl-carousel");
           if (!scope.owl) {

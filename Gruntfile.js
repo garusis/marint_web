@@ -214,7 +214,7 @@ module.exports = function (grunt) {
     'string-replace': {
       production: {
         files: {
-          './development/index.html': './production/index.html',
+          './production/index.html': './development/index.html',
           './production/modules/bootstrap/configBootstrap.js': './development/modules/bootstrap/configBootstrap.js'
         },
         options: {
@@ -257,12 +257,16 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-concurrent');
 
   grunt.registerTask("ugly-scrips", function () {
-    let indexFile = fs.readFileSync("development/index.html")
-    console.log(indexFile)
+    let indexFile = fs.readFileSync("development/index.html", "utf-8");
+    let injectorSegment = indexFile.match(/<!--injector:js-->((.|\n)*)<!--endinjector-->/g)[0]
+    let srcFiles = injectorSegment.match(/src="(.*)"/g).forEach(function (src) {
+      filesToUglify.push(src.replace(/src="(.*)"/, "development/$1"))
+    })
   })
 
   // Default task(s).
   grunt.registerTask('buildAssets', ['clean:development', 'copy:development', 'less:development', 'less:development_own']);
-  grunt.registerTask('heroku:production', ["buildAssets", "string-replace:production", "ugly-scrips"])
+  //grunt.registerTask('heroku:production', ["buildAssets", "string-replace:production", "ugly-scrips"])
+  grunt.registerTask('heroku:production', ["ugly-scrips", "uglify:development"])
   grunt.registerTask('default', ['buildAssets', 'concurrent:watch']);
 };
