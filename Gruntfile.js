@@ -153,9 +153,7 @@ module.exports = function (grunt) {
       }
     },
     uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.file.path %> */\n'
-      },
+      options: {},
       production: {
         files: [
           {
@@ -171,7 +169,7 @@ module.exports = function (grunt) {
     },
     concat: {
       options: {
-        separator: ';\n\n',
+        process: (src, filepath)=> `//Filename: '${filepath}'\n${src};\n\n`
       },
       production: {
         src: jsToConcat,
