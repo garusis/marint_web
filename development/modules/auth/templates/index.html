@@ -235,7 +235,7 @@
           <div class="widget-heading">
             <h4>Solicita Información</h4>
           </div>
-          <form name="contactForm" ng-submit="contactForm.$valid && contactCtrl.submit(contactCtrl.vm.data)"
+          <form name="contactForm" ng-submit="contactForm.$valid && contactCtrl.submit(contactCtrl.vm.data, contactCtrl.vm.selectedCourse)"
                 class="search-form" novalidate>
             <br/>
             <div class="warning-message" ng-show="contactForm.$submitted && contactForm.$invalid">
