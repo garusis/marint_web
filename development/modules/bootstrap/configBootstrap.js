@@ -53,7 +53,7 @@
       ngMetaProvider.setDefaultTag('description', 'Marlin Coach Intl. es una empresa Colombiana dedicada al apoyo y ' +
         'orientación del desarrollo y crecimiento del ser humano, como un ser integral en todas sus áreas ' +
         '(Cognitiva-Intelectual, Social, Espiritual, Emocional y Corporal-Salud).');
-      ngMetaProvider.setDefaultTag('image', "https://s3-sa-east-1.amazonaws.com/marlininternacional/emails/new_logo.jpg")
+      ngMetaProvider.setDefaultTag('image', "emails/new_logo.jpg")
       ngMetaProvider.setDefaultTag('type', "website")
       ngMetaProvider.setDefaultTag('fbId', "$$FB_ID$$")
       ngMetaProvider.setDefaultTag('publisher', "https://www.facebook.com/marlininternacional")

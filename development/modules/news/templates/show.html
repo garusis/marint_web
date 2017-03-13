@@ -19,7 +19,7 @@
                   <li><i class="fa fa-angle-right"></i></li>
                   <li><a ui-sref="news">Publicaciones</a></li>
                   <li><i class="fa fa-angle-right"></i></li>
-                  <li><a ui-sref="news">{{new .title| truncate:20:'...':true}}</a></li>
+                  <li><a ui-sref="news">{{new.title| truncate:20:'...':true}}</a></li>
                 </ul>
               </div>
             </div>
@@ -39,7 +39,7 @@
                     <li>Autor: <em>{{new .instructor.name}}</em></li>
                     <li>Comentarios: <em>{{new .comments.length}}</em></li>
                   </ul>
-                  <h4>{{new .title}}</h4>
+                  <h4>{{new.title}}</h4>
 
                   <div class="text-justify" ng-bind-html="(new.content | cleanStringSpaces)">
 

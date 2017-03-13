@@ -106,10 +106,14 @@
     function postLoad(publication){
       $scope.new = publication
       $scope.new.comments.get()
+      ngMeta.setTag("title", publication.title)
+      ngMeta.setTag("description", publication.description)
+      ngMeta.setTag("image", publication.image.original)
       ngMeta.setTag("type", "article")
       ngMeta.setTag("publishedAt", publication.publishedAt)
       ngMeta.setTag("tags", publication.tags)
       ngMeta.setTag("author", publication.instructor.socialNetworks.facebook)
+      console.log(publication)
     }
 
     if (!$stateParams.new) {

@@ -14,7 +14,7 @@
   <meta name="image" content="{{ngMeta.image}}"/>
 
   <meta property="fb:app_id" content="{{ngMeta.fbId}}">
-  <meta property="og:image" content="{{ngMeta.image}}"/>
+  <meta property="og:image" content="{{ngMeta.image | concatOrigin:'bucket'}}"/>
   <meta property="og:title" content="{{ngMeta.title}}" />
   <meta property="og:description" content="{{ngMeta.description}}" />
   <meta property="og:url" content="{{ngMeta.url}}" />
