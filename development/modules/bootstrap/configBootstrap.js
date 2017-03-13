@@ -46,7 +46,18 @@
       vcRecaptchaServiceProvider.setLang('es')
     }]);
 })(angular.module('jg.marlininternacional', [
-  'lbServices', 'ui.router',
+  "jg.marlininternacional.auth",
+  "jg.marlininternacional.news",
+  "jg.marlininternacional.courses",
+  "jg.marlininternacional.modules",
+  "jg.marlininternacional.contact",
+  "jg.marlininternacional.students",
+  "jg.marlininternacional.users",
+  "jg.marlininternacional.instructors",
+  "jg.marlininternacional.utilities",
+  "jg.marlininternacional.constants",
+  'lbServices',
+  'ui.router',
   'ui.router.stateHelper',
   'ngStorage',
   'slickCarousel',

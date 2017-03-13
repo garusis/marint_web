@@ -2,7 +2,8 @@
 /**
  * Created by garusis on 24/02/17.
  */
-;(function (module) {
+;
+(function (module) {
   module.constant("ROUTES", {
     COURSES: {
       __BASE__: "courses",
@@ -66,4 +67,4 @@
       }
     }
   }]);
-})(angular.module("jg.marlininternacional"));
+})(angular.module("jg.marlininternacional.constants", []));

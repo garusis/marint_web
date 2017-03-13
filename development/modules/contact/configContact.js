@@ -17,4 +17,4 @@
           controllerAs: 'contactCtrl'
         });
     }]);
-})(angular.module('jg.marlininternacional'));
+})(angular.module('jg.marlininternacional.contact', ["ui.router.stateHelper","jg.marlininternacional.constants"]));

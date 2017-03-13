@@ -15,7 +15,7 @@
           templateUrl: 'modules/auth/templates/index.html',
           controller: 'IndexPublicController',
           controllerAs: 'authIPCtrl',
-          params:{
+          params: {
             redirect: false
           }
         })
@@ -25,4 +25,4 @@
           controller: 'LogoutController'
         });
     }]);
-})(angular.module('jg.marlininternacional'));
+})(angular.module('jg.marlininternacional.auth', ["ui.router.stateHelper","jg.marlininternacional.constants"]));

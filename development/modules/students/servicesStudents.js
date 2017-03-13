@@ -301,6 +301,6 @@
   }
 
   module.service('StudentService', StudentService)
-})(angular.module('jg.marlininternacional'));
+})(angular.module('jg.marlininternacional.students', ["jg.marlininternacional.constants"]));
 
 

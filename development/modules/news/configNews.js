@@ -31,4 +31,4 @@
           ]
         });
     }]);
-})(angular.module('jg.marlininternacional'));
+})(angular.module('jg.marlininternacional.news', ["ui.router.stateHelper","jg.marlininternacional.constants"]));

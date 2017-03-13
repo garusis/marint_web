@@ -127,4 +127,4 @@
 
   module.controller('ListCourseController', ListCourseController)
     .controller('ShowCourseController', ShowCourseController);
-})(angular.module('jg.marlininternacional'));
+})(angular.module('jg.marlininternacional.courses'));

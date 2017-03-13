@@ -137,6 +137,6 @@
   }
 
   module.service('CourseService', service)
-})(angular.module('jg.marlininternacional'));
+})(angular.module('jg.marlininternacional.courses'));
 
 

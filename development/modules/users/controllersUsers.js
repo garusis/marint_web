@@ -110,4 +110,4 @@
     .controller('UserProfileController', UserProfileController)
     .controller('UserActivityController', UserActivityController)
     .controller('UserConfigurationController', UserConfigurationController)
-})(angular.module('jg.marlininternacional'));
+})(angular.module('jg.marlininternacional.users'));

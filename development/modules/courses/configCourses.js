@@ -32,4 +32,4 @@
           ]
         });
     }]);
-})(angular.module('jg.marlininternacional'));
+})(angular.module('jg.marlininternacional.courses', ["ui.router.stateHelper","jg.marlininternacional.constants"]));

@@ -68,4 +68,4 @@
   module
     .controller('ListInstructorsController', ListInstructorsController)
     .controller('ShowInstructorsController', ShowInstructorController);
-})(angular.module('jg.marlininternacional'));
+})(angular.module('jg.marlininternacional.instructors'));

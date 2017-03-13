@@ -27,6 +27,6 @@
   }
 
   module.provider('authmodule', AuthProvider)
-})(angular.module('jg.marlininternacional'));
+})(angular.module('jg.marlininternacional.auth'));
 
 

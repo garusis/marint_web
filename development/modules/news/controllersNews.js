@@ -189,4 +189,4 @@
   module
     .controller('ListPublicationController', ListPublicationController)
     .controller('ShowPublicationController', ShowPublicationController);
-})(angular.module('jg.marlininternacional'));
+})(angular.module('jg.marlininternacional.news'));

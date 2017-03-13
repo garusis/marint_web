@@ -61,4 +61,4 @@
       }]);
 
     }]);
-})(angular.module('jg.marlininternacional'));
+})(angular.module('jg.marlininternacional.utilities', ["ngStorage", "com.alphonsegs.mvonload", "com.alphonsegs.paginator"]));

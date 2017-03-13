@@ -42,4 +42,4 @@
 
   module
     .controller('ShowModuleController', ShowModuleController);
-})(angular.module('jg.marlininternacional'));
+})(angular.module('jg.marlininternacional.modules'));
