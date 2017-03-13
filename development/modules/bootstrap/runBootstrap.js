@@ -22,6 +22,7 @@
           }
         });
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+          ngMeta.setTag('type', 'website')
           if (toState.name == 'index' || toState.name == 'user.activity') {
             if (!toParams.redirect) {
               event.preventDefault()
