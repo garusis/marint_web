@@ -44,8 +44,8 @@
   module
     .controller('LoginController', LoginController)
     .controller('LogoutController', LogoutController)
-    .controller('IndexPublicController', ['$scope', 'Testimony', 'Publication', 'CourseService',
-      function ($scope, Testimony, Publication, CourseService) {
+    .controller('IndexPublicController', ['$scope', 'Testimony', 'NewsService', 'CourseService',
+      function ($scope, Testimony, NewsService, CourseService) {
 
         $scope.showVideo = function (video) {
           CourseService.showModalVideo(video)
@@ -151,7 +151,7 @@
           list: []
         };
 
-        $scope.publications.list = Publication.find({
+        NewsService.loadPublications({
           filter: {
             where: {
               isPublished: true
@@ -161,5 +161,8 @@
             include: ['instructor', 'image']
           }
         })
+          .then(function (publications) {
+            $scope.publications.list = publications
+          })
       }]);
 })(angular.module('jg.marlininternacional.auth'));
