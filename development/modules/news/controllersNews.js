@@ -1,3 +1,4 @@
+"use strict"
 /**
  * Created by Marcos J. Alvarez on 20/12/2015.
  * @author Marcos J. Alvarez
@@ -88,7 +89,9 @@
   };
   ListPublicationController.$inject = ['$scope', 'NewsService', "$state"];
 
-  var ShowPublicationController = function ($scope, $stateParams, $location, NewsService, $state, StudentService, $timeout) {
+  ShowPublicationController.$inject = ['$scope', '$stateParams', '$location', 'NewsService', '$state', 'StudentService',
+    '$timeout', "ngMeta"];
+  function ShowPublicationController ($scope, $stateParams, $location, NewsService, $state, StudentService, $timeout, ngMeta) {
     $scope.headerSources = headerSources;
     $scope.location = $location.absUrl();
     $scope.loadingRecentNews = true;
@@ -100,6 +103,15 @@
       $scope.userIsAuthenticated = true;
     })
 
+    function postLoad(publication){
+      $scope.new = publication
+      $scope.new.comments.get()
+      ngMeta.setTag("type", "article")
+      ngMeta.setTag("publishedAt", publication.publishedAt)
+      ngMeta.setTag("tags", publication.tags)
+      ngMeta.setTag("author", publication.instructor.socialNetworks.facebook)
+    }
+
     if (!$stateParams.new) {
       NewsService
         .loadPublication({
@@ -108,14 +120,10 @@
             include: ['instructor', 'comments', 'image']
           }
         })
-        .then(function (data) {
-          $scope.new = data;
-          $scope.new.comments.get()
-        })
+        .then(postLoad)
 
     } else {
-      $scope.new = $stateParams.new
-      $scope.new.comments.get()
+      postLoad($stateParams.new)
     }
 
     $scope.comment = {}
@@ -184,7 +192,7 @@
     $scope.loadRecentNews()
 
   };
-  ShowPublicationController.$inject = ['$scope', '$stateParams', '$location', 'NewsService', '$state', 'StudentService', '$timeout'];
+
 
   module
     .controller('ListPublicationController', ListPublicationController)
