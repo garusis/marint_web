@@ -105,7 +105,8 @@
                       </div>
                     </div>
                     <div ng-if="!dataUser" class="row">
-                      <div class="col-md-12">
+                      <input type="hidden" name="fake" ng-if="!APP_CONSTANTS.RECAPTCHA_KEY.value" ng-model="comment.gRecaptchaResponse" required>
+                      <div ng-if="APP_CONSTANTS.RECAPTCHA_KEY.value" class="col-md-12">
                         <div vc-recaptcha key="APP_CONSTANTS.RECAPTCHA_KEY.value" ng-model="comment.gRecaptchaResponse" required=""></div>
                       </div>
                     </div>

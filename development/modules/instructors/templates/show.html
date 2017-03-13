@@ -53,7 +53,8 @@
                     <textarea ng-model="contactCtrl.vm.data.body" name="body" class="message" required
                               ng-class="{'has-error':(contactForm.$submitted || contactForm.body.$touched) && contactForm.body.$invalid}"
                               placeholder="Mensaje" ></textarea>
-                    <div ng-if="!dataUser" class="text-center">
+                    <input type="hidden" name="fake" ng-if="!APP_CONSTANTS.RECAPTCHA_KEY.value" ng-model="contactCtrl.vm.data.gRecaptchaResponse" required>
+                    <div ng-if="!dataUser && APP_CONSTANTS.RECAPTCHA_KEY.value" class="text-center">
                       <div vc-recaptcha key="APP_CONSTANTS.RECAPTCHA_KEY.value" ng-model="contactCtrl.vm.data.gRecaptchaResponse"
                            required=""></div>
                     </div>
