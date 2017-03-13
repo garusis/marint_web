@@ -106,7 +106,7 @@
     function postLoad(publication){
       $scope.new = publication
       $scope.new.comments.get()
-      ngMeta.setTag("title", publication.title)
+      ngMeta.setTitle(publication.title)
       ngMeta.setTag("description", publication.description)
       ngMeta.setTag("image", publication.image.original)
       ngMeta.setTag("type", "article")
