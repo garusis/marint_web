@@ -107,7 +107,7 @@
                   <div ng-show="loadingRecentNews" class="loading">
                     <p><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></p>
                   </div>
-                  <slick ng-cloak="" settings="::newsCarouselConfig" ng-show="!loadingRecentNews"
+                  <slick settings="::newsCarouselConfig" ng-show="!loadingRecentNews"
                          ng-if="recentNews.length > 0">
                     <div class="news-item" style="height: 150px" ng-repeat="rn in recentNews">
                       <a href="javascript:void(0)" ng-click="showNew(rn)"><h1>
