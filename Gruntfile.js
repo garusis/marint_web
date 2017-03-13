@@ -333,7 +333,7 @@ module.exports = function (grunt) {
   grunt.registerTask('buildAssets', ['clean:development', 'copy:development', 'less:development', 'less:development_own']);
   grunt.registerTask('heroku:production', ["buildAssets", "string-replace:production", "ugly-scripts", "uglify:production", "concat:production", "cssmin:production", "injector:production", "copy:production"])
   grunt.registerTask('heroku:development', ["buildAssets", "string-replace:development", "ugly-scripts", "uglify:production", "concat:production", "cssmin:production", "injector:production", "copy:production"])
-  grunt.registerTask('heroku:staging', ["buildAssets", "string-replace:development", "ugly-scripts", "copy:staging", "concat:production", "cssmin:production", "injector:production", "copy:production"])
+  grunt.registerTask('heroku:staging', ["buildAssets", "string-replace:production", "ugly-scripts", "copy:staging", "concat:production", "cssmin:production", "injector:production", "copy:production"])
 
   grunt.registerTask('default', ['buildAssets', 'concurrent:watch']);
 };
