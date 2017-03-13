@@ -4,6 +4,8 @@ const express = require("express")
 const path = require("path")
 const compression = require("compression")
 const favicon = require('serve-favicon')
+const prerender = require('prerender-node')
+
 let app = express()
 
 let dirEnv = "development"
@@ -11,6 +13,7 @@ if(process.env.NODE_ENV === "staging" || process.env.NODE_ENV === "production" )
   dirEnv = "production"
 }
 
+app.use(prerender.set('prerenderToken', process.env.PRERENDER_TOKEN));
 app.use(compression())
 app.use(favicon(path.join(__dirname, dirEnv, "assets", "images", "favicon.ico")))
 app.use(/.*\.map$/i, function (req, res) {
