@@ -33,6 +33,9 @@
         $rootScope.$on('$stateChangeSuccess', function () {
           document.body.scrollTop = document.documentElement.scrollTop = 0;
           ngMeta.setTag('url', location.href)
+          $timeout(function () {
+            window.prerenderReady = true;
+          }, 2000)
         });
 
         $rootScope.$on('jg.marlininternacional::router::default', function () {
