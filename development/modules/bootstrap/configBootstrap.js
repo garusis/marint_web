@@ -44,6 +44,20 @@
       vcRecaptchaServiceProvider.setSize('normal')
       vcRecaptchaServiceProvider.setType('image')
       vcRecaptchaServiceProvider.setLang('es')
+    }])
+    .config(["ngMetaProvider", function (ngMetaProvider) {
+
+      ngMetaProvider.useTitleSuffix(true);
+      ngMetaProvider.setDefaultTitle("Marlin Coach Intl.");
+      ngMetaProvider.setDefaultTag('author', 'Marlin Coach Intl.');
+      ngMetaProvider.setDefaultTag('description', 'Marlin Coach Intl. es una empresa Colombiana dedicada al apoyo y ' +
+        'orientación del desarrollo y crecimiento del ser humano, como un ser integral en todas sus áreas ' +
+        '(Cognitiva-Intelectual, Social, Espiritual, Emocional y Corporal-Salud).');
+      ngMetaProvider.setDefaultTag('image', "https://s3-sa-east-1.amazonaws.com/marlininternacional/emails/new_logo.jpg")
+      ngMetaProvider.setDefaultTag('type', "website")
+      ngMetaProvider.setDefaultTag('fbId', "$$FB_ID$$")
+      ngMetaProvider.setDefaultTag('publisher', "https://www.facebook.com/marlininternacional")
+
     }]);
 })(angular.module('jg.marlininternacional', [
   "jg.marlininternacional.auth",
@@ -71,5 +85,6 @@
   'com.alphonsegs.mvonload',
   'ngDialog',
   "ui.bootstrap",
-  "vcRecaptcha"
+  "vcRecaptcha",
+  "ngMeta"
 ]));

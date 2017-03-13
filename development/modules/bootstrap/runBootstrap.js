@@ -7,8 +7,9 @@
  */
 ;!(function (module) {
   module
-    .run(['$rootScope', "$state", "LoopBackAuth", '$FB', "StudentService", '$localStorage', '$timeout', 'overlay', "Constants","authmodule",
-      function ($rootScope, $state, Auth, $FB, User, $localStorage, $timeout, overlay, Constants,AuthModule) {
+    .run(['$rootScope', "$state", "LoopBackAuth", '$FB', "StudentService", '$localStorage', '$timeout', 'overlay',
+      "Constants", "authmodule", "ngMeta",
+      function ($rootScope, $state, Auth, $FB, User, $localStorage, $timeout, overlay, Constants, AuthModule, ngMeta) {
         $rootScope.multilanguageEnabled = false;
         $rootScope.slug = function (data) {
           return _.deburr(data).replace(/\W/g, " ").replace(/\s+/g, '_').substr(0, 40);
@@ -30,6 +31,7 @@
         })
         $rootScope.$on('$stateChangeSuccess', function () {
           document.body.scrollTop = document.documentElement.scrollTop = 0;
+          ngMeta.setTag('url', location.href)
         });
 
         $rootScope.$on('jg.marlininternacional::router::default', function () {
@@ -63,7 +65,8 @@
           $rootScope.$emit('jg.marlininternacional::users::successLogin');
         }
 
-
         Constants.load()
+
+        ngMeta.init()
       }]);
 })(angular.module('jg.marlininternacional'));

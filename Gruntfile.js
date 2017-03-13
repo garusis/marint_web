@@ -136,7 +136,8 @@ module.exports = function (grunt) {
               './development/components/html2canvas/build/html2canvas.min.js',
               './development/components/angular-bootstrap/ui-bootstrap-tpls.min.js',
               './development/components/angular-animate/angular-animate.min.js',
-              './development/components/angular-recaptcha/release/angular-recaptcha.min.js'
+              './development/components/angular-recaptcha/release/angular-recaptcha.min.js',
+              "./development/components/ngMeta/dist/ngMeta.min.js"
             ],
             dest: './development/assets/js/',
             flatten: true,
@@ -258,6 +259,10 @@ module.exports = function (grunt) {
             {
               pattern: '$FB.init("1006298296180905");',
               replacement: `$FB.init("${process.env.FB_APP_ID}");`
+            },
+            {
+              pattern: '$$FB_ID$$',
+              replacement: process.env.FB_APP_ID
             }
           ]
         }
