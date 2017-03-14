@@ -23,6 +23,7 @@
     "angular-slick-carousel": "^3.1.5",
     "compression": "^1.6.2",
     "express": "^4.14.1",
+    "express-sitemap": "^1.7.0",
     "grunt": "^1.0.1",
     "grunt-concurrent": "^2.2.1",
     "grunt-contrib-clean": "^0.7.0",
