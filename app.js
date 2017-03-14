@@ -5,7 +5,9 @@ const path = require("path")
 const compression = require("compression")
 const favicon = require("serve-favicon")
 const prerender = require("prerender-node")
-const sitemap = require("express-sitemap");
+const sitemap = require("express-sitemap")
+const request = require('request-promise')
+const moment = require("moment")
 
 let app = express()
 
@@ -30,23 +32,65 @@ app.get("/sitemap.xml", function (req, res) {
   hostUrl = hostUrl.split("://")
 
   let protocol = hostUrl[0], url = hostUrl[1].split(":")
+  let filter = {"fields": ["title", "updatedAt", "id"]}
+  filter = encodeURIComponent(JSON.stringify(filter))
 
-  sitemap({
+  let maps = {
     http: protocol,
     url: url[0],
     port: url[1],
     map: {
-      "/foo": ["get"],
-      "/foo2": ["get"]
+      "/": ["get"],
+      "/cursos": ["get"],
+      "/noticias": ["get"],
+      "/contacto": ["get"],
+      "/instructores": ["get"]
     },
     route: {
-      "/foo": {
-        lastmod: "2014-06-20",
-        changefreq: "always",
+      "/": {
+        lastmod: "2017-03-01",
+        changefreq: "daily",
+        priority: 1.0,
+      },
+      "/cursos": {
+        lastmod: "2017-03-01",
+        changefreq: "daily",
+        priority: 1.0,
+      },
+      "/noticias": {
+        lastmod: "2017-03-01",
+        changefreq: "daily",
+        priority: 1.0,
+      },
+      "/contacto": {
+        lastmod: "2017-03-01",
+        changefreq: "monthly",
+        priority: 1.0
+      },
+      "/instructores": {
+        lastmod: "2017-03-01",
+        changefreq: "monthly",
         priority: 1.0,
       }
     },
-  }).XMLtoWeb(res)
+  }
+
+  request(`${process.env.BACKEND_URL}/api/publications?filter=${filter}`, {json: true})
+    .then(function (publications) {
+
+      publications.forEach(function (publication) {
+        let route = `/noticias/${encodeURIComponent(publication.title)}-${publication.id}`
+
+        maps.map[route] = ["get"]
+        maps.route[route] = {
+          lastmod: moment(publication.updatedAt).format("YYYY-MM-DD"),
+          changefreq: "yearly",
+          priority: 0.5,
+        }
+      })
+
+      sitemap(maps).XMLtoWeb(res)
+    })
 })
 
 app.all("/*", function (req, res, next) {
