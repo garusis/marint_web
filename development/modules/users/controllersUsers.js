@@ -23,10 +23,10 @@
     $scope.headerSources = headerSources;
   }
 
-  UserActivityController.$inject = ["$scope", 'StudentService', "CourseService"]
-  function UserActivityController ($scope, StudentService, CourseService) {
+  UserActivityController.$inject = ["$scope", 'User', "CourseService"]
+  function UserActivityController ($scope, User, CourseService) {
     $scope.headerSources = headerSources;
-    StudentService.getCurrent()
+    User.getCurrent()
       .then(function (student) {
         $scope.student = student;
 
@@ -48,8 +48,8 @@
 
   }
 
-  UserConfigurationController.$inject = ["$scope", "StudentService", "$timeout","authmodule"]
-  function UserConfigurationController ($scope, StudentService, $timeout, AuthModule) {
+  UserConfigurationController.$inject = ["$scope", "User", "$timeout","authmodule"]
+  function UserConfigurationController ($scope, User, $timeout, AuthModule) {
     var usersCtrl = this
 
     usersCtrl.vm = {
@@ -76,7 +76,7 @@
     })
 
     $scope.headerSources = headerSources;
-    StudentService.getCurrent()
+    User.getCurrent()
       .then(function (student) {
         usersCtrl.vm.student = student;
       })

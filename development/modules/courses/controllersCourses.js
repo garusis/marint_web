@@ -64,9 +64,9 @@
   }
 
   ShowCourseController.$inject = [
-    '$scope', "$q", '$stateParams', '$location', 'CourseService', "StudentService"
+    '$scope', "$q", '$stateParams', '$location', 'CourseService', "User"
   ];
-  function ShowCourseController ($scope, $q, $stateParams, $location, CourseService, StudentService) {
+  function ShowCourseController ($scope, $q, $stateParams, $location, CourseService, User) {
     $scope.headerSources = headerSources;
     $scope.location = $location.absUrl();
     $scope.modulos = [];
@@ -93,8 +93,8 @@
             })
         });
 
-      if (StudentService.isAuthenticated()) {
-        promises[1] = StudentService.getCurrent()
+      if (User.isAuthenticated()) {
+        promises[1] = User.getCurrent()
           .then(function (loggedStudent) {
             return loggedStudent.coursesStudent.getById($stateParams.courseId)
           })

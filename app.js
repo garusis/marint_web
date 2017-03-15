@@ -72,7 +72,7 @@ app.get("/sitemap.xml", function (req, res) {
         changefreq: "monthly",
         priority: 1.0,
       }
-    },
+    }
   }
 
   request(`${process.env.BACKEND_URL}/api/publications?filter=${filter}`, {json: true})

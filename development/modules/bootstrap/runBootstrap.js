@@ -7,7 +7,7 @@
  */
 ;!(function (module) {
   module
-    .run(['$rootScope', "$state", "LoopBackAuth", '$FB', "StudentService", '$localStorage', '$timeout', 'overlay',
+    .run(['$rootScope', "$state", "LoopBackAuth", '$FB', "User", '$localStorage', '$timeout', 'overlay',
       "Constants", "authmodule", "ngMeta",
       function ($rootScope, $state, Auth, $FB, User, $localStorage, $timeout, overlay, Constants, AuthModule, ngMeta) {
         $rootScope.multilanguageEnabled = false;

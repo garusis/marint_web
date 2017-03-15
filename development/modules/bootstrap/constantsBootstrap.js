@@ -28,6 +28,18 @@
       },
       IMAGE: "image"
     },
+    INSTRUCTORS: {
+      __BASE__: "instructors",
+      COMMENTS: {
+        __BASE__: "comments",
+        PUBLICATION: "publication"
+      },
+      COURSES_STUDENT: {
+        __BASE__: "courses",
+        MODULES: "modules"
+      },
+      IMAGE: "image"
+    },
     UPLOAD: {
       ROOT: "files",
       ICONS: "files/icons",

@@ -89,15 +89,15 @@
   };
   ListPublicationController.$inject = ['$scope', 'NewsService', "$state"];
 
-  ShowPublicationController.$inject = ['$scope', '$stateParams', '$location', 'NewsService', '$state', 'StudentService',
-    '$timeout', "ngMeta"];
-  function ShowPublicationController ($scope, $stateParams, $location, NewsService, $state, StudentService, $timeout, ngMeta) {
+  ShowPublicationController.$inject = [
+    '$scope', '$stateParams', '$location', 'NewsService', '$state', 'User', '$timeout', "ngMeta"];
+  function ShowPublicationController ($scope, $stateParams, $location, NewsService, $state, User, $timeout, ngMeta) {
     $scope.headerSources = headerSources;
     $scope.location = $location.absUrl();
     $scope.loadingRecentNews = true;
     $scope.loadingPublishComment = false;
     $scope.newsCarouselConfig = newsCarouselConfig;
-    $scope.userIsAuthenticated = StudentService.isAuthenticated();
+    $scope.userIsAuthenticated = User.isAuthenticated();
 
     $scope.$on('jg.marlininternacional::users::successLogin', function (data) {
       $scope.userIsAuthenticated = true;

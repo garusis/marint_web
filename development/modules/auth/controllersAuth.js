@@ -7,44 +7,43 @@
 ;
 !(function (module) {
 
-  LoginController.$inject = ['$scope', '$rootScope', 'Student', '$state'];
-  function LoginController ($scope, $rootScope, Student, $state) {
+  LoginController.$inject = ["$scope", "$rootScope", "User", "$state"];
+  function LoginController ($scope, $rootScope, User, $state) {
 
     this.initScope = function () {
       $scope.user = {};
-      $scope.$watchGroup(['user.username', 'user.password'], function () {
-        $scope.loginForm.$setValidity('credentials', true);
+      $scope.$watchGroup(["user.username", "user.password"], function () {
+        $scope.loginForm.$setValidity("credentials", true);
       });
     };
 
     this.login = function ($user) {
-      Student.login($user).$promise
+      User.login($user)
         .then(function () {
-          $rootScope.$emit('jg.marlininternacional::users::successLogin');
+          $rootScope.$emit("jg.marlininternacional::users::successLogin");
         })
         .catch(function (err) {
           if (err.status === 401) {
-            $scope.loginForm.$setValidity('credentials', false);
+            $scope.loginForm.$setValidity("credentials", false);
           }
-          console.error(err);
         });
     };
 
     this.initScope();
   }
 
-  LogoutController.$inject = ['$scope', '$rootScope', 'Student', 'LoopBackAuth'];
+  LogoutController.$inject = ["$scope", "$rootScope", "User"];
   function LogoutController ($scope, $rootScope, User) {
     this.initScope = function () {
-      $rootScope.$emit('jg.marlininternacional::users::logout');
+      $rootScope.$emit("jg.marlininternacional::users::logout");
     };
     this.initScope();
   }
 
   module
-    .controller('LoginController', LoginController)
-    .controller('LogoutController', LogoutController)
-    .controller('IndexPublicController', ['$scope', 'Testimony', 'NewsService', 'CourseService',
+    .controller("LoginController", LoginController)
+    .controller("LogoutController", LogoutController)
+    .controller("IndexPublicController", ["$scope", "Testimony", "NewsService", "CourseService",
       function ($scope, Testimony, NewsService, CourseService) {
 
         $scope.showVideo = function (video) {
@@ -141,7 +140,7 @@
         CourseService
           .loadCourses({
             order: "name DESC",
-            include: ['instructor']
+            include: ["instructor"]
           })
           .then(function (data) {
             $scope.courses = data;
@@ -158,11 +157,11 @@
             },
             order: "publishedAt DESC",
             limit: 10,
-            include: ['instructor', 'image']
+            include: ["instructor", "image"]
           }
         })
           .then(function (publications) {
             $scope.publications.list = publications
           })
       }]);
-})(angular.module('jg.marlininternacional.auth'));
+})(angular.module("jg.marlininternacional.auth"));

@@ -7,43 +7,43 @@
  */
 ;
 (function (module) {
-  StudentService.$inject = ['Student', "$q", "$http", "ROUTES", "originsManager", "NewsService"];
-  function StudentService (Student, $q, $http, ROUTES, originsManager, NewsService) {
+  InstructorService.$inject = ['Instructor', "$q", "$http", "ROUTES", "originsManager", "NewsService"];
+  function InstructorService (Instructor, $q, $http, ROUTES, originsManager, NewsService) {
 
     this.login = function ($user) {
-      return Student.login($user).$promise
+      return Instructor.login($user).$promise
     }
 
     this.getCurrent = function (force) {
-      return Student.getCurrent().$promise
+      return Instructor.getCurrent().$promise
         .then(processUser)
     }
 
     this.logout = function () {
-      return Student.logout().$promise
+      return Instructor.logout().$promise
     }
 
-    function processUser (student) {
-      if (!student.__is_process__) {
-        student.__is_process__ = true
-        student.coursesStudent = new CourseStudentRelation(student)
-        student.commentStudent = new CommentStudentRelation(student)
-        student.image = new ImageStudentRelation(student)
-        student.image.get()
+    function processUser (instructor) {
+      if (!instructor.__is_process__) {
+        instructor.__is_process__ = true
+        instructor.coursesInstructor = new CourseInstructorRelation(instructor)
+        instructor.commentInstructor = new CommentInstructorRelation(instructor)
+        instructor.image = new ImageInstructorRelation(instructor)
+        instructor.image.get()
       }
-      return student
+      return instructor
     }
 
-    function ImageStudentRelation (student) {
+    function ImageInstructorRelation (instructor) {
       this.basePath = originsManager.getOrigin() +
-        "/" + ROUTES.STUDENTS.__BASE__ +
-        "/" + student.id +
-        "/" + ROUTES.STUDENTS.IMAGE;
+        "/" + ROUTES.INSTRUCTORS.__BASE__ +
+        "/" + instructor.id +
+        "/" + ROUTES.INSTRUCTORS.IMAGE;
     }
 
-    ImageStudentRelation.prototype = new Object();
+    ImageInstructorRelation.prototype = new Object();
 
-    ImageStudentRelation.prototype.get = function () {
+    ImageInstructorRelation.prototype.get = function () {
       var relation = this
       return $http.get(this.basePath)
         .then(function (response) {
@@ -52,26 +52,26 @@
         })
     }
 
-    function CommentStudentRelation (student) {
+    function CommentInstructorRelation (instructor) {
       this.basePath = originsManager.getOrigin() +
-        "/" + ROUTES.STUDENTS.__BASE__ +
-        "/" + student.id +
-        "/" + ROUTES.STUDENTS.COMMENTS.__BASE__;
+        "/" + ROUTES.INSTRUCTORS.__BASE__ +
+        "/" + instructor.id +
+        "/" + ROUTES.INSTRUCTORS.COMMENTS.__BASE__;
 
     }
 
-    CommentStudentRelation.prototype = new Array();
+    CommentInstructorRelation.prototype = new Array();
 
-    CommentStudentRelation.prototype.__process__ = function (comment) {
+    CommentInstructorRelation.prototype.__process__ = function (comment) {
       comment.publication = new PublicationCommentRelation(comment, this)
       return comment
     }
 
-    CommentStudentRelation.prototype.__addToCache__ = function (comment) {
+    CommentInstructorRelation.prototype.__addToCache__ = function (comment) {
       this.push(this.__process__(comment))
     }
 
-    CommentStudentRelation.prototype.get = function (filter) {
+    CommentInstructorRelation.prototype.get = function (filter) {
       if (!filter) {
         filter = {}
       }
@@ -87,7 +87,7 @@
         })
     }
 
-    function PublicationCommentRelation (comment, commentStudentRelation) {
+    function PublicationCommentRelation (comment, commentInstructorRelation) {
       this.publication_type = comment.publication_type
 
       if (this.publication_type == "Publication") {
@@ -144,25 +144,25 @@
       return $http.get(this.basePath, {params: {filter: filter}})
     }
 
-    function CourseStudentRelation (student) {
+    function CourseInstructorRelation (instructor) {
       this.basePath = originsManager.getOrigin() +
-        "/" + ROUTES.STUDENTS.__BASE__ +
-        "/" + student.id +
-        "/" + ROUTES.STUDENTS.COURSES_STUDENT.__BASE__
+        "/" + ROUTES.INSTRUCTORS.__BASE__ +
+        "/" + instructor.id +
+        "/" + ROUTES.INSTRUCTORS.COURSES_INSTRUCTOR.__BASE__
     }
 
-    CourseStudentRelation.prototype = new Array()
+    CourseInstructorRelation.prototype = new Array()
 
-    CourseStudentRelation.prototype.__addToCache__ = function (module) {
+    CourseInstructorRelation.prototype.__addToCache__ = function (module) {
       this.push(this.__process__(module))
     }
 
-    CourseStudentRelation.prototype.__process__ = function (courseStudent) {
-      courseStudent.modules = new ModuleRelation(courseStudent, this)
-      return courseStudent
+    CourseInstructorRelation.prototype.__process__ = function (courseInstructor) {
+      courseInstructor.modules = new ModuleRelation(courseInstructor, this)
+      return courseInstructor
     }
 
-    CourseStudentRelation.prototype.getById = function (courseId) {
+    CourseInstructorRelation.prototype.getById = function (courseId) {
       var relation = this
       var filter = {
         where: {
@@ -175,7 +175,7 @@
         })
     }
 
-    CourseStudentRelation.prototype.get = function (filter) {
+    CourseInstructorRelation.prototype.get = function (filter) {
       var relation = this
       if (!filter) {
         filter = {}
@@ -200,8 +200,8 @@
     }
 
     ModuleRelation.prototype = new Array()
-    function ModuleRelation (courseStudent, courseStudentRelation) {
-      this.basePath = courseStudentRelation.basePath + "/" + courseStudent.id + "/" + ROUTES.STUDENTS.COURSES_STUDENT.MODULES
+    function ModuleRelation (courseInstructor, courseInstructorRelation) {
+      this.basePath = courseInstructorRelation.basePath + "/" + courseInstructor.id + "/" + ROUTES.INSTRUCTORS.COURSES_INSTRUCTOR.MODULES
     }
 
     ModuleRelation.prototype.__addToCache__ = function (module) {
@@ -294,7 +294,7 @@
 
   }
 
-  module.service('StudentService', StudentService)
-})(angular.module('jg.marlininternacional.students', ["jg.marlininternacional.constants"]));
+  module.service('InstructorService', InstructorService)
+})(angular.module('jg.marlininternacional.instructors'));
 
 
