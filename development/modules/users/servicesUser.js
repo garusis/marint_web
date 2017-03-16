@@ -44,6 +44,7 @@
           .getCurrent()
           .then(function (user) {
             userService.current = user
+            return user
           })
       }
       return $q.resolve(userService.current)
@@ -52,11 +53,13 @@
     this.logout = function () {
       var userType = $localStorage.userType
 
+      let promise = UserModels[userType].logout()
+
       LoopBackAuth.clearUser()
       LoopBackAuth.clearStorage()
       delete $localStorage.userType
 
-      return UserModels[userType].logout()
+      return promise
     }
 
   }

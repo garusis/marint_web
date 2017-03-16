@@ -10,11 +10,15 @@
     .run(['$rootScope', "$state", "LoopBackAuth", '$FB', "User", '$localStorage', '$timeout', 'overlay',
       "Constants", "authmodule", "ngMeta",
       function ($rootScope, $state, Auth, $FB, User, $localStorage, $timeout, overlay, Constants, AuthModule, ngMeta) {
+
         $rootScope.multilanguageEnabled = false;
         $rootScope.slug = function (data) {
           return _.deburr(data).replace(/\W/g, " ").replace(/\s+/g, '_').substr(0, 40);
         };
+
         $FB.init("1006298296180905");
+        ngMeta.init()
+
         $rootScope.$on('jg.overlay::addedOverlay', function (event, dataOverlay) {
           if (dataOverlay.id === 'login' && !$localStorage.noFirstTime) {
             overlay.requireOverlay('login');
@@ -70,7 +74,5 @@
         }
 
         Constants.load()
-
-        ngMeta.init()
       }]);
 })(angular.module('jg.marlininternacional'));
