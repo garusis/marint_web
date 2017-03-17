@@ -107,7 +107,6 @@
       function HasMany (basePath, settings) {
         HasManyRelation.build(this, basePath, settings)
       }
-
       HasMany.prototype = new HasManyRelation($http)
 
       /**

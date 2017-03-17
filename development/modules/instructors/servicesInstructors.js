@@ -26,11 +26,15 @@
     function processUser (instructor) {
       if (!instructor.__is_process__) {
         instructor.__is_process__ = true
-        instructor.coursesInstructor = new Relbui.HasMany(
+        instructor.courses = new Relbui.HasMany(
           originsManager.getOrigin() + "/" + ROUTES.INSTRUCTORS.__BASE__ + "/" + instructor.id + "/" + ROUTES.INSTRUCTORS.IMAGE
         )
-        instructor.commentInstructor = new CommentInstructorRelation(instructor)
-        instructor.image = new ImageInstructorRelation(instructor)
+        instructor.comments = new Relbui.HasMany(
+          originsManager.getOrigin() + "/" + ROUTES.INSTRUCTORS.__BASE__ + "/" + instructor.id + "/" + ROUTES.INSTRUCTORS.COMMENTS.__BASE__
+        )
+        instructor.image = new Relbui.HasOne(
+          originsManager.getOrigin() + "/" + ROUTES.INSTRUCTORS.__BASE__ + "/" + instructor.id + "/" + ROUTES.INSTRUCTORS.COMMENTS.__BASE__
+        )
         instructor.image.get()
       }
       return instructor
