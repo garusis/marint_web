@@ -27,28 +27,31 @@
   function UserActivityController ($scope, User, CourseService) {
     $scope.headerSources = headerSources;
     User.getCurrent()
-      .then(function (student) {
-        $scope.student = student;
+      .then(function (user) {
+        $scope.student = user;
 
-        student.coursesStudent.get()
-          .then(function () {
-            student.cursos = _.map(student.coursesStudent, "course")
-          });
+        var promiseCourses = user.coursesUser.get();
+        if (!user.courses) {
+          promiseCourses.then(function () {
+            user.cursos = _.map(user.coursesUser, "course")
+          })
+        }else {
+          user.cursos = user.courses;
+        }
 
-
-        student.commentStudent
+        user.commentsUser
           .get()
           .then(function (comments) {
             $scope.student.comments = comments
             _.forEach(comments, function (comment) {
-              comment.publication.load()
+              comment.publication.get()
             })
           });
       })
 
   }
 
-  UserConfigurationController.$inject = ["$scope", "User", "$timeout","authmodule"]
+  UserConfigurationController.$inject = ["$scope", "User", "$timeout", "authmodule"]
   function UserConfigurationController ($scope, User, $timeout, AuthModule) {
     var usersCtrl = this
 
@@ -67,10 +70,10 @@
         return usersCtrl.vm.student && usersCtrl.vm.student.password
       }
     ], function () {
-      if(usersCtrl.vm.student){
-        try{
+      if (usersCtrl.vm.student) {
+        try {
           $scope.userForm.password_confirm.$setValidity('confirm', usersCtrl.vm.passwordConfirm === usersCtrl.vm.student.password)
-        }catch(err){
+        } catch (err) {
         }
       }
     })

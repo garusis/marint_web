@@ -10,28 +10,37 @@
 ;
 (function (module) {
 
-  HasOneRelation.prototype = new Array()
+  HasManyRelation.prototype = new Array()
   function HasManyRelation ($http) {
     this.$http = $http
   }
 
   /**
-   * @param {HasOneRelation} relation
+   * @param {HasManyRelation} relation
    * @param {String} basePath
    * @param {Object} settings
-   * @param {Function} [settings.instanceCtor] Object constructor that receives each created or loaded element through the
-   *                    this relation. The new Object will be stored in the collection.
+   * @param {Boolean} [settings.isPolymorphic] Flag that indicates if the objects in this collection are
+   *                    instances of diferents classes.
+   * @param {String} [settings.discriminator] Field in the instance that indicates which instanceCtor entry use as constructor.
+   * @param {Function|Object} [settings.instanceCtor] Object constructor(s) that receives each created or loaded element through the
+   *                    this relation. If  The new Object will be stored in the collection.
+   * @param {Function} [settings.afterLoad] function called before a new object in the array is created or loaded.
+   *                    This functions is called once for each element.
    * @param {Function} [settings.afterLoad] function called before a new object in the array is created or loaded.
    *                    This functions is called once for each element.
    */
   HasManyRelation.build = function (relation, basePath, settings) {
     relation.basePath = basePath
-    relation.__settings__ = settings
+    relation.__settings__ = settings || {}
   }
 
   HasManyRelation.prototype.__addToCache__ = function (instance) {
     if (this.__settings__.instanceCtor) {
-      instance = new this.__settings__.instanceCtor(instance)
+      var instanceCtor = this.__settings__.instanceCtor
+      if (this.__settings__.isPolymorphic) {
+        instanceCtor = instanceCtor[instance[this.__settings__.discriminator]]
+      }
+      instance = new instanceCtor(instance, this.basePath)
     }
     if (this.__settings__.afterLoad) {
       this.__settings__.afterLoad(instance)
@@ -60,7 +69,10 @@
   /**
    * @param {HasOneRelation} relation
    * @param {String} basePath
-   * @param {Object} settings
+   * @param {Object} [settings]
+   * @param {Boolean} [settings.isPolymorphic] Flag that indicates if the objects in this collection are
+   *                    instances of diferents classes.
+   * @param {String} [settings.discriminator] Field in the instance that indicates which instanceCtor entry use as constructor.
    * @param {Function} [settings.instanceCtor] Object constructor that receives each created or loaded element through the
    *                    this relation. The new Object will be stored in the collection.
    * @param {Function} [settings.afterLoad] function called before a new object in the array is created or loaded.
@@ -68,12 +80,16 @@
    */
   HasOneRelation.build = function (relation, basePath, settings) {
     relation.basePath = basePath
-    relation.__settings__ = settings
+    relation.__settings__ = settings || {}
   }
 
   HasOneRelation.prototype.__load__ = function (instance) {
     if (this.__settings__.instanceCtor) {
-      instance = new this.__settings__.instanceCtor(instance)
+      var instanceCtor = this.__settings__.instanceCtor
+      if (this.__settings__.isPolymorphic) {
+        instanceCtor = instanceCtor[instance[this.__settings__.discriminator]]
+      }
+      instance = new instanceCtor(instance, this.basePath)
     }
     this.__proto__.__proto__.__proto__ = instance
     if (this.__settings__.afterLoad) {
@@ -98,7 +114,7 @@
       /**
        *
        * @param {String} basePath
-       * @param {Object} settings
+       * @param {Object} [settings]
        * @param {Function} [settings.instanceCtor] Object constructor that receives each created or loaded element through
        *                    this relation. The new Object will be stored in the collection.
        * @param {Function} [settings.afterLoad] function called before a new object in the array is created or loaded.
@@ -107,12 +123,13 @@
       function HasMany (basePath, settings) {
         HasManyRelation.build(this, basePath, settings)
       }
+
       HasMany.prototype = new HasManyRelation($http)
 
       /**
        *
        * @param {String} basePath
-       * @param {Object} settings
+       * @param {Object} [settings]
        * @param {Function} [settings.instanceCtor] Object constructor that receives the created or loaded element through
        *                    this relation.                     .
        * @param {Function} [settings.afterLoad] function called before a new object in the array is created or loaded.
@@ -136,3 +153,29 @@
   module.provider("Relbui", RelbuiProvider)
 
 })(angular.module("jg.relbui", []))
+
+;
+(function (module) {
+
+  module.factory("RestUtils", function () {
+    return {
+      addInclude: addInclude
+    }
+  })
+
+  function addInclude (filter, toInclude) {
+    if (!filter) {
+      filter = {}
+    }
+    if (!filter.include) {
+      filter.include = []
+    }
+    if (!_.isArrayLike(filter.include)) {
+      filter.include = [filter.include]
+    }
+    filter.include.push(toInclude)
+
+    return filter
+  }
+
+})(angular.module('jg.marlininternacional.utilities'))

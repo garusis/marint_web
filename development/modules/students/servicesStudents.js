@@ -26,8 +26,8 @@
     function processUser (student) {
       if (!student.__is_process__) {
         student.__is_process__ = true
-        student.coursesStudent = new CourseStudentRelation(student)
-        student.commentStudent = new CommentStudentRelation(student)
+        student.coursesUser = new CourseStudentRelation(student)
+        student.commentsUser = new CommentStudentRelation(student)
         student.image = new ImageStudentRelation(student)
         student.image.get()
       }
@@ -100,7 +100,7 @@
 
     PublicationCommentRelation.prototype = new Object()
 
-    PublicationCommentRelation.prototype.load = function (filter) {
+    PublicationCommentRelation.prototype.get = function (filter) {
       if (!filter) {
         filter = {}
       }

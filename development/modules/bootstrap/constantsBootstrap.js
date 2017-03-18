@@ -34,10 +34,7 @@
         __BASE__: "comments",
         PUBLICATION: "publication"
       },
-      COURSES_STUDENT: {
-        __BASE__: "courses",
-        MODULES: "modules"
-      },
+      COURSES: "courses",
       IMAGE: "image"
     },
     UPLOAD: {
