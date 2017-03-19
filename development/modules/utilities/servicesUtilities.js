@@ -74,6 +74,14 @@
       })
   }
 
+  HasManyRelation.prototype.post = function (data) {
+    var relation = this
+    return this.$http.post(this.basePath, data)
+      .then(function (response) {
+        return relation.__addToCache__(response.data)
+      })
+  }
+
   function HasOneRelation ($http, basePath, settings) {
     this.__proto__ = _.assign({}, HasOneRelation.prototype)
 
@@ -122,6 +130,14 @@
       .then(function (response) {
         relation.__load__(response.data)
         return relation
+      })
+  }
+
+  HasOneRelation.prototype.post = function (data) {
+    var relation = this
+    return this.$http.post(this.basePath, data)
+      .then(function (response) {
+        return relation.__load__(response.data)
       })
   }
 

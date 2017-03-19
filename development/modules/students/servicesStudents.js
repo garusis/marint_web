@@ -282,7 +282,7 @@
         })
     }
 
-    CommentRelation.prototype.create = function (data) {
+    CommentRelation.prototype.post = function (data) {
       var relation = this
       return $http.post(this.basePath, data)
         .then(function (response) {

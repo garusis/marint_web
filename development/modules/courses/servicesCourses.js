@@ -115,7 +115,7 @@
 
         $scope.sendComment = function (comment) {
           $scope.currentComment = {}
-          video.comments.create(comment)
+          video.comments.post(comment)
             .then(function () {
               $scope.callbackvideo()
             })
