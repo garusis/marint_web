@@ -62,6 +62,8 @@
   }
 
   function HasOneRelation ($http, basePath, settings) {
+    this.__proto__ = _.assign({}, HasOneRelation.prototype)
+
     this.$http = $http
     HasOneRelation.build(this, basePath, settings)
   }
@@ -173,7 +175,12 @@
     if (!_.isArrayLike(filter.include)) {
       filter.include = [filter.include]
     }
-    filter.include.push(toInclude)
+
+    if (_.isArray(toInclude)) {
+      filter.include = _.union(filter.include, toInclude)
+    } else {
+      filter.include.push(toInclude)
+    }
 
     return filter
   }

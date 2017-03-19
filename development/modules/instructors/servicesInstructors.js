@@ -32,6 +32,11 @@
         instructor.courses = instructor.coursesUser = new Relbui.HasMany(
           pathToResource + "/" + ROUTES.INSTRUCTORS.COURSES
         )
+        instructor.coursesUser.get = function (filter) {
+          filter = RestUtils.addInclude(filter, ["instructor", "image"])
+          return this.__proto__.get.call(this, filter)
+        }
+
         instructor.commentsUser = new Relbui.HasMany(
           pathToResource + "/" + ROUTES.INSTRUCTORS.COMMENTS.__BASE__,
           {instanceCtor: CommentUser}
@@ -63,10 +68,11 @@
 
       basePath += "/" + comment.publication_id
       this.publication = new Relbui.HasOne(basePath, {instanceCtor: ctor})
+      this.publication.publication_type = this.publication_type
 
       this.publication.get = function (filter) {
         filter = RestUtils.addInclude(filter, include)
-        this.__proto__.get.call(this, filter)
+        return this.__proto__.get.call(this, filter)
       }
     }
 
