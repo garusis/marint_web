@@ -39,8 +39,12 @@
           user.cursos = user.courses;
         }
 
+        if (user.recentComments) {
+          user.recentComments.get({order: "updatedAt DESC"})
+        }
+
         user.commentsUser
-          .get()
+          .get({order: "updatedAt DESC"})
           .then(function (comments) {
             $scope.student.comments = comments
             _.forEach(comments, function (comment) {

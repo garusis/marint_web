@@ -38,6 +38,7 @@
       COURSES: "courses",
       IMAGE: "image"
     },
+    COMMENTS: "comments",
     UPLOAD: {
       ROOT: "files",
       ICONS: "files/icons",

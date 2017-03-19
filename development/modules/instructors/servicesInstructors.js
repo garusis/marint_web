@@ -42,6 +42,12 @@
           pathToResource + "/" + ROUTES.INSTRUCTORS.COMMENTS.__BASE__,
           {instanceCtor: CommentUser}
         )
+
+        instructor.recentComments = new Relbui.HasMany(
+          originsManager.getOrigin() + "/" + ROUTES.COMMENTS.__BASE__,
+          {instanceCtor: CommentUser}
+        )
+
         instructor.image = new Relbui.HasOne(pathToResource + "/" + ROUTES.INSTRUCTORS.IMAGE)
       }
       return instructor
