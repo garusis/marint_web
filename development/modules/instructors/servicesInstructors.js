@@ -30,7 +30,8 @@
         var pathToResource = originsManager.getOrigin() + "/" + ROUTES.INSTRUCTORS.__BASE__ + "/" + instructor.id
 
         instructor.courses = instructor.coursesUser = new Relbui.HasMany(
-          pathToResource + "/" + ROUTES.INSTRUCTORS.COURSES
+          pathToResource + "/" + ROUTES.INSTRUCTORS.COURSES,
+          {instanceCtor: Course}
         )
         instructor.coursesUser.get = function (filter) {
           filter = RestUtils.addInclude(filter, ["instructor", "image"])
@@ -79,8 +80,41 @@
       this.__proto__ = publication
     }
 
+    function Course (course) {
+      this.__proto__ = course
+      this.basePath = originsManager.getOrigin() + "/" + ROUTES.COURSES.__BASE__ + "/" + this.id
+
+      this.modules = new Relbui.HasMany(
+        this.basePath + "/" + ROUTES.COURSES.MODULES.__BASE__
+      )
+
+      this.modules.get = function (filter) {
+        var relation = this
+        filter = RestUtils.addInclude(filter, ["videos"])
+        return this.__proto__.get.call(this, filter)
+          .then(function (modules) {
+            _.forEach(modules, function (module) {
+              var videos = module.videos;
+              module.videos = new Relbui.HasMany(
+                relation.basePath + "/" + module.id + "/" + ROUTES.COURSES.MODULES.VIDEOS,
+                {instanceCtor: ModuleVideo}
+              )
+              _.forEach(videos, function (video) {
+                module.videos.__addToCache__(video)
+              })
+            })
+            return modules
+          })
+      }
+    }
+
     function ModuleVideo (moduleVideo) {
       this.__proto__ = moduleVideo
+      this.basePath = originsManager.getOrigin() + "/" + ROUTES.VIDEOS.__BASE__ + "/" + moduleVideo.id
+
+      this.comments = new Relbui.HasMany(
+        this.basePath + "/" + ROUTES.VIDEOS.COMMENTS
+      )
     }
 
   }

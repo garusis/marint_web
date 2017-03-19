@@ -34,7 +34,7 @@
     relation.__settings__ = settings || {}
   }
 
-  HasManyRelation.prototype.__addToCache__ = function (instance) {
+  HasManyRelation.prototype.__process__ = function (instance) {
     if (this.__settings__.instanceCtor) {
       var instanceCtor = this.__settings__.instanceCtor
       if (this.__settings__.isPolymorphic) {
@@ -45,7 +45,11 @@
     if (this.__settings__.afterLoad) {
       this.__settings__.afterLoad(instance)
     }
-    this.push(instance)
+    return instance
+  }
+
+  HasManyRelation.prototype.__addToCache__ = function (instance) {
+    this.push(this.__process__(instance))
   }
 
   HasManyRelation.prototype.get = function (filter) {
@@ -58,6 +62,15 @@
           relation.__addToCache__(elem)
         })
         return relation
+      })
+  }
+
+  HasManyRelation.prototype.getById = function (id, filter) {
+    var relation = this
+
+    return this.$http.get(this.basePath + "/" + id, {params: {filter: filter}})
+      .then(function (response) {
+        return relation.__process__(response.data)
       })
   }
 
@@ -98,6 +111,7 @@
     if (this.__settings__.afterLoad) {
       this.__settings__.afterLoad(this)
     }
+    this.__resolved__ = true
   }
 
   HasOneRelation.prototype.get = function (filter) {
@@ -107,7 +121,6 @@
     return this.$http.get(this.basePath, {params: {filter: filter}})
       .then(function (response) {
         relation.__load__(response.data)
-        relation.__resolved__ = true
         return relation
       })
   }

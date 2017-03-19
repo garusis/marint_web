@@ -109,10 +109,10 @@
       $q.all(promises)
         .then(function (resolved) {
           var course = resolved[0]
-          var courseStudent = resolved[1]
-          if (!courseStudent) return
+          var courseUser = resolved[1]
+          if (!courseUser) return
 
-          _.forEach(courseStudent.modules, function (moduleStudent) {
+          _.forEach(courseUser.modules, function (moduleStudent) {
             var module = _.find(course.modules, {id: moduleStudent.id})
             module.enabled = true
             module.videos = moduleStudent.videos
