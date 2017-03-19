@@ -14,14 +14,13 @@
   var paginator_label_last = "last";
   var paginator_max_pages = 1000;
   $page.elements = []
-  function provider() {
+  function provider () {
 
     this.setPageLengthDefault = function (len) {
       page_length_default = len;
     }
 
-    this.setConfig = function (config)
-    {
+    this.setConfig = function (config) {
       page_length_default = config.lengthDefault || page_length_default;
       paginator_label_before = config.labelBefore || paginator_label_before;
       paginator_label_next = config.labelNext || paginator_label_next;
@@ -30,58 +29,51 @@
     }
 
     this.$get = function ($rootScope) {
-      return{
+      return {
         setData: function (data) {
-          $rootScope.$broadcast("com.alphonsegs.paginator::setDataProvider",data);
+          $rootScope.$broadcast("com.alphonsegs.paginator::setDataProvider", data);
         },
         showNext: function (data) {
-          $rootScope.$broadcast("com.alphonsegs.paginator::setDataProvider",data);
+          $rootScope.$broadcast("com.alphonsegs.paginator::setDataProvider", data);
         },
         showBefore: function (data) {
-          $rootScope.$broadcast("com.alphonsegs.paginator::setDataProvider",data);
+          $rootScope.$broadcast("com.alphonsegs.paginator::setDataProvider", data);
         },
         showLast: function (data) {
-          $rootScope.$broadcast("com.alphonsegs.paginator::setDataProvider",data);
+          $rootScope.$broadcast("com.alphonsegs.paginator::setDataProvider", data);
         },
         showFirst: function (data) {
-          $rootScope.$broadcast("com.alphonsegs.paginator::setDataProvider",data);
+          $rootScope.$broadcast("com.alphonsegs.paginator::setDataProvider", data);
         }
       }
     }
     this.$get.$inject = ["$rootScope"];
   }
 
+  function link (scope, element, attrs, controller, transcludeFn, $compile, paginator) {
 
-
-  function link(scope,element,attrs,controller,transcludeFn,$compile,paginator) {
-
-
-    function _init()
-    {
+    function _init () {
       scope._page = [];
       scope._pages = [];
       scope.paginator_pages = [];
       scope._actualPage = 0;
-      if (!scope._data)
-      {
-        scope._data = [];
+      if (!scope.pagedata) {
+        scope.pagedata = [];
       }
       //validate page length from attributte
       scope._pageLength = attrs.pagelength
-      if (isNaN(scope._pageLength))
-      {
+      if (isNaN(scope._pageLength)) {
         scope._pageLength = page_length_default;
       }
 
       _initPages();
       _initListeners();
-      compile($compile,element,attrs)(scope)
+      compile($compile, element, attrs)(scope)
     }
 
     scope.setPage = function (page) {
-      function moveCursorToRight() {
-        if (scope._lastPage < scope.paginator_pages.length - 1)
-        {
+      function moveCursorToRight () {
+        if (scope._lastPage < scope.paginator_pages.length - 1) {
           scope._lastPage++
           scope.paginator_pages[scope._firstPage].visible = false;
           scope._firstPage++
@@ -89,9 +81,9 @@
           scope.paginator_pages[scope._lastPage].visible = true;
         }
       }
-      function moveCursorToLeft() {
-        if (scope._firstPage > 0)
-        {
+
+      function moveCursorToLeft () {
+        if (scope._firstPage > 0) {
           scope._firstPage--
           scope.paginator_pages[scope._firstPage].visible = true;
 
@@ -101,37 +93,29 @@
         }
       }
 
-      if (page == 0)
-      {
-        for (var i = 0; i < scope.paginator_pages.length; i++)
-        {
+      if (page == 0) {
+        for (var i = 0; i < scope.paginator_pages.length; i++) {
           scope.paginator_pages[i].visible = (i < paginator_max_pages);
         }
         scope._firstPage = 0;
         scope._lastPage = paginator_max_pages - 1;
 
-      } else if (page == scope._pages.length - 1)
-      {
-        for (var i = scope.paginator_pages.length - 1; i >= 0; i--)
-        {
+      } else if (page == scope._pages.length - 1) {
+        for (var i = scope.paginator_pages.length - 1; i >= 0; i--) {
           scope.paginator_pages[i].visible = (i > (scope.paginator_pages.length - paginator_max_pages));
         }
 
         scope._lastPage = scope.paginator_pages.length - 1;
         scope._firstPage = scope._lastPage - paginator_max_pages - 1;
-      } else
-      {
+      } else {
 
-        if (scope._actualPage < page)
-        {
+        if (scope._actualPage < page) {
           moveCursorToRight()
-        } else
-        {
+        } else {
           moveCursorToLeft()
         }
       }
-      if (scope.paginator_pages[page])
-      {
+      if (scope.paginator_pages[page]) {
         scope.paginator_pages[scope._actualPage].isActive = false;
         scope._actualPage = page;
         scope._page = scope._pages[scope._actualPage]
@@ -153,57 +137,50 @@
 
     }
 
-    function _initListeners()
-    {
-      scope.$on("com.alphonsegs.paginator::setDataProvider",function (evt,data) {
-        scope._data = data;
+    function _initListeners () {
+      scope.$on("com.alphonsegs.paginator::setDataProvider", function (evt, data) {
+        scope.pagedata = data;
         _initPages();
       })
-      scope.$on("com.alphonsegs.paginator::next",function (evt,data) {
+      scope.$on("com.alphonsegs.paginator::next", function (evt, data) {
         scope.next();
       })
-      scope.$on("com.alphonsegs.paginator::before",function (evt,data) {
+      scope.$on("com.alphonsegs.paginator::before", function (evt, data) {
         scope.before();
       })
-      scope.$on("com.alphonsegs.paginator::last",function (evt,data) {
+      scope.$on("com.alphonsegs.paginator::last", function (evt, data) {
         scope.last();
       })
-      scope.$on("com.alphonsegs.paginator::first",function (evt,data) {
+      scope.$on("com.alphonsegs.paginator::first", function (evt, data) {
         scope.first();
       })
-      scope.$on("com.alphonsegs.paginator::changePage",function (evt,data) {
+      scope.$on("com.alphonsegs.paginator::changePage", function (evt, data) {
         scope.setPage(data);
       })
     }
-    function _initPages()
-    {
 
-      while (scope._data.length > 0)
-      {
-        scope._pages.push(scope._data.splice(0,scope._pageLength))
-      }
-      for (var i = 0; i < scope._pages.length; i++)
-      {
-        var page = {pageIndex: i,isActive: scope._actualPage == i,visible: false};
+    function _initPages () {
+      scope._pages = _.chunk(scope.pagedata, scope._pageLength)
+      for (var i = 0; i < scope._pages.length; i++) {
+        var page = {pageIndex: i, isActive: scope._actualPage == i, visible: false};
         page.visible = (i < paginator_max_pages - 1);
         scope.paginator_pages.push(page)
       }
       scope.setPage(0)
     }
 
-    function compile($compile,element,attrs) {
+    function compile ($compile, element, attrs) {
       var item = element[0].children[0];
       if (!scope._isInit) {
         scope._dom = element[0].children[0];
         scope._isInit = true
-      } else
-      {
+      } else {
         element[0].innerHTML = "";
         item = scope._dom;
 
       }
 
-      item.setAttribute("ng-repeat","$paginator_item in _page")
+      item.setAttribute("ng-repeat", "$paginator_item in _page")
       var html = "<ul class='paginator'>";
       html += "<li ng-click=\"first()\"><a href=\"javascript:void(0)\">" + paginator_label_first + "</a></li>"
       html += "<li ng-click=\"before()\"><a href=\"javascript:void(0)\">" + paginator_label_before + "</a></li>"
@@ -218,41 +195,38 @@
 
       element.append(item);
       element.append(paginador)
-      var compiled = $compile(element,null,5000);
+      var compiled = $compile(element, null, 5000);
       return function (scope) {
         compiled(scope);
       }
     }
 
-
     _init();
-    if (attrs.pagedata) {
-      scope._data = scope.$eval(attrs.pagedata);
-    }
 
     scope.$watch(function () {
-      return scope.$eval(attrs.pagedata)
-    },function () {
-      scope._data = scope.$eval(attrs.pagedata);
+      return JSON.stringify(scope.pagedata)
+    }, function () {
       _init()
     })
-
   }
 
-  directive.$inject = ["$compile","paginator"]
-  function directive($compile) {
-    return  {
+  directive.$inject = ["$compile", "paginator"]
+  function directive ($compile) {
+    return {
       restrict: 'E',
       priority: 5000,
       terminal: true,
-      scope: false,
+      scope: {
+        pagedata: "="
+      },
       link: {
-        pre: function (scope,element,attrs,controller,transcludeFn,paginator) {
-          link(scope,element,attrs,controller,transcludeFn,$compile,paginator);
+        pre: function (scope, element, attrs, controller, transcludeFn, paginator) {
+          link(scope, element, attrs, controller, transcludeFn, $compile, paginator);
         }
       }
     }
   }
-  module.provider("paginator",provider)
-  module.directive("paginator",directive);
-})(angular.module('com.alphonsegs.paginator',[]));
+
+  module.provider("paginator", provider)
+  module.directive("paginator", directive);
+})(angular.module('com.alphonsegs.paginator', []));

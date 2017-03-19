@@ -37,6 +37,8 @@
           <h1>Tu Actividad</h1>
         </div>
       </div>
+    </div>
+    <div class="row  user-information">
       <div class="col-md-6 single-courses-list">
         <h2 class="title">Tus cursos</h2>
         <div class="course clearfix" ng-repeat="curso in student.cursos">
@@ -56,6 +58,84 @@
           </div>
         </div>
       </div>
+      <div class="col-md-6 single-publications-list my-publications"  ng-if="!student.recentComments">
+        <h2 class="title">Tus Comentarios</h2>
+
+        <paginator pagedata="student.comments" pagelength="3" >
+          <div class="publication clearfix">
+            <div class="description" ng-class="{'publication-erased':!$paginator_item.publication.id}">
+              <a ng-show="$paginator_item.publication.publication_type == 'Publication' && $paginator_item.publication.id"
+                 ui-sref="news.show({title:$paginator_item.publication.title,newId:$paginator_item.publication.id})">
+                <h4>{{$paginator_item.publication.title}}</h4>
+              </a>
+              <a ng-show="$paginator_item.publication.publication_type == 'ModuleVideo' && $paginator_item.publication.id"
+                 ui-sref="courses.show({title:$paginator_item.publication.module.course.name,courseId:$paginator_item.publication.module.course.id,module:$paginator_item.publication.module.position,video:$paginator_item.publication.position})">
+                <h4>{{$paginator_item.publication.module.course.name}}, <em>Modulo {{$paginator_item.publication.module.position}} - video {{$paginator_item.publication.position}}</em></h4>
+              </a>
+              <a ng-show="!$paginator_item.publication.id" href="javascript:void(0)">
+                <h4>Publicacion eliminada</h4>
+              </a>
+              <p>
+                <em>
+                  [{{$paginator_item.updatedAt| date:'dd MMM yyyy h:MMa'}}]
+                </em>
+                {{$paginator_item.content}}
+              </p>
+              <div class="text-button">
+                <a ng-show="$paginator_item.publication.publication_type == 'Publication' && $paginator_item.publication.id"
+                   ui-sref="news.show({title:$paginator_item.publication.title,newId:$paginator_item.publication.id})">
+                  <h4>Ver comentario <i class="fa fa-arrow-right"></i></h4>
+                </a>
+                <a ng-show="$paginator_item.publication.publication_type == 'ModuleVideo' && $paginator_item.publication.id"
+                   ui-sref="courses.show({title:$paginator_item.publication.module.course.name,courseId:$paginator_item.publication.module.course.id,module:$paginator_item.publication.module.position,video:$paginator_item.publication.position})">
+                  <h4>Ver comentario <i class="fa fa-arrow-right"></i></h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </paginator>
+
+      </div>
+      <div class="col-md-6 single-publications-list my-publications"  ng-if="student.recentComments">
+        <h2 class="title">Comentarios Recientes</h2>
+        <paginator pagedata="student.recentComments" pagelength="3" >
+          {{pagedata.length}}
+          <div class="publication clearfix">
+            <div class="description" ng-class="{'publication-erased':!$paginator_item.publication.id}">
+              <a ng-show="$paginator_item.publication.publication_type == 'Publication' && $paginator_item.publication.id"
+                 ui-sref="news.show({title:$paginator_item.publication.title,newId:$paginator_item.publication.id})">
+                <h4>{{$paginator_item.publication.title}}</h4>
+              </a>
+              <a ng-show="$paginator_item.publication.publication_type == 'ModuleVideo' && $paginator_item.publication.id"
+                 ui-sref="courses.show({title:$paginator_item.publication.module.course.name,courseId:$paginator_item.publication.module.course.id,module:$paginator_item.publication.module.position,video:$paginator_item.publication.position})">
+                <h4>{{$paginator_item.publication.module.course.name}}, <em>Modulo {{$paginator_item.publication.module.position}} - video {{$paginator_item.publication.position}}</em></h4>
+              </a>
+              <a ng-show="!$paginator_item.publication.id" href="javascript:void(0)">
+                <h4>Publicacion eliminada</h4>
+              </a>
+              <p>
+                <em>
+                  [{{$paginator_item.updatedAt| date:'dd MMM yyyy h:MMa'}}]
+                </em>
+                {{$paginator_item.content}}
+              </p>
+              <div class="text-button">
+                <a ng-show="$paginator_item.publication.publication_type == 'Publication' && $paginator_item.publication.id"
+                   ui-sref="news.show({title:$paginator_item.publication.title,newId:$paginator_item.publication.id})">
+                  <h4>Ver comentario <i class="fa fa-arrow-right"></i></h4>
+                </a>
+                <a ng-show="$paginator_item.publication.publication_type == 'ModuleVideo' && $paginator_item.publication.id"
+                   ui-sref="courses.show({title:$paginator_item.publication.module.course.name,courseId:$paginator_item.publication.module.course.id,module:$paginator_item.publication.module.position,video:$paginator_item.publication.position})">
+                  <h4>Ver comentario <i class="fa fa-arrow-right"></i></h4>
+                </a>
+              </div>
+            </div>
+          </div>
+        </paginator>
+
+      </div>
+    </div>
+    <div class="row  user-information" ng-if="student.recentComments">
       <div class="col-md-6 single-publications-list my-publications">
         <h2 class="title">Tus Comentarios</h2>
 

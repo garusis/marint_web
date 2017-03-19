@@ -44,7 +44,7 @@
         )
 
         instructor.recentComments = new Relbui.HasMany(
-          originsManager.getOrigin() + "/" + ROUTES.COMMENTS.__BASE__,
+          originsManager.getOrigin() + "/" + ROUTES.COMMENTS,
           {instanceCtor: CommentUser}
         )
 

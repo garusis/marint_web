@@ -40,7 +40,13 @@
         }
 
         if (user.recentComments) {
-          user.recentComments.get({order: "updatedAt DESC"})
+          user.recentComments
+            .get({order: "updatedAt DESC", limit: 50})
+            .then(function (comments) {
+              _.forEach(comments, function (comment) {
+                comment.publication.get()
+              })
+            });
         }
 
         user.commentsUser

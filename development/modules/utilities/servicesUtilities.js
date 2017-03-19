@@ -32,6 +32,7 @@
   HasManyRelation.build = function (relation, basePath, settings) {
     relation.basePath = basePath
     relation.__settings__ = settings || {}
+    relation.__resolved__ = false
   }
 
   HasManyRelation.prototype.__process__ = function (instance) {
@@ -54,6 +55,7 @@
 
   HasManyRelation.prototype.get = function (filter) {
     var relation = this
+    relation.__resolved__ = false
 
     return this.$http.get(this.basePath, {params: {filter: filter}})
       .then(function (response) {
@@ -61,6 +63,7 @@
         response.data.forEach(function (elem) {
           relation.__addToCache__(elem)
         })
+        relation.__resolved__ = true
         return relation
       })
   }
