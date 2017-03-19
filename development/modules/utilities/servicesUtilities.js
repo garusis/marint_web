@@ -83,6 +83,7 @@
   HasOneRelation.build = function (relation, basePath, settings) {
     relation.basePath = basePath
     relation.__settings__ = settings || {}
+    relation.__resolved__ = false
   }
 
   HasOneRelation.prototype.__load__ = function (instance) {
@@ -101,10 +102,12 @@
 
   HasOneRelation.prototype.get = function (filter) {
     var relation = this
+    relation.__resolved__ = false
 
     return this.$http.get(this.basePath, {params: {filter: filter}})
       .then(function (response) {
         relation.__load__(response.data)
+        relation.__resolved__ = true
         return relation
       })
   }

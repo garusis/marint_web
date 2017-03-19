@@ -55,6 +55,7 @@
 
       let promise = UserModels[userType].logout()
 
+      delete userService.current
       LoopBackAuth.clearUser()
       LoopBackAuth.clearStorage()
       delete $localStorage.userType

@@ -58,6 +58,7 @@
               if (user.firstPassword) {
                 AuthModule.showModalChangePassword();
               }
+              user.image.get()
             });
           $rootScope.$emit('jg.marlininternacional::router::default');
         });

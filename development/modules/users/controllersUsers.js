@@ -35,7 +35,7 @@
           promiseCourses.then(function () {
             user.cursos = _.map(user.coursesUser, "course")
           })
-        }else {
+        } else {
           user.cursos = user.courses;
         }
 

@@ -29,7 +29,6 @@
         student.coursesUser = new CourseStudentRelation(student)
         student.commentsUser = new CommentStudentRelation(student)
         student.image = new ImageStudentRelation(student)
-        student.image.get()
       }
       return student
     }

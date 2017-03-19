@@ -42,7 +42,6 @@
           {instanceCtor: CommentUser}
         )
         instructor.image = new Relbui.HasOne(pathToResource + "/" + ROUTES.INSTRUCTORS.IMAGE)
-        instructor.image.get()
       }
       return instructor
     }
