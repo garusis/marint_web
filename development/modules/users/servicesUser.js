@@ -53,7 +53,7 @@
     this.logout = function () {
       var userType = $localStorage.userType
 
-      let promise = UserModels[userType].logout()
+      var promise = UserModels[userType].logout()
 
       delete userService.current
       LoopBackAuth.clearUser()
