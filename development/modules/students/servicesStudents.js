@@ -14,7 +14,7 @@
       return Student.login($user).$promise
     }
 
-    this.getCurrent = function (force) {
+    this.getCurrent = function () {
       return Student.getCurrent().$promise
         .then(processUser)
     }

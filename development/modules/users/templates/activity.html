@@ -64,7 +64,7 @@
           <div class="publication clearfix">
             <div class="description" ng-class="{'publication-erased':!$paginator_item.publication.id}">
               <a ng-show="$paginator_item.publication.publication_type == 'Publication' && $paginator_item.publication.id"
-                 ui-sref="news.show({title:$paginator_item.publication.title,newId:$paginator_item.publication.id,new:$paginator_item.publication})">
+                 ui-sref="news.show({title:$paginator_item.publication.title,newId:$paginator_item.publication.id})">
                 <h4>{{$paginator_item.publication.title}}</h4>
               </a>
               <a ng-show="$paginator_item.publication.publication_type == 'ModuleVideo' && $paginator_item.publication.id"
@@ -81,7 +81,14 @@
                 {{$paginator_item.content}}
               </p>
               <div class="text-button">
-                <a ng-click="showCourse($paginator_item)">Ver comentario <i class="fa fa-arrow-right"></i></a>
+                <a ng-show="$paginator_item.publication.publication_type == 'Publication' && $paginator_item.publication.id"
+                   ui-sref="news.show({title:$paginator_item.publication.title,newId:$paginator_item.publication.id})">
+                  <h4>Ver comentario <i class="fa fa-arrow-right"></i></h4>
+                </a>
+                <a ng-show="$paginator_item.publication.publication_type == 'ModuleVideo' && $paginator_item.publication.id"
+                   ui-sref="courses.show({title:$paginator_item.publication.module.course.name,courseId:$paginator_item.publication.module.course.id,module:$paginator_item.publication.module.position,video:$paginator_item.publication.position})">
+                  <h4>Ver comentario <i class="fa fa-arrow-right"></i></h4>
+                </a>
               </div>
             </div>
           </div>
