@@ -35,7 +35,7 @@
             </div>
           </li>
           <li ng-if="dataUser">
-            <a class="info-user" href="javascript:void(0);">
+            <a class="info-user" ui-sref="index" >
               <div class="user-image">
                 <img class="photo-user" responsive-image sources="dataUser.image" is-thumbnail src-format="::$source|concatOrigin:'bucket'" alt="{{dataUser.name}} Profile"/>
               </div>
