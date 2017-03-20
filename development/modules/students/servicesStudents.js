@@ -7,8 +7,8 @@
  */
 ;
 (function (module) {
-  StudentService.$inject = ['Student', "$q", "$http", "ROUTES", "originsManager", "NewsService"];
-  function StudentService (Student, $q, $http, ROUTES, originsManager, NewsService) {
+  StudentService.$inject = ['Student', "$q", "$http", "ROUTES", "originsManager", "Relbui", "NewsService"];
+  function StudentService (Student, $q, $http, ROUTES, originsManager, Relbui, NewsService) {
 
     this.login = function ($user) {
       return Student.login($user).$promise
@@ -28,27 +28,11 @@
         student.__is_process__ = true
         student.coursesUser = new CourseStudentRelation(student)
         student.commentsUser = new CommentStudentRelation(student)
-        student.image = new ImageStudentRelation(student)
+        student.image = new Relbui.HasOne(
+          originsManager.getOrigin() + "/" + ROUTES.STUDENTS.__BASE__ + "/" + student.id + "/" + ROUTES.STUDENTS.IMAGE
+        )
       }
       return student
-    }
-
-    function ImageStudentRelation (student) {
-      this.basePath = originsManager.getOrigin() +
-        "/" + ROUTES.STUDENTS.__BASE__ +
-        "/" + student.id +
-        "/" + ROUTES.STUDENTS.IMAGE;
-    }
-
-    ImageStudentRelation.prototype = new Object();
-
-    ImageStudentRelation.prototype.get = function () {
-      var relation = this
-      return $http.get(this.basePath)
-        .then(function (response) {
-          _.assign(relation, response.data)
-          return relation
-        })
     }
 
     function CommentStudentRelation (student) {
