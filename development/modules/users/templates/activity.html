@@ -61,7 +61,7 @@
       <div class="col-md-6 single-publications-list my-publications"  ng-if="!student.recentComments">
         <h2 class="title">Tus Comentarios</h2>
 
-        <paginator pagedata="student.comments" pagelength="3" >
+        <paginator pagedata="student.comments" pagelength="3"  max-pages="8" >
           <div class="publication clearfix">
             <div class="description" ng-class="{'publication-erased':!$paginator_item.publication.id}">
               <a ng-show="$paginator_item.publication.publication_type == 'Publication' && $paginator_item.publication.id"
@@ -98,8 +98,7 @@
       </div>
       <div class="col-md-6 single-publications-list my-publications"  ng-if="student.recentComments">
         <h2 class="title">Comentarios Recientes</h2>
-        <paginator pagedata="student.recentComments" pagelength="3" >
-          {{pagedata.length}}
+        <paginator pagedata="student.recentComments" pagelength="3"  max-pages="8" >
           <div class="publication clearfix">
             <div class="description" ng-class="{'publication-erased':!$paginator_item.publication.id}">
               <a ng-show="$paginator_item.publication.publication_type == 'Publication' && $paginator_item.publication.id"
@@ -139,7 +138,7 @@
       <div class="col-md-6 single-publications-list my-publications">
         <h2 class="title">Tus Comentarios</h2>
 
-        <paginator pagedata="student.comments" pagelength="3" >
+        <paginator pagedata="student.comments" pagelength="3" max-pages="8" >
 
           <div class="publication clearfix">
             <div class="description" ng-class="{'publication-erased':!$paginator_item.publication.id}">

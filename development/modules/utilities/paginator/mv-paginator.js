@@ -12,7 +12,7 @@
   var paginator_label_next = "next";
   var paginator_label_first = "first";
   var paginator_label_last = "last";
-  var paginator_max_pages = 1000;
+  var paginator_max_pages = 10;
   $page.elements = []
   function provider () {
 
@@ -51,6 +51,8 @@
   }
 
   function link (scope, element, attrs, controller, transcludeFn, $compile, paginator) {
+
+    var max_pages = attrs.maxPages || paginator_max_pages
 
     function _init () {
       scope._page = [];
@@ -95,18 +97,18 @@
 
       if (page == 0) {
         for (var i = 0; i < scope.paginator_pages.length; i++) {
-          scope.paginator_pages[i].visible = (i < paginator_max_pages);
+          scope.paginator_pages[i].visible = (i < max_pages);
         }
         scope._firstPage = 0;
-        scope._lastPage = paginator_max_pages - 1;
+        scope._lastPage = max_pages - 1;
 
       } else if (page == scope._pages.length - 1) {
         for (var i = scope.paginator_pages.length - 1; i >= 0; i--) {
-          scope.paginator_pages[i].visible = (i > (scope.paginator_pages.length - paginator_max_pages));
+          scope.paginator_pages[i].visible = (i > (scope.paginator_pages.length - max_pages));
         }
 
         scope._lastPage = scope.paginator_pages.length - 1;
-        scope._firstPage = scope._lastPage - paginator_max_pages - 1;
+        scope._firstPage = scope._lastPage - max_pages - 1;
       } else {
 
         if (scope._actualPage < page) {
@@ -163,7 +165,7 @@
       scope._pages = _.chunk(scope.pagedata, scope._pageLength)
       for (var i = 0; i < scope._pages.length; i++) {
         var page = {pageIndex: i, isActive: scope._actualPage == i, visible: false};
-        page.visible = (i < paginator_max_pages - 1);
+        page.visible = (i < max_pages - 1);
         scope.paginator_pages.push(page)
       }
       scope.setPage(0)
