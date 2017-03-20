@@ -33,7 +33,9 @@
     "angular-animate": "1.6.2",
     "lodash": "^4.17.4",
     "angular-recaptcha": "^4.0.3",
-    "ngMeta": "^1.0.0"
+    "ngMeta": "^1.0.0",
+    "ng-file-upload": "^12.2.13",
+    "ng-img-crop": "ngImgCrop#^0.3.2"
   },
   "resolutions": {
     "angular": "1.5.11",

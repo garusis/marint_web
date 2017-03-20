@@ -84,7 +84,8 @@ module.exports = function (grunt) {
               './development/components/font-awesome/css/font-awesome.min.css',
               './development/components/owl.carousel/dist/assets/owl.carousel.min.css',
               './development/components/owl.carousel/dist/assets/owl.theme.default.min.css',
-              './development/components/angular-socialshare/angular-socialshare.min.css'
+              './development/components/angular-socialshare/angular-socialshare.min.css',
+              "./development/components/ng-img-crop/compile/minified/ng-img-crop.css"
             ],
             dest: './development/assets/stylesheets/',
             flatten: true,
@@ -137,7 +138,9 @@ module.exports = function (grunt) {
               './development/components/angular-bootstrap/ui-bootstrap-tpls.min.js',
               './development/components/angular-animate/angular-animate.min.js',
               './development/components/angular-recaptcha/release/angular-recaptcha.min.js',
-              "./development/components/ngMeta/dist/ngMeta.min.js"
+              "./development/components/ngMeta/dist/ngMeta.min.js",
+              "./development/components/ng-file-upload/ng-file-upload.min.js",
+              "./development/components/ng-img-crop/compile/minified/ng-img-crop.js"
             ],
             dest: './development/assets/js/',
             flatten: true,

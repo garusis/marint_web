@@ -7,17 +7,17 @@
 ;
 !(function (module) {
   module
-    .config(['$localStorageProvider', function ($localStorageProvider) {
-      $localStorageProvider.setKeyPrefix('jg.marlininternacional.');
+    .config(["$localStorageProvider", function ($localStorageProvider) {
+      $localStorageProvider.setKeyPrefix("jg.marlininternacional.");
     }])
-    .config(['$locationProvider', function ($locationProvider) {
+    .config(["$locationProvider", function ($locationProvider) {
       $locationProvider.html5Mode(true)
     }])
-    .config(['$urlRouterProvider', function ($urlRouterProvider) {
+    .config(["$urlRouterProvider", function ($urlRouterProvider) {
       $urlRouterProvider
         .otherwise(function ($injector, $location) {
           $injector
-            .invoke(['$rootScope', function ($rootScope) {
+            .invoke(["$rootScope", function ($rootScope) {
               $rootScope.$emit("jg.marlininternacional::router::default");
             }]);
         });
@@ -32,34 +32,34 @@
     .config(["AppAuthProvider", function (AppAuthProvider) {
       AppAuthProvider.config({tokenLocalstorageKey: "accessTokenId"})
     }])
-    .config(['LoopBackResourceProvider', 'originsManagerProvider', function (LoopBackResourceProvider, originsManagerProvider) {
-      // Use a custom auth header instead of the default 'Authorization'
-      //LoopBackResourceProvider.setAuthHeader('X-Access-Token');
+    .config(["LoopBackResourceProvider", "originsManagerProvider", function (LoopBackResourceProvider, originsManagerProvider) {
+      // Use a custom auth header instead of the default "Authorization"
+      //LoopBackResourceProvider.setAuthHeader("X-Access-Token");
 
       // Change the URL where to access the LoopBack REST API server
       LoopBackResourceProvider.setUrlBase(originsManagerProvider.getOrigin());
     }])
     .config(["vcRecaptchaServiceProvider", function (vcRecaptchaServiceProvider) {
-      vcRecaptchaServiceProvider.setTheme('light')
-      vcRecaptchaServiceProvider.setSize('normal')
-      vcRecaptchaServiceProvider.setType('image')
-      vcRecaptchaServiceProvider.setLang('es')
+      vcRecaptchaServiceProvider.setTheme("light")
+      vcRecaptchaServiceProvider.setSize("normal")
+      vcRecaptchaServiceProvider.setType("image")
+      vcRecaptchaServiceProvider.setLang("es")
     }])
     .config(["ngMetaProvider", function (ngMetaProvider) {
 
       ngMetaProvider.useTitleSuffix(true);
       ngMetaProvider.setDefaultTitle("Marlin Coach Intl.");
-      ngMetaProvider.setDefaultTag('author', 'Marlin Coach Intl.');
-      ngMetaProvider.setDefaultTag('description', 'Marlin Coach Intl. es una empresa Colombiana dedicada al apoyo y ' +
-        'orientación del desarrollo y crecimiento del ser humano, como un ser integral en todas sus áreas ' +
-        '(Cognitiva-Intelectual, Social, Espiritual, Emocional y Corporal-Salud).');
-      ngMetaProvider.setDefaultTag('image', "emails/new_logo.jpg")
-      ngMetaProvider.setDefaultTag('type', "website")
-      ngMetaProvider.setDefaultTag('fbId', "$$FB_ID$$")
-      ngMetaProvider.setDefaultTag('publisher', "https://www.facebook.com/marlininternacional")
+      ngMetaProvider.setDefaultTag("author", "Marlin Coach Intl.");
+      ngMetaProvider.setDefaultTag("description", "Marlin Coach Intl. es una empresa Colombiana dedicada al apoyo y " +
+        "orientación del desarrollo y crecimiento del ser humano, como un ser integral en todas sus áreas " +
+        "(Cognitiva-Intelectual, Social, Espiritual, Emocional y Corporal-Salud).");
+      ngMetaProvider.setDefaultTag("image", "emails/new_logo.jpg")
+      ngMetaProvider.setDefaultTag("type", "website")
+      ngMetaProvider.setDefaultTag("fbId", "$$FB_ID$$")
+      ngMetaProvider.setDefaultTag("publisher", "https://www.facebook.com/marlininternacional")
 
     }]);
-})(angular.module('jg.marlininternacional', [
+})(angular.module("jg.marlininternacional", [
   "jg.marlininternacional.auth",
   "jg.marlininternacional.news",
   "jg.marlininternacional.courses",
@@ -70,22 +70,24 @@
   "jg.marlininternacional.instructors",
   "jg.marlininternacional.utilities",
   "jg.marlininternacional.constants",
-  'lbServices',
-  'ui.router',
-  'ui.router.stateHelper',
-  'ngStorage',
-  'slickCarousel',
-  'angular.filter',
-  'ngSanitize',
-  'djds4rce.angular-socialshare',
-  'jg.originsManager',
-  'jg.responsiveImages',
-  'jg.overlay',
+  "lbServices",
+  "ui.router",
+  "ui.router.stateHelper",
+  "ngStorage",
+  "slickCarousel",
+  "angular.filter",
+  "ngSanitize",
+  "djds4rce.angular-socialshare",
+  "jg.originsManager",
+  "jg.responsiveImages",
+  "jg.overlay",
   "jg.relbui",
-  'com.alphonsegs.paginator',
-  'com.alphonsegs.mvonload',
-  'ngDialog',
+  "com.alphonsegs.paginator",
+  "com.alphonsegs.mvonload",
+  "ngDialog",
   "ui.bootstrap",
   "vcRecaptcha",
-  "ngMeta"
+  "ngMeta",
+  "ngFileUpload",
+  "ngImgCrop"
 ]));
