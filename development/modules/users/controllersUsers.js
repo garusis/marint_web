@@ -61,8 +61,8 @@
 
   }
 
-  UserConfigurationController.$inject = ["$scope", "User", "$timeout", "authmodule"]
-  function UserConfigurationController ($scope, User, $timeout, AuthModule) {
+  UserConfigurationController.$inject = ["$scope", "User", "$timeout", "authmodule", "ngDialog"]
+  function UserConfigurationController ($scope, User, $timeout, AuthModule, ngDialog) {
     var usersCtrl = this
 
     usersCtrl.vm = {
@@ -117,10 +117,59 @@
     usersCtrl.openChangePasswordModal = function () {
       AuthModule.showModalChangePassword();
     }
+
+    usersCtrl.openChangeImageModal = function () {
+      ngDialog.open({
+        template: 'modules/users/templates/change_image.html',
+        className: 'ngdialog-theme-default change-image-modal',
+        controller: "UserChangeImageController",
+        controllerAs: "usersCtrl",
+        closeByEscape: false,
+        closeByDocument: false
+      })
+    }
+  }
+
+  UserChangeImageController.$inject = ["$scope", "User", "$timeout"]
+  function UserChangeImageController ($scope, User, $timeout) {
+    var usersCtrl = this
+
+    usersCtrl.vm = {
+      success: false,
+      error: false,
+      pending: false,
+      passwordConfirm: ""
+    }
+
+    User.getCurrent()
+      .then(function (user) {
+        usersCtrl.vm.user = user;
+      })
+
+    usersCtrl.save = function (student) {
+      usersCtrl.vm.pending = true
+      student.$save()
+        .then(function () {
+          usersCtrl.vm.success = true
+          $scope.userForm.$setPristine()
+          $scope.userForm.$setUntouched()
+          usersCtrl.vm.passwordConfirm = ""
+          $timeout(function () {
+            usersCtrl.vm.success = false
+          }, 10000)
+        })
+        .catch(function () {
+          usersCtrl.vm.error = true
+        })
+        .finally(function () {
+          usersCtrl.vm.pending = false
+        })
+    }
   }
 
   module
     .controller('UserProfileController', UserProfileController)
     .controller('UserActivityController', UserActivityController)
     .controller('UserConfigurationController', UserConfigurationController)
+    .controller('UserChangeImageController', UserChangeImageController)
 })(angular.module('jg.marlininternacional.users'));

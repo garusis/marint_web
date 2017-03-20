@@ -6,8 +6,7 @@
           <div class="profile-header">
             <div class="user-image">
               <div class="overlay">
-                <a href="javascript:void(0)" ng-click="uploadPhoto()"><i class="fa fa-pencil"></i></a>
-                <a href="javascript:void(0)" ng-click="removePhoto()"><i class="fa fa-times"></i></a>
+                <a ng-click="usersCtrl.openChangeImageModal()"><i class="fa fa-pencil"></i></a>
               </div>
               <img responsive-image="" sources="dataUser.image" is-thumbnail
                    src-format="::$source|concatOrigin:'bucket'" alt="{{dataUser.name}} Profile">

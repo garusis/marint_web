@@ -1,0 +1,46 @@
+<div class="change-image-modal-inner">
+  <div class="content">
+    <div class="heading">
+      <h1>Actualiza tu contraseña</h1>
+      <p>Por favor actualiza tus datos</p>
+    </div>
+    <form name="userForm" ng-submit="userForm.$valid && !usersCtrl.vm.pending && usersCtrl.save(usersCtrl.vm.student)"
+          novalidate>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="warning-message" ng-show="userForm.$submitted && userForm.$invalid">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Por favor verifique los datos ingresados.
+          </div>
+          <div class="success-message" ng-show="usersCtrl.vm.success">
+            <i class="fa fa-check" aria-hidden="true"></i> Tus datos se han actualizado correctamente.
+          </div>
+          <div class="warning-message" ng-show="usersCtrl.vm.error">
+            <i class="fa fa-times" aria-hidden="true"></i> Ha ocurrido un error, por favor intentelo de nuevo mas tarde.
+          </div>
+        </div>
+      </div>
+      <div class="form-group" ng-class="{'has-error':(userForm.$submitted || userForm.password.$touched) && userForm.password.$invalid}">
+        <label>Contraseña</label>
+        <div class="error-block">
+          <em ng-show="userForm.password.$error.minlength"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Tu contraseña debe tener al menos 6 caracteres</em>
+          <em ng-show="userForm.password.$error.required"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Este campo es requerido</em>
+        </div>
+        <input class="form-control" name="password" ng-model="usersCtrl.vm.student.password" type="password" minlength="6" required/>
+      </div>
+      <div class="form-group" ng-class="{'has-error':(userForm.$submitted || userForm.password_confirm.$touched) && userForm.password_confirm.$invalid}">
+        <label>Repite tu contraseña</label>
+        <div class="error-block">
+          <em ng-show="userForm.password_confirm.$error.confirm"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Los valores ingresados no coinciden</em>
+        </div>
+        <input class="form-control" name="password_confirm" ng-model="usersCtrl.vm.passwordConfirm" type="password"/>
+      </div>
+      <div class="accent-button">
+        <button type="submit">
+          <i class="fa fa-refresh" aria-hidden="true" ng-show="usersCtrl.vm.pending"></i>
+          Actualizar Información
+        </button>
+      </div>
+    </form>
+  </div>
+
+</div>
