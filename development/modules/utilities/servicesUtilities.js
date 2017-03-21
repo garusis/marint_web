@@ -138,6 +138,7 @@
 
   HasOneRelation.prototype.post = function (data) {
     var relation = this
+    relation.__resolved__ = false
     return this.$http.post(this.basePath, data)
       .then(function (response) {
         return relation.__load__(response.data)
@@ -146,6 +147,7 @@
 
   HasOneRelation.prototype.put = function (data) {
     var relation = this
+    relation.__resolved__ = false
     return this.$http.put(this.basePath, data)
       .then(function (response) {
         return relation.__load__(response.data)
