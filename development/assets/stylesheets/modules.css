@@ -509,11 +509,44 @@ a.show-comments {
   flex-direction: column !important;
 }
 .change-image-modal {
-  padding-top: 60px!important;
-  padding-bottom: 60px!important;
+  padding-top: 60px !important;
+  padding-bottom: 60px !important;
 }
 .change-image-modal .ngdialog-content {
-  width: 600px!important;
+  width: 600px !important;
+}
+.change-image-modal .ngdialog-content .change-image-modal-inner .image-select > div {
+  margin: 0 auto;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.change-image-modal .ngdialog-content .change-image-modal-inner .image-select > div button {
+  border-radius: 50%;
+  border-style: dashed;
+  background: #f2f5f6;
+  width: 200px;
+  height: 200px;
+}
+.change-image-modal .ngdialog-content .accent-button {
+  text-align: center !important;
+}
+.change-image-modal .ngdialog-content .accent-button button {
+  width: 45%;
+}
+.accent-button .submit {
+  background-color: #a12c2f;
+}
+.accent-button button[disabled] {
+  background-color: #f1bd6b !important;
+  text-shadow: none!important;
+}
+.accent-button button[disabled]:hover {
+  background-color: #f1bd6b !important;
+  color: #fff !important;
 }
 
 

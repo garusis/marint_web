@@ -1,15 +1,15 @@
 <div class="change-image-modal-inner">
   <div class="content">
-    <div class="heading">
+    <div class="heading text-center">
       <h1>Actualiza tu Imagen</h1>
-      <p>Selecciona y recorta la imagen que deseas subir.</p>
+      <p>Haz click en el area punteada para seleccionar y recortar la imagen.</p>
     </div>
     <form name="userForm" ng-submit="userForm.$valid && !usersCtrl.vm.pending && usersCtrl.save(usersCtrl.vm.student)"
           novalidate>
       <div class="row">
         <div class="col-md-12">
           <div class="warning-message" ng-show="userForm.$submitted && userForm.$invalid">
-            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Por favor verifique los datos ingresados.
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Debe seleccionar una imagen.
           </div>
           <div class="success-message" ng-show="usersCtrl.vm.success">
             <i class="fa fa-check" aria-hidden="true"></i> Tus datos se han actualizado correctamente.
@@ -19,25 +19,29 @@
           </div>
         </div>
       </div>
-      <div class="form-group" ng-class="{'has-error':(userForm.$submitted || userForm.password.$touched) && userForm.password.$invalid}">
-        <label>Contraseña</label>
-        <div class="error-block">
-          <em ng-show="userForm.password.$error.minlength"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Tu contraseña debe tener al menos 6 caracteres</em>
-          <em ng-show="userForm.password.$error.required"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Este campo es requerido</em>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2 image-select">
+          <div>
+            <button ng-show="!picFile" ngf-select ng-model="picFile" accept="image/*">
+              <div ngf-drop ng-model="picFile" ngf-pattern="image/*" class="cropArea">
+                <p>Haz clic aquí<br/>o<br/>Arrastra la imagen</p>
+              </div>
+            </button>
+            <img-crop ng-show="picFile" image="picFile  | ngfDataUrl" result-image="croppedDataUrl"
+                      area-min-size="100" result-image-size="700" ng-init="croppedDataUrl=''">
+            </img-crop>
+            <a ng-show="picFile"><i></i></a>
+          </div>
         </div>
-        <input class="form-control" name="password" ng-model="usersCtrl.vm.student.password" type="password" minlength="6" required/>
       </div>
-      <div class="form-group" ng-class="{'has-error':(userForm.$submitted || userForm.password_confirm.$touched) && userForm.password_confirm.$invalid}">
-        <label>Repite tu contraseña</label>
-        <div class="error-block">
-          <em ng-show="userForm.password_confirm.$error.confirm"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Los valores ingresados no coinciden</em>
-        </div>
-        <input class="form-control" name="password_confirm" ng-model="usersCtrl.vm.passwordConfirm" type="password"/>
-      </div>
-      <div class="accent-button">
-        <button type="submit">
+      <div class="accent-button flex">
+        <button type="submit" class="submit">
           <i class="fa fa-refresh" aria-hidden="true" ng-show="usersCtrl.vm.pending"></i>
-          Actualizar Información
+          Enviar Foto
+        </button>
+        <button type="button" ng-disabled="!picFile" ng-click="picFile = null; croppedDataUrl=''">
+          <i class="fa fa-refresh" aria-hidden="true" ng-show="usersCtrl.vm.pending"></i>
+          Cambiar Selección
         </button>
       </div>
     </form>

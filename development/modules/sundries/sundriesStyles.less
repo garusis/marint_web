@@ -159,12 +159,47 @@
 }
 
 .change-image-modal {
-  padding-top: 60px!important;
-  padding-bottom: 60px!important;
+  padding-top: 60px !important;
+  padding-bottom: 60px !important;
   .ngdialog-content {
-    width: 600px!important;
+    width: 600px !important;
     .change-image-modal-inner {
+      .image-select > div {
+        margin: 0 auto;
+        width: 300px;
+        height: 300px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        button {
+          border-radius: 50%;
+          border-style: dashed;
+          background: @bg-light;
+          width: 200px;
+          height: 200px;
+        }
+      }
+    }
+    .accent-button {
+      text-align: center !important;
+      button{
+        width: 45%;
+      }
+    }
+  }
+}
 
+.accent-button {
+  .submit {
+    background-color: @second-color;
+  }
+  button[disabled] {
+    background-color: @accent-color-disabled!important;
+    text-shadow: none!important;;
+    &:hover {
+      background-color: @accent-color-disabled!important;;
+      color: @white!important;
     }
   }
 }

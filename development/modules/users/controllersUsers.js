@@ -128,6 +128,7 @@
         closeByDocument: false
       })
     }
+    usersCtrl.openChangeImageModal()
   }
 
   UserChangeImageController.$inject = ["$scope", "User", "$timeout"]
