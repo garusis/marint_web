@@ -34,13 +34,12 @@
         </div>
       </div>
       <div class="accent-button flex">
+        <button type="button" ng-disabled="!picFile" ng-click="picFile = null; croppedDataUrl=''">
+          Cambiar Selección
+        </button>
         <button type="submit" class="submit">
           <i class="fa fa-refresh" aria-hidden="true" ng-show="usersCtrl.vm.pending"></i>
           Enviar Foto
-        </button>
-        <button type="button" ng-disabled="!picFile" ng-click="picFile = null; croppedDataUrl=''">
-          <i class="fa fa-refresh" aria-hidden="true" ng-show="usersCtrl.vm.pending"></i>
-          Cambiar Selección
         </button>
       </div>
     </form>
