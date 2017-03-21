@@ -47,6 +47,10 @@
     VIDEOS: {
       __BASE__: "videos",
       COMMENTS: "comments"
+    },
+    IMAGES: {
+      __BASE__: "images",
+      PROFILE: "profile-image"
     }
   });
 

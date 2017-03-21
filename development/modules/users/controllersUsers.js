@@ -147,17 +147,17 @@
         usersCtrl.vm.user = user;
       })
 
-    usersCtrl.save = function (student) {
+    usersCtrl.updateImage = function (dataUrl) {
       usersCtrl.vm.pending = true
-      student.$save()
-        .then(function () {
+      User.uploadProfileImage(dataUrl)
+        .then(function (response) {
           usersCtrl.vm.success = true
           $scope.userForm.$setPristine()
           $scope.userForm.$setUntouched()
-          usersCtrl.vm.passwordConfirm = ""
           $timeout(function () {
             usersCtrl.vm.success = false
           }, 10000)
+          console.log(response.data)
         })
         .catch(function () {
           usersCtrl.vm.error = true

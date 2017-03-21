@@ -7,8 +7,8 @@
  */
 ;
 (function (module) {
-  User.$inject = ["StudentService", "InstructorService", "LoopBackAuth", "$q", "$localStorage"];
-  function User (StudentService, InstructorService, LoopBackAuth, $q, $localStorage) {
+  User.$inject = ["StudentService", "InstructorService", "LoopBackAuth", "$q", "$localStorage", "Upload", "originsManager", "ROUTES"];
+  function User (StudentService, InstructorService, LoopBackAuth, $q, $localStorage, Upload, originsManager, ROUTES) {
 
     var userService = this
     var UserModels = {
@@ -61,6 +61,19 @@
       delete $localStorage.userType
 
       return promise
+    }
+
+    this.uploadProfileImage = function (dataUrl) {
+      return Upload
+        .upload({
+          url: originsManager.getOrigin() + "/" + ROUTES.IMAGES.__BASE__ + "/" + ROUTES.IMAGES.PROFILE,
+          data: {
+            image: Upload.dataUrltoBlob(dataUrl, "profile.png")
+          },
+          headers: {
+            Authentication: LoopBackAuth.accessTokenId
+          }
+        })
     }
 
   }

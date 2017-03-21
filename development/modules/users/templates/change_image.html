@@ -4,7 +4,7 @@
       <h1>Actualiza tu Imagen</h1>
       <p>Haz click en el area punteada para seleccionar y recortar la imagen.</p>
     </div>
-    <form name="userForm" ng-submit="userForm.$valid && !usersCtrl.vm.pending && usersCtrl.save(usersCtrl.vm.student)"
+    <form name="userForm" ng-submit="picFile && !usersCtrl.vm.pending && usersCtrl.updateImage(croppedDataUrl)"
           novalidate>
       <div class="row">
         <div class="col-md-12">
@@ -30,7 +30,6 @@
             <img-crop ng-show="picFile" image="picFile  | ngfDataUrl" result-image="croppedDataUrl"
                       area-min-size="100" result-image-size="700" ng-init="croppedDataUrl=''">
             </img-crop>
-            <a ng-show="picFile"><i></i></a>
           </div>
         </div>
       </div>
