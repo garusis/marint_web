@@ -144,6 +144,14 @@
       })
   }
 
+  HasOneRelation.prototype.put = function (data) {
+    var relation = this
+    return this.$http.put(this.basePath, data)
+      .then(function (response) {
+        return relation.__load__(response.data)
+      })
+  }
+
   function RelbuiProvider () {
 
     this.$get = ["$http", function ($http) {

@@ -119,7 +119,7 @@
     }
 
     usersCtrl.openChangeImageModal = function () {
-      ngDialog.open({
+      var dialog = ngDialog.open({
         template: 'modules/users/templates/change_image.html',
         className: 'ngdialog-theme-default change-image-modal',
         controller: "UserChangeImageController",
@@ -128,7 +128,6 @@
         closeByDocument: false
       })
     }
-    usersCtrl.openChangeImageModal()
   }
 
   UserChangeImageController.$inject = ["$scope", "User", "$timeout"]
@@ -151,13 +150,10 @@
       usersCtrl.vm.pending = true
       User.uploadProfileImage(dataUrl)
         .then(function (response) {
-          usersCtrl.vm.success = true
-          $scope.userForm.$setPristine()
-          $scope.userForm.$setUntouched()
-          $timeout(function () {
-            usersCtrl.vm.success = false
-          }, 10000)
-          console.log(response.data)
+          return usersCtrl.vm.user.image.put(response.data)
+        })
+        .then(function (response) {
+          $scope.closeThisDialog()
         })
         .catch(function () {
           usersCtrl.vm.error = true
