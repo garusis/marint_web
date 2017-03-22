@@ -57,8 +57,6 @@
     $scope.headerSources = headerSources;
     $scope.loadCourses();
     $scope.showCourse = function (course) {
-
-      $state.go("courses.show", {title: course.name, courseId: course.id, course: course})
     }
 
   }
