@@ -113,7 +113,6 @@
       ngMeta.setTag("publishedAt", publication.publishedAt)
       ngMeta.setTag("tags", publication.tags)
       ngMeta.setTag("author", publication.instructor.socialNetworks.facebook)
-      console.log(publication)
     }
 
     if (!$stateParams.new) {
