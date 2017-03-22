@@ -84,7 +84,12 @@
       promises[0] = CourseService
         .loadCourse($stateParams.course, {
           where: {isPublished: true, id: $stateParams.courseId},
-          include: ['instructor']
+          include: [{
+            relation: "instructor",
+            scope: {
+              include: "image"
+            }
+          }]
         })
         .then(function (data) {
           $scope.course = data
