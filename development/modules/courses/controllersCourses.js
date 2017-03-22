@@ -42,7 +42,14 @@
       CourseService.loadCourses({
         where: {isPublished: true},
         order: order,
-        include: 'instructor'
+        include: [
+          {
+            relation: "instructor",
+            scope: {
+              include: "image"
+            }
+          }
+        ]
       }).then(function (data) {
         $scope.courses = data
         $scope.coursesOpt = data.map(function (v) {
@@ -56,9 +63,6 @@
 
     $scope.headerSources = headerSources;
     $scope.loadCourses();
-    $scope.showCourse = function (course) {
-    }
-
   }
 
   ShowCourseController.$inject = [

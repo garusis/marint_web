@@ -22,7 +22,7 @@
       <div class="col-md-3" ng-repeat="i in instructors">
         <div class="teacher-item">
           <a ui-sref="instructors.show({id:i.id,name:i.name,instructor:i})">
-            <img responsive-image="" sources="i.image" is-thumbnail src-format="::$source|concatOrigin:'bucket'" alt="">
+            <img responsive-image="" sources="i.image" src-format="::$source|concatOrigin:'bucket'" alt="">
           </a>
           <div class="down-content">
 

@@ -295,7 +295,7 @@
             </a>
 
             <div class="down-content ">
-              <img responsive-image is-thumbnail sources="::course.instructor.imagePreview" alt="">
+              <img responsive-image is-thumbnail sources="::course.instructor.image"  src-format="::$source|concatOrigin:'bucket'"  alt="">
               <h6 ng-bind="::course.instructor.name"></h6>
 
               <div ng-class="{'price-yellow':$index%2!=0,'price-red':$index%2==0}">

@@ -140,7 +140,12 @@
         CourseService
           .loadCourses({
             order: "name DESC",
-            include: ["instructor"]
+            include: [{
+              relation: "instructor",
+              scope: {
+                include: "image"
+              }
+            }]
           })
           .then(function (data) {
             $scope.courses = data;
@@ -157,7 +162,12 @@
             },
             order: "publishedAt DESC",
             limit: 10,
-            include: ["instructor", "image"]
+            include: [{
+              relation: "instructor",
+              scope: {
+                include: "image"
+              }
+            }, "image"]
           }
         })
           .then(function (publications) {

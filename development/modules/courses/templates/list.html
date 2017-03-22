@@ -66,8 +66,7 @@
                           <img responsive-image="" sources="$paginator_item.image" src-format="::$source|concatOrigin:'bucket'" is-thumbnail alt="">
                         </a>
                         <div class="down-content">
-                          <img ng-src="{{$paginator_item.instructor.imagePreview.thumb_small}}"
-                               alt="">
+                          <img responsive-image is-thumbnail sources="::$paginator_item.instructor.image"  src-format="::$source|concatOrigin:'bucket'"  alt="">
                           <h6>{{$paginator_item.instructor.name}}</h6>
                           <div class="price-yellow">
                             <span>{{$paginator_item.price}}</span>
