@@ -11,7 +11,7 @@
     <div id="commentsVideoContainer" class="comments">
       <div class="text_container" ng-repeat="comment in video.comments">
         <div class="imageUser">
-          <img src="http://placehold.it/50x50">
+          <img responsive-image="" sources="comment.authorImage" is-thumbnail src-format="::$source|concatOrigin:'bucket'" alt="">
         </div>
         <div class="text">
           <h3>{{comment.publisherName}}</h3>
