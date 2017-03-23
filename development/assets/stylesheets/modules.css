@@ -542,11 +542,17 @@ a.show-comments {
 }
 .accent-button button[disabled] {
   background-color: #f1bd6b !important;
-  text-shadow: none!important;
+  text-shadow: none !important;
 }
 .accent-button button[disabled]:hover {
   background-color: #f1bd6b !important;
   color: #fff !important;
+}
+.comments .comment-item p {
+  margin-left: 0!important;
+}
+.comments .comment-item img {
+  max-width: 54px !important;
 }
 
 

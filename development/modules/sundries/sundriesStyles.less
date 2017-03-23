@@ -183,7 +183,7 @@
     }
     .accent-button {
       text-align: center !important;
-      button{
+      button {
         width: 45%;
       }
     }
@@ -195,11 +195,20 @@
     background-color: @second-color;
   }
   button[disabled] {
-    background-color: @accent-color-disabled!important;
-    text-shadow: none!important;;
+    background-color: @accent-color-disabled !important;
+    text-shadow: none !important;;
     &:hover {
-      background-color: @accent-color-disabled!important;;
-      color: @white!important;
+      background-color: @accent-color-disabled !important;;
+      color: @white !important;
     }
+  }
+}
+
+.comments .comment-item {
+  p{
+    margin-left: 0!important;
+  }
+  img {
+    max-width: 54px !important;
   }
 }
