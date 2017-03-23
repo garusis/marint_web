@@ -67,7 +67,7 @@
                   <h2>Comentarios</h2>
                 </div>
                 <div class="comment-item" ng-repeat="c in new.comments">
-                  <img responsive-image="" sources="c.authorImage" is-thumbnail src-format="::$source|concatOrigin:'bucket'" alt="">
+                  <img ng-show="c.authorImage" responsive-image="" sources="c.authorImage" is-thumbnail src-format="::$source|concatOrigin:'bucket'" alt="">
                   <h4>{{c.publisherName}}</h4>
                   <span>{{c.createdAt| date:'dd MMM yyyy h:MMa'}}</span>
 
