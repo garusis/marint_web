@@ -24,12 +24,12 @@
 
     $scope.headerSources = headerSources;
     $scope.mapOptions = {
-      center: new google.maps.LatLng(44.5403, -78.5463),
+      center: new google.maps.LatLng(7.887393,-72.5057112),
       zoom: 8,
       scrollwheel: false,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
-    var map = new google.maps.Map(document.getElementById('map'), $scope.mapOptions)
+    //var map = new google.maps.Map(document.getElementById('map'), $scope.mapOptions)
 
     contactCtrl.vm = {
       data: {},
