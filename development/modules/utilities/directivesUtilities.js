@@ -104,7 +104,15 @@
                       if (scope.vpSrc) {
                           element.empty()
                           element.append('<source src="' + scope.vpSrc + '" type="video/mp4">')
-                          videojs("#"+id);
+                          videojs("#"+id, {
+                              plugins: {
+                                  vjsdownload:{
+                                      beforeElement: 'playbackRateMenuButton',
+                                      textControl: 'Descargar',
+                                      name: 'downloadButton'
+                                  }
+                              }
+                          });
                           document.querySelector("#"+id).style= "min-width: 873px;min-height: 480px;"
                       }
                   })

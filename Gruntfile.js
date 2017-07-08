@@ -85,7 +85,8 @@ module.exports = function (grunt) {
               './development/components/owl.carousel/dist/assets/owl.carousel.min.css',
               './development/components/owl.carousel/dist/assets/owl.theme.default.min.css',
               './development/components/angular-socialshare/angular-socialshare.min.css',
-              "./development/components/ng-img-crop/compile/minified/ng-img-crop.css"
+              "./development/components/ng-img-crop/compile/minified/ng-img-crop.css",
+              "./development/components/videojs-vjsdownload/dist/videojs-vjsdownload.css"
             ],
             dest: './development/assets/stylesheets/',
             flatten: true,
@@ -140,7 +141,8 @@ module.exports = function (grunt) {
               './development/components/angular-recaptcha/release/angular-recaptcha.min.js',
               "./development/components/ngMeta/dist/ngMeta.min.js",
               "./development/components/ng-file-upload/ng-file-upload.min.js",
-              "./development/components/ng-img-crop/compile/minified/ng-img-crop.js"
+              "./development/components/ng-img-crop/compile/minified/ng-img-crop.js",
+              "./development/components/videojs-vjsdownload/dist/videojs-vjsdownload.js"
             ],
             dest: './development/assets/js/',
             flatten: true,
