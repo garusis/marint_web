@@ -113,7 +113,7 @@
                                   }*/
                               }
                           });
-                          document.querySelector("#"+id).style= "min-width: 873px;min-height: 480px;"
+                          document.querySelector("#"+id).style= "width: 873px;height: 480px;"
                       }
                   })
               }

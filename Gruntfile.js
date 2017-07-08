@@ -328,6 +328,8 @@ module.exports = function (grunt) {
       jsToConcat.push(`staging/${src}`)
     })
 
+      console.log(jsToUglify)
+
     injectorSegment = indexFile.match(/<!-- injector:css -->((.|\n)*)<!-- endinjector:css -->/)[0]
     injectorSegment.match(/href="(.*)"/g).forEach(function (src) {
       cssToConcat.push(src.replace(/href="(.*)"/, "development/$1"))

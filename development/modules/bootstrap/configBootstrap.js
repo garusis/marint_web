@@ -25,7 +25,7 @@
     .config(["originsManagerProvider", "$localStorageProvider", function (originsManagerProvider, $localStorageProvider) {
       originsManagerProvider.config();
       //originsManagerProvider.setOrigin("base","https://mibackend.herokuapp.com");
-      originsManagerProvider.setOrigin("base", "http://localhost:3000");
+      originsManagerProvider.setOrigin("base", "undefined");
       originsManagerProvider.setOrigin("origin", originsManagerProvider.getOrigin("base") + "/api");
       originsManagerProvider.setOrigin("bucket", "https://s3-sa-east-1.amazonaws.com/marlininternacional");
     }])
@@ -55,7 +55,7 @@
         "(Cognitiva-Intelectual, Social, Espiritual, Emocional y Corporal-Salud).");
       ngMetaProvider.setDefaultTag("image", "emails/new_logo.jpg")
       ngMetaProvider.setDefaultTag("type", "website")
-      ngMetaProvider.setDefaultTag("fbId", "$$FB_ID$$")
+      ngMetaProvider.setDefaultTag("fbId", "undefined")
       ngMetaProvider.setDefaultTag("publisher", "https://www.facebook.com/marlininternacional")
 
     }]);
