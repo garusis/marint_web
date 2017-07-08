@@ -2286,6 +2286,8 @@ a.show-comments {
 }
 .video_sidebar .comments .text_container .imageUser img {
   border-radius: 100%;
+  width: 54px !important;
+  height: 54px !important;
 }
 .video_sidebar .comments .text_container .text p {
   text-align: justify;

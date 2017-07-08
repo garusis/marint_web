@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Created by Marcos J. Alvarez on 20/12/2015.
  * @author Marcos J. Alvarez
@@ -86,7 +87,30 @@
           });
         }
       }
-    }]);
+    }])
+      .directive('videoPlayer', [function () {
+          return {
+              restrict: 'A',
+              scope:{
+                  vpSrc: "@"
+              },
+              link: function (scope, element, attrs, owlCtrl) {
+                  var id = element.attr("id")
+                  if (!id) {
+                      id = "video-player-"+Date.now()
+                      element.attr("id", id)
+                  }
+                  scope.$watch("vpSrc", function () {
+                      if (scope.vpSrc) {
+                          element.empty()
+                          element.append('<source src="' + scope.vpSrc + '" type="video/mp4">')
+                          videojs("#"+id);
+                          document.querySelector("#"+id).style= "min-width: 873px;min-height: 480px;"
+                      }
+                  })
+              }
+          }
+      }]);
 
 })(angular.module('jg.marlininternacional.utilities'))
 

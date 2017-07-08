@@ -102,14 +102,6 @@
         $scope.showComments = function () {
           $scope.commentsVisible = !$scope.commentsVisible
         }
-        $scope.callback = function () {
-          $('#modulevideo').mediaelementplayer({
-            success: function (media) {
-              var isNative = media.rendererName.match(/html5|native/);
-              var isYoutube = media.rendererName.match(/youtube/);
-            }
-          });
-        }
 
         $scope.currentComment = {}
 

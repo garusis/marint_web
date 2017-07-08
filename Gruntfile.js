@@ -54,20 +54,20 @@ module.exports = function (grunt) {
           "./development/assets/fonts/fontawesome-webfont.*",
           "./development/assets/fonts/slick.*",
           "!./development/assets/stylesheets/google-fonts.css",
-          "!./development/assets/stylesheets/mediaelement/*",
+          "!./development/assets/stylesheets/video-js.min.css",
           "!./development/assets/stylesheets/ngDialog*",
           "!./development/assets/stylesheets/icon-font.css",
           "!./development/assets/stylesheets/jquery-ui.css",
           "!./development/assets/stylesheets/rs-plugin-themepunch-settings.css",
           "!./development/assets/js/html5shiv.js",
           "!./development/assets/js/jquery.themepunch.revolution.min.js",
-          "!./development/assets/js/mediaelement-and-player.min.js",
           "!./development/assets/js/ngDialog.min.js",
           "!./development/assets/js/jquery.themepunch.tools.min.js",
           "!./development/assets/js/respond.min.js",
           "!./development/assets/js/custom.js",
           "!./development/assets/js/jquery.gmap3.min.js",
-          "!./development/assets/js/plugins.js"
+          "!./development/assets/js/plugins.js",
+          "!./development/assets/js/video.min.js"
         ]
       }
     },

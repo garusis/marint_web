@@ -552,7 +552,8 @@ a.show-comments {
   margin-left: 0!important;
 }
 .comments .comment-item img {
-  max-width: 54px !important;
+  width: 54px !important;
+  height: 54px !important;
 }
 
 

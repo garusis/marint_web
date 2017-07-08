@@ -25,6 +25,7 @@ app.use(/.*\.map$/i, function (req, res) {
 })
 
 app.use("/fonts", express.static(path.join(__dirname, "development", "assets", "fonts")))
+app.use("/font", express.static(path.join(__dirname, "development", "assets", "fonts")))
 app.use("/", express.static(path.join(__dirname, dirEnv)))
 
 app.get("/sitemap.xml", function (req, res) {
