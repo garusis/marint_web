@@ -106,11 +106,11 @@
                           element.append('<source src="' + scope.vpSrc + '" type="video/mp4">')
                           videojs("#"+id, {
                               plugins: {
-                                  /*vjsdownload:{
+                                  vjsdownload:{
                                       beforeElement: 'playbackRateMenuButton',
                                       textControl: 'Descargar',
                                       name: 'downloadButton'
-                                  }*/
+                                  }
                               }
                           });
                           document.querySelector("#"+id).style= "width: 873px;height: 480px;"
