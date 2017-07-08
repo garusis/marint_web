@@ -16,7 +16,7 @@
           return _.deburr(data).replace(/\W/g, " ").replace(/\s+/g, '_').substr(0, 40);
         };
 
-        $FB.init("undefined");
+        $FB.init("1006298296180905");
         ngMeta.init()
 
         $rootScope.$on('jg.overlay::addedOverlay', function (event, dataOverlay) {
