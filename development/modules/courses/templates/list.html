@@ -116,6 +116,11 @@
                   <input type="email" id="address" name="email"
                          ng-class="{'has-error':(contactForm.$submitted || contactForm.email.$touched) && contactForm.email.$invalid}"
                          ng-model="contactCtrl.vm.data.to" required placeholder="E-Mail">
+                  <textarea required rows="5" id="commentary" name="commentary"
+                            ng-class="{'has-error':(contactForm.$submitted || contactForm.name.$touched) && contactForm.name.$invalid}"
+                            ng-model="contactCtrl.vm.data.body" required
+                            placeholder="Escríbenos">
+                  </textarea>
                   <div class="select">
                     <select name="course" ng-model="contactCtrl.vm.selectedCourse" required id="campus"
                             ng-class="{'has-error':(contactForm.$submitted || contactForm.course.$touched) && contactForm.course.$invalid}"

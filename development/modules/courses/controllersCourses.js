@@ -152,13 +152,14 @@
             var sendData = _.clone(data)
             if (course) {
                 sendData.subject = "Solicitud de información sobre el curso " + course.name
-                sendData.body = "Solicito información sobre el curso " + course.name
+                sendData.body = sendData.body || ("Solicito información sobre el curso " + course.name)
             }
             Contact.create(sendData)
                 .$promise
                 .then(function () {
                     contactCtrl.vm.data.toName = ""
                     contactCtrl.vm.data.to = ""
+                    contactCtrl.vm.data.body = ""
                     contactCtrl.vm.selectedCourse = null
                     contactCtrl.vm.success = true
                     contactCtrl.vm.error = false
