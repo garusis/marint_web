@@ -132,8 +132,8 @@
     $scope.loadCourse();
   }
 
-    CourseInfoRequestController.$inject = ["$scope", "CourseService", "Contact"]
-    function CourseInfoRequestController ($scope, CourseService, Contact) {
+    CourseContactRequestController.$inject = ["$scope", "CourseService", "Contact"]
+    function CourseContactRequestController ($scope, CourseService, Contact) {
         var contactCtrl = this;
 
         contactCtrl.vm = {
@@ -176,6 +176,6 @@
 
 
   module.controller('ListCourseController', ListCourseController)
-      .controller('CourseInfoRequestController', CourseInfoRequestController)
+      .controller('CourseContactRequestController', CourseContactRequestController)
       .controller('ShowCourseController', ShowCourseController);
 })(angular.module('jg.marlininternacional.courses'));

@@ -93,7 +93,7 @@
 
             </div>
             <div class="col-md-4">
-              <div class="request-information" ng-controller="CourseInfoRequestController as contactCtrl">
+              <div class="request-information" ng-controller="CourseContactRequestController as contactCtrl">
                 <div class="widget-heading">
                   <h4>Contáctanos</h4>
                 </div>
@@ -116,11 +116,10 @@
                   <input type="email" id="address" name="email"
                          ng-class="{'has-error':(contactForm.$submitted || contactForm.email.$touched) && contactForm.email.$invalid}"
                          ng-model="contactCtrl.vm.data.to" required placeholder="E-Mail">
-                  <textarea required rows="5" id="commentary" name="commentary"
-                            ng-class="{'has-error':(contactForm.$submitted || contactForm.name.$touched) && contactForm.name.$invalid}"
-                            ng-model="contactCtrl.vm.data.body" required
-                            placeholder="Escríbenos">
-                  </textarea>
+                  <input type="text" id="body" name="body"
+                         ng-class="{'has-error':(contactForm.$submitted || contactForm.body.$touched) && contactForm.body.$invalid}"
+                         ng-model="contactCtrl.vm.data.body" required
+                         placeholder="Escribenos">
                   <div class="select">
                     <select name="course" ng-model="contactCtrl.vm.selectedCourse" required id="campus"
                             ng-class="{'has-error':(contactForm.$submitted || contactForm.course.$touched) && contactForm.course.$invalid}"
