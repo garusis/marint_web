@@ -51,6 +51,7 @@
 
   HasManyRelation.prototype.__addToCache__ = function (instance) {
     this.push(this.__process__(instance))
+    return instance
   }
 
   HasManyRelation.prototype.get = function (filter) {
@@ -83,6 +84,16 @@
       .then(function (response) {
         return relation.__addToCache__(response.data)
       })
+  }
+
+  HasManyRelation.prototype.put = function (id, data) {
+      var relation = this
+      return this.$http.put(this.basePath+"/"+id, data)
+          .then(function (response) {
+            var data = response.data
+            _.remove(this, {id:data.id})
+            return relation.__addToCache__(response.data)
+          })
   }
 
   function HasOneRelation ($http, basePath, settings) {
