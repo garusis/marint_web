@@ -74,6 +74,33 @@
         })
     }
 
+
+      this.agregarCursoModal = function() {
+          ngDialog.open({template: 'modules/courses/templates/modals/crearCurso.html'
+              //scope: $scope //Pass the scope object if you need to access in the template
+          }).then(
+              function(value) {
+                  //save the contact form
+              },
+              function(value) {
+                  //Cancel or do nothing
+              }
+          );
+      };
+
+      this.openContactForm = function() {
+          ngDialog.openConfirm({template: 'contact_us.html',
+              scope: $scope //Pass the scope object if you need to access in the template
+          }).then(
+              function(value) {
+                  //save the contact form
+              },
+              function(value) {
+                  //Cancel or do nothing
+              }
+          );
+      };
+    
     this.showModalVideo = function (video) {
       var controller = function ($scope, e) {
         $scope.video = video;

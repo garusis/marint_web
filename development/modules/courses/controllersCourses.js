@@ -79,7 +79,15 @@
       CourseService.showModalVideo(video)
     }
 
-    $scope.loadCourse = function () {
+      $scope.crearCurso = function () {
+          CourseService.agregarCursoModal();
+      }
+
+      $scope.openContactForm = function () {
+          CourseService.openContactForm();
+      }
+
+      $scope.loadCourse = function () {
       var promises = []
       promises[0] = CourseService
         .loadCourse($stateParams.course, {
