@@ -19,14 +19,13 @@
       <br/>
       <div class="row">
         <div class="col-md-6">
-          <input type="text" id="name" ng-show="!dataUser" name="name" required
+          <input type="text" id="name"  name="name" required
                  ng-class="{'has-error':(courseForm.$submitted || courseForm.name.$touched) && courseForm.name.$invalid}"
                  ng-model="vm.data.name" ng-required="!dataUser"
                  placeholder="Nombre del Curso">
         </div>
         <div class="col-md-6">
           <input type="number" id="price" name="price"
-                 ng-show="!dataUser"
                  ng-class="{'has-error':(courseForm.$submitted || courseForm.price.$touched) && courseForm.price.$invalid}"
                  ng-model="vm.data.price" ng-required="!dataUser"
                  placeholder="Precio">

@@ -86,14 +86,17 @@
                 }
 
                 $scope.submit = function (data) {
-                    var sendData = _.clone(data)
+                    var sendData = _.clone(data);
+                    console.log(sendData);
                     User.getCurrent()
                         .then(function (loggedUser) {
+
                             return loggedUser.coursesUser.post(sendData)
                         })
                         .then(function (course) {
                             //redirect to new course page
                             $state.go("courses.show",{course:course,title:course.name,courseId:course.id});
+                            ngDialog.close();
                             //courses.show({title: $paginator_item.name, courseId: $paginator_item.id, course: $paginator_item})
                         })
                         .catch(function (err) {
