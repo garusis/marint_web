@@ -102,8 +102,8 @@
 
       if (User.isAuthenticated()) {
         promises[1] = User.getCurrent()
-          .then(function (loggedStudent) {
-            return loggedStudent.coursesUser.getById($stateParams.courseId)
+          .then(function (loggedUser) {
+            return loggedUser.coursesUser.getById($stateParams.courseId)
           })
           .then(function (course) {
             return course.modules.get()
