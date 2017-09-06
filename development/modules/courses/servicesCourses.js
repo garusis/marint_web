@@ -7,9 +7,9 @@
  */
 ;
 !(function (module) {
-    service.$inject = ['Course', "ngDialog", "$q", "$http", "ROUTES", "originsManager", "$timeout"];
+    service.$inject = ['Course', "ngDialog", "$q", "$http", "ROUTES", "originsManager", "$timeout","$state"];
 
-    function service(Course, ngDialog, $q, $http, ROUTES, originsManager, $timeout) {
+    function service(Course, ngDialog, $q, $http, ROUTES, originsManager, $timeout,$state) {
         var __instance__ = this;
 
         this.loadCourses = function (filter) {
@@ -93,7 +93,14 @@
                         })
                         .then(function (course) {
                             //redirect to new course page
+                            $state.go("courses.show",{course:course,title:course.name,courseId:course.id});
+                            //courses.show({title: $paginator_item.name, courseId: $paginator_item.id, course: $paginator_item})
                         })
+                        .catch(function (err) {
+                          console.log(err);
+                        })
+
+
 
                 }
             }
