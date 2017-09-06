@@ -106,6 +106,9 @@
 
 
                 }
+                $scope.closeModal = function () {
+                    ngDialog.close();
+                }
             }
             controller.$inject = ["$scope", "$element","User"]
 
