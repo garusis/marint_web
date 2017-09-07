@@ -93,10 +93,53 @@
 
             </div>
             <div class="col-md-4">
-              <div class="request-information">
+              <div class="request-information" ng-controller="CourseContactRequestController as contactCtrl">
                 <div class="widget-heading">
                   <h4>Contáctanos</h4>
                 </div>
+                <form name="contactForm" ng-submit="contactForm.$valid && contactCtrl.submit(contactCtrl.vm.data, contactCtrl.vm.selectedCourse)"
+                      class="search-form" novalidate>
+                  <br/>
+                  <div class="warning-message" ng-show="contactForm.$submitted && contactForm.$invalid">
+                    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Por favor verifique los datos ingresados.
+                  </div>
+                  <div class="success-message" ng-show="contactCtrl.vm.success">
+                    <i class="fa fa-check" aria-hidden="true"></i> Tu solicitud ha sido enviada.
+                  </div>
+                  <div class="warning-message" ng-show="contactCtrl.vm.error">
+                    <i class="fa fa-times" aria-hidden="true"></i> Ha ocurrido un error, por favor intentelo de nuevo mas tarde.
+                  </div>
+                  <input type="text" id="name" name="name"
+                         ng-class="{'has-error':(contactForm.$submitted || contactForm.name.$touched) && contactForm.name.$invalid}"
+                         ng-model="contactCtrl.vm.data.toName" required
+                         placeholder="Nombre Completo">
+                  <input type="email" id="address" name="email"
+                         ng-class="{'has-error':(contactForm.$submitted || contactForm.email.$touched) && contactForm.email.$invalid}"
+                         ng-model="contactCtrl.vm.data.to" required placeholder="E-Mail">
+                  <input type="text" id="body" name="body"
+                         ng-class="{'has-error':(contactForm.$submitted || contactForm.body.$touched) && contactForm.body.$invalid}"
+                         ng-model="contactCtrl.vm.data.body" required
+                         placeholder="Escribenos">
+                  <div class="select">
+                    <select name="course" ng-model="contactCtrl.vm.selectedCourse" required id="campus"
+                            ng-class="{'has-error':(contactForm.$submitted || contactForm.course.$touched) && contactForm.course.$invalid}"
+                            ng-options="course.name for course in contactCtrl.vm.courses">
+                      <option value="" disabled>Curso de Interes</option>
+                    </select>
+                  </div>
+                  <input type="hidden" name="fake" ng-if="!APP_CONSTANTS.RECAPTCHA_KEY.value" ng-model="contactCtrl.vm.data.gRecaptchaResponse" required>
+                  <div ng-if="!dataUser && APP_CONSTANTS.RECAPTCHA_KEY.value" class="text-center">
+                    <div vc-recaptcha key="APP_CONSTANTS.RECAPTCHA_KEY.value" ng-model="contactCtrl.vm.data.gRecaptchaResponse"
+                         required=""></div>
+                  </div>
+                  <br/>
+                  <div class="accent-button">
+                    <button type="submit">Enviar Solicitud</button>
+                  </div>
+                </form>
+              </div>
+
+                <!--
                 <div class="search-form">
                   <input required type="text" id="name" name="s" placeholder="Nombre"
                          ng-model="submitRequest.name">
@@ -114,6 +157,7 @@
                     <a href="#">Enviar</a>
                   </div>
                 </div>
+                -->
               </div>
             </div>
           </div>

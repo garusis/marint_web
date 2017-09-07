@@ -132,6 +132,50 @@
     $scope.loadCourse();
   }
 
+    CourseContactRequestController.$inject = ["$scope", "CourseService", "Contact"]
+    function CourseContactRequestController ($scope, CourseService, Contact) {
+        var contactCtrl = this;
+
+        contactCtrl.vm = {
+            data: {},
+            courses: [],
+            success: false,
+            error: false
+        }
+
+        CourseService.loadCourses()
+            .then(function (courses) {
+                contactCtrl.vm.courses = courses
+            })
+
+        contactCtrl.submit = function (data, course) {
+            var sendData = _.clone(data)
+            if (course) {
+                sendData.subject = "Solicitud de información sobre el curso " + course.name
+                sendData.body = sendData.body || ("Solicito información sobre el curso " + course.name)
+            }
+            Contact.create(sendData)
+                .$promise
+                .then(function () {
+                    contactCtrl.vm.data.toName = ""
+                    contactCtrl.vm.data.to = ""
+                    contactCtrl.vm.data.body = ""
+                    contactCtrl.vm.selectedCourse = null
+                    contactCtrl.vm.success = true
+                    contactCtrl.vm.error = false
+                    $scope.contactForm.$setPristine()
+                    $scope.contactForm.$setUntouched()
+                })
+                .catch(function () {
+                    contactCtrl.vm.success = false
+                    contactCtrl.vm.error = true
+                })
+        }
+
+    }
+
+
   module.controller('ListCourseController', ListCourseController)
-    .controller('ShowCourseController', ShowCourseController);
+      .controller('CourseContactRequestController', CourseContactRequestController)
+      .controller('ShowCourseController', ShowCourseController);
 })(angular.module('jg.marlininternacional.courses'));
