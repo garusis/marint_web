@@ -39,15 +39,7 @@
     };
 
       this.hasRole = function (role) {
-          return StudentService.login($user)
-              .then(processToken)
-              .catch(function (err) {
-                  if (err.status !== 401) {
-                      throw  err
-                  }
-                  return InstructorService.login($user)
-                      .then(processToken)
-              });
+          return $localStorage.userType === role;
       };
 
 
