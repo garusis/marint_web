@@ -130,18 +130,6 @@
                 }
             }
         }]);
-    /*
-    .directive('preserveInRole', [function () {
-        return {
-            restrict: 'A',
-            controller: ["$scope", "$element","User", function ($scope, $element,User) {
-                if (!User.hasRole($element.attr.preserveInRole))
-                {
-                    $element.remove();
-                }
-            }],
-        };
-    }]);*/
 
 })(angular.module('jg.marlininternacional.utilities'))
 

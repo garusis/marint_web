@@ -118,18 +118,6 @@
                 controller: controller
             })
         }
-
-
-/*
-              this.agregarCursoModal = function() {
-                  ngDialog.open({template: 'modules/courses/templates/modals/crearCurso.html',
-                      className: 'ngdialog-theme-default crearCurso'
-                      //scope: $scope //Pass the scope object if you need to access in the template
-                  })
-
-              };
-*/
-
         this.showModalVideo = function (video) {
             var controller = function ($scope, e) {
                 $scope.video = video;
