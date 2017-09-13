@@ -27,15 +27,20 @@
 <section ng-show="!loading" class="single-course">
     <div class="container">
         <div class="row">
-            <form name="contactForm" class="contact-form" novalidate
-                  ng-submit="contactForm.$valid && contactCtrl.submit(contactCtrl.vm.data)">
+            <form name="courseForm" class="contact-form" novalidate
+                  ng-submit="courseForm.$valid && showCCtrl.submit(showCCtrl.vm.data)">
                 <div class="col-md-8">
                     <div class="single-item">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="item course-item">
                                     <div class="up-content">
-                                        <a href="javascript:void(0)"><h4>{{course.name}}</h4></a>
+                                        <a ng-click="editCourse()"><h4><div ng-show="!courseName">{{course.name}}</div>
+                                        </h4></a>
+                                        <input type="text" id="courseName" ng-show="courseName" name="courseName"
+                                               ng-class="{'has-error':(courseForm.$submitted || courseForm.courseName.$touched) && courseForm.courseName.$invalid}"
+                                               ng-model="course.name"
+                                               placeholder="Ingrese el nombre del curso aqui">
                                         <img responsive-image is-thumbnail sources="course.instructor.image"
                                              src-format="::$source|concatOrigin:'bucket'" alt="">
                                         <h6>{{course.instructor.name}}</h6>
@@ -50,7 +55,10 @@
                                 </div>
                                 <div class="description">
                                     <h4>Descripcion</h4>
-                                    <p class="text-justify">{{course.description}}</p>
+                                    <p ng-click="editCourse()" ng-show="!courseDescription" class="text-justify">{{course.description}}</p>
+                                    <textarea class="form-control" rows="5" name="description"
+                                              ng-show="courseDescription" ng-model="course.description">
+                                    </textarea>
                                 </div>
 
                                 <div class="accordions">

@@ -74,12 +74,23 @@
     $scope.modulos = [];
     $scope.loading = true;
     $scope.hola = true;
+    $scope.courseName = false; //variable para mostrar el nombre del curso
+    $scope.courseDescription = true; //variable para mostrar la descripción del curso
+    $scope.coursePrice = true; //variable para mostrar el precio del curso
 
     $scope.showVideo = function (video) {
       CourseService.showModalVideo(video)
     }
 
-    $scope.loadCourse = function () {
+    //Este método se usa para editar los detalles del curso, como el título, la descripción y el precio
+      $scope.editCourse = function () {
+
+          $scope.courseName = true;
+          $scope.courseDescription = true;
+      }
+
+
+      $scope.loadCourse = function () {
       var promises = []
       promises[0] = CourseService
         .loadCourse($stateParams.course, {
