@@ -75,18 +75,23 @@
     $scope.loading = true;
     $scope.hola = true;
     $scope.courseName = false; //variable para mostrar el nombre del curso
-    $scope.courseDescription = true; //variable para mostrar la descripción del curso
-    $scope.coursePrice = true; //variable para mostrar el precio del curso
+    $scope.courseDescription = false; //variable para mostrar la descripción del curso
+    $scope.coursePrice = false; //variable para mostrar el precio del curso
 
     $scope.showVideo = function (video) {
       CourseService.showModalVideo(video)
     }
 
-    //Este método se usa para editar los detalles del curso, como el título, la descripción y el precio
-      $scope.editCourse = function () {
+      //Este método se usa para editar los detalles del curso, como el título, la descripción y el precio
+      // El parámetro field se usa para saber en qué elemento de la vista se hizo clic y así poder
+      // editar dicho campo
+      $scope.editCourse = function (field) {
 
+        if(field==="name") //si hizo click en el nombre del curso
           $scope.courseName = true;
+        else if(field==="description") // si hizo click en la descripcion del curso
           $scope.courseDescription = true;
+        else $scope.coursePrice = true; //hizo click en el precio del curso
       }
 
 
