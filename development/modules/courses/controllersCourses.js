@@ -77,6 +77,7 @@
     $scope.courseName = false; //variable para mostrar el nombre del curso
     $scope.courseDescription = false; //variable para mostrar la descripción del curso
     $scope.coursePrice = false; //variable para mostrar el precio del curso
+    $scope.buttons = false; //variable para mostrar los botones de guardar y cancelar
 
     $scope.showVideo = function (video) {
       CourseService.showModalVideo(video)
@@ -92,6 +93,9 @@
         else if(field==="description") // si hizo click en la descripcion del curso
           $scope.courseDescription = true;
         else $scope.coursePrice = true; //hizo click en el precio del curso
+
+        // cuando le de click en cualquiera de los 3 campos entonces muestra los botones
+        $scope.buttons = true;
       }
 
 

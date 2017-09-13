@@ -1,3 +1,5 @@
+@import "../../assets/less/educa-less/variables.less";
+
 .single-course .accordions {
   .accordion-section-content {
     padding: 0;
@@ -15,6 +17,18 @@
       }
     }
   }
+}
+
+.accent-button{
+  button{
+    background-color: @accent-color;
+  }
+  &.secondary{
+    button{
+      background-color: @second-color;
+    }
+  }
+
 }
 
 .nologin .panel-heading .panel-title h4 span,

@@ -54,6 +54,12 @@
   text-transform: none;
   margin: 0!important;
 }
+.accent-button button {
+  background-color: #f5a425;
+}
+.accent-button.secondary button {
+  background-color: #a12c2f;
+}
 .nologin .panel-heading .panel-title h4 span,
 .nologin .panel-heading .panel-title h4 span i {
   color: #d5d5d5 !important;
