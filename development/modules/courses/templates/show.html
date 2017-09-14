@@ -27,21 +27,21 @@
 <section ng-show="!loading" class="single-course">
     <div class="container">
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-3">
-                <div class="accent-button" ng-show="buttons">
-                    <button type="submit">GUARDAR</button>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="accent-button secondary" ng-show="buttons">
-                    <button type="button">CANCELAR</button>
-                </div>
-            </div>
-            <div class="col-md-3"></div>
-
             <form name="courseForm" class="contact-form" novalidate
-                  ng-submit="courseForm.$valid && showCCtrl.submit(showCCtrl.vm.data)">
+                  ng-submit="courseForm.$valid && submit(course)">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <div class="accent-button" ng-show="buttons && courseForm.$valid">
+                        <button type="submit">GUARDAR</button>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="accent-button secondary" ng-show="buttons">
+                        <button type="button">CANCELAR</button>
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+
                 <div class="col-md-8">
                     <div class="single-item">
                         <div class="row">
@@ -50,8 +50,8 @@
                                     <div class="up-content">
                                         <a ng-click="editCourse('name')"><h4><div ng-show="!courseName">{{course.name}}</div>
                                         </h4></a>
-                                        <input type="text" id="courseName" ng-show="courseName" name="courseName" size="50%"
-                                               ng-class="{'has-error':(courseForm.$submitted || courseForm.courseName.$touched) && courseForm.courseName.$invalid}"
+                                        <input type="text" id="name" ng-show="courseName" name="name" size="50%" required
+                                               ng-class="{'has-error':(courseForm.$submitted || courseForm.name.$touched) && courseForm.name.$invalid}"
                                                ng-model="course.name"
                                                placeholder="Ingrese el nombre del curso aqui">
                                         <img responsive-image is-thumbnail sources="course.instructor.image"
@@ -69,8 +69,9 @@
                                 <div class="description">
                                     <h4>Descripcion</h4>
                                     <p ng-click="editCourse('description')" ng-show="!courseDescription" class="text-justify">{{course.description}}</p>
-                                    <textarea class="form-control" rows="5" name="description"
+                                    <textarea class="form-control" rows="5" id="description" name="description" required
                                               placeholder="Ingrese la descripcion del curso aqui"
+                                              ng-class="{'has-error':(courseForm.$submitted || courseForm.description.$touched) && courseForm.description.$invalid}"
                                               ng-show="courseDescription" ng-model="course.description">
                                     </textarea>
                                 </div>
@@ -137,9 +138,9 @@
                         </div>
                         <ul>
                             <li><span>Price:</span><div ng-click="editCourse('price')" ng-show="!coursePrice">$ {{course.price}}</div>
-                                <input type="number" id="coursePrice" ng-show="coursePrice" name="coursePrice" size="50%"
-                                       ng-class="{'has-error':(courseForm.$submitted || courseForm.coursePrice.$touched) && courseForm.coursePrice.$invalid}"
-                                       ng-model="course.price"
+                                <input type="number" id="price" ng-show="coursePrice" name="price" size="50%"
+                                       ng-class="{'has-error':(courseForm.$submitted || courseForm.price.$touched) && courseForm.price.$invalid}"
+                                       ng-model="course.price" required
                                        placeholder="Ingrese el precio del curso aqui">
 
                             </li>

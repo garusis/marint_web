@@ -79,7 +79,7 @@
     $scope.coursePrice = false; //variable para mostrar el precio del curso
     $scope.buttons = false; //variable para mostrar los botones de guardar y cancelar
 
-    $scope.showVideo = function (video) {
+      $scope.showVideo = function (video) {
       CourseService.showModalVideo(video)
     }
 
@@ -94,9 +94,35 @@
           $scope.courseDescription = true;
         else $scope.coursePrice = true; //hizo click en el precio del curso
 
+          console.log($scope.course.id);
+
         // cuando le de click en cualquiera de los 3 campos entonces muestra los botones
         $scope.buttons = true;
       }
+
+      //Método para enviar los datos del formulario para editar el curso
+      $scope.submit = function (data) {
+          var sendData = _.clone(data);
+          console.log(sendData);
+          User.getCurrent()
+              .then(function (loggedUser) {
+
+                  return loggedUser.coursesUser.put(sendData.id,sendData)
+              })
+              .then(function (course) {
+                  //redirect to new course page
+                  //$state.go("courses.show",{course:course,title:course.name,courseId:course.id});
+                  //ngDialog.close();
+                  //courses.show({title: $paginator_item.name, courseId: $paginator_item.id, course: $paginator_item})
+              })
+              .catch(function (err) {
+                  console.log(err);
+              })
+
+
+
+      }
+
 
 
       $scope.loadCourse = function () {
