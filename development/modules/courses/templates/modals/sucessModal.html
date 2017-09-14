@@ -1,16 +1,20 @@
-<div class="row videoModalInner">
-  <div class="video_sidebar" ng-class="{'hidden':commentsVisible}">
-    <div class="flex-fix"></div>
-    <div id="commentsVideoContainer" class="comments">
-      <div class="text_container" ng-repeat="comment in video.comments">
-        <div class="imageUser">
-          <img responsive-image="" sources="comment.authorImage" is-thumbnail src-format="::$source|concatOrigin:'bucket'" alt="">
+<div class="col-md-12">
+  <div class="message-form">
+    <div class="widget-heading">
+      <h4>El curso ha sido editado correctamente</h4>
+    </div>
+    <div class="message-content">
+        <div class="col-md-4">
+            <div class="accent-button">
+                <button type="submit" class="text-left">GUARDAR</button>
+            </div>
         </div>
-        <div class="text">
-          <h3>El curso ha sido editado correctamente</h3>
+        <div class="col-md-4">
+            <div class="accent-button secondary">
+                <button type="button" ng-click="closeModal()" class="text-left">CANCELAR</button>
+            </div>
         </div>
-      </div>
+        <div class="col-md-4"></div>
     </div>
   </div>
-
 </div>

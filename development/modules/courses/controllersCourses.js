@@ -112,7 +112,7 @@
               .then(function (course) {
                   ngDialog.open({
                       template: 'modules/courses/templates/modals/sucessModal.html',
-                      className: 'ngdialog-theme-default videoModal'
+                      className: 'ngdialog-theme-default successModal'
                   })
 
               })
