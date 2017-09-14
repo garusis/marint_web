@@ -1,0 +1,16 @@
+<div class="row videoModalInner">
+  <div class="video_sidebar" ng-class="{'hidden':commentsVisible}">
+    <div class="flex-fix"></div>
+    <div id="commentsVideoContainer" class="comments">
+      <div class="text_container" ng-repeat="comment in video.comments">
+        <div class="imageUser">
+          <img responsive-image="" sources="comment.authorImage" is-thumbnail src-format="::$source|concatOrigin:'bucket'" alt="">
+        </div>
+        <div class="text">
+          <h3>El curso ha sido editado correctamente</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

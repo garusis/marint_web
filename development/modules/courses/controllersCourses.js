@@ -66,9 +66,9 @@
   }
 
   ShowCourseController.$inject = [
-    '$scope', "$q", '$stateParams', '$location', 'CourseService', "User"
+    '$scope', "$q", '$stateParams', '$location', 'CourseService', "User","ngDialog"
   ];
-  function ShowCourseController ($scope, $q, $stateParams, $location, CourseService, User) {
+  function ShowCourseController ($scope, $q, $stateParams, $location, CourseService, User, ngDialog) {
     $scope.headerSources = headerSources;
     $scope.location = $location.absUrl();
     $scope.modulos = [];
@@ -110,10 +110,11 @@
                   return loggedUser.coursesUser.put(sendData.id,sendData)
               })
               .then(function (course) {
-                  //redirect to new course page
-                  //$state.go("courses.show",{course:course,title:course.name,courseId:course.id});
-                  //ngDialog.close();
-                  //courses.show({title: $paginator_item.name, courseId: $paginator_item.id, course: $paginator_item})
+                  ngDialog.open({
+                      template: 'modules/courses/templates/modals/sucessModal.html',
+                      className: 'ngdialog-theme-default videoModal'
+                  })
+
               })
               .catch(function (err) {
                   console.log(err);
