@@ -112,17 +112,42 @@
               .then(function (course) {
                   ngDialog.open({
                       template: 'modules/courses/templates/modals/sucessModal.html',
-                      className: 'ngdialog-theme-default successModal'
+                      className: 'ngdialog-theme-default',
+                      controller: ShowCourseController
                   })
+                  $scope.courseName = false;
+                  $scope.courseDescription = false;
+                  $scope.coursePrice = false;
+                  $scope.buttons = false;
 
               })
               .catch(function (err) {
-                  console.log(err);
+                  ngDialog.open({
+                      template: 'modules/courses/templates/modals/errorModal.html',
+                      className: 'ngdialog-theme-default',
+                      controller: ShowCourseController
+                  })
+                  $scope.courseName = false;
+                  $scope.courseDescription = false;
+                  $scope.coursePrice = false;
+                  $scope.buttons = false;
               })
 
 
 
       }
+      $scope.closeModal = function () {
+          ngDialog.close();
+      }
+
+      $scope.cancelEdit = function () {
+          $scope.courseName = false;
+          $scope.courseDescription = false;
+          $scope.coursePrice = false;
+          $scope.buttons = false;
+      }
+
+
 
 
 
