@@ -38,7 +38,12 @@
         });
     };
 
-    this.getCurrent = function (force) {
+      this.hasRole = function (role) {
+          return $localStorage.userType === role;
+      };
+
+
+      this.getCurrent = function (force) {
       if (!userService.current || force) {
         return UserModels[$localStorage.userType]
           .getCurrent()
