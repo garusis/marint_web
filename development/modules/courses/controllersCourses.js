@@ -28,7 +28,12 @@
     $scope.togleAsc = function () {
       $scope.asc = !$scope.asc;
     }
-    $scope.loadCourses = function () {
+
+      $scope.crearCurso = function () {
+          CourseService.agregarCursoModal();
+      }
+
+      $scope.loadCourses = function () {
       $scope.loading = true;
       var order = "name "
       if ($scope.optorderby > 0) {

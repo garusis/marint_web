@@ -1,0 +1,53 @@
+<div class="col-md-12">
+<div class="message-form">
+  <div class="widget-heading">
+    <h4>CREAR CURSO</h4>
+  </div>
+  <div class="message-content">
+    <form name="courseForm" novalidate
+          ng-submit="courseForm.$valid && submit(vm.data)">
+      <div class="warning-message" ng-show="courseForm.$submitted && courseForm.$invalid">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Por favor verifique los datos ingresados.
+      </div>
+      <div class="success-message" ng-show="vm.success">
+        <i class="fa fa-check" aria-hidden="true"></i> El curso ha sido creado con éxito
+      </div>
+      <div class="warning-message" ng-show="vm.error">
+        <i class="fa fa-times" aria-hidden="true"></i> Ha ocurrido un error, por favor intentelo de nuevo mas
+        tarde.
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-md-6">
+          <input type="text" id="name"  name="name" required
+                 ng-class="{'has-error':(courseForm.$submitted || courseForm.name.$touched) && courseForm.name.$invalid}"
+                 ng-model="vm.data.name" ng-required="!dataUser"
+                 placeholder="Nombre del Curso">
+        </div>
+        <div class="col-md-6">
+          <input type="number" id="price" name="price"
+                 ng-class="{'has-error':(courseForm.$submitted || courseForm.price.$touched) && courseForm.price.$invalid}"
+                 ng-model="vm.data.price" ng-required="!dataUser"
+                 placeholder="Precio">
+        </div>
+        <div class="col-md-12">
+                  <textarea ng-model="vm.data.description" name="description" class="message"
+                            ng-class="{'has-error':(courseForm.$submitted || courseForm.description.$touched) && courseForm.description.$invalid}"
+                            placeholder="Descripcion"></textarea>
+        </div>
+        <div class="col-md-4">
+          <div class="accent-button">
+            <button type="submit" class="text-left">GUARDAR</button>
+          </div>
+        </div>
+          <div class="col-md-4">
+              <div class="accent-button secondary">
+                  <button type="button" ng-click="closeModal()" class="text-left">CANCELAR</button>
+              </div>
+          </div>
+          <div class="col-md-4"></div>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
