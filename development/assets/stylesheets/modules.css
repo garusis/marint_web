@@ -206,7 +206,7 @@
 .div-buttons.accent-button button {
   background-color: #f5a425;
 }
-.div-buttons.accent-button.secondary button {
+.div-buttons.accent-button.secondary {
   background-color: #a12c2f;
 }
 
