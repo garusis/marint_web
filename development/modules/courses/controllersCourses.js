@@ -117,7 +117,7 @@
               .then(function (course) {
                   ngDialog.open({
                       template: 'modules/courses/templates/modals/sucessModal.html',
-                      className: 'ngdialog-theme-default',
+                      className: 'ngdialog-theme-default editCourse',
                       controller: ShowCourseController
                   })
                   $scope.courseName = false;
@@ -129,7 +129,7 @@
               .catch(function (err) {
                   ngDialog.open({
                       template: 'modules/courses/templates/modals/errorModal.html',
-                      className: 'ngdialog-theme-default',
+                      className: 'ngdialog-theme-default editCourse',
                       controller: ShowCourseController
                   })
                   $scope.courseName = false;

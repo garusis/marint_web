@@ -17,7 +17,14 @@
         </div>
     </div>
 </div>
-
+<form name="courseForm" class="contact-form" novalidate
+      ng-submit="courseForm.$valid && submit(course)">
+<div class="col-md-12">
+    <div class="div-buttons accent-button" ng-show="buttons">
+        <button ng-show="courseForm.$valid" type="submit">GUARDAR</button>
+        <button class="secondary" type="button" ng-click="cancelEdit()">CANCELAR</button>
+    </div>
+</div>
 
 <div ng-show="loading" class="loading">
     <p>
@@ -27,21 +34,6 @@
 <section ng-show="!loading" class="single-course">
     <div class="container">
         <div class="row">
-            <form name="courseForm" class="contact-form" novalidate
-                  ng-submit="courseForm.$valid && submit(course)">
-                <div class="col-md-3"></div>
-                <div class="col-md-3">
-                    <div class="accent-button" ng-show="buttons && courseForm.$valid">
-                        <button type="submit">GUARDAR</button>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="accent-button secondary" ng-show="buttons">
-                        <button type="button" ng-click="cancelEdit()">CANCELAR</button>
-                    </div>
-                </div>
-                <div class="col-md-3"></div>
-
                 <div class="col-md-8">
                     <div class="single-item">
                         <div class="row">
@@ -50,10 +42,11 @@
                                     <div class="up-content">
                                         <a ng-click="editCourse('name')"><h4><div ng-show="!courseName">{{course.name}}</div>
                                         </h4></a>
-                                        <input type="text" id="name" ng-show="courseName" name="name" size="50%" required
+                                        <input type="text" id="name" ng-show="courseName" name="name" size="20%" required
                                                ng-class="{'has-error':(courseForm.$submitted || courseForm.name.$touched) && courseForm.name.$invalid}"
-                                               ng-model="course.name"
+                                               ng-model="course.name" class="form-control"
                                                placeholder="Ingrese el nombre del curso aqui">
+                                        <br>
                                         <img responsive-image is-thumbnail sources="course.instructor.image"
                                              src-format="::$source|concatOrigin:'bucket'" alt="">
                                         <h6>{{course.instructor.name}}</h6>

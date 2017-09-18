@@ -1,21 +1,12 @@
 <div class="col-md-12">
     <div class="message-form">
-        <div class="widget-heading">
-            <h4>Ocurrió un error en la operación</h4>
-        </div>
         <div class="message-content">
-            <form name="courseForm" novalidate
-                  ng-submit="courseForm.$valid && submit(vm.data)">
-                <div class="row">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4">
-                        <div class="accent-button">
-                            <button type="button" ng-click="closeModal()" class="text-left">ACEPTAR</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4"></div>
+            <div class="row">
+                <h4>Ocurrió un error durante la operación</h4>
+                <div class="accent-button secondary">
+                    <center><button type="button" ng-click="closeModal()" class="text-left">ACEPTAR</button></center>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
