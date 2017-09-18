@@ -201,7 +201,7 @@
 }
 .div-buttons.accent-button {
   margin-top: 0px;
-  margin-left: 66%;
+  text-align: right;
 }
 .div-buttons.accent-button button {
   background-color: #f5a425;
