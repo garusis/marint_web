@@ -209,6 +209,10 @@
 .div-buttons.accent-button.secondary {
   background-color: #a12c2f;
 }
+.form-control.input-number {
+  width: 50%;
+  margin-left: 50%;
+}
 
 .single-teacher-item .contact-form .has-error {
   border-color: #8d2729!important;

@@ -131,9 +131,9 @@
                         </div>
                         <ul>
                             <li><span>Price:</span><div ng-click="editCourse('price')" ng-show="!coursePrice">$ {{course.price}}</div>
-                                <input type="number" id="price" ng-show="coursePrice" name="price" size="50%"
+                                <input type="number" id="price" ng-show="coursePrice" name="price"
                                        ng-class="{'has-error':(courseForm.$submitted || courseForm.price.$touched) && courseForm.price.$invalid}"
-                                       ng-model="course.price" required
+                                       ng-model="course.price" class="form-control input-number" required
                                        placeholder="Ingrese el precio del curso aqui">
 
                             </li>

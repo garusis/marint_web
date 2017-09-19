@@ -103,6 +103,11 @@
 
         // cuando le de click en cualquiera de los 3 campos entonces muestra los botones
         $scope.buttons = true;
+        $scope.previousName = $scope.course.name; //variable que guarda el nombre anterior que tenia el curso
+        $scope.previousDescription = $scope.course.description; //variable que guarda la descripcion anterior que tenia el curso
+        $scope.previousPrice = $scope.course.price; //variable que guarda la descripcion anterior que tenia el curso
+
+
       }
 
       //Método para enviar los datos del formulario para editar el curso
@@ -150,6 +155,11 @@
           $scope.courseDescription = false;
           $scope.coursePrice = false;
           $scope.buttons = false;
+          $scope.course.name = $scope.previousName; //se restaura el valor anterior del nombre del curso
+          $scope.course.description = $scope.previousDescription; //se restaura el valor anterior de la descripcion del curso
+          $scope.course.price = $scope.previousPrice; //se restaura el valor anterior del precio del curso
+
+
       }
 
 
