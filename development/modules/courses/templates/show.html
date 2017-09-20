@@ -1,133 +1,166 @@
 <div class="page-heading" responsive-image="" sources="headerSources" as-background-image>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <h1>{{course.name}}</h1>
-        <span>{{course.description}}</span>
-        <div class="page-list">
-          <ul>
-            <li class="active"><a href="index.html">Inicio</a></li>
-            <li><i class="fa fa-angle-right"></i></li>
-            <li class="active"><a href="/cursos">Cursos</a></li>
-            <li><i class="fa fa-angle-right"></i></li>
-            <li><a href="javascript:void(0)">{{course.name}}</a></li>
-          </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{course.name}}</h1>
+                <span>{{course.description}}</span>
+                <div class="page-list">
+                    <ul>
+                        <li class="active"><a href="index.html">Inicio</a></li>
+                        <li><i class="fa fa-angle-right"></i></li>
+                        <li class="active"><a href="/cursos">Cursos</a></li>
+                        <li><i class="fa fa-angle-right"></i></li>
+                        <li><a href="javascript:void(0)">{{course.name}}</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
-
+<form name="courseForm" class="contact-form" novalidate
+      ng-submit="courseForm.$valid && submit(course)">
+<div class="col-md-12">
+    <div class="div-buttons accent-button" ng-show="buttons">
+        <button ng-show="courseForm.$valid" type="submit">GUARDAR</button>
+        <button class="div-buttons accent-button secondary" type="button" ng-click="cancelEdit()">CANCELAR</button>
+    </div>
+</div>
 
 <div ng-show="loading" class="loading">
-  <p>
-    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-  </p>
+    <p>
+        <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+    </p>
 </div>
 <section ng-show="!loading" class="single-course">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8">
-        <div class="single-item">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="item course-item">
-                <div class="up-content">
-                  <a href="javascript:void(0)"><h4>{{course.name}}</h4></a>
-                  <img responsive-image is-thumbnail sources="course.instructor.image"  src-format="::$source|concatOrigin:'bucket'"  alt="">
-                  <h6>{{course.instructor.name}}</h6>
-                  <div class="price-red">
-                    <div id="base"></div>
-                  </div>
-                </div>
-                <div class="courses-slider">
-                  <img responsive-image="" sources="course.image" src-format="::$source|concatOrigin:'bucket'" alt="">
-                </div>
-              </div>
-              <div class="description">
-                <h4>Descripcion</h4>
-                <p class="text-justify">{{course.description}}</p>
-              </div>
+    <div class="container">
+        <div class="row">
+                <div class="col-md-8">
+                    <div class="single-item">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="item course-item">
+                                    <div class="up-content">
+                                        <a ng-click="editCourse('name')"><h4><div ng-show="!courseName">{{course.name}}</div>
+                                        </h4></a>
+                                        <input type="text" id="name" ng-show="courseName" name="name" size="20%" required
+                                               ng-class="{'has-error':(courseForm.$submitted || courseForm.name.$touched) && courseForm.name.$invalid}"
+                                               ng-model="course.name" class="form-control"
+                                               placeholder="Ingrese el nombre del curso aqui">
+                                        <br>
+                                        <img responsive-image is-thumbnail sources="course.instructor.image"
+                                             src-format="::$source|concatOrigin:'bucket'" alt="">
+                                        <h6>{{course.instructor.name}}</h6>
+                                        <div class="price-red">
+                                            <div id="base"></div>
+                                        </div>
+                                    </div>
+                                    <div class="courses-slider">
+                                        <img responsive-image="" sources="course.image"
+                                             src-format="::$source|concatOrigin:'bucket'" alt="">
+                                    </div>
+                                </div>
+                                <div class="description">
+                                    <h4>Descripcion</h4>
+                                    <p ng-click="editCourse('description')" ng-show="!courseDescription" class="text-justify">{{course.description}}</p>
+                                    <textarea class="form-control" rows="5" id="description" name="description" required
+                                              placeholder="Ingrese la descripcion del curso aqui"
+                                              ng-class="{'has-error':(courseForm.$submitted || courseForm.description.$touched) && courseForm.description.$invalid}"
+                                              ng-show="courseDescription" ng-model="course.description">
+                                    </textarea>
+                                </div>
 
-              <div class="accordions">
-                <h4>Módulos del curso:</h4>
-                <script type="text/ng-template" id="courses/templates/show/accordion-group.html">
-                  <div class="panel-heading">
-                    <a class="panel-title" style="display: block" href="javascript:void(0)" ng-click="toggleOpen()">
-                      <h4 class="accordion-section-title" uib-accordion-transclude="heading">
+                                <div class="accordions">
+                                    <h4>Módulos del curso:</h4>
+                                    <script type="text/ng-template" id="courses/templates/show/accordion-group.html">
+                                        <div class="panel-heading">
+                                            <a class="panel-title" style="display: block" href="javascript:void(0)"
+                                               ng-click="toggleOpen()">
+                                                <h4 class="accordion-section-title" uib-accordion-transclude="heading">
                       <span uib-accordion-header ng-class="{'text-muted': isDisabled}">
                           {{heading}}
                       </span>
-                      </h4>
-                    </a>
-                  </div>
-                  <div class="accordion-section-content  panel-collapse collapse" uib-collapse="!isOpen">
-                    <div class="panel-body" ng-transclude></div>
-                  </div>
-                </script>
+                                                </h4>
+                                            </a>
+                                        </div>
+                                        <div class="accordion-section-content  panel-collapse collapse"
+                                             uib-collapse="!isOpen">
+                                            <div class="panel-body" ng-transclude></div>
+                                        </div>
+                                    </script>
 
 
-                <uib-accordion class="accordion" close-others="true">
-                  <div uib-accordion-group template-url="courses/templates/show/accordion-group.html"
-                       class="accordion-section"
-                       ng-class="{nologin:!dataUser || !module.enabled}"
-                       ng-repeat="module in course.modules|orderBy:'position'">
-                    <uib-accordion-heading>
-                      <span class="first-icon"><i class="fa fa-play-circle-o"></i></span>
-                      <span>Modulo {{module.position}} <span ng-show="module.description">-</span> {{module.description}}</span>
-                      <h6>
-                        <em ng-show="module.enabled">{{module.videos.length}} Videos</em>
-                        <span id="1" class="second-icon"><i class="fa fa-sort-desc"></i></span>
-                      </h6>
-                    </uib-accordion-heading>
-                    <p>{{module.description}}</p>
-                    <div ng-show="module.enabled">
-                      <h4>Videos de este módulo:</h4>
-                      <ul class="list-unstyled">
-                        <li ng-repeat="videoModule in module.videos|orderBy:'position'">
-                          <a href="javascript:void(0)" ng-click="showVideo(videoModule)">Video
-                            {{videoModule.position}} <span ng-show="videoModule.title">-</span>
-                            {{videoModule.title}}</a>
-                        </li>
-                      </ul>
+                                    <uib-accordion class="accordion" close-others="true">
+                                        <div uib-accordion-group
+                                             template-url="courses/templates/show/accordion-group.html"
+                                             class="accordion-section"
+                                             ng-class="{nologin:!dataUser || !module.enabled}"
+                                             ng-repeat="module in course.modules|orderBy:'position'">
+                                            <uib-accordion-heading>
+                                                <span class="first-icon"><i class="fa fa-play-circle-o"></i></span>
+                                                <span>Modulo {{module.position}} <span
+                                                        ng-show="module.description">-</span> {{module.description}}</span>
+                                                <h6>
+                                                    <em ng-show="module.enabled">{{module.videos.length}} Videos</em>
+                                                    <span id="1" class="second-icon"><i
+                                                            class="fa fa-sort-desc"></i></span>
+                                                </h6>
+                                            </uib-accordion-heading>
+                                            <p>{{module.description}}</p>
+                                            <div ng-show="module.enabled">
+                                                <h4>Videos de este módulo:</h4>
+                                                <ul class="list-unstyled">
+                                                    <li ng-repeat="videoModule in module.videos|orderBy:'position'">
+                                                        <a href="javascript:void(0)" ng-click="showVideo(videoModule)">Video
+                                                            {{videoModule.position}} <span
+                                                                    ng-show="videoModule.title">-</span>
+                                                            {{videoModule.title}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </uib-accordion>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </uib-accordion>
-              </div>
-            </div>
-          </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="course-information">
+                        <div class="widget-heading">
+                            <h4>Información del curso</h4>
+                        </div>
+                        <ul>
+                            <li><span>Price:</span><div ng-click="editCourse('price')" ng-show="!coursePrice">$ {{course.price}}</div>
+                                <input type="number" id="price" ng-show="coursePrice" name="price"
+                                       ng-class="{'has-error':(courseForm.$submitted || courseForm.price.$touched) && courseForm.price.$invalid}"
+                                       ng-model="course.price" class="form-control input-number" required
+                                       placeholder="Ingrese el precio del curso aqui">
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tags" ng-show='course.tags.length>0'>
+                        <div class="widget-heading">
+                            <h4>Tags</h4>
+                        </div>
+                        <ul>
+                            <li ng-repeat='c in course.tags'><a href="#">{{c}}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
         </div>
-      </div>
-      <div class="col-md-4">
-        <div class="course-information">
-          <div class="widget-heading">
-            <h4>Información del curso</h4>
-          </div>
-          <ul>
-            <li><span>Price:</span>$ {{course.price}}</li>
-          </ul>
-        </div>
-        <div class="tags" ng-show='course.tags.length>0'>
-          <div class="widget-heading">
-            <h4>Tags</h4>
-          </div>
-          <ul>
-            <li ng-repeat='c in course.tags'><a href="#">{{c}}</a></li>
-          </ul>
-        </div>
-      </div>
     </div>
-  </div>
 </section>
 
 <div id="call-to-action">
-  <div class="container">
-    <div class="row">
-      <p>Desarrolla tu <em>máximo potencial</em> y aplícalo a tu vida diaria.</p>
-      <div class="accent-button">
-        <a href="/cursos">Ver nuestros cursos</a>
-      </div>
+    <div class="container">
+        <div class="row">
+            <p>Desarrolla tu <em>máximo potencial</em> y aplícalo a tu vida diaria.</p>
+            <div class="accent-button">
+                <a href="/cursos">Ver nuestros cursos</a>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>

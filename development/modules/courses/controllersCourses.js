@@ -71,18 +71,100 @@
   }
 
   ShowCourseController.$inject = [
-    '$scope', "$q", '$stateParams', '$location', 'CourseService', "User"
+    '$scope', "$q", '$stateParams', '$location', 'CourseService', "User","ngDialog"
   ];
-  function ShowCourseController ($scope, $q, $stateParams, $location, CourseService, User) {
+  function ShowCourseController ($scope, $q, $stateParams, $location, CourseService, User, ngDialog) {
     $scope.headerSources = headerSources;
     $scope.location = $location.absUrl();
     $scope.modulos = [];
     $scope.loading = true;
     $scope.hola = true;
+    $scope.courseName = false; //variable para mostrar el nombre del curso
+    $scope.courseDescription = false; //variable para mostrar la descripción del curso
+    $scope.coursePrice = false; //variable para mostrar el precio del curso
+    $scope.buttons = false; //variable para mostrar los botones de guardar y cancelar
 
-    $scope.showVideo = function (video) {
+      $scope.showVideo = function (video) {
       CourseService.showModalVideo(video)
     }
+
+      //Este método se usa para editar los detalles del curso, como el título, la descripción y el precio
+      // El parámetro field se usa para saber en qué elemento de la vista se hizo clic y así poder
+      // editar dicho campo
+      $scope.editCourse = function (field) {
+
+        if(field==="name") //si hizo click en el nombre del curso
+          $scope.courseName = true;
+        else if(field==="description") // si hizo click en la descripcion del curso
+          $scope.courseDescription = true;
+        else $scope.coursePrice = true; //hizo click en el precio del curso
+
+          console.log($scope.course.id);
+
+        // cuando le de click en cualquiera de los 3 campos entonces muestra los botones
+        $scope.buttons = true;
+        $scope.previousName = $scope.course.name; //variable que guarda el nombre anterior que tenia el curso
+        $scope.previousDescription = $scope.course.description; //variable que guarda la descripcion anterior que tenia el curso
+        $scope.previousPrice = $scope.course.price; //variable que guarda la descripcion anterior que tenia el curso
+
+
+      }
+
+      //Método para enviar los datos del formulario para editar el curso
+      $scope.submit = function (data) {
+          var sendData = _.clone(data);
+          console.log(sendData);
+          User.getCurrent()
+              .then(function (loggedUser) {
+
+                  return loggedUser.coursesUser.put(sendData.id,sendData)
+              })
+              .then(function (course) {
+                  ngDialog.open({
+                      template: 'modules/courses/templates/modals/sucessModal.html',
+                      className: 'ngdialog-theme-default editCourse',
+                      controller: ShowCourseController
+                  })
+                  $scope.courseName = false;
+                  $scope.courseDescription = false;
+                  $scope.coursePrice = false;
+                  $scope.buttons = false;
+
+              })
+              .catch(function (err) {
+                  ngDialog.open({
+                      template: 'modules/courses/templates/modals/errorModal.html',
+                      className: 'ngdialog-theme-default editCourse',
+                      controller: ShowCourseController
+                  })
+                  $scope.courseName = false;
+                  $scope.courseDescription = false;
+                  $scope.coursePrice = false;
+                  $scope.buttons = false;
+              })
+
+
+
+      }
+      $scope.closeModal = function () {
+          ngDialog.close();
+      }
+
+      $scope.cancelEdit = function () {
+          $scope.courseName = false;
+          $scope.courseDescription = false;
+          $scope.coursePrice = false;
+          $scope.buttons = false;
+          $scope.course.name = $scope.previousName; //se restaura el valor anterior del nombre del curso
+          $scope.course.description = $scope.previousDescription; //se restaura el valor anterior de la descripcion del curso
+          $scope.course.price = $scope.previousPrice; //se restaura el valor anterior del precio del curso
+
+
+      }
+
+
+
+
 
       $scope.loadCourse = function () {
       var promises = []
