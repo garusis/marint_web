@@ -199,6 +199,43 @@
     width: 50%!important;
   }
 }
+/* Estilos de la ventana modal de exito y error cuando se edita un curso*/
+.editCourse h4 {
+  margin-top: 70px;
+  padding-left: 40px;
+  font-size: 15px;
+  text-transform: uppercase;
+  color: #222;
+  letter-spacing: 0.2px;
+  padding-top: 0px;
+  padding-bottom: 20px;
+}
+.editCourse .accent-button {
+  margin-top: 0px;
+}
+.editCourse .accent-button button {
+  text-align: center !important;
+  width: 50%;
+  height: 50px;
+  background-color: #f5a425;
+}
+.editCourse .accent-button.secondary button {
+  background-color: #a12c2f;
+}
+.div-buttons.accent-button {
+  margin-top: 0px;
+  text-align: right;
+}
+.div-buttons.accent-button button {
+  background-color: #f5a425;
+}
+.div-buttons.accent-button.secondary {
+  background-color: #a12c2f;
+}
+.form-control.input-number {
+  width: 50%;
+  margin-left: 50%;
+}
 
 .single-teacher-item .contact-form .has-error {
   border-color: #8d2729!important;
