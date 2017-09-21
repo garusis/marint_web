@@ -40,7 +40,7 @@
                             <div class="col-md-12">
                                 <div class="item course-item">
                                     <div class="up-content">
-                                        <a ng-click="editCourse('name')"><h4><div ng-show="!courseName">{{course.name}}</div>
+                                        <a ng-click="editCourse('name','Instructor')"><h4><div ng-show="!courseName">{{course.name}}</div>
                                         </h4></a>
                                         <input type="text" id="name" ng-show="courseName" name="name" size="20%" required
                                                ng-class="{'has-error':(courseForm.$submitted || courseForm.name.$touched) && courseForm.name.$invalid}"
@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="description">
                                     <h4>Descripcion</h4>
-                                    <p ng-click="editCourse('description')" ng-show="!courseDescription" class="text-justify">{{course.description}}</p>
+                                    <p ng-click="editCourse('description','Instructor')" ng-show="!courseDescription" class="text-justify">{{course.description}}</p>
                                     <textarea class="form-control" rows="5" id="description" name="description" required
                                               placeholder="Ingrese la descripcion del curso aqui"
                                               ng-class="{'has-error':(courseForm.$submitted || courseForm.description.$touched) && courseForm.description.$invalid}"
@@ -130,7 +130,7 @@
                             <h4>Información del curso</h4>
                         </div>
                         <ul>
-                            <li><span>Price:</span><div ng-click="editCourse('price')" ng-show="!coursePrice">$ {{course.price}}</div>
+                            <li><span>Price:</span><div ng-click="editCourse('price','Instructor')" ng-show="!coursePrice">$ {{course.price}}</div>
                                 <input type="number" id="price" ng-show="coursePrice" name="price"
                                        ng-class="{'has-error':(courseForm.$submitted || courseForm.price.$touched) && courseForm.price.$invalid}"
                                        ng-model="course.price" class="form-control input-number" required
