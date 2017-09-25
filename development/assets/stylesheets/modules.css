@@ -216,7 +216,7 @@
 }
 @media (min-width: 992px) {
   .courses-list .course-item .down-content {
-    width: 100%!important;
+    width: 42%!important;
   }
 }
 @media (min-width: 1200px) {
