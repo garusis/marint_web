@@ -57,6 +57,11 @@
 .contact-form textarea {
   resize: none;
 }
+@media (min-width: 768px) {
+  .contact-content .contact-item {
+    width: 30%!important;
+  }
+}
 
 .single-course .accordions .accordion-section-content {
   padding: 0;
