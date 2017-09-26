@@ -1,3 +1,4 @@
+@import "../../assets/less/bs-less/variables";
 .grid-news .grid-item .down-content {
   h4 {
     height: 30px;
@@ -331,3 +332,26 @@ a.show-comments {
     margin: 11px 11px;
   }
 }
+.recent-news {
+  @media (min-width: @screen-md) {
+    display: none;
+  }
+  @media (min-width: @screen-lg) {
+    display: block;
+  }
+}
+.classic-posts {
+  @media (min-width: @screen-xs) {
+    width: 100%;
+  }
+  @media (min-width: @screen-sm) {
+    width: 100%;
+  }
+  @media (min-width: @screen-md) {
+    width: 152.5%;
+  }
+  @media (min-width: @screen-lg) {
+    width: 100%;
+  }
+}
+
