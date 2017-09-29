@@ -193,40 +193,59 @@
 
       }
 
-      /*
-       * La variable $scope.queryCourse se usa para guardar dos tipos de consultas:
-       * 1. La primera consulta trae el curso sin importar si está publicado o no,
-       * ésta consulta se realiza unicamente cuando el usuario está registrado como Instructor
-       * 2. La segunda consulta trae el curso y valida que esté publicado, esta se usa
-       * cuando no hay un usuario registrado, es decir no se ha iniciado sesión como Instructor
-       *
-       * Nota: después del if, se usa $scope.queryCourse.then() para completar el proceso de
-       * la promesa
-       */
-
-
-
 
       $scope.loadCourse = function () {
-      var promises = []
-      promises[0] = CourseService
-        .loadCourse($stateParams.course, {
-          where: {isPublished: true, id: $stateParams.courseId},
-          include: [{
-            relation: "instructor",
-            scope: {
-              include: "image"
-            }
-          }]
-        })
-        .then(function (data) {
-          $scope.course = data
-          $scope.loading = false
-          return data.modules.get()
-            .then(function () {
-              return data
-            })
-        });
+      var promises = [];
+      /*
+     * Se realizan dos condiciones:
+     * 1. En el if: La primera consulta trae el curso sin importar si está publicado o no,
+     * ésta consulta se realiza unicamente cuando el usuario está registrado como Instructor
+     * 2. En el else: La segunda consulta trae el curso y valida que esté publicado, esta se usa
+     * cuando no hay un usuario registrado, es decir no se ha iniciado sesión como Instructor
+     *
+     * Nota: Dependiendo de la condición será el valor que tome promises[0]
+     */
+
+          if (User.hasRole("Instructor")) { //El usuario inició sesión como Instructor
+              promises[0] = CourseService
+                  .loadCourse($stateParams.course, {
+                      where: {id: $stateParams.courseId},
+                      include: [{
+                          relation: "instructor",
+                          scope: {
+                              include: "image"
+                          }
+                      }]
+                  })
+                  .then(function (data) {
+                      $scope.course = data
+                      $scope.loading = false
+                      return data.modules.get()
+                          .then(function () {
+                              return data
+                          })
+                  });
+          }
+          else{ //El usuario no ha iniciado sesión
+              promises[0] = CourseService
+                  .loadCourse($stateParams.course, {
+                      where: {isPublished: true, id: $stateParams.courseId},
+                      include: [{
+                          relation: "instructor",
+                          scope: {
+                              include: "image"
+                          }
+                      }]
+                  })
+                  .then(function (data) {
+                      $scope.course = data
+                      $scope.loading = false
+                      return data.modules.get()
+                          .then(function () {
+                              return data
+                          })
+                  });
+          }
 
       if (User.isAuthenticated()) {
         promises[1] = User.getCurrent()
