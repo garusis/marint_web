@@ -35,6 +35,7 @@
 
       $scope.loadCourses = function () {
       $scope.loading = true;
+      $scope.isPublishedCourse = true;
       var order = "name "
       if ($scope.optorderby > 0) {
         if ($scope.optorderby == 1) {
