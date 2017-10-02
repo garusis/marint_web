@@ -17,6 +17,26 @@
   width: 50px;
   box-shadow: rgba(193, 176, 176, 0.7) 0px 0px 1px 3px;
 }
+@media (min-width: 480px) {
+  .request-information .search-form {
+    width: 100% !important;
+  }
+}
+@media (min-width: 768px) {
+  .request-information .search-form {
+    width: 90%!important;
+  }
+}
+@media (min-width: 992px) {
+  .request-information .search-form {
+    width: 90%!important;
+  }
+}
+@media (min-width: 1200px) {
+  .request-information .search-form {
+    width: 90%!important;
+  }
+}
 
 .request-information .search-form input,
 .request-information .search-form select {
@@ -36,6 +56,11 @@
 }
 .contact-form textarea {
   resize: none;
+}
+@media (min-width: 768px) {
+  .contact-content .contact-item {
+    width: 30%!important;
+  }
 }
 
 .single-course .accordions .accordion-section-content {
@@ -191,7 +216,7 @@
 }
 @media (min-width: 992px) {
   .courses-list .course-item .down-content {
-    width: 100%!important;
+    width: 42%!important;
   }
 }
 @media (min-width: 1200px) {
@@ -566,6 +591,36 @@ a.show-comments {
   }
   .video_sidebar .message_container textarea {
     margin: 11px 11px;
+  }
+}
+@media (min-width: 992px) {
+  .recent-news {
+    display: none;
+  }
+}
+@media (min-width: 1200px) {
+  .recent-news {
+    display: block;
+  }
+}
+@media (min-width: 480px) {
+  .classic-posts {
+    width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .classic-posts {
+    width: 100%;
+  }
+}
+@media (min-width: 992px) {
+  .classic-posts {
+    width: 152.5%;
+  }
+}
+@media (min-width: 1200px) {
+  .classic-posts {
+    width: 100%;
   }
 }
 
