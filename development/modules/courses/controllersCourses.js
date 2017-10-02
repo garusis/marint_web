@@ -19,8 +19,8 @@
     "xlarge": "assets/images/cursos/banner.jpg"
   };
 
-  ListCourseController.$inject = ['$scope', 'Course', "$state", "CourseService"];
-  function ListCourseController ($scope, Course, $state, CourseService) {
+  ListCourseController.$inject = ['$scope', 'Course', "$state", "CourseService","User"];
+  function ListCourseController ($scope, Course, $state, CourseService,User) {
 
     $scope.optorderby = null;
     $scope.asc = true;
@@ -43,19 +43,50 @@
           order = "price "
         }
       }
-      order += ($scope.asc ? "ASC" : "DESC")
-      CourseService.loadCourses({
-        where: {isPublished: true},
-        order: order,
-        include: [
-          {
-            relation: "instructor",
-            scope: {
-              include: "image"
-            }
+      order += ($scope.asc ? "ASC" : "DESC");
+      /*
+       * La variable $scope.queryCourses se usa para guardar dos tipos de consultas:
+       * 1. La primera consulta trae todos los cursos publicados y sin publicar,
+       * ésta consulta se realiza unicamente cuando el usuario está registrado como Instructor
+       * 2. La segunda consulta trae unicamente los cursos que están publicados, esta se usa
+       * cuando no hay un usuario registrado, es decir no se ha iniciado sesión como Instructor
+       *
+       * Nota: después del if, se usa $scope.queryCourses.then() para completar el proceso de
+       * la promesa
+       */
+
+      $scope.queryCourses = "";
+
+          if (User.hasRole("Instructor")) { //El usuario inició sesión como Instructor
+              $scope.queryCourses = CourseService.loadCourses({
+                  order: order,
+                  include: [
+                      {
+                          relation: "instructor",
+                          scope: {
+                              include: "image"
+                          }
+                      }
+                  ]
+              });
           }
-        ]
-      }).then(function (data) {
+          else{ //No se ha iniciado sesión
+              $scope.queryCourses = CourseService.loadCourses({
+                  where: {isPublished: true},
+                  order: order,
+                  include: [
+                      {
+                          relation: "instructor",
+                          scope: {
+                              include: "image"
+                          }
+                      }
+                  ]
+              });
+
+          }
+        // Dependiendo de la consulta completa la promesa
+        $scope.queryCourses.then(function (data) {
         $scope.courses = data
         $scope.coursesOpt = data.map(function (v) {
           return {name: v.name, id: v.id}
@@ -168,29 +199,58 @@
       }
 
 
-
-
-
       $scope.loadCourse = function () {
-      var promises = []
-      promises[0] = CourseService
-        .loadCourse($stateParams.course, {
-          where: {isPublished: true, id: $stateParams.courseId},
-          include: [{
-            relation: "instructor",
-            scope: {
-              include: "image"
-            }
-          }]
-        })
-        .then(function (data) {
-          $scope.course = data
-          $scope.loading = false
-          return data.modules.get()
-            .then(function () {
-              return data
-            })
-        });
+      var promises = [];
+      /*
+     * Se realizan dos condiciones:
+     * 1. En el if: La primera consulta trae el curso sin importar si está publicado o no,
+     * ésta consulta se realiza unicamente cuando el usuario está registrado como Instructor
+     * 2. En el else: La segunda consulta trae el curso y valida que esté publicado, esta se usa
+     * cuando no hay un usuario registrado, es decir no se ha iniciado sesión como Instructor
+     *
+     * Nota: Dependiendo de la condición será el valor que tome promises[0]
+     */
+
+          if (User.hasRole("Instructor")) { //El usuario inició sesión como Instructor
+              promises[0] = CourseService
+                  .loadCourse($stateParams.course, {
+                      where: {id: $stateParams.courseId},
+                      include: [{
+                          relation: "instructor",
+                          scope: {
+                              include: "image"
+                          }
+                      }]
+                  })
+                  .then(function (data) {
+                      $scope.course = data
+                      $scope.loading = false
+                      return data.modules.get()
+                          .then(function () {
+                              return data
+                          })
+                  });
+          }
+          else{ //El usuario no ha iniciado sesión
+              promises[0] = CourseService
+                  .loadCourse($stateParams.course, {
+                      where: {isPublished: true, id: $stateParams.courseId},
+                      include: [{
+                          relation: "instructor",
+                          scope: {
+                              include: "image"
+                          }
+                      }]
+                  })
+                  .then(function (data) {
+                      $scope.course = data
+                      $scope.loading = false
+                      return data.modules.get()
+                          .then(function () {
+                              return data
+                          })
+                  });
+          }
 
       if (User.isAuthenticated()) {
         promises[1] = User.getCurrent()
