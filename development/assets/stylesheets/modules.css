@@ -257,6 +257,15 @@
 .div-buttons.accent-button.secondary {
   background-color: #a12c2f;
 }
+.div-add-module .button-add-module.accent-button {
+  margin-top: -25px;
+  text-align: right;
+}
+.div-add-module .button-add-module.accent-button button {
+  width: 27%;
+  height: 20%;
+  background-color: #a12c2f;
+}
 .form-control.input-number {
   width: 50%;
   margin-left: 50%;
