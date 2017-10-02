@@ -90,22 +90,27 @@
 
       //Este método se usa para editar los detalles del curso, como el título, la descripción y el precio
       // El parámetro field se usa para saber en qué elemento de la vista se hizo clic y así poder
+      // El parámetro role se usa para saber el rol del usuario y así poder controlar la edición del curso
+      // La edición solo puede ser realizada por un usuario con rol de Instructor
       // editar dicho campo
-      $scope.editCourse = function (field) {
+      $scope.editCourse = function (field, role) {
 
-        if(field==="name") //si hizo click en el nombre del curso
-          $scope.courseName = true;
-        else if(field==="description") // si hizo click en la descripcion del curso
-          $scope.courseDescription = true;
-        else $scope.coursePrice = true; //hizo click en el precio del curso
+          // Valida que el usuario tenga el rol especificado en el llamado de la función editCourse
+          if (User.hasRole(role)) {
 
-          console.log($scope.course.id);
+              if(field==="name") //si hizo click en el nombre del curso
+                  $scope.courseName = true;
+              else if(field==="description") // si hizo click en la descripcion del curso
+                  $scope.courseDescription = true;
+              else $scope.coursePrice = true; //hizo click en el precio del curso
 
-        // cuando le de click en cualquiera de los 3 campos entonces muestra los botones
-        $scope.buttons = true;
-        $scope.previousName = $scope.course.name; //variable que guarda el nombre anterior que tenia el curso
-        $scope.previousDescription = $scope.course.description; //variable que guarda la descripcion anterior que tenia el curso
-        $scope.previousPrice = $scope.course.price; //variable que guarda la descripcion anterior que tenia el curso
+              // cuando le de click en cualquiera de los 3 campos entonces muestra los botones
+              $scope.buttons = true;
+              $scope.previousName = $scope.course.name; //variable que guarda el nombre anterior que tenia el curso
+              $scope.previousDescription = $scope.course.description; //variable que guarda la descripcion anterior que tenia el curso
+              $scope.previousPrice = $scope.course.price; //variable que guarda la descripcion anterior que tenia el curso
+          }
+
 
 
       }
