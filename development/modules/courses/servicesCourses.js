@@ -75,6 +75,16 @@
                 })
         }
 
+        ModuleRelation.prototype.post = function (data) {
+            var relation = this
+            return $http.post(this.basePath, data)
+                .then(function (response) {
+                    var data = response.data
+                    relation.push(data)
+                    return data
+                })
+        }
+
 
         this.agregarCursoModal = function () {
             var controller = function ($scope, e, User) {
