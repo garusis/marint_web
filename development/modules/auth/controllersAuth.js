@@ -46,7 +46,24 @@
     .controller("IndexPublicController", ["$scope", "Testimony", "NewsService", "CourseService",
       function ($scope, Testimony, NewsService, CourseService) {
 
-        $scope.showVideo = function (video) {
+          $scope.defaultImage = {
+              createdAt: "2017-03-13T07:08:50.480Z",
+              id:50,
+              imageable_id:50,
+              imageable_type: "Course",
+              large: "http://via.placeholder.com/770x410",
+              medium: "http://via.placeholder.com/770x410",
+              original: "http://via.placeholder.com/1280x853",
+              small: "http://via.placeholder.com/770x410",
+              thumb_large: "http://via.placeholder.com/370x240",
+              thumb_medium: "http://via.placeholder.com/370x240",
+              thumb_small: "http://via.placeholder.com/370x240",
+              thumb_xlarge: "http://via.placeholder.com/370x240",
+              updatedAt:"2017-03-13T07:08:50.480Z",
+              xlarge: "http://via.placeholder.com/350x150"
+          }
+
+          $scope.showVideo = function (video) {
           CourseService.showModalVideo(video)
         }
 
@@ -149,23 +166,6 @@
           })
           .then(function (data) {
             $scope.courses = data;
-            $scope.defaultImage = {
-                createdAt: "2017-03-13T07:08:50.480Z",
-                id:50,
-                imageable_id:50,
-                imageable_type: "Course",
-                large: "http://via.placeholder.com/770x410",
-                medium: "http://via.placeholder.com/770x410",
-                original: "http://via.placeholder.com/1280x853",
-                small: "http://via.placeholder.com/770x410",
-                thumb_large: "http://via.placeholder.com/370x240",
-                thumb_medium: "http://via.placeholder.com/370x240",
-                thumb_small: "http://via.placeholder.com/370x240",
-                thumb_xlarge: "http://via.placeholder.com/370x240",
-                updatedAt:"2017-03-13T07:08:50.480Z",
-                xlarge: "http://via.placeholder.com/350x150"
-            }
-            console.log($scope.courses);
           })
 
         $scope.publications = {
