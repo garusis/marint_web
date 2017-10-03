@@ -1,0 +1,34 @@
+<div class="col-md-12">
+<div class="message-form">
+  <div class="widget-heading">
+    <h4>AGREGAR MODULO</h4>
+  </div>
+  <div class="message-content">
+    <form name="courseForm" novalidate
+          ng-submit="courseForm.$valid && crearModuloCurso(vm.data)">
+      <div class="warning-message" ng-show="courseForm.$submitted && courseForm.$invalid">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Por favor verifique los datos ingresados.
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-md-12">
+                  <textarea ng-model="vm.data.description" name="description" class="message"
+                            ng-class="{'has-error':(courseForm.$submitted || courseForm.description.$touched) && courseForm.description.$invalid}"
+                            placeholder="Descripcion"></textarea>
+        </div>
+        <div class="col-md-4">
+          <div class="accent-button">
+            <button type="submit" class="text-left">GUARDAR</button>
+          </div>
+        </div>
+          <div class="col-md-4">
+              <div class="accent-button secondary">
+                  <button type="button" ng-click="closeModal()" class="text-left">CANCELAR</button>
+              </div>
+          </div>
+          <div class="col-md-4"></div>
+      </div>
+    </form>
+  </div>
+</div>
+</div>

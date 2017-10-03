@@ -113,11 +113,50 @@
     $scope.courseName = false; //variable para mostrar el nombre del curso
     $scope.courseDescription = false; //variable para mostrar la descripción del curso
     $scope.coursePrice = false; //variable para mostrar el precio del curso
-    $scope.buttons = false; //variable para mostrar los botones de guardar y cancelar
+    $scope.buttons = false; //variable para mostrar los botones de guardar y
 
       $scope.showVideo = function (video) {
       CourseService.showModalVideo(video)
     }
+
+      $scope.vm = {
+          data: {},
+          success: false,
+          error: false
+      }
+
+      $scope.showModalAddModule = function () {
+          ngDialog.open({
+              template: 'modules/courses/templates/modals/addModuleCourse.html',
+              className: 'ngdialog-theme-default addModuleCourse',
+              controller: ShowCourseController
+          })
+      }
+
+      //Método para enviar los datos del formulario para crear un modulo del curso
+      $scope.crearModuloCurso = function (data) {
+          var sendData = _.clone(data);
+          User.getCurrent()
+              .then(function (loggedUser) {
+                  return $scope.course.modules.post({position:$scope.course.modules.length+1, description:sendData.description, instructor_id:loggedUser.id});
+              })
+              .then(function (module) {
+                  ngDialog.open({
+                      template: 'modules/courses/templates/modals/sucessAddModule.html',
+                      className: 'ngdialog-theme-default editCourse',
+                      controller: ShowCourseController
+                  })
+              })
+              .catch(function (err) {
+                  ngDialog.open({
+                      template: 'modules/courses/templates/modals/errorModal.html',
+                      className: 'ngdialog-theme-default editCourse',
+                      controller: ShowCourseController
+                  })
+              })
+      }
+
+
 
       //Este método se usa para editar los detalles del curso, como el título, la descripción y el precio
       // El parámetro field se usa para saber en qué elemento de la vista se hizo clic y así poder
@@ -184,6 +223,11 @@
       }
       $scope.closeModal = function () {
           ngDialog.close();
+      }
+
+      $scope.closeModalModule = function () {
+          ngDialog.close();
+          location.reload();
       }
 
       $scope.cancelEdit = function () {
