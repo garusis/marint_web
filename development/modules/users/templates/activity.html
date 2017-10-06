@@ -41,22 +41,24 @@
     <div class="row  user-information">
       <div class="col-md-6 single-courses-list">
         <h2 class="title">Tus cursos</h2>
-        <div class="course clearfix" ng-repeat="curso in student.cursos">
-          <a ui-sref="courses.show({title:curso.name,course:curso,courseId:curso.id})">
-            <img responsive-image="" sources="curso.image" src-format="::$source|concatOrigin:'bucket'" is-thumbnail alt="">
-          </a>
-          <div class="description">
-            <a href="javascript:void(0)" ui-sref="courses.show({title:curso.name,course:curso,courseId:curso.id})">
-              <h4>{{curso.name}}</h4>
-            </a>
-            <h6>{{curso.instructor.name}} {{curso.instructor.surname}}</h6>
-            <p>{{curso.description}}</p>
-            <div class="text-button">
-              <a ui-sref="courses.show({title:curso.name,course:curso,courseId:curso.id})">
-                Ver más.<i class="fa fa-arrow-right"></i></a>
-            </div>
-          </div>
-        </div>
+          <paginator pagedata="student.cursos" pagelength="3"  max-pages="8" >
+              <div class="course clearfix">
+                  <a ui-sref="courses.show({title:$paginator_item.name,course:$paginator_item,courseId:$paginator_item.id})">
+                      <img responsive-image="" sources="$paginator_item.image" src-format="::$source|concatOrigin:'bucket'" is-thumbnail alt="">
+                  </a>
+                  <div class="description">
+                      <a href="javascript:void(0)" ui-sref="courses.show({title:$paginator_item.name,course:$paginator_item,courseId:$paginator_item.id})">
+                          <h4>{{$paginator_item.name}}</h4>
+                      </a>
+                      <h6>{{$paginator_item.instructor.name}} {{$paginator_item.instructor.surname}}</h6>
+                      <p>{{$paginator_item.description}}</p>
+                      <div class="text-button">
+                          <a ui-sref="courses.show({title:$paginator_item.name,course:$paginator_item,courseId:$paginator_item.id})">
+                              Ver más.<i class="fa fa-arrow-right"></i></a>
+                      </div>
+                  </div>
+              </div>
+          </paginator>
       </div>
       <div class="col-md-6 single-publications-list my-publications"  ng-if="!student.recentComments">
         <h2 class="title">Tus Comentarios</h2>
